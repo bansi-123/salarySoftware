@@ -47,8 +47,17 @@ exports.registerHandle = (req, res) => {
         });
     } else {
         //------------ Validation passed ------------//
-        User.findOne({ email: email }).then(user => {
-            if (user) {
+        // db.query('describe Users', (err,response) => {
+        //     if(err) throw err;
+            
+        //     console.log('Data received from Db:');
+        //     // console.log(rows);
+        // });
+        db.query(`select * from Users where email="${email}"`,(err,user)=>{
+        // User.findOne({ email: email }).then(user => {
+            console.log(user);
+            if (user.length!==0) {
+                console.log("in if")
                 //------------ User already exists ------------//
                 errors.push({ msg: 'Email ID already registered' });
                 res.render('register', {
@@ -59,7 +68,7 @@ exports.registerHandle = (req, res) => {
                     password2
                 });
             } else {
-
+                console.log("in else")
                 const oauth2Client = new OAuth2(
                     "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com", // ClientID
                     "OKXIYR14wBB_zumf30EC__iJ", // Client Secret
@@ -140,8 +149,18 @@ exports.activateHandle = (req, res) => {
             }
             else {
                 const { name, email, password } = decodedToken;
-                User.findOne({ email: email }).then(user => {
-                    if (user) {
+               
+                // db.query('describe Users', (err,rows) => {
+                //     if(err) throw err;
+                  
+                //     console.log('Data received from Db:');
+                //     console.log(rows);
+                // });
+                
+                db.query(`select * from Users where email="${email}"`,(err,user)=>{
+                // User.findOne({ email: email }).then(user => {
+
+                    if (user.length!==0) {
                         //------------ User already exists ------------//
                         req.flash(
                             'error_msg',
@@ -149,26 +168,37 @@ exports.activateHandle = (req, res) => {
                         );
                         res.redirect('/auth/login');
                     } else {
-                        const newUser = new User({
-                            name,
-                            email,
-                            password
-                        });
+                        // const newUser = new User({
+                        //     name,
+                        //     email,
+                        //     password
+                        // });
 
-                        bcryptjs.genSalt(10, (err, salt) => {
-                            bcryptjs.hash(newUser.password, salt, (err, hash) => {
+                        bcryptjs.genSalt(9, (err, salt) => {
+                            bcryptjs.hash(password, salt, (err, hash) => {
                                 if (err) throw err;
-                                newUser.password = hash;
-                                newUser
-                                    .save()
-                                    .then(user => {
-                                        req.flash(
-                                            'success_msg',
-                                            'Account activated. You can now log in.'
-                                        );
-                                        res.redirect('/auth/login');
-                                    })
-                                    .catch(err => console.log(err));
+                                // password = hash;        
+                                console.log(`INSERT INTO Users(name,email,password,verified) VALUES (${name.toString()},${email.toString()},${hash.toString()},0)`);
+                                db.query(`INSERT INTO Users(name,email,password,verified) VALUES ("${name}","${email.toString()}","${hash.toString()}",0)`, (err,response) => {
+                                    if(err) throw err;
+                                    
+                                    req.flash('success_msg',
+                                              'Account activated. You can now log in.'
+                                            );
+                                            res.redirect('/auth/login');                                    
+                                });
+
+                                // newUser
+                                //     .save()
+                                //     .then(user => {
+                                //         req.flash(
+                                //             'success_msg',
+                                //             'Account activated. You can now log in.'
+                                //         );
+                                //         res.redirect('/auth/login');
+                                //     })
+                                //     .catch(err => console.log(err));
+
                             });
                         });
                     }
@@ -199,8 +229,9 @@ exports.forgotPassword = (req, res) => {
             email
         });
     } else {
-        User.findOne({ email: email }).then(user => {
-            if (!user) {
+        // User.findOne({ email: email }).then(user => {
+        db.query(`select * from Users where email="${email}"`,(err,user)=>{
+            if (user.length===0) {
                 //------------ User already exists ------------//
                 errors.push({ msg: 'User with Email ID does not exist!' });
                 res.render('forgot', {
@@ -220,7 +251,7 @@ exports.forgotPassword = (req, res) => {
                 });
                 const accessToken = oauth2Client.getAccessToken()
 
-                const token = jwt.sign({ _id: user._id }, JWT_RESET_KEY, { expiresIn: '30m' });
+                const token = jwt.sign({ UserID: JSON.parse(JSON.stringify(user))[0].UserID }, JWT_RESET_KEY, { expiresIn: '30m' });
                 const CLIENT_URL = 'http://' + req.headers.host;
                 const output = `
                 <h2>Please click on below link to reset your account password</h2>
@@ -228,15 +259,15 @@ exports.forgotPassword = (req, res) => {
                 <p><b>NOTE: </b> The activation link expires in 30 minutes.</p>
                 `;
 
-                User.updateOne({ resetLink: token }, (err, success) => {
-                    if (err) {
-                        errors.push({ msg: 'Error resetting password!' });
-                        res.render('forgot', {
-                            errors,
-                            email
-                        });
-                    }
-                    else {
+                // User.updateOne({ resetLink: token }, (err, success) => {
+                //     if (err) {
+                //         errors.push({ msg: 'Error resetting password!' });
+                //         res.render('forgot', {
+                //             errors,
+                //             email
+                //         });
+                //     }
+                //     else {
                         const transporter = nodemailer.createTransport({
                             service: 'gmail',
                             auth: {
@@ -275,8 +306,8 @@ exports.forgotPassword = (req, res) => {
                                 res.redirect('/auth/login');
                             }
                         })
-                    }
-                })
+                    // }
+                // })
 
             }
         });
@@ -297,8 +328,10 @@ exports.gotoReset = (req, res) => {
                 res.redirect('/auth/login');
             }
             else {
-                const { _id } = decodedToken;
-                User.findById(_id, (err, user) => {
+                const { UserID } = decodedToken;
+                // User.findById(_id, (err, user) => {
+                db.query(`select * from Users where UserID="${UserID}"`,(err,user)=>{
+
                     if (err) {
                         req.flash(
                             'error_msg',
@@ -307,7 +340,7 @@ exports.gotoReset = (req, res) => {
                         res.redirect('/auth/login');
                     }
                     else {
-                        res.redirect(`/auth/reset/${_id}`)
+                        res.redirect(`/auth/reset/${UserID}`)
                     }
                 })
             }
@@ -321,7 +354,7 @@ exports.gotoReset = (req, res) => {
 
 exports.resetPassword = (req, res) => {
     var { password, password2 } = req.body;
-    const id = req.params.id;
+    const UserID = req.params.UserID;
     let errors = [];
 
     //------------ Checking required fields ------------//
@@ -330,7 +363,7 @@ exports.resetPassword = (req, res) => {
             'error_msg',
             'Please enter all fields.'
         );
-        res.redirect(`/auth/reset/${id}`);
+        res.redirect(`/auth/reset/${UserID}`);
     }
 
     //------------ Checking password length ------------//
@@ -339,7 +372,7 @@ exports.resetPassword = (req, res) => {
             'error_msg',
             'Password must be at least 8 characters.'
         );
-        res.redirect(`/auth/reset/${id}`);
+        res.redirect(`/auth/reset/${UserID}`);
     }
 
     //------------ Checking password mismatch ------------//
@@ -348,7 +381,7 @@ exports.resetPassword = (req, res) => {
             'error_msg',
             'Passwords do not match.'
         );
-        res.redirect(`/auth/reset/${id}`);
+        res.redirect(`/auth/reset/${UserID}`);
     }
 
     else {
@@ -357,16 +390,19 @@ exports.resetPassword = (req, res) => {
                 if (err) throw err;
                 password = hash;
 
-                User.findByIdAndUpdate(
-                    { _id: id },
-                    { password },
-                    function (err, result) {
+                // User.findByIdAndUpdate(
+                //     { _id: id },
+                //     { password },
+                //     function (err, result) {
+                console.log(`UPDATE Users SET password="${password}" where UserID="${UserID}"`);                    
+                db.query(`UPDATE Users SET password="${password}" where UserID="${UserID}"`,(err,result)=>{
                         if (err) {
+                            console.log(err)
                             req.flash(
                                 'error_msg',
                                 'Error resetting password!'
                             );
-                            res.redirect(`/auth/reset/${id}`);
+                            res.redirect(`/auth/reset/${UserID}`);
                         } else {
                             req.flash(
                                 'success_msg',

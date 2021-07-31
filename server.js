@@ -4,19 +4,39 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const mysql = require('mysql2');
 
 const app = express();
 
 //------------ Passport Configuration ------------//
 require('./config/passport')(passport);
 
-//------------ DB Configuration ------------//
-const db = require('./config/key').MongoURI;
+// //------------ DB Configuration ------------//
+// const db = require('./config/key').MongoURI;
 
-//------------ Mongo Connection ------------//
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
-    .then(() => console.log("Successfully connected to MongoDB"))
-    .catch(err => console.log(err));
+// //------------ Mongo Connection ------------//
+// mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+//     .then(() => console.log("Successfully connected to MongoDB"))
+//     .catch(err => console.log(err));
+
+//------------ MySQL Connection ------------//
+const db = mysql.createConnection ({
+    host: 'localhost',
+    user: 'kshitij',
+    password: 'salary123',
+    database: 'employee'
+});
+
+// connect to database
+db.connect((err) => {
+    if (err) {
+        console.log(err);
+        throw err;
+    }
+    console.log('Connected to mysql database');
+});
+global.db = db;
+
 
 //------------ EJS Configuration ------------//
 app.use(expressLayouts);

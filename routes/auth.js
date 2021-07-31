@@ -29,7 +29,7 @@ router.get('/activate/:token', authController.activateHandle);
 router.post('/forgot', authController.forgotPassword);
 
 //------------ Reset Password Handle ------------//
-router.post('/reset/:id', authController.resetPassword);
+router.post('/reset/:UserID', authController.resetPassword);
 
 //------------ Reset Password Handle ------------//
 router.get('/forgot/:token', authController.gotoReset);
