@@ -3,6 +3,7 @@ const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
+const bodyParser=require('body-parser');
 const passport = require('passport');
 const mysql = require('mysql2');
 
@@ -45,6 +46,7 @@ app.set('view engine', 'ejs');
 
 //------------ Bodyparser Configuration ------------//
 app.use(express.urlencoded({ extended: false }))
+app.use(bodyParser.json());
 
 //------------ Express session Configuration ------------//
 app.use(
@@ -54,6 +56,8 @@ app.use(
         saveUninitialized: true
     })
 );
+
+
 
 //------------ Passport Middlewares ------------//
 app.use(passport.initialize());
