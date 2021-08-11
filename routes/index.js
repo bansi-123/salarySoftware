@@ -12,6 +12,20 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => res.render('dash', {
     name: req.user.name
 }));
 
+
+router.get('/index1', ensureAuthenticated, (req, res) => {
+    res.render('index1');
+});
+
+router.get('/form-basic', ensureAuthenticated, (req, res) => {
+    res.render('form-basic');
+});
+
+router.post('/form-basic', ensureAuthenticated, (req, res) => {
+    console.log(req.body)
+    res.redirect('dashboard');
+});
+
 //------------ Search for Employee Details Route ------------//
 router.post('/searchEmployee',(req,res)=>{
     const id=req.body.id;
