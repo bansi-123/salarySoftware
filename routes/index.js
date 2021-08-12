@@ -146,7 +146,7 @@ router.post('/updateSalary',(req,res)=>{
 
                             db.query(`UPDATE Salary SET da=${da}, hra=${hra},  gross_sal=${gross_sal}, total_ded=${total_ded}, net_sal=${net_sal} where empID=${empID}`
                                       ,(err,result)=>{
-                                if (err) {
+                                if (err) {.
                                     //------------ Invalid registration Number ------------//
                                     // req.flash('error_msg',
                                     // 'Please enter valid Id.')
