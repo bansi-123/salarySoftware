@@ -23,8 +23,8 @@ require('./config/passport')(passport);
 //------------ MySQL Connection ------------//
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'root',
-    password: 'Vineet@nexa1',
+    user: 'kshitij',
+    password: 'salary123',
     database: 'employee'
 });
 
