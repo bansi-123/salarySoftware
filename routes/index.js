@@ -50,17 +50,19 @@ router.post('/searchEmployee',(req,res)=>{
 
 //------------ Add Employee Route ------------//
 router.post('/addEmployee',(req,res)=>{
-    const {empName,uan,dept,designation,basicPay,gp,pf,bankAccNum,bankName,doj,salaryCategory}=req.body;
-    console.log(req.body)
-    db.query(`INSERT INTO Employees (empName, uan, dept, designation, basicPay, gp, pf, bankAccNum, bankName, doj, salaryCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${basicPay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}')`
+    const data=JSON.parse(JSON.stringify(req.body));
+    const {empName,uan,dept,designation,basicPay,gp,bankAccNum,bankName,doj,salaryCategory}=data;
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    console.log(empName)
+    db.query(`INSERT INTO Employees (empName, uan, dept, designation, basicPay, gp, pf, bankAccNum, bankName, doj, salaryCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${basicPay}, ${gp}, 1000, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}')`
     ,(err,result)=>{
         if (err) {
             console.log(err);
             console.log("invalid details");
         }
         else{
-            console.log(JSON.parse(JSON.stringify(result))[0])
-            res.send("Employee Created!");
+            // console.log(JSON.parse(JSON.stringify(result))[0])
+            res.redirect('/dashboard')
             // req.flash(
             //     'success_msg',
             //     'Employee found!'
