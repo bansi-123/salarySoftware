@@ -26,26 +26,6 @@ router.post('/form-basic', ensureAuthenticated, (req, res) => {
     res.redirect('dashboard');
 });
 
-router.get('/table-export', ensureAuthenticated, (req, res) => {
-    res.render('table-export');
-});
-
-router.post('/table-export', ensureAuthenticated, (req, res) => {
-    console.log(req.body)
-    res.redirect('dashboard');
-});
-
-
-router.get('/pay', ensureAuthenticated, (req, res) => {
-    res.render('pay');
-});
-
-router.post('/pay', ensureAuthenticated, (req, res) => {
-    console.log(req.body)
-    res.redirect('dashboard');
-});
-
-
 //------------ Search for Employee Details Route ------------//
 router.post('/searchEmployee',(req,res)=>{
     const id=req.body.id;
@@ -67,6 +47,27 @@ router.post('/searchEmployee',(req,res)=>{
         }
     })
 })
+
+router.get('/table-export', ensureAuthenticated, (req, res) => {
+    res.render('table-export');
+});
+
+router.post('/table-export', ensureAuthenticated, (req, res) => {
+    console.log(req.body)
+    res.redirect('dashboard');
+});
+
+
+router.get('/pay', ensureAuthenticated, (req, res) => {
+    res.render('pay');
+});
+
+router.post('/pay', ensureAuthenticated, (req, res) => {
+    console.log(req.body)
+    res.redirect('dashboard');
+});
+
+
 
 //------------ Add Employee Route ------------//
 router.post('/addEmployee',(req,res)=>{
@@ -91,7 +92,7 @@ router.post('/addEmployee',(req,res)=>{
     })
 })
 
-//------------ Update Basic Pay and Related Properties Route ------------//
+// //------------ Update Basic Pay and Related Properties Route ------------//
 // router.post('/updateSalary',(req,res)=>{
 //     const {empID,basicPay}=req.body;
 // //     UPDATE table_name
@@ -189,9 +190,45 @@ router.post('/addEmployee',(req,res)=>{
         
 //         }
 //     })
-    
-    
-    
 // })
+
+router.post('/updateBasicPay',(req,res)=>{
+    const {empID,basicPay}=req.body;
+    db.query(`UPDATE Employees SET basicPay=${basicPay} where empID=${empID}`,(err,result)=>
+    {
+        if (err) {
+            //------------ Invalid Employement ID ------------//
+            // req.flash('error_msg',
+            // 'Please enter valid Id.')
+            console.log(err);
+            console.log("invalid employment ID")
+        }
+        else{
+            console.log("basic pay updated to ",basicPay);
+        }
+    })
+})
+
+router.post('/storeInTempTable',(req,res)=>{
+
+})
+
+router.get('/viewAllEmployeeDetails',(req,res)=>{
+    db.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.send("Done")
+        }
+    })
+})
+
+router.post('/salaryGeneration',(req,res)=>{
+    
+
+})
 
 module.exports = router;
