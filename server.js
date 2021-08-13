@@ -23,28 +23,28 @@ require('./config/passport')(passport);
 //     .catch(err => console.log(err));
 
 //------------ MySQL Connection ------------//
-const db = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: 'Vineet@nexa1',
-    database: 'employee'
-});
 // const db = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Vineet@nexa1',
+//     database: 'employee'
+// });
+// const mysqldb = mysql.createConnection ({
 //     host: 'localhost',
 //     user: 'kshitij',
 //     password: 'salary123',
 //     database: 'employee'
 // });
 
-// connect to database
-db.connect((err) => {
-    if (err) {
-        console.log(err);
-        throw err;
-    }
-    console.log('Connected to mysql database');
-});
-global.db = db;
+// // connect to database
+// mysqldb.connect((err) => {
+//     if (err) {
+//         console.log(err);
+//         throw err;
+//     }
+//     console.log('Connected to mysql database');
+// });
+// global.mysqldb = mysqldb;
 
 
 //------------ EJS Configuration ------------//
@@ -109,6 +109,22 @@ app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 // app.use('/pdfmail', require('./routes/pdfmail'))
 
+
+//--------------upload csv part--------------//
+const db = require('./config/db.config.js');
+
+global.__basedir = __dirname;   
+    
+//force: true will drop the table if it already exists
+db.sequelize.sync().then(() => {  //{force: true}
+  console.log('Drop and Resync with { force: true }');
+});       
+
+let router = require('./routes/excel.router.js');
+app.use(express.static('resources'));
+app.use('/uploadcsv', router); 
+
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, console.log(`Server running on PORT ${PORT}`));
+app.listen(PORT, console.log(`Server running on PORT ${PORT}`)
+);

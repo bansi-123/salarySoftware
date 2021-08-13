@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Upload Download File Examples</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="/static/js/uploaddownloadfiles.js"></script> -->
+<script>
+	
+
+$(document).ready(function() {
+	console.log("In js")
+	/**
+	 * Upload single file to SpringBoot 
+	 * at RestAPI: /api/upload/file/single
+	 */
+	$("#uploadSingleFileForm").submit(function(evt) {
+		evt.preventDefault();
+		console.log("IN ROUTE")
+		
+		let formData = new FormData($(this)[0]);
+		
+		$.ajax({
+			url : '/uploadcsv/api/file/upload',
+			type : 'POST',
+			data : formData,
+			async : false,
+			cache : false,
+			contentType : false,
+			enctype : 'multipart/form-data',
+			processData : false,
+			success : function(response) {
+				$("#response").empty();
+				if(response.status !== "error"){
+					let displayInfo = response.filename + " : " + response.message + "<br>"; 
+					
+					$("#response").append(displayInfo);
+					// add some css
+					$("#response").css("display", "block");
+					$("#response").css("background-color", "#e6e6ff");
+					$("#response").css("border", "solid 1px black");
+					$("#response").css("border-radius", "3px");
+					$("#response").css("margin", "10px");
+					$("#response").css("padding", "10px");
+				}else{
+					$("#response").css("display", "none");
+					let error = response.error;
+					alert(error);
+				}
+			},
+			error: function(e){
+				alert("Fail! " + e);
+			}
+		});
+		
+		return false;
+	});
+	
+	/**
+	 * Upload Multiple Files to SpringBoot RestAPI
+	 */
+	// $("#uploadMultipleFilesForm").submit(function(evt) {
+	// 	evt.preventDefault();
+		
+	// 	let formData = new FormData($(this)[0]);
+		
+	// 	$.ajax({
+	// 		url : '/api/file/multiple/upload',
+	// 		type : 'POST',
+	// 		data : formData,
+	// 		async : false,
+	// 		cache : false,
+	// 		contentType : false,
+	// 		enctype : 'multipart/form-data',
+	// 		processData : false,
+	// 		success : function(response) {				
+	// 			$("#responses").empty();	
+				
+	// 			let displayInfo = "<ul>";
+				
+	// 			for(let i=0; i<response.length; i++){
+					
+	// 				displayInfo += "<li>" + response[i].filename + "&nbsp; : &nbsp;" + response[i].message;
+									
+	// 				displayInfo += "</li>";
+	// 			}
+	// 			$("#responses").append(displayInfo + "</ul>");
+	// 			$("#responses").css("display", "block");
+				
+	// 			// add some css
+	// 			$("#responses").css("background-color", "#e6e6ff");
+	// 			$("#responses").css("border", "solid 1px black");
+	// 			$("#responses").css("border-radius", "3px");
+	// 			$("#responses").css("margin", "10px");
+	// 			$("#responses").css("padding", "10px");
+	// 		},
+	// 		error: function(e){
+	// 			alert("Fail! " + e);
+	// 		}
+	// 	});
+		
+	// 	return false;
+	// });
+})
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-7" style="background-color:#e6fffa; padding:10px; border-radius:3px">
+				<h3>Upload Single File</h3>
+				<form id="uploadSingleFileForm">
+					<div class="form-group">
+						<label class="control-label" for="uploadfile">Choose a File:</label>
+						<input type="file" class="form-control" 
+								placeholder="Choose a upload file" name="file" required></input>
+					</div>
+					<button type="submit" class="btn btn-danger" id="btnUploadSingleFileSubmit">Submit</button>
+				</form>
+				<div id="response" style="display:none">
+				</div>
+			</div>
+		</div>
+		<hr>		
+		<!-- <div class="row">
+			<div class="col-sm-7" style="background-color:#e6fffa; padding:10px; border-radius:3px">
+				<h3>Upload Multiple Files</h3>
+				<form id="uploadMultipleFilesForm">
+					<div class="form-group">
+						<label class="control-label" for="uploadfiles">Choose Files:</label>
+						<input type="file" class="form-control" 
+								placeholder="Choose upload files" name="files" multiple required></input>
+					</div>
+					<button type="submit" class="btn btn-danger" id="btnUploadMultipleFilesSubmit">Submit</button>
+				</form>
+				<div id="responses" style="display:none">
+				</div>
+			</div>
+			
+		</div> -->
+		<hr>
+		<div id="downloadfiles" class="row">
+			<div class="col-sm-7">
+				<a href="/uploadcsv/api/file" class="btn btn-info" role="button">Download CSV File</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
