@@ -24,12 +24,12 @@ require('./config/passport')(passport);
 
 //------------ MySQL Connection ------------//
 
-const mysqldb = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: 'sunandroot',
-    database: 'employee'
-});
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'sunandroot',
+//     database: 'employee'
+// });
 
 // const db = mysql.createConnection ({
 //     host: 'localhost',
@@ -37,12 +37,12 @@ const mysqldb = mysql.createConnection ({
 //     password: 'Vineet@nexa1',
 //     database: 'employee'
 // });
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
-//     user: 'kshitij',
-//     password: 'salary123',
-//     database: 'employee'
-// });
+const mysqldb = mysql.createConnection ({
+    host: 'localhost',
+    user: 'kshitij',
+    password: 'salary123',
+    database: 'employee'
+});
 
 // connect to database
 mysqldb.connect((err) => {
@@ -119,9 +119,9 @@ app.use('/auth', require('./routes/auth'));
 
 
 //--------------upload csv part--------------//
-// const db = require('./config/db.config.js');
+const db = require('./config/db.config.js');
 
-// global.__basedir = __dirname;   
+global.__basedir = __dirname;   
     
 //force: true will drop the table if it already exists
 db.sequelize.sync({force: false}).then(() => {  //{force: true}

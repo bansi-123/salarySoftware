@@ -37,75 +37,43 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Tiger Nixon</td>
-                                                    <td> <input type="text" name="lwp" value="0"><br></td>
-                                                    <td>
-                                                        <div class="form-group">
-                                                        <!-- <label class="col-sm-6 control-label">Select Month</label> -->
-                                                        <div class="col-sm-10">
-                                                            <select class="form-control" name="month">
-                                                                <!-- <option value="value" selected>Option Name</option> -->
-                                                                <option value="january" name="1" id="january" selected>January</option>
-                                                                <option value="february" id="february" selected>February</option>
-                                                                <option value="march" id="march" selected>March</option>
-                                                                <option value="april" id="april" selected>April</option>
-                                                                <option value="may" id="may" selected>May</option>
-                                                                <option value="june" id="june" selected>June</option>    
-                                                                <option value="july" id="july" selected>July</option>  
-                                                                <option value="aug" id="aug" selected>August</option>    
-                                                                <option value="sept" id="sept" selected>September</option>    
-                                                                <option value="october" id="october" selected>October</option>    
-                                                                <option value="november" id="november" selected>November</option>    
-                                                                <option value="december" id="december" selected>December</option>   
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td> 
-                                                        <div class="form-group">
-                                                            <!-- <label class="col-sm-6 control-label">Select Month</label> -->
-                                                            <div class="col-sm-10">
-                                                                <select class="form-control" name="year">
-                                                                    <!-- <option value="value" selected>Option Name</option> -->
-                                                                    <option value="2021" id="2021" selected>2021</option>
-                                                                    <option value="2022" id="2022" selected>2022</option>    
-                                                    <br></td>
-                                                   
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Tiger Nixon</td>
-                                                        <td> <input type="text" name="lwp" value="0"><br></td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                            <!-- <label class="col-sm-6 control-label">Select Month</label> -->
-                                                            <div class="col-sm-10">
-                                                                <select class="form-control" name="month">
-                                                                    <!-- <option value="value" selected>Option Name</option> -->
-                                                                    <option value="january" name="1" id="january" selected>January</option>
-                                                                    <option value="february" id="february" selected>February</option>
-                                                                    <option value="march" id="march" selected>March</option>
-                                                                    <option value="april" id="april" selected>April</option>
-                                                                    <option value="may" id="may" selected>May</option>
-                                                                    <option value="june" id="june" selected>June</option>    
-                                                                    <option value="july" id="july" selected>July</option>  
-                                                                    <option value="aug" id="aug" selected>August</option>    
-                                                                    <option value="sept" id="sept" selected>September</option>    
-                                                                    <option value="october" id="october" selected>October</option>    
-                                                                    <option value="november" id="november" selected>November</option>    
-                                                                    <option value="december" id="december" selected>December</option>   
-                                                                </select>
-                                                            </div>
-                                                        </td>
-                                                        <td> 
-                                                            <div class="form-group">
+                                                    <% for(var i = employees.length-1; i >= 0 ; i-- ) { %>
+                                                        <tr>
+                                                            <td><%= employees[i].empID %></td>
+                                                            <td><%= employees[i].empName %></td>
+                                                            <td> <input type="text" name="lwp" value="0"><br></td>
+                                                            <td>
+                                                                <div class="form-group">
                                                                 <!-- <label class="col-sm-6 control-label">Select Month</label> -->
                                                                 <div class="col-sm-10">
-                                                                    <select class="form-control" name="year">
+                                                                    <select class="form-control" name="month">
                                                                         <!-- <option value="value" selected>Option Name</option> -->
-                                                                        <option value="2021" id="2021" selected>2021</option>
-                                                                        <option value="2022" id="2022" selected>2022</option>    
-                                                        <br></td>
+                                                                        <option value="january" name="1" id="january" selected>January</option>
+                                                                        <option value="february" id="february" selected>February</option>
+                                                                        <option value="march" id="march" selected>March</option>
+                                                                        <option value="april" id="april" selected>April</option>
+                                                                        <option value="may" id="may" selected>May</option>
+                                                                        <option value="june" id="june" selected>June</option>    
+                                                                        <option value="july" id="july" selected>July</option>  
+                                                                        <option value="aug" id="aug" selected>August</option>    
+                                                                        <option value="sept" id="sept" selected>September</option>    
+                                                                        <option value="october" id="october" selected>October</option>    
+                                                                        <option value="november" id="november" selected>November</option>    
+                                                                        <option value="december" id="december" selected>December</option>   
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                           
+                                                            <td> 
+                                                                <div class="form-group">
+                                                                    <!-- <label class="col-sm-6 control-label">Select Month</label> -->
+                                                                    <div class="col-sm-10">
+                                                                        <select class="form-control" name="year">
+                                                                            <!-- <option value="value" selected>Option Name</option> -->
+                                                                            <option value="2021" id="2021" selected>2021</option>
+                                                                            <option value="2022" id="2022" selected>2022</option>    
+                                                            <br></td>
+                                                    <% }%>
                                                     
                                                     <!-- <td> <input type="checkbox" name="chk" value="Smile"><br> </td> -->
                                             </tbody>

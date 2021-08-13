@@ -66,7 +66,18 @@ router.get('/table-export', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/generatesalary',(req,res)=>{
-    res.render('generatesalary')
+    mysqldb.query(`select * from Salary`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('generatesalary',{
+                salarydata:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
 }
 )
 
@@ -76,11 +87,96 @@ router.get('/pdf',ensureAuthenticated,(req,res)=>{
 
 
 router.get('/pay', ensureAuthenticated, (req, res) => {
-    res.render('pay');
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('pay',{
+                employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
 });
 
 router.post('/pay', ensureAuthenticated, (req, res) => {
-    console.log(req.body)
+    const data=JSON.parse(JSON.stringify(req.body));
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    const length=data["lwp"].length
+    console.log(length)
+    for (let i = 0; i < length; i++) {
+        var days;
+        if(data["month"][i]==="january")
+        {
+            days=31;
+        }
+        else if(data["month"][i]==="february")
+        {
+            days=28;
+        }
+        else if(data["month"][i]==="march")
+        {
+            days=31;
+        }
+        else if(data["month"][i]==="april")
+        {
+            days=30;
+        }
+        else if(data["month"][i]==="may")
+        {
+            days=31;
+        }
+        else if(data["month"][i]==="june")
+        {
+            days=30
+        }
+        else if(data["month"][i]==="july")
+        {
+            days=31
+        }
+        else if(data["month"][i]==="august")
+        {
+            days=31
+        }
+        else if(data["month"][i]==="september")
+        {
+            days=30
+        }
+        else if(data["month"][i]==="october")
+        {
+            days=31
+        }
+        else if(data["month"][i]==="november")
+        {
+            days=30
+        }
+        else if(data["month"][i]==="december")
+        {
+            days=31
+        }
+
+        console.log(data["lwp"][i],data["month"][i],data["year"][i],days)
+        
+        
+    
+        mysqldb.query(`INSERT INTO lwp_temp (empID, month, year, days, lwp) VALUES (${i+1}, '${data["month"][i]}', ${data["year"][i]}, ${days}, ${data["lwp"][i]})`
+        ,(err,result)=>{
+            if (err) {
+                console.log(err);
+                console.log("invalid details");
+            }
+            else{
+                // console.log(JSON.parse(JSON.stringify(result))[0])
+                // res.redirect('/dashboard')
+                // req.flash(
+                //     'success_msg',
+                //     'Employee found!'
+                // );
+            }
+        })
+    }
     res.redirect('dashboard');
 });
 
@@ -330,13 +426,218 @@ router.get('/viewAllEmployeeDetails',(req,res)=>{
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.send("Done")
+            // for (let i = 1; i < length+1; i++) {
+    //     mysqldb.query(`select gp,pf from Employees where empID=${empID}`,(err,result)=>{
+    //         if (result.length===0) {
+    //             //------------ Invalid registration Number ------------//
+    //             // req.flash('error_msg',
+    //             // 'Please enter valid Id.')
+    //             console.log("invalid registration number")
+    //         }
+    //         else{
+    //             gp=JSON.parse(JSON.stringify(result))[0].gp;
+    //             pf=JSON.parse(JSON.stringify(result))[0].pf;
+    //             console.log(JSON.parse(JSON.stringify(result))[0]);
+    //             console.log("gp,pf selected",gp,pf);
+    //             // req.flash(
+    //             //     'success_msg',
+    //             //     'Employee found!'
+    //             // );
+    //             mysqlmysqldb.query(`UPDATE Employees SET basicPay=${basicPay} where empID=${empID}`,(err,result)=>{
+    //                 if (err) {
+    //                     //------------ Invalid registration Number ------------//
+    //                     // req.flash('error_msg',
+    //                     // 'Please enter valid Id.')
+    //                     console.log(err);
+    //                     console.log("invalid registration number")
+    //                 }
+    //                 else{
+    //                     // console.log(JSON.parse(JSON.stringify(result))[0])
+    //                     console.log("basic pay updated to ",basicPay);
+    //                     // req.flash(
+    //                     //     'success_msg',
+    //                     //     'Employee found!'
+    //                     // );
+    //                     var cca,diff,oth_spl,ta,prof_tax,in_tax,rev_stmp,sal_adv;
+    //                     console.log(`select cca,diff,oth_spl,ta,prof_tax,in_tax,rev_stmp,sal_adv from Salary where empID=${empID}`)
+    //                     mysqldb.query(`select cca,diff,oth_spl,ta,prof_tax,in_tax,rev_stmp,sal_adv from Salary where empID=${empID}`,(err,result)=>{
+    //                         if (err) {
+    //                             //------------ Invalid registration Number ------------//
+    //                             // req.flash('error_msg',
+    //                             // 'Please enter valid Id.')
+    //                             console.log(err);
+    //                             console.log("invalid registration number");
+    //                         }
+    //                         else{
+    //                             cca=JSON.parse(JSON.stringify(result))[0].cca;
+    //                             diff=JSON.parse(JSON.stringify(result))[0].diff;
+    //                             oth_spl=JSON.parse(JSON.stringify(result))[0].oth_spl;
+    //                             ta=JSON.parse(JSON.stringify(result))[0].ta;
+    //                             prof_tax=JSON.parse(JSON.stringify(result))[0].prof_tax;
+    //                             in_tax=JSON.parse(JSON.stringify(result))[0].in_tax;
+    //                             rev_stmp=JSON.parse(JSON.stringify(result))[0].rev_stmp;
+    //                             sal_adv=JSON.parse(JSON.stringify(result))[0].sal_adv;
+    //                             console.log(JSON.parse(JSON.stringify(result))[0])
+    //                             res.send("Done");
+    //                             // req.flash(
+    //                             //     'success_msg',
+    //                             //     'Employee found!'
+    //                             // );
+    //                             console.log("GP is",gp)
+    //                             var da=(basicPay+parseFloat(gp))*1.39;
+    //                             console.log(da);
+    //                             var hra=(basicPay+parseFloat(gp))*0.2;
+    //                             var gross_sal=basicPay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca)+parseFloat(diff)+parseFloat(oth_spl)+parseFloat(ta);
+    //                             var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv);
+    //                             var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
+
+    //                             mysqldb.query(`UPDATE Salary SET da=${da}, hra=${hra},  gross_sal=${gross_sal}, total_ded=${total_ded}, net_sal=${net_sal} where empID=${empID}`
+    //                                     ,(err,result)=>{
+    //                                 if (err) {
+    //                                     //------------ Invalid registration Number ------------//
+    //                                     // req.flash('error_msg',
+    //                                     // 'Please enter valid Id.')
+    //                                     console.log(err)
+    //                                     console.log("invalid update salary")
+    //                                 }
+    //                                 else{
+    //                                     // console.log(JSON.parse(JSON.stringify(result))[0])
+    //                                     // res.send("Done");
+    //                                     // req.flash(
+    //                                     //     'success_msg',
+    //                                     //     'Employee found!'
+    //                                     // );
+    //                                 }
+    //                             })
+    //                         }
+    //                     })
+    //                 }
+    //             })
+            
+    //         }
+    //     })
+    // }
+
         }
     })
 })
 
-// router.post('/salaryGeneration',(req,res)=>{
-    
+router.post('/generateSalary',(req,res)=>{
+    var length;
+    mysqldb.query(`select count(*) from Employees`,(err,result)=>{
+        if (result.length===0) {
+            //------------ Invalid registration Number ------------//
+            // req.flash('error_msg',
+            // 'Please enter valid Id.')
+            console.log("invalid registration number")
+        }
+        else{
+            length=JSON.parse(JSON.stringify(result))[0]['count(*)'];
+            for (let i = 1; i < length+1; i++) {
+                mysqldb.query(`select basicPay,gp,pf from Employees where empID=${i}`,(err,result)=>{
+                    if (result.length===0) {
+                        //------------ Invalid registration Number ------------//
+                        // req.flash('error_msg',
+                        // 'Please enter valid Id.')
+                        console.log("invalid registration number")
+                    }
+                    else{
+                        var gp=JSON.parse(JSON.stringify(result))[0].gp;
+                        var pf=parseInt(JSON.parse(JSON.stringify(result))[0].pf);
+                        var basicPay=JSON.parse(JSON.stringify(result))[0].basicPay;
+                        console.log(JSON.parse(JSON.stringify(result))[0]);
+                        console.log("gp,pf,bp selected",gp,pf,basicPay);
+                        // req.flash(
+                        //     'success_msg',
+                        //     'Employee found!'
+                        // );
+                        var cca=240
+                        var diff=0
+                        var oth_spl=0;
+                        var ta=1600;
+                        var prof_tax=200;
+                        var in_tax=3000;
+                        var rev_stmp=1
+                        var sal_adv=0;
+                        var da=(basicPay+parseFloat(gp))*1.39;
+                        console.log("da is",da);
+                        var hra=(basicPay+parseFloat(gp))*0.2;
+                        console.log("hra is",hra);
+                        var gross_sal=basicPay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca)+parseFloat(diff)+parseFloat(oth_spl)+parseFloat(ta);
+                        
+                        mysqldb.query(`select month,year,days,lwp from lwp_temp where empID=${i}`,(err,result)=>{
+                            if (err) {
+                                //------------ Invalid registration Number ------------//
+                                // req.flash('error_msg',
+                                // 'Please enter valid Id.')
+                                console.log(err)
+                                console.log("invalid update salary 1")
+                            }
+                            else{
+                                // console.log(JSON.parse(JSON.stringify(result))[0])
+                                // res.send("Done");
+                                // req.flash(
+                                //     'success_msg',
+                                //     'Employee found!'
+                                // );
+                                var month=JSON.parse(JSON.stringify(result))[0].month;
+                                var year=JSON.parse(JSON.stringify(result))[0].year;
+                                var daysOfMonth=JSON.parse(JSON.stringify(result))[0].days;
+                                var lwp=JSON.parse(JSON.stringify(result))[0].lwp;
+                                var workedDays=daysOfMonth-lwp;
+                                var lwp_amt=(parseInt(gross_sal)/parseInt(daysOfMonth))*parseInt(lwp);
+                                console.log("gross salary,days of month,lwp",gross_sal,daysOfMonth,lwp)
+                                console.log("lwp_amt=",lwp_amt)
+                                var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(lwp_amt);
+                                var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
+                                console.log("logging")
+                                console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${i}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
+                                mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${i}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+                                ,(err,result)=>{
+                                    if (err) {
+                                        //------------ Invalid registration Number ------------//
+                                        // req.flash('error_msg',
+                                        // 'Please enter valid Id.')
+                                        console.log(err)
+                                        console.log("invalid update salary 2")
+                                    }
+                                    else{
+                                        // console.log(JSON.parse(JSON.stringify(result))[0])
+                                        // res.send("Done");
+                                        // req.flash(
+                                        //     'success_msg',
+                                        //     'Employee found!'
+                                        // );
+                                        console.log("YAYYYYY")
+                                        if(i===length)
+                                        {
+                                            mysqldb.query('truncate table lwp_temp')
+                                            ,(err,result)=>{
+                                                if (err) {
+                                                    //------------ Invalid registration Number ------------//
+                                                    // req.flash('error_msg',
+                                                    // 'Please enter valid Id.')
+                                                    console.log(err)
+                                                    console.log("invalid update salary 2")
+                                                }
+                                                else{
+                                                    console.log("SUCCESS!")
+                                                }
+                                            }
+                                                 
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
 
-// })
+        }
+    })
+    
+    
+})
 
 module.exports = router;
