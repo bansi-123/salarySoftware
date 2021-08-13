@@ -48,6 +48,27 @@ router.post('/searchEmployee',(req,res)=>{
     })
 })
 
+router.get('/table-export', ensureAuthenticated, (req, res) => {
+    res.render('table-export');
+});
+
+router.post('/table-export', ensureAuthenticated, (req, res) => {
+    console.log(req.body)
+    res.redirect('dashboard');
+});
+
+
+router.get('/pay', ensureAuthenticated, (req, res) => {
+    res.render('pay');
+});
+
+router.post('/pay', ensureAuthenticated, (req, res) => {
+    console.log(req.body)
+    res.redirect('dashboard');
+});
+
+
+
 //------------ Add Employee Route ------------//
 router.post('/addEmployee',(req,res)=>{
     const data=JSON.parse(JSON.stringify(req.body));
