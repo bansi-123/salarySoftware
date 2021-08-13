@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { ensureAuthenticated } = require('../config/checkAuth')
+const { ensureAuthenticated } = require('../config/checkAuth');
+const { route } = require('./auth');
 
 //------------ Welcome Route ------------//
 router.get('/', (req, res) => {
@@ -64,6 +65,15 @@ router.get('/table-export', ensureAuthenticated, (req, res) => {
     
 });
 
+router.get('/generatesalary',(req,res)=>{
+    res.render('generatesalary')
+}
+)
+
+router.get('/pdf',ensureAuthenticated,(req,res)=>{
+    res.render('pdf')
+})
+
 
 router.get('/pay', ensureAuthenticated, (req, res) => {
     res.render('pay');
@@ -75,7 +85,19 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
-    res.render('viewemployee');
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('viewemployee',{
+                employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
 });
 
 //------------ Search for Employee Details Route ------------//
@@ -100,24 +122,11 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 //     })
 // })
 
-router.get('/table-export', ensureAuthenticated, (req, res) => {
-    res.render('table-export');
-});
-
 router.post('/table-export', ensureAuthenticated, (req, res) => {
     console.log(req.body)
     res.redirect('dashboard');
 });
 
-
-router.get('/pay', ensureAuthenticated, (req, res) => {
-    res.render('pay');
-});
-
-router.post('/pay', ensureAuthenticated, (req, res) => {
-    console.log(req.body)
-    res.redirect('dashboard');
-});
 
 // ------------ Add Employee Route ------------//
 router.post('/addEmployee',(req,res)=>{
@@ -125,6 +134,8 @@ router.post('/addEmployee',(req,res)=>{
     const {empName,uan,dept,designation,basicPay,gp,bankAccNum,bankName,doj,salaryCategory}=data;
     const emailid="kshitij.deshpan@gmail.com"
     console.log(JSON.parse(JSON.stringify(req.body)))
+    console.log("here")
+    console.log(`INSERT INTO Employees (empName, uan, dept, designation, basicPay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${basicPay}, ${gp}, 1000, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailid}')`)
     mysqldb.query(`INSERT INTO Employees (empName, uan, dept, designation, basicPay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${basicPay}, ${gp}, 1000, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailid}')`
     ,(err,result)=>{
         if (err) {

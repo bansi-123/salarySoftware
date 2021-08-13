@@ -69,64 +69,23 @@
                                                     <th>Name <p><i class="arrow down" style="float: right;"></i></th>
                                                     <th>Department <p><i class="arrow down" style="float: right;"></i></th>
                                                     <th>Designation<p><i class="arrow down" style="float: right;"></i></th>
-                                                    <th>Gross Salary</th>
                                                     <th>Actions</th>
-                                                
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>Comp</td>
-                                                    <td>Assistant Professor</td>
-                                                    <td>10000</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success btn-sm">View</button>
-                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
-                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Garrett Winters</td>
-                                                    <td>IT</td>
-                                                    <td>LA</td>
-                                                    <td>10000</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success btn-sm">View</button>
-                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
-                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                    </td>
-                                                
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Ashton Cox</td>
-                                                    <td>ENTC</td>
-                                                    <td>Non Teaching</td>
-                                                    <td>10000</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success btn-sm">View</button>
-                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
-                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>Cedric Kelly</td>
-                                                    <td>Comp</td>
-                                                    <td>Asst Professor</td>
-                                                    <td>10000</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success btn-sm">View</button>
-                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
-                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                    </td>
-                                                    
-                                                </tr>
-                                                
+                                                <% for(var i = employees.length-1; i >= 0 ; i-- ) { %>
+                                                    <tr>
+                                                        <td><%= employees[i].empID %></td>
+                                                        <td><%= employees[i].empName %></td>
+                                                        <td><%= employees[i].dept %></td>
+                                                        <td><%= employees[i].designation %></td> 
+                                                        <td>
+                                                            <button type="button" class="btn btn-success btn-sm">View</button>
+                                                            <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                                                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                        </td>                                                       
+                                                    </tr>
+                                                <% }%>
                                             </tbody>
 
 
