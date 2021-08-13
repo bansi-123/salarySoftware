@@ -221,7 +221,7 @@ router.post('/addEmployee',(req,res)=>{
 //     })
 // })
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
 // router.post('/updateBasicPay',(req,res)=>{
 //     const {empID,basicPay}=req.body;
 //     db.query(`UPDATE Employees SET basicPay=${basicPay} where empID=${empID}`,(err,result)=>
@@ -238,7 +238,7 @@ router.post('/addEmployee',(req,res)=>{
 //         }
 //     })
 // })
-=======
+
 router.post('/updateBasicPay',(req,res)=>{
     const {empID,basicPay}=req.body;
     db.query(`UPDATE Employees SET basicPay=${basicPay} where empID=${empID}`,(err,result)=>
@@ -333,7 +333,7 @@ router.post('/updateBasicPay',(req,res)=>{
         }
     })
 })
->>>>>>> 82de38c9dbb4f4b33b6c95358761155c7945e229
+
 
 // router.post('/storeInTempTable',(req,res)=>{
 
