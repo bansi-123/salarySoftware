@@ -24,12 +24,12 @@ require('./config/passport')(passport);
 
 //------------ MySQL Connection ------------//
 
-const db = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: 'sunandroot',
-    database: 'employee'
-});
+// const db = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'sunandroot',
+//     database: 'employee'
+// });
 
 // const db = mysql.createConnection ({
 //     host: 'localhost',
@@ -119,9 +119,9 @@ app.use('/auth', require('./routes/auth'));
 
 
 //--------------upload csv part--------------//
-// const db = require('./config/db.config.js');
+const db = require('./config/db.config.js');
 
-// global.__basedir = __dirname;   
+global.__basedir = __dirname;   
     
 //force: true will drop the table if it already exists
 db.sequelize.sync().then(() => {  //{force: true}
@@ -130,9 +130,9 @@ db.sequelize.sync().then(() => {  //{force: true}
   console.log(e)
 });       
 
-// let router = require('./routes/excel.router.js');
-// app.use(express.static('resources'));
-// app.use('/uploadcsv', router); 
+let router = require('./routes/excel.router.js');
+app.use(express.static('resources'));
+app.use('/uploadcsv', router); 
 
 const PORT = process.env.PORT || 3000;
 
