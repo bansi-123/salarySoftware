@@ -397,34 +397,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>Comp</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="chk1" value="1"><br> </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Garrett Winters</td>
-                                                    <td>IT</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="chk2" value="1"><br> </td>
-                                                
-                                                </tr>
-                                                <tr>
-                                                    <td>Ashton Cox</td>
-                                                    <td>ENTC</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="chk3" value="1"><br> </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>Cedric Kelly</td>
-                                                    <td>Comp</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="chk4" value="1"><br> </td>
-                                                    
-                                                </tr>
-                                                
+                                                <% for(var i = employees.length-1; i >= 0 ; i-- ) { %>
+                                                    <tr>
+                                                        <td><%= employees[i].empName %></td>
+                                                        <td><%= employees[i].dept %></td>
+                                                        <td><%= employees[i].designation %></td>
+                                                        <td> <input type="checkbox" name=<%= employees[i].empID %> value="1"><br> </td>
+                                                        
+                                                    </tr>
+                                                <% }%>
                                             </tbody>
 
 
@@ -461,7 +442,7 @@
                             <div class="col-lg-6">
 
                                 <div class="form-group">
-                                    <label class="col-sm-10 control-label">Total</label>
+                                    <label class="col-sm-10 control-label">New Basic Pay Amt</label>
                                     <div class="col-sm-10">
                                         <input type="text" name="incamt" class="form-control" placeholder="Rs.">
                                     </div>

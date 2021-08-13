@@ -49,7 +49,19 @@ router.post('/searchEmployee',(req,res)=>{
 })
 
 router.get('/table-export', ensureAuthenticated, (req, res) => {
-    res.render('table-export');
+    db.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('table-export',{
+                employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
 });
 
 router.post('/table-export', ensureAuthenticated, (req, res) => {
