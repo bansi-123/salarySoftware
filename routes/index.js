@@ -216,7 +216,85 @@ router.post('/updateBasicPay',(req,res)=>{
             console.log("invalid employment ID")
         }
         else{
-            console.log("basic pay updated to ",basicPay);
+            gp=JSON.parse(JSON.stringify(result))[0].gp;
+            pf=JSON.parse(JSON.stringify(result))[0].pf;
+            console.log(JSON.parse(JSON.stringify(result))[0]);
+            console.log("gp,pf selected",gp,pf);
+            // req.flash(
+            //     'success_msg',
+            //     'Employee found!'
+            // );
+            db.query(`UPDATE Employees SET basicPay=${basicPay} where empID=${empID}`,(err,result)=>{
+                if (err) {
+                    //------------ Invalid registration Number ------------//
+                    // req.flash('error_msg',
+                    // 'Please enter valid Id.')
+                    console.log(err);
+                    console.log("invalid registration number")
+                }
+                else{
+                    // console.log(JSON.parse(JSON.stringify(result))[0])
+                    console.log("basic pay updated to ",basicPay);
+                    // req.flash(
+                    //     'success_msg',
+                    //     'Employee found!'
+                    // );
+                    var cca,diff,oth_spl,ta,prof_tax,in_tax,rev_stmp,sal_adv;
+                    console.log(`select cca,diff,oth_spl,ta,prof_tax,in_tax,rev_stmp,sal_adv from Salary where empID=${empID}`)
+                    db.query(`select cca,diff,oth_spl,ta,prof_tax,in_tax,rev_stmp,sal_adv from Salary where empID=${empID}`,(err,result)=>{
+                        if (err) {
+                            //------------ Invalid registration Number ------------//
+                            // req.flash('error_msg',
+                            // 'Please enter valid Id.')
+                            console.log(err);
+                            console.log("invalid registration number");
+                        }
+                        else{
+                            cca=JSON.parse(JSON.stringify(result))[0].cca;
+                            diff=JSON.parse(JSON.stringify(result))[0].diff;
+                            oth_spl=JSON.parse(JSON.stringify(result))[0].oth_spl;
+                            ta=JSON.parse(JSON.stringify(result))[0].ta;
+                            prof_tax=JSON.parse(JSON.stringify(result))[0].prof_tax;
+                            in_tax=JSON.parse(JSON.stringify(result))[0].in_tax;
+                            rev_stmp=JSON.parse(JSON.stringify(result))[0].rev_stmp;
+                            sal_adv=JSON.parse(JSON.stringify(result))[0].sal_adv;
+                            console.log(JSON.parse(JSON.stringify(result))[0])
+                            res.send("Done");
+                            // req.flash(
+                            //     'success_msg',
+                            //     'Employee found!'
+                            // );
+                            console.log("GP is",gp)
+                            var da=(basicPay+parseFloat(gp))*1.39;
+                            console.log(da);
+                            var hra=(basicPay+parseFloat(gp))*0.2;
+                            var gross_sal=basicPay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca)+parseFloat(diff)+parseFloat(oth_spl)+parseFloat(ta);
+                            var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv);
+                            var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
+
+                            db.query(`UPDATE Salary SET da=${da}, hra=${hra},  gross_sal=${gross_sal}, total_ded=${total_ded}, net_sal=${net_sal} where empID=${empID}`
+                                      ,(err,result)=>{
+                                if (err) {
+                                    //------------ Invalid registration Number ------------//
+                                    // req.flash('error_msg',
+                                    // 'Please enter valid Id.')
+                                    console.log(err)
+                                    console.log("invalid update salary")
+                                }
+                                else{
+                                    // console.log(JSON.parse(JSON.stringify(result))[0])
+                                    // res.send("Done");
+                                    // req.flash(
+                                    //     'success_msg',
+                                    //     'Employee found!'
+                                    // );
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        
         }
     })
 })
