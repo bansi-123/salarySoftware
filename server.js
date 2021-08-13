@@ -29,7 +29,7 @@ require('./config/passport')(passport);
 //     password: 'Vineet@nexa1',
 //     database: 'employee'
 // });
-// const mysqldb = mysql.createConnection ({
+// const db = createConnection ({
 //     host: 'localhost',
 //     user: 'kshitij',
 //     password: 'salary123',
@@ -37,14 +37,14 @@ require('./config/passport')(passport);
 // });
 
 // // connect to database
-// mysqldb.connect((err) => {
+// db.connect((err) => {
 //     if (err) {
 //         console.log(err);
 //         throw err;
 //     }
-//     console.log('Connected to mysql database');
+//     console.log('Connected to  database');
 // });
-// global.mysqldb = mysqldb;
+// global.db = db;
 
 
 //------------ EJS Configuration ------------//
