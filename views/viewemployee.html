@@ -29,7 +29,7 @@
     <link href="../assets/assets/css/lib/helper.css" rel="stylesheet">
     <link href="../assets/assets/css/style.css" rel="stylesheet">
 
-    <!-- <script type="text/javascript">  
+    <script type="text/javascript">  
         function selects(){  
             var ele=document.getElementsByName('chk');  
             for(var i=0; i<ele.length; i++){  
@@ -45,7 +45,7 @@
                   
             }  
         }             
-</script>   -->
+</script>
 
 <style>
     .arrow {
@@ -389,12 +389,14 @@
                     <!-- /# column -->
                 </div>
                 <!-- /# row -->
+
                 <section id="main-content">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
+                                        <form class="form-horizontal" action="\table-export" method="post">
                                        
                                         <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
 
@@ -403,13 +405,12 @@
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Employee ID <p><i class="arrow down" style="float: right;"></i></p>
-                                                    </th>
-                                                    <th>Name <p><i class="arrow down" style="float: right;"></i></p></th>
-                                                    <th>Leave Without Pay (LWP)</th>
-                                                    <th>Special Difference</th>
-                                                    <th>Income Tax</th>
-                                                    <th>Others</th>
+                                                    <th>Employee ID <p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Name <p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Department <p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Designation<p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Gross Salary</th>
+                                                    <th>Actions</th>
                                                 
                                                 </tr>
                                             </thead>
@@ -417,55 +418,159 @@
                                                 <tr>
                                                     <td>1</td>
                                                     <td>Tiger Nixon</td>
-                                                    <td> <input type="text" name="lwp" value="0"><br></td>
-                                                    <td> <input type="text" name="spcldiff" value="0"><br></td>
-                                                    <td> <input type="text" name="incometax" value="0"><br></td>
-                                                    <td> <input type="text" name="others" value="0"><br></td>
-                                                    
-                                                    
-                                                    <!-- <td> <input type="checkbox" name="chk" value="Smile"><br> </td> -->
+                                                    <td>Comp</td>
+                                                    <td>Assistant Professor</td>
+                                                    <td>10000</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm">View</button>
+                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>2</td>
                                                     <td>Garrett Winters</td>
-                                                    <td> <input type="text" name="lwp" value="0"><br></td>
-                                                    <td> <input type="text" name="spcldiff" value="0"><br></td>
-                                                    <td> <input type="text" name="incometax" value="0"><br></td>
-                                                    <td> <input type="text" name="others" value="0"><br></td>
+                                                    <td>IT</td>
+                                                    <td>LA</td>
+                                                    <td>10000</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm">View</button>
+                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    </td>
                                                 
                                                 </tr>
                                                 <tr>
                                                     <td>3</td>
                                                     <td>Ashton Cox</td>
-                                                    <td> <input type="text" name="lwp" value="0"><br></td>
-                                                    <td> <input type="text" name="spcldiff" value="0"><br></td>
-                                                    <td> <input type="text" name="incometax" value="0"><br></td>
-                                                    <td> <input type="text" name="others" value="0"><br></td>
+                                                    <td>ENTC</td>
+                                                    <td>Non Teaching</td>
+                                                    <td>10000</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm">View</button>
+                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">Edit</button>
+
+                                                        <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg-centered" role="document">
+                                                              <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                  <h5 class="modal-title"  id="exampleModalLongTitle">Edit Employee Details</h5>
+                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                  </button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                    <label class="col-sm-6 control-label">Employee Name</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="empName" class="form-control"
+                                                                            placeholder="Enter Name">
+                                                                    </div>
+
+                                                                    <label class="col-sm-6 control-label">Department</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="radio" id="comp" name="dept" value="comp">
+                                                                          <label for="comp">Computer</label><br>
+                                                                          <input type="radio" id="IT" name="dept" value="IT">
+                                                                          <label for="IT">IT</label><br>
+                                                                          <input type="radio" id="entc" name="dept" value="entc">
+                                                                          <label for="entc">ENTC</label><br>
+                                                                          <input type="radio" id="accounts" name="dept" value="accounts">
+                                                                          <label for="entc">Accounts</label><br>
+                                                                          <input type="radio" id="admin" name="dept" value="admin">
+                                                                          <label for="entc">Admin</label><br>
+                                                                    </div>
+
+                                                                    <label class="col-sm-6 control-label">Designation</label>
+                                                                    <div class="col-sm-10">
+                                                                        <select class="form-control" name="designation">
+                                                                        
+                                                                            <option value="professor" id="professor" selected>Professor</option>
+                                                                            <option value="associateprof" id="associateprof" selected>Associate Professor</option>
+                                                                            <option value="asstprof" id="asstprof" selected>Assistant Professor</option>
+                                                                            <option value="techasst" id="techasst" selected>Technical Assistant</option>
+                                                                            <option value="labasst" id="labasst" selected>Lab Assistant</option>
+                                                                            <option value="nonteaching" id="nonteaching" selected>Non Teaching</option>    
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                          
+                                                          <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    </td>
                                                     
                                                 </tr>
                                                 <tr>
                                                     <td>4</td>
                                                     <td>Cedric Kelly</td>
-                                                    <td> <input type="text" name="lwp" value="0"><br></td>
-                                                    <td> <input type="text" name="spcldiff" value="0"><br></td>
-                                                    <td> <input type="text" name="incometax" value="0"><br></td>
-                                                    <td> <input type="text" name="others" value="0"><br></td>
+                                                    <td>Comp</td>
+                                                    <td>Asst Professor</td>
+                                                    <td>10000</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm">View</button>
+                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    </td>
                                                     
                                                 </tr>
                                                 
                                             </tbody>
+
+
                                         </table>
+
+
+                                          
                                     </div>
+
                                 </div>
                             </div>
                             <!-- /# card -->
                         </div>
 
-
-                        <!-- /# column -->
                     </div>
 
-                    <input type="submit" style="float: right;" value="Submit">
+                    
+
+                        
+                        <!-- /# column -->
+                    <!-- </div>
+                    <div class="col-lg-6" class="float-right">
+                        <table class="table table-striped table-bordered" >
+                                                
+                            <tr>
+                                <td>Total</td>
+                                <td> <input type="text" name="total" value="0"><br></td>
+                            
+                            </tr>
+                    </table>  -->
+
+                    <!-- <form class="form-horizontal" action="\table-export" method="post"> -->
+                        <!-- <div class="row">
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <label class="col-sm-10 control-label">Total</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="incamt" class="form-control" placeholder="Rs.">
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    <!-- <input type="submit" style="float: right;" value="Submit"> 
+
+                    </form>
+
+                   
+                    </div> -->
+
 
                     <!-- /# row -->
 

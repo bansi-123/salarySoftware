@@ -24,12 +24,12 @@ require('./config/passport')(passport);
 
 //------------ MySQL Connection ------------//
 
-const db = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: 'sunandroot',
-    database: 'employee'
-});
+// const db = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'sunandroot',
+//     database: 'employee'
+// });
 
 // const db = mysql.createConnection ({
 //     host: 'localhost',
@@ -37,22 +37,22 @@ const db = mysql.createConnection ({
 //     password: 'Vineet@nexa1',
 //     database: 'employee'
 // });
-// const db = createConnection ({
-//     host: 'localhost',
-//     user: 'kshitij',
-//     password: 'salary123',
-//     database: 'employee'
-// });
+const mysqldb = mysql.createConnection ({
+    host: 'localhost',
+    user: 'kshitij',
+    password: 'salary123',
+    database: 'employee'
+});
 
 // connect to database
-db.connect((err) => {
+mysqldb.connect((err) => {
     if (err) {
         console.log(err);
         throw err;
     }
-    console.log('Connected to  database');
+    console.log('Connected to mysql database');
 });
-global.db = db;
+global.mysqldb = mysqldb;
 
 
 //------------ EJS Configuration ------------//
@@ -119,20 +119,22 @@ app.use('/auth', require('./routes/auth'));
 
 
 //--------------upload csv part--------------//
-// const db = require('./config/db.config.js');
+const db = require('./config/db.config.js');
 
-// global.__basedir = __dirname;   
+global.__basedir = __dirname;   
     
 //force: true will drop the table if it already exists
-// db.sequelize.sync().then(() => {  //{force: true}
-//   console.log('Drop and Resync with { force: true }');
-// });       
+db.sequelize.sync().then(() => {  //{force: true}
+  console.log('Drop and Resync with { force: true }');
+}).catch((e)=>{
+  console.log(e)
+});       
 
-// let router = require('./routes/excel.router.js');
-// app.use(express.static('resources'));
-// app.use('/uploadcsv', router); 
+let router = require('./routes/excel.router.js');
+app.use(express.static('resources'));
+app.use('/uploadcsv', router); 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, console.log(`Server running on PORT ${PORT}`)
 );

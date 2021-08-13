@@ -237,15 +237,26 @@
                                                               <input type="radio" id="IT" name="dept" value="IT">
                                                               <label for="IT">IT</label><br>
                                                               <input type="radio" id="entc" name="dept" value="entc">
-                                                              <label for="entc">ENTC</label>
+                                                              <label for="entc">ENTC</label><br>
+                                                              <input type="radio" id="accounts" name="dept" value="accounts">
+                                                              <label for="entc">Accounts</label><br>
+                                                              <input type="radio" id="admin" name="dept" value="admin">
+                                                              <label for="entc">Admin</label><br>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Designation</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="designation" class="form-control"
-                                                                placeholder="Designation">
+                                                            <select class="form-control" name="designation">
+                                                                <!-- <option value="value" selected>Option Name</option> -->
+                                                                <option value="professor" id="professor" selected>Professor</option>
+                                                                <option value="associateprof" id="associateprof" selected>Associate Professor</option>
+                                                                <option value="asstprof" id="asstprof" selected>Assistant Professor</option>
+                                                                <option value="techasst" id="techasst" selected>Technical Assistant</option>
+                                                                <option value="labasst" id="labasst" selected>Lab Assistant</option>
+                                                                <option value="nonteaching" id="nonteaching" selected>Non Teaching</option>    
+                                                            </select>
                                                         </div>
                                                     </div>
 
@@ -315,7 +326,7 @@
                                                             </div>
                                                         </div>
 
-                                                    <input type="submit" style="float: right;" value="Submit">
+                                                    <input type="submit"  value="Submit">
 
                                                     </div>
 
