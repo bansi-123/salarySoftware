@@ -64,19 +64,62 @@ router.get('/table-export', ensureAuthenticated, (req, res) => {
     
 });
 
-// router.post('/table-export', ensureAuthenticated, (req, res) => {
+
+router.get('/pay', ensureAuthenticated, (req, res) => {
+    res.render('pay');
+});
+
+router.post('/pay', ensureAuthenticated, (req, res) => {
+    console.log(req.body)
+    res.redirect('dashboard');
+});
+
+router.get('/viewemployee', ensureAuthenticated, (req, res) => {
+    res.render('viewemployee');
+});
+
+//------------ Search for Employee Details Route ------------//
+// router.post('/searchEmployee',(req,res)=>{
+//     const id=req.body.id;
 //     console.log(req.body)
-//     res.redirect('dashboard');
-// });
+//     db.query(`select * from Employees where empID=${id}`,(err,result)=>{
+//         if (result.length===0) {
+//             //------------ Invalid registration Number ------------//
+//             // req.flash('error_msg',
+//             // 'Please enter valid Id.')
+//             console.log("invalid registration number")
+//         }
+//         else{
+//             console.log(JSON.parse(JSON.stringify(result))[0])
+//             res.send("Done");
+//             // req.flash(
+//             //     'success_msg',
+//             //     'Employee found!'
+//             // );
+//         }
+//     })
+// })
+
+router.get('/table-export', ensureAuthenticated, (req, res) => {
+    res.render('table-export');
+});
+
+router.post('/table-export', ensureAuthenticated, (req, res) => {
+    console.log(req.body)
+    res.redirect('dashboard');
+});
 
 
 router.get('/pay', ensureAuthenticated, (req, res) => {
     res.render('pay');
 });
 
+router.post('/pay', ensureAuthenticated, (req, res) => {
+    console.log(req.body)
+    res.redirect('dashboard');
+});
 
-
-//------------ Add Employee Route ------------//
+// ------------ Add Employee Route ------------//
 router.post('/addEmployee',(req,res)=>{
     const data=JSON.parse(JSON.stringify(req.body));
     const {empName,uan,dept,designation,basicPay,gp,bankAccNum,bankName,doj,salaryCategory}=data;
@@ -199,6 +242,24 @@ router.post('/addEmployee',(req,res)=>{
 //     })
 // })
 
+// <<<<<<< HEAD
+// router.post('/updateBasicPay',(req,res)=>{
+//     const {empID,basicPay}=req.body;
+//     db.query(`UPDATE Employees SET basicPay=${basicPay} where empID=${empID}`,(err,result)=>
+//     {
+//         if (err) {
+//             //------------ Invalid Employement ID ------------//
+//             // req.flash('error_msg',
+//             // 'Please enter valid Id.')
+//             console.log(err);
+//             console.log("invalid employment ID")
+//         }
+//         else{
+//             console.log("basic pay updated to ",basicPay);
+//         }
+//     })
+// })
+
 router.post('/updateBasicPay',(req,res)=>{
     // const {empID,basicPay}=req.body;
     console.log(JSON.parse(JSON.stringify(req.body)))
@@ -246,9 +307,8 @@ router.post('/updateBasicPay',(req,res)=>{
     res.redirect('dashboard');
 })
 
-router.post('/storeInTempTable',(req,res)=>{
 
-})
+// router.post('/storeInTempTable',(req,res)=>{
 
 router.get('/viewAllEmployeeDetails',(req,res)=>{
     mysqldb.query(`select * from Employees`,(err,result)=>
@@ -263,9 +323,9 @@ router.get('/viewAllEmployeeDetails',(req,res)=>{
     })
 })
 
-router.post('/salaryGeneration',(req,res)=>{
+// router.post('/salaryGeneration',(req,res)=>{
     
 
-})
+// })
 
 module.exports = router;

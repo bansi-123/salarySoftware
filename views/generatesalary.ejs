@@ -1,0 +1,158 @@
+<%- include('partials/header.ejs'); -%>
+
+<head>
+    
+<style>
+    .wrapper {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+}
+</style>
+</head>
+
+
+
+<body>
+
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <h1>Hello, <span>Welcome Here</span></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-4 p-l-0 title-margin-left">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Home</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                </div>
+        
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <!-- <div class="card">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib"><i class="ti-money color-success border-success"></i>
+                                    </div>
+                                    <div class="stat-content dib">
+                                        <div class="stat-text">Add Employee</div>
+                                        <div class="stat-digit">1,012</div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib"><i class="ti-user color-primary border-primary"></i>
+                                    </div>
+                                    <div class="stat-content dib">
+                                        <div class="stat-text">Select Month</div>
+                                        <div class="form-group">
+                                            <!-- <label class="col-sm-6 control-label">Select Month</label> -->
+                                            <div class="col-sm-10">
+                                                <select class="form-control" name="month">
+                                                    <!-- <option value="value" selected>Option Name</option> -->
+                                                    <option value="january" id="january" selected>January</option>
+                                                    <option value="february" id="february" selected>February</option>
+                                                    <option value="march" id="march" selected>March</option>
+                                                    <option value="april" id="april" selected>April</option>
+                                                    <option value="may" id="may" selected>May</option>
+                                                    <option value="june" id="june" selected>June</option>    
+                                                    <option value="july" id="july" selected>July</option>  
+                                                    <option value="aug" id="aug" selected>August</option>    
+                                                    <option value="sept" id="sept" selected>September</option>    
+                                                    <option value="october" id="october" selected>October</option>    
+                                                    <option value="november" id="november" selected>November</option>    
+                                                    <option value="december" id="december" selected>December</option>   
+                                                </select>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon dib"><i class="ti-layout-grid2 color-pink border-pink"></i>
+                                        
+                                    </div>
+                                    <div class="stat-content dib">
+                                        <div class="stat-text">Select Year</div>
+                                        <div class="form-group">
+                                            <!-- <label class="col-sm-6 control-label">Select Month</label> -->
+                                            <div class="col-sm-10">
+                                                <select class="form-control" name="designation">
+                                                    <!-- <option value="value" selected>Option Name</option> -->
+                                                    <option value="2021" id="2021" selected>2021</option>
+                                                    <option value="2022" id="2022" selected>2022</option>
+                                                    <option value="2023" id="2023" selected>2023</option>
+                                                    <option value="2024" id="2024" selected>2024</option>
+                                                    <option value="2025" id="2025" selected>2025</option>
+                                                    <option value="2026" id="2026" selected>2026</option>    
+                                                    <option value="2027" id="2027" selected>2027</option>  
+                                                    <option value="2028" id="2028" selected>2028</option>    
+                                                    <option value="2029" id="2029" selected>2029</option>    
+                                                    <option value="2030" id="2030" selected>2030</option>    
+                                                    <option value="2031" id="2031" selected>2031</option>    
+                                                    <option value="2032" id="2032" selected>2032</option>    
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                    </div>
+                    
+
+                    <div class="wrapper">
+                        <br><br><br>
+                        <button type="button" class="btn btn-success btn-lg">Generate Salary</button>
+                        
+                    </div>
+       
+
+
+    <script src="../assets/assets/js/lib/calendar-2/moment.latest.min.js"></script>
+    <script src="../assets/assets/js/lib/calendar-2/pignose.calendar.min.js"></script>
+    <script src="../assets/assets/js/lib/calendar-2/pignose.init.js"></script>
+
+
+    <script src="../assets/assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
+    <script src="../assets/assets/js/lib/weather/weather-init.js"></script>
+    <script src="../assets/assets/js/lib/circle-progress/circle-progress.min.js"></script>
+    <script src="../assets/assets/js/lib/circle-progress/circle-progress-init.js"></script>
+    <script src="../assets/assets/js/lib/chartist/chartist.min.js"></script>
+    <script src="../assets/assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script>
+    <script src="../assets/assets/js/lib/sparklinechart/sparkline.init.js"></script>
+    <script src="../assets/assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="../assets/assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+    <!-- scripit init-->
+    <script src="../assets/assets/js/dashboard2.js"></script>
+</body>
+
+</html>
