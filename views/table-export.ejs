@@ -68,7 +68,7 @@
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <form class="form-horizontal" action="\table-export" method="post">
+                                        <form class="form-horizontal" action="\updateBasicPay" method="post">
                                        
                                         <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
 
@@ -88,42 +88,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>Comp</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="check" id="checks" value="1"><br> </td>
-                                                    <td> <input type="text" name="year" id="year" value="2021"><br></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Garrett Winters</td>
-                                                    <td>IT</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="check" id="checks"  value="1"><br> </td>
-                                                    <td> <input type="text" name="year" id="year" value="2021"><br></td>
-                                                
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Ashton Cox</td>
-                                                    <td>ENTC</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="check" id="1" value="1"><br> </td>
-                                                    <td> <input type="text" name="year" id="year" value="2021"><br></td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>Cedric Kelly</td>
-                                                    <td>Comp</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="check" id="4"  value="1"><br> </td>
-                                                    <td> <input type="text" name="year" id="year" value="2021"><br></td>
-                                                    
-                                                </tr>
-                                                
+                                                <% for(var i = employees.length-1; i >= 0 ; i-- ) { %>
+                                                    <tr>
+                                                        <td><%= employees[i].empName %></td>
+                                                        <td><%= employees[i].dept %></td>
+                                                        <td><%= employees[i].designation %></td>
+                                                        <td> <input type="checkbox" name=<%= employees[i].empID %> id=<%= employees[i].empID %> value="1"><br> </td>
+                                                        
+                                                    </tr>
+                                                <% }%>
                                             </tbody>
 
 
@@ -158,9 +131,9 @@
                             <div class="col-lg-6">
 
                                 <div class="form-group">
-                                    <label class="col-sm-10 control-label">Total</label>
+                                    <label class="col-sm-10 control-label">New Basic Pay Amt</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="incamt" class="form-control" placeholder="Rs.">
+                                        <input type="text" name="increment" class="form-control" placeholder="Rs.">
                                     </div>
                                 </div>
                             </div>

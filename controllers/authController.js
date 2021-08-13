@@ -47,13 +47,13 @@ exports.registerHandle = (req, res) => {
         });
     } else {
         //------------ Validation passed ------------//
-        // db.query('describe Users', (err,response) => {
+        // mysqldb.query('describe Users', (err,response) => {
         //     if(err) throw err;
             
-        //     console.log('Data received from Db:');
+        //     console.log('Data received from mysqldb:');
         //     // console.log(rows);
         // });
-        db.query(`select * from Users where email="${email}"`,(err,user)=>{
+        mysqldb.query(`select * from Users where email="${email}"`,(err,user)=>{
         // User.findOne({ email: email }).then(user => {
             console.log(user);
             if (user.length!==0) {
@@ -150,14 +150,14 @@ exports.activateHandle = (req, res) => {
             else {
                 const { name, email, password } = decodedToken;
                
-                // db.query('describe Users', (err,rows) => {
+                // mysqldb.query('describe Users', (err,rows) => {
                 //     if(err) throw err;
                   
-                //     console.log('Data received from Db:');
+                //     console.log('Data received from mysqldb:');
                 //     console.log(rows);
                 // });
                 
-                db.query(`select * from Users where email="${email}"`,(err,user)=>{
+                mysqldb.query(`select * from Users where email="${email}"`,(err,user)=>{
                 // User.findOne({ email: email }).then(user => {
 
                     if (user.length!==0) {
@@ -179,7 +179,7 @@ exports.activateHandle = (req, res) => {
                                 if (err) throw err;
                                 // password = hash;        
                                 console.log(`INSERT INTO Users(name,email,password,verified) VALUES (${name.toString()},${email.toString()},${hash.toString()},0)`);
-                                db.query(`INSERT INTO Users(name,email,password,verified) VALUES ("${name}","${email.toString()}","${hash.toString()}",0)`, (err,response) => {
+                                mysqldb.query(`INSERT INTO Users(name,email,password,verified) VALUES ("${name}","${email.toString()}","${hash.toString()}",0)`, (err,response) => {
                                     if(err) throw err;
                                     
                                     req.flash('success_msg',
@@ -230,7 +230,7 @@ exports.forgotPassword = (req, res) => {
         });
     } else {
         // User.findOne({ email: email }).then(user => {
-        db.query(`select * from Users where email="${email}"`,(err,user)=>{
+        mysqldb.query(`select * from Users where email="${email}"`,(err,user)=>{
             if (user.length===0) {
                 //------------ User already exists ------------//
                 errors.push({ msg: 'User with Email ID does not exist!' });
@@ -329,8 +329,8 @@ exports.gotoReset = (req, res) => {
             }
             else {
                 const { UserID } = decodedToken;
-                // User.findById(_id, (err, user) => {
-                db.query(`select * from Users where UserID="${UserID}"`,(err,user)=>{
+                // User.finmysqldbyId(_id, (err, user) => {
+                mysqldb.query(`select * from Users where UserID="${UserID}"`,(err,user)=>{
 
                     if (err) {
                         req.flash(
@@ -390,12 +390,12 @@ exports.resetPassword = (req, res) => {
                 if (err) throw err;
                 password = hash;
 
-                // User.findByIdAndUpdate(
+                // User.finmysqldbyIdAndUpdate(
                 //     { _id: id },
                 //     { password },
                 //     function (err, result) {
                 console.log(`UPDATE Users SET password="${password}" where UserID="${UserID}"`);                    
-                db.query(`UPDATE Users SET password="${password}" where UserID="${UserID}"`,(err,result)=>{
+                mysqldb.query(`UPDATE Users SET password="${password}" where UserID="${UserID}"`,(err,result)=>{
                         if (err) {
                             console.log(err)
                             req.flash(

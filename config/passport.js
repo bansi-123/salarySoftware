@@ -11,7 +11,7 @@ module.exports = function (passport) {
             // User.findOne({
             //     email: email
             // }).then(user => {
-            db.query(`select * from Users where email="${email}"`,(err,user)=>{
+            mysqldb.query(`select * from Users where email="${email}"`,(err,user)=>{
 
                 if (user.length===0) {
                     return done(null, false, { message: 'This email ID is not registered' });
@@ -38,8 +38,8 @@ module.exports = function (passport) {
     });
 
     passport.deserializeUser(function (id, done) {
-        // User.findById(id, function (err, user) {
-        db.query(`select * from Users where UserID="${id}"`,(err,user)=>{
+        // User.finmysqldbyId(id, function (err, user) {
+        mysqldb.query(`select * from Users where UserID="${id}"`,(err,user)=>{
             done(err, JSON.parse(JSON.stringify(user))[0]);
         });
 
