@@ -6,8 +6,10 @@ const session = require('express-session');
 const bodyParser=require('body-parser');
 const passport = require('passport');
 const mysql = require('mysql2');
-
-const app = express();
+// bodyParser = require('body-parser'),
+const fs = require('fs'),
+multer = require('multer');
+app = express();
 
 //------------ Passport Configuration ------------//
 require('./config/passport')(passport);
@@ -79,9 +81,33 @@ app.use(function(req, res, next) {
   res.locals.error = req.flash('error');
   next();
 });
+
+
+//---------mail genie----------//
+var storage =   multer.diskStorage({
+    destination: function (req, file, callback) {
+      callback(null, './uploads');
+    },
+    filename: function (req, file, callback) {
+        if(file.fieldname == "sheetSelected")
+          callback(null,  file.fieldname + ".csv");
+      else
+          callback(null, file.fieldname + ".html")
+    }
+  });
+  
+  var upload = multer({ storage: storage })
+  var uploadOptions = upload.fields([{ name: 'templateSelected', maxCount: 1 }, { name: 'sheetSelected', maxCount: 1 }])
+  
+  var routes = require('./routes/uiRoutes');
+  routes(app, uploadOptions);
+
+  
+
 //------------ Routes ------------//
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
+// app.use('/pdfmail', require('./routes/pdfmail'))
 
 const PORT = process.env.PORT || 3000;
 
