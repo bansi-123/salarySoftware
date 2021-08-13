@@ -24,19 +24,19 @@ require('./config/passport')(passport);
 
 //------------ MySQL Connection ------------//
 
-const db = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: 'sunandroot',
-    database: 'employee'
-});
-
 // const db = mysql.createConnection ({
 //     host: 'localhost',
 //     user: 'root',
-//     password: 'Vineet@nexa1',
+//     password: 'sunandroot',
 //     database: 'employee'
 // });
+
+const db = mysql.createConnection ({
+    host: 'localhost',
+    user: 'root',
+    password: 'Vineet@nexa1',
+    database: 'employee'
+});
 // const db = createConnection ({
 //     host: 'localhost',
 //     user: 'kshitij',
@@ -132,7 +132,7 @@ app.use('/auth', require('./routes/auth'));
 // app.use(express.static('resources'));
 // app.use('/uploadcsv', router); 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, console.log(`Server running on PORT ${PORT}`)
 );
