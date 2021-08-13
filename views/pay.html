@@ -46,6 +46,22 @@
             }  
         }             
 </script>   -->
+
+<style>
+    .arrow {
+      border: solid black;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      
+    }
+    
+    .down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+</style>
+
 </head>
 
 <body>
@@ -387,8 +403,9 @@
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Employee ID</th>
-                                                    <th>Name</th>
+                                                    <th>Employee ID <p><i class="arrow down" style="float: right;"></i></p>
+                                                    </th>
+                                                    <th>Name <p><i class="arrow down" style="float: right;"></i></p></th>
                                                     <th>Leave Without Pay (LWP)</th>
                                                     <th>Special Difference</th>
                                                     <th>Income Tax</th>
