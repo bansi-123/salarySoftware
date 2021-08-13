@@ -6,8 +6,10 @@ const session = require('express-session');
 const bodyParser=require('body-parser');
 const passport = require('passport');
 const mysql = require('mysql2');
-
-const app = express();
+// bodyParser = require('body-parser'),
+const fs = require('fs'),
+multer = require('multer');
+app = express();
 
 //------------ Passport Configuration ------------//
 require('./config/passport')(passport);
@@ -21,28 +23,37 @@ require('./config/passport')(passport);
 //     .catch(err => console.log(err));
 
 //------------ MySQL Connection ------------//
+<<<<<<< HEAD
 const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
     password: 'sunandroot',
     database: 'employee'
 });
+=======
+>>>>>>> 82de38c9dbb4f4b33b6c95358761155c7945e229
 // const db = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Vineet@nexa1',
+//     database: 'employee'
+// });
+// const db = createConnection ({
 //     host: 'localhost',
 //     user: 'kshitij',
 //     password: 'salary123',
 //     database: 'employee'
 // });
 
-// connect to database
-db.connect((err) => {
-    if (err) {
-        console.log(err);
-        throw err;
-    }
-    console.log('Connected to mysql database');
-});
-global.db = db;
+// // connect to database
+// db.connect((err) => {
+//     if (err) {
+//         console.log(err);
+//         throw err;
+//     }
+//     console.log('Connected to  database');
+// });
+// global.db = db;
 
 
 //------------ EJS Configuration ------------//
@@ -79,10 +90,50 @@ app.use(function(req, res, next) {
   res.locals.error = req.flash('error');
   next();
 });
+
+
+//---------mail genie----------//
+var storage =   multer.diskStorage({
+    destination: function (req, file, callback) {
+      callback(null, './uploads');
+    },
+    filename: function (req, file, callback) {
+        if(file.fieldname == "sheetSelected")
+          callback(null,  file.fieldname + ".csv");
+      else
+          callback(null, file.fieldname + ".html")
+    }
+  });
+  
+  var upload = multer({ storage: storage })
+  var uploadOptions = upload.fields([{ name: 'templateSelected', maxCount: 1 }, { name: 'sheetSelected', maxCount: 1 }])
+  
+  var routes = require('./routes/uiRoutes');
+  routes(app, uploadOptions);
+
+  
+
 //------------ Routes ------------//
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
+// app.use('/pdfmail', require('./routes/pdfmail'))
+
+
+//--------------upload csv part--------------//
+const db = require('./config/db.config.js');
+
+global.__basedir = __dirname;   
+    
+//force: true will drop the table if it already exists
+db.sequelize.sync().then(() => {  //{force: true}
+  console.log('Drop and Resync with { force: true }');
+});       
+
+let router = require('./routes/excel.router.js');
+app.use(express.static('resources'));
+app.use('/uploadcsv', router); 
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, console.log(`Server running on PORT ${PORT}`));
+app.listen(PORT, console.log(`Server running on PORT ${PORT}`)
+);
