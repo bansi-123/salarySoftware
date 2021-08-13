@@ -1,43 +1,31 @@
 <%- include('partials/header.ejs'); -%>
 <head>
-   
 
-     <script type="text/javascript">  
-        function selects(){  
-            var ele=document.getElementsByName('check');  
-            for(var i=0; i<ele.length; i++){  
-                if(ele[i].type=='checkbox')  
-                    ele[i].checked=true;  
-            }  
-        }  
-        function deSelect(){  
-            var ele=document.getElementsByName('check');  
-            for(var i=0; i<ele.length; i++){  
-                if(ele[i].type=='checkbox')  
-                    ele[i].checked=false;  
-            }  
-        }     
-        // $(document).ready(function() {
-        //  // on form submit
-        // $("#form").on('submit', function() {
-        //     // to each unchecked checkbox
-        //     $(this + 'input[type=checkbox]:not(:checked)').each(function () {
-        //         // set value 0 and check it
-        //         $(this).attr('checked', true).val(0);
-        //     });
-        // })
-        // var checkBoxValue = $('#checkBox').is(':checked')?$('#checkBox').val():false-->
-        
-        var x = document.querySelector("#checks");
-      //  console.log("x= ",x);
-        
-</script>  
+<style>
+    .arrow {
+      border: solid black;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      
+    }
+    
+    .down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+</style>
+
 </head>
 
 <body>
 
+     
+
+
+
     <div class="content-wrap">
-          <div class="main">
+        <div class="main">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-8 p-r-0 title-margin-right">
@@ -52,8 +40,8 @@
                         <div class="page-header">
                             <div class="page-title">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Table-Export</li>
+                                    <!-- <li class="breadcrumb-item"><a href="#">Dashboard</a></li> -->
+                                    <!-- <li class="breadcrumb-item active">Table-Export</li> -->
                                 </ol>
                             </div>
                         </div>
@@ -70,46 +58,72 @@
                                     <div class="table-responsive">
                                         <form class="form-horizontal" action="\table-export" method="post">
                                        
-                                        <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
+                                        <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
 
-                                        <input type="button"style="float: right;" onclick='selects()' value="Select All"/>  
+                                        <input type="button"style="float: right;" onclick='selects()' value="Select All"/>   -->
                                         
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
+                                                    <th>Employee ID <p><i class="arrow down" style="float: right;"></i></th>
                                                     <th>Name <p><i class="arrow down" style="float: right;"></i></th>
                                                     <th>Department <p><i class="arrow down" style="float: right;"></i></th>
-                                                    <th>Position <p><i class="arrow down" style="float: right;"></i></th>
-                                                    <th>Increment</th>
+                                                    <th>Designation<p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Gross Salary</th>
+                                                    <th>Actions</th>
                                                 
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
+                                                    <td>1</td>
                                                     <td>Tiger Nixon</td>
                                                     <td>Comp</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="check" id="checks" value="1"><br> </td>
+                                                    <td>Assistant Professor</td>
+                                                    <td>10000</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm">View</button>
+                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    </td>
                                                 </tr>
                                                 <tr>
+                                                    <td>2</td>
                                                     <td>Garrett Winters</td>
                                                     <td>IT</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="check" id="checks"  value="1"><br> </td>
+                                                    <td>LA</td>
+                                                    <td>10000</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm">View</button>
+                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    </td>
                                                 
                                                 </tr>
                                                 <tr>
+                                                    <td>3</td>
                                                     <td>Ashton Cox</td>
                                                     <td>ENTC</td>
-                                                    <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="check" id="1" value="1"><br> </td>
+                                                    <td>Non Teaching</td>
+                                                    <td>10000</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm">View</button>
+                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    </td>
                                                     
                                                 </tr>
                                                 <tr>
+                                                    <td>4</td>
                                                     <td>Cedric Kelly</td>
                                                     <td>Comp</td>
                                                     <td>Asst Professor</td>
-                                                    <td> <input type="checkbox" name="check" id="4"  value="1"><br> </td>
+                                                    <td>10000</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm">View</button>
+                                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    </td>
                                                     
                                                 </tr>
                                                 
@@ -129,46 +143,25 @@
 
                     </div>
 
-   
-                        <!-- /# column -->
-                    <!-- </div>
-                    <div class="col-lg-6" class="float-right">
-                        <table class="table table-striped table-bordered" >
-                                                
-                            <tr>
-                                <td>Total</td>
-                                <td> <input type="text" name="total" value="0"><br></td>
-                            
-                            </tr>
-                    </table>  -->
-
-                    <!-- <form class="form-horizontal" action="\table-export" method="post"> -->
-                        <div class="row">
-                            <div class="col-lg-6">
-
-                                <div class="form-group">
-                                    <label class="col-sm-10 control-label">Total</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="incamt" class="form-control" placeholder="Rs.">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    <input type="submit" style="float: right;" value="Submit"> 
+                    
 
                     </form>
 
-                    </div>
-                    <br>
-                    <br><br><br>
+                    <!-- <input type="submit" style="float: right;" value="Submit"> -->
 
+                    </div>
+
+
+                    <!-- /# row -->
+
+                    
                 </section>
             </div>
         </div>
     </div>
+
     
-   
+    <!-- bootstrap -->
 
     <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
     <!-- scripit init-->
@@ -181,7 +174,6 @@
     <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
-
 
 </body>
 
