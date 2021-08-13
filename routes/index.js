@@ -110,14 +110,6 @@ router.post('/table-export', ensureAuthenticated, (req, res) => {
 });
 
 
-router.get('/pay', ensureAuthenticated, (req, res) => {
-    res.render('pay');
-});
-
-router.post('/pay', ensureAuthenticated, (req, res) => {
-    console.log(req.body)
-    res.redirect('dashboard');
-});
 
 // ------------ Add Employee Route ------------//
 router.post('/addEmployee',(req,res)=>{
