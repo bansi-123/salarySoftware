@@ -1,4 +1,3 @@
-
 <%- include('partials/header.ejs'); -%>
 
 <head>
@@ -30,45 +29,26 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /# column -->
-                    <div class="col-lg-4 p-l-0 title-margin-left">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Home</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /# column -->
                 </div>
         
                 <section id="main-content">
                     <div class="row">
                         <div class="col-lg-3">
-                            <!-- <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-money color-success border-success"></i>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Add Employee</div>
-                                        <div class="stat-digit">1,012</div>
-                                    </div>
-                                </div>
-                            </div> -->
+                         
                         </div>
 
                         <div class="col-lg-3">
                             <div class="card">
                                 <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-user color-primary border-primary"></i>
+                                    <div class="stat-icon dib"><i class="ti-calendar color-pink border-pink"></i>
                                     </div>
                                     <div class="stat-content dib">
                                         <div class="stat-text">Select Month</div>
                                         <div class="form-group">
                                             <!-- <label class="col-sm-6 control-label">Select Month</label> -->
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-20">
+
+                                        <form class="form-horizontal" action="\form-basic" method="post">    
                                                 <select class="form-control" name="month">
                                                     <!-- <option value="value" selected>Option Name</option> -->
                                                     <option value="january" id="january" selected>January</option>
@@ -95,33 +75,26 @@
                         <div class="col-lg-3">
                             <div class="card">
                                 <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-layout-grid2 color-pink border-pink"></i>
+                                    <div class="stat-icon dib"><i class="ti-calendar color-pink border-pink"></i>
                                         
                                     </div>
                                     <div class="stat-content dib">
                                         <div class="stat-text">Select Year</div>
                                         <div class="form-group">
                                             <!-- <label class="col-sm-6 control-label">Select Month</label> -->
-                                            <div class="col-sm-10">
-                                                <select class="form-control" name="designation">
+                                            <div class="col-sm-20">
+                                                <select class="form-control" name="year">
                                                     <!-- <option value="value" selected>Option Name</option> -->
                                                     <option value="2021" id="2021" selected>2021</option>
                                                     <option value="2022" id="2022" selected>2022</option>
                                                     <option value="2023" id="2023" selected>2023</option>
                                                     <option value="2024" id="2024" selected>2024</option>
-                                                    <option value="2025" id="2025" selected>2025</option>
-                                                    <option value="2026" id="2026" selected>2026</option>    
-                                                    <option value="2027" id="2027" selected>2027</option>  
-                                                    <option value="2028" id="2028" selected>2028</option>    
-                                                    <option value="2029" id="2029" selected>2029</option>    
-                                                    <option value="2030" id="2030" selected>2030</option>    
-                                                    <option value="2031" id="2031" selected>2031</option>    
-                                                    <option value="2032" id="2032" selected>2032</option>    
+                                                    
 
                                                 </select>
                                             </div>
                                         </div>
-                                    
+                                 
                                     </div>
                                 </div>
                             </div>
@@ -132,179 +105,16 @@
 
                     <div class="wrapper">
                         <br><br><br>
-                        <button type="button" class="btn btn-success btn-lg">Generate Salary</button>
-                        
+                        <!-- <button type="submit" value="Submit">Generate Salary</button> -->
+                        <input type="submit" class="btn btn-success btn-lg" value="Submit">
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-lg-8">
-                            <div class="card">
-                                <div class="card-title">
-                                    <h4>Fee Collections and Expenses</h4>
-
-                                </div>
-                                <div class="card-body">
-                                    <div class="ct-bar-chart m-t-30"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            <div class="card">
-
-                                <div class="card-body">
-                                    <div class="ct-pie-chart"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card bg-primary">
-                                        <div class="weather-widget">
-                                            <div id="weather-one" class="weather-one p-22"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="card">
-                                        <div class="testimonial-widget-one p-17">
-                                            <div class="testimonial-widget-one owl-carousel owl-theme">
-                                                <div class="item">
-                                                    <div class="testimonial-content">
-                                                        <div class="testimonial-text">
-                                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet,
-                                                            consectetur adipisicing elit, sed do eiusmod tempor
-                                                            incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                                            minim veniam, quis
-                                                            nostrud exercitation <i class="fa fa-quote-right"></i>
-                                                        </div>
-                                                        <img class="testimonial-author-img"
-                                                            src="../assets/assets/images/avatar/1.jpg" alt="" />
-                                                        <div class="testimonial-author">TYRION LANNISTER</div>
-                                                        <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="testimonial-content">
-                                                        <div class="testimonial-text">
-                                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet,
-                                                            consectetur adipisicing elit, sed do eiusmod tempor
-                                                            incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                                            minim veniam, quis
-                                                            nostrud exercitation <i class="fa fa-quote-right"></i>
-                                                        </div>
-                                                        <img class="testimonial-author-img"
-                                                            src="../assets/assets/images/avatar/1.jpg" alt="" />
-                                                        <div class="testimonial-author">TYRION LANNISTER</div>
-                                                        <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="testimonial-content">
-                                                        <div class="testimonial-text">
-                                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet,
-                                                            consectetur adipisicing elit, sed do eiusmod tempor
-                                                            incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                                            minim veniam, quis
-                                                            nostrud exercitation <i class="fa fa-quote-right"></i>
-                                                        </div>
-                                                        <img class="testimonial-author-img"
-                                                            src="../assets/assets/images/avatar/1.jpg" alt="" />
-                                                        <div class="testimonial-author">TYRION LANNISTER</div>
-                                                        <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="testimonial-content">
-                                                        <div class="testimonial-text">
-                                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet,
-                                                            consectetur adipisicing elit, sed do eiusmod tempor
-                                                            incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                                            minim veniam, quis
-                                                            nostrud exercitation <i class="fa fa-quote-right"></i>
-                                                        </div>
-                                                        <img class="testimonial-author-img"
-                                                            src="../assets/assets/images/avatar/1.jpg" alt="" />
-                                                        <div class="testimonial-author">TYRION LANNISTER</div>
-                                                        <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="testimonial-content">
-                                                        <div class="testimonial-text">
-                                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet,
-                                                            consectetur adipisicing elit, sed do eiusmod tempor
-                                                            incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                                            minim veniam, quis
-                                                            nostrud exercitation <i class="fa fa-quote-right"></i>
-                                                        </div>
-                                                        <img class="testimonial-author-img"
-                                                            src="../assets/assets/images/avatar/1.jpg" alt="" />
-                                                        <div class="testimonial-author">TYRION LANNISTER</div>
-                                                        <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="testimonial-content">
-                                                        <div class="testimonial-text">
-                                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet,
-                                                            consectetur adipisicing elit, sed do eiusmod tempor
-                                                            incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                                            minim veniam, quis
-                                                            nostrud exercitation <i class="fa fa-quote-right"></i>
-                                                        </div>
-                                                        <img class="testimonial-author-img"
-                                                            src="../assets/assets/images/avatar/1.jpg" alt="" />
-                                                        <div class="testimonial-author">TYRION LANNISTER</div>
-                                                        <div class="testimonial-author-position">Founder-Ceo. Dell Corp
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /# column -->
+                   
+                </form>
 
 
-
-                    <!-- <div class="row">
-                        <div class="col-lg-12">
-                            <div class="footer">
-                                <p>2018 © Admin Board. - <a href="#">example.com</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </section> -->
             </div>
         </div>
-    </div> -->
-
-    <!-- jquery vendor -->
-    <script src="../assets/assets/js/lib/jquery.min.js"></script>
-    <script src="../assets/assets/js/lib/jquery.nanoscroller.min.js"></script>
-    <!-- nano scroller -->
-    <script src="../assets/assets/js/lib/menubar/sidebar.js"></script>
-    <script src="../assets/assets/js/lib/preloader/pace.min.js"></script>
-    <!-- sidebar -->
-
-    <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
-    <script src="../assets/assets/js/scripts.js"></script>
-    <!-- bootstrap -->
-
-    <script src="../assets/assets/js/lib/calendar-2/moment.latest.min.js"></script>
-    <script src="../assets/assets/js/lib/calendar-2/pignose.calendar.min.js"></script>
-    <script src="../assets/assets/js/lib/calendar-2/pignose.init.js"></script>
+    </div> 
 
 
     <script src="../assets/assets/js/lib/weather/jquery.simpleWeather.min.js"></script>

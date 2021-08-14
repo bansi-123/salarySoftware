@@ -78,6 +78,24 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
     res.render('viewemployee');
 });
 
+router.get('/generatesalary', ensureAuthenticated, (req, res) => {
+    res.render('generatesalary');
+});
+
+router.post('/generatesalary', ensureAuthenticated, (req, res) => {
+    console.log(req.body)
+    res.redirect('generatesalary');
+});
+
+router.get('/salsheet',  (req, res) => {
+    res.render('salsheet');
+});
+
+router.post('/salsheet',  (req, res) => {
+    console.log(req.body)
+    res.redirect('dashboard');
+});
+
 //------------ Search for Employee Details Route ------------//
 // router.post('/searchEmployee',(req,res)=>{
 //     const id=req.body.id;
