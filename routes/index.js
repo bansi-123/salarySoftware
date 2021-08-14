@@ -196,14 +196,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 
 });
 
-router.get('/generatesalary', ensureAuthenticated, (req, res) => {
-    res.render('generatesalary');
-});
 
-router.post('/generatesalary', ensureAuthenticated, (req, res) => {
-    console.log(req.body)
-    res.redirect('generatesalary');
-});
 
 router.get('/salsheet',  (req, res) => {
     res.render('salsheet');
@@ -560,9 +553,9 @@ router.post('/generateSalary',(req,res)=>{
                         console.log("invalid registration number")
                     }
                     else{
-                        var gp=JSON.parse(JSON.stringify(result))[0].gp;
+                        var gp=parseInt(JSON.parse(JSON.stringify(result))[0].gp);
                         var pf=parseInt(JSON.parse(JSON.stringify(result))[0].pf);
-                        var basicPay=JSON.parse(JSON.stringify(result))[0].basicPay;
+                        var basicPay=parseInt(JSON.parse(JSON.stringify(result))[0].basicPay);
                         console.log(JSON.parse(JSON.stringify(result))[0]);
                         console.log("gp,pf,bp selected",gp,pf,basicPay);
                         // req.flash(
