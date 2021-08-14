@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-	const Customer = sequelize.define('customer', {	
+	const Employee = sequelize.define('Employee', {	
 	  empID: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -45,10 +45,13 @@ module.exports = (sequelize, Sequelize) => {
 	salaryCategory:{
 		type: Sequelize.STRING
 		
+	},
+	emailID:{
+		type: Sequelize.STRING
 	}
 
 	});
 	
-	return Customer;
+	return Employee;
 }
 //empID	empName	uan	dept	designation	basicPay	gp	pf	bankAccNum	bankName	doj	salaryCategory

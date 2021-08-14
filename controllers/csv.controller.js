@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const db = require('../config/db.config.js');
-const Customer = db.Customer;
+const Employee = db.Employee;
 
 const csv = require('fast-csv');
 const Json2csvParser = require('json2csv').Parser;
@@ -16,7 +16,7 @@ const Json2csvParser = require('json2csv').Parser;
  */
 exports.uploadFile = (req, res) => {
     try{
-        const customers = [];
+        const Employees = [];
         fs.createReadStream(__basedir + "/uploads/" + req.file.filename)
             .pipe(csv.parse({ headers: true }))
             .on('error', error => {
@@ -24,12 +24,12 @@ exports.uploadFile = (req, res) => {
                 throw error.message;
             })
             .on('data', row => {
-                customers.push(row);
+                Employees.push(row);
                 console.log(row);
             })
             .on('end', () => {
-                // Save customers to MySQL/PostgreSQL database
-                Customer.bulkCreate(customers).then(() => {
+                // Save Employees to MySQL/PostgreSQL database
+                Employee.bulkCreate(Employees).then(() => {
                     const result = {
                         status: "ok",
                         filename: req.file.originalname,
@@ -65,14 +65,14 @@ exports.uploadMultipleFiles = async (req, res) => {
                         .pipe(csv.parse({ headers: true }));
 
             var end = new Promise(function(resolve, reject) {
-                let customers = [];
+                let Employees = [];
 
                 csvParserStream.on('data', object => {
-                    customers.push(object);
+                    Employees.push(object);
                     console.log(object);
                 });
                 csvParserStream.on('end', () => {
-                    resolve(customers);
+                    resolve(Employees);
                 });
                 csvParserStream.on('error', error => {
                     console.error(error);
@@ -81,10 +81,10 @@ exports.uploadMultipleFiles = async (req, res) => {
             });
             
             await (async function() {
-                let customers = await end;
+                let Employees = await end;
 
-                // save customers to MySQL/PostgreSQL database
-                await Customer.bulkCreate(customers).then(() => {
+                // save Employees to MySQL/PostgreSQL database
+                await Employee.bulkCreate(Employees).then(() => {
                     const result = {
                         status: "ok",
                         filename: file.originalname,
@@ -111,13 +111,13 @@ exports.uploadMultipleFiles = async (req, res) => {
 
 
 exports.downloadFile = (req, res) => {
-    Customer.findAll({attributes: ['empID', 'empName', 'uan', 'dept', 'designation', 'basicPay', 'gp', 'pf', 'bankAccNum', 'bankName', 'doj', 'salaryCategory' ]}).then(objects => {
-        const jsoncustomers = JSON.parse(JSON.stringify(objects));
+    Employee.findAll({attributes: ['empID', 'empName', 'uan', 'dept', 'designation', 'basicPay', 'gp', 'pf', 'bankAccNum', 'bankName', 'doj', 'salaryCategory' ]}).then(objects => {
+        const jsonEmployees = JSON.parse(JSON.stringify(objects));
         const csvFields = ['empID', 'empName', 'uan', 'dept', 'designation', 'basicPay', 'gp', 'pf', 'bankAccNum', 'bankName', 'doj', 'salaryCategory'];
         const json2csvParser = new Json2csvParser({ csvFields });
-        const csvData = json2csvParser.parse(jsoncustomers);
+        const csvData = json2csvParser.parse(jsonEmployees);
 
-        res.setHeader('Content-disposition', 'attachment; filename=customers.csv');
+        res.setHeader('Content-disposition', 'attachment; filename=Employees.csv');
         res.set('Content-Type', 'text/csv');
         res.status(200).end(csvData);
     });
