@@ -13,7 +13,6 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => res.render('dash', {
     name: req.user.name
 }));
 
-
 router.get('/index1', ensureAuthenticated, (req, res) => {
     res.render('index1');
 });
@@ -26,6 +25,7 @@ router.post('/form-basic', ensureAuthenticated, (req, res) => {
     console.log(req.body)
     res.redirect('dashboard');
 });
+
 
 //------------ Search for Employee Details Route ------------//
 router.post('/searchEmployee',(req,res)=>{
@@ -80,6 +80,8 @@ router.get('/generatesalary',(req,res)=>{
     })
 }
 )
+
+
 
 router.get('/pdf',ensureAuthenticated,(req,res)=>{
     res.render('pdf')
@@ -181,7 +183,20 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`,(err,result)=>
+    // mysqldb.query(`select * from Employees`,(err,result)=>
+    // {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else{
+    //         console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+    //         res.render('viewemployee',{
+    //             employees:JSON.parse(JSON.stringify(result))
+    //         });
+    //     }
+    // })
+
+    mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -189,7 +204,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('viewemployee',{
-                employees:JSON.parse(JSON.stringify(result))
+                salary:JSON.parse(JSON.stringify(result))
             });
         }
     })
@@ -428,15 +443,15 @@ router.post('/updateBasicPay',(req,res)=>{
 
 // router.post('/storeInTempTable',(req,res)=>{
 
-router.get('/viewAllEmployeeDetails',(req,res)=>{
-    mysqldb.query(`select * from Employees`,(err,result)=>
-    {
-        if (err) {
-            console.log(err);
-        }
-        else{
-            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-            res.send("Done")
+// router.get('/viewAllEmployeeDetails',(req,res)=>{
+//     mysqldb.query(`select * from Employees`,(err,result)=>
+//     {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else{
+//             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+//             res.send("Done")
             // for (let i = 1; i < length+1; i++) {
     //     mysqldb.query(`select gp,pf from Employees where empID=${empID}`,(err,result)=>{
     //         if (result.length===0) {
@@ -529,9 +544,40 @@ router.get('/viewAllEmployeeDetails',(req,res)=>{
     //     })
     // }
 
+//         }
+//     })
+// })
+
+router.get('/showsalary', ensureAuthenticated, (req, res) => {
+    // mysqldb.query(`select * from Employees`,(err,result)=>
+    // {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else{
+    //         console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+    //         res.render('showsalary',{
+    //             employees:JSON.parse(JSON.stringify(result))
+    //         });
+    //     }
+    // })
+
+
+    mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('showsalary',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
         }
     })
-})
+});
+
+
 
 router.post('/generateSalary',(req,res)=>{
     var length;
@@ -650,5 +696,8 @@ router.post('/generateSalary',(req,res)=>{
     
     
 })
+
+
+
 
 module.exports = router;
