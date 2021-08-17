@@ -64,59 +64,25 @@
                                                 <tr>
                                                     <th>Employee ID <p><i class="arrow down" style="float: right;"></i></th>
                                                     <th>Name <p><i class="arrow down" style="float: right;"></i></th>
-<<<<<<< HEAD
-                                                    <th>Basic Pay</th>
-                                                    <th>Grade Pay</th>
-                                                    <th>Provident Fund</th>
-=======
-                                            
->>>>>>> 452b6c1979b2074ed85275d50b037c469ca96097
-                                                    <th>DA</th>
-                                                    <th>HRA</th>
-                                                    <th>CCA</th>
-                                                  
-                                                    
-                                                   
-                                                    <th>LWP</th>
-                                                 
-                                                    <th>TA</th>
-                                                    <th>Prof Tax</th>
-                                                    <th>Income Tax</th>
-                                                    <th>Sal Adv</th>
-                                                    <th>Rev Stmp</th>
-                                                    <th>Gross Sal</th>
-                                                    <th>Total Ded</th>
-                                                    <th>Net Salary</th>
+                                                    <th>Department <p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Designation<p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            
-                                                <% for(var i = salary.length-1; i >= 0 ; i-- ) { %>
-                                                <tr>
-                                                    <td><%= salary[i].empID %></td>
-                                                    <td><%= salary[i].empName %></td>
-<<<<<<< HEAD
-                                                    <td><%= salary[i].basicPay %></td>
-                                                    <td><%= salary[i].gp %></td>
-                                                    <td><%= salary[i].pf%></td>
-=======
->>>>>>> 452b6c1979b2074ed85275d50b037c469ca96097
-                                                    <td><%= salary[i].da %></td>
-                                                    <td><%= salary[i].hra %></td>
-                                                    <td><%= salary[i].cca %></td>
-                                                    <td><%= salary[i].lwp %></td>
-                                                    <td><%= salary[i].ta %></td>
-                                                    <td><%= salary[i].prof_tax %></td>
-                                                    <td><%= salary[i].in_tax %></td>
-                                                    <td><%= salary[i].sal_adv %></td>
-                                                    <td><%= salary[i].rev_stmp %></td>
-                                                    <td><%= salary[i].gross_sal %></td>
-                                                    <td><%= salary[i].total_ded %></td>
-                                                    <td><%= salary[i].net_sal %></td>
-                                                    
-                                                </tr>
+                                                <% for(var i = employees.length-1; i >= 0 ; i-- ) { %>
+                                                    <tr>
+                                                        <td><%= employees[i].empID %></td>
+                                                        <td><%= employees[i].empName %></td>
+                                                        <td><%= employees[i].dept %></td>
+                                                        <td><%= employees[i].designation %></td> 
+                                                        <td>
+                                                            <button type="button" class="btn btn-success btn-sm">View</button>
+                                                            <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                                                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                        </td>                                                       
+                                                    </tr>
                                                 <% }%>
-
                                             </tbody>
 
 

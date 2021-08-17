@@ -76,11 +76,146 @@
                                                         <td><%= employees[i].empName %></td>
                                                         <td><%= employees[i].dept %></td>
                                                         <td><%= employees[i].designation %></td> 
-                                                        <td>
-                                                            <button type="button" class="btn btn-success btn-sm">View</button>
-                                                            <button type="button" class="btn btn-primary btn-sm">Edit</button>
-                                                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                        </td>                                                       
+                                                        <!-- <td>
+                                            
+                                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter1">
+                                                                   View
+                                                                  </button> 
+                                                                          <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                              <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                  <h5 class="modal-title" id="exampleModalLongTitle">Employee Details</h5>
+                                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                  </button>
+                                                                                </div>
+                                                                                <div class="modal-body cardalign">
+                                                                                    <p>
+                                                                                        <div class="card " style="width: 18rem;">
+                                                                                          <div class="card-header">
+                                                                                              Employee Details
+                                                                                            </div> 
+                                                                                            <ul class="list-group list-group-flush">
+                                                                                              <li class="list-group-item"><%= employees[i].empName %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].emailID %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].dept %></li>
+                                                                                              <li class="list-group-item">Increments</li>
+                                                                                              <li class="list-group-item">Decrements</li>
+                                                                                              <li class="list-group-item">Gross Salary</li>
+                                
+                                                                                            </ul>
+        
+                                                                                        </div>
+                                                                                        
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                  
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                              
+                                                                 <button type="button" class="btn btn-primary btn-sm">Edit</button> 
+                                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2">
+                                                                    Edit
+                                                                  </button>
+                                                                <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                      <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                          <h5 class="modal-title" id="exampleModalLongTitle">Edit Details</h5>
+                                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                          </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="form-group">
+                                                                                <label class="col-sm-6 control-label">Employee Name</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <input type="text" name="empName" class="form-control"
+                                                                                        placeholder="Enter Name">
+                                                                                </div>
+                                                                            </div>
+                        
+                                                                            <div class="form-group">
+                                                                                <label class="col-sm-6 control-label">Email ID</label>
+                                                                                <div class="col-sm-10">
+                                                                                <input id="example-email" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email">
+                                                                                </div>
+                                                                            </div>
+        
+                                                                            <div class="form-group">
+                                                                                <label class="col-sm-6 control-label">Designation</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <select class="form-control" name="designation">
+                                                                                        <option value="value" selected>Option Name</option> 
+                                                                                        <option value="professor" id="professor" selected>Professor</option>
+                                                                                        <option value="associateprof" id="associateprof" selected>Associate Professor</option>
+                                                                                        <option value="asstprof" id="asstprof" selected>Assistant Professor</option>
+                                                                                        <option value="techasst" id="techasst" selected>Technical Assistant</option>
+                                                                                        <option value="labasst" id="labasst" selected>Lab Assistant</option>
+                                                                                        <option value="nonteaching" id="nonteaching" selected>Non Teaching</option>    
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                        
+                                                                            <div class="form-group">
+                                                                                <label class="col-sm-6 control-label">Salary Category</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <select class="form-control" name="salaryCategory">
+                                                                                        <option value="value" selected>Option Name</option> 
+                                                                                        <option value="consolidated" id="consolidated" selected>
+                                                                                            Consolidated</option>
+                                                                                        <option value="payscale" id="payscale" selected>Pay
+                                                                                            Scale</option>
+                        
+                                                                                    </select>
+                                                                                </div>
+                        
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                          <button type="button" class="btn btn-primary">Save Changes</button>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+        
+                                                            
+                                                          
+        
+                                                                 <button type="button" class="btn btn-danger btn-sm">Delete</button> 
+        
+                                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter3">
+                                                                    Delete
+                                                                  </button>
+                                                                  
+                                                                  Modal 
+                                                                  <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                      <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                          <h5 class="modal-title" id="exampleModalLongTitle">Deletion</h5>
+                                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                          </button>
+                                                                        </div>
+                                                                        <div class="modal-body a">
+                                                                            <p style="color:red;"><b>Deleted Successfully</b></p>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                          
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                           
+                                                        </td>                                                        -->
                                                     </tr>
                                                 <% }%>
                                             </tbody>

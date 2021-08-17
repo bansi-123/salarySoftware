@@ -183,7 +183,20 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`,(err,result)=>
+    // mysqldb.query(`select * from Employees`,(err,result)=>
+    // {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else{
+    //         console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+    //         res.render('viewemployee',{
+    //             employees:JSON.parse(JSON.stringify(result))
+    //         });
+    //     }
+    // })
+
+    mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -191,7 +204,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('viewemployee',{
-                employees:JSON.parse(JSON.stringify(result))
+                salary:JSON.parse(JSON.stringify(result))
             });
         }
     })
@@ -536,7 +549,6 @@ router.post('/updateBasicPay',(req,res)=>{
 // })
 
 router.get('/showsalary', ensureAuthenticated, (req, res) => {
-
     mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
     {
         if (err) {
