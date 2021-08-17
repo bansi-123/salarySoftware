@@ -183,7 +183,20 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`,(err,result)=>
+    // mysqldb.query(`select * from Employees`,(err,result)=>
+    // {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else{
+    //         console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+    //         res.render('viewemployee',{
+    //             employees:JSON.parse(JSON.stringify(result))
+    //         });
+    //     }
+    // })
+
+    mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -191,7 +204,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('viewemployee',{
-                employees:JSON.parse(JSON.stringify(result))
+                salary:JSON.parse(JSON.stringify(result))
             });
         }
     })
@@ -671,6 +684,26 @@ router.post('/generateSalary',(req,res)=>{
     
 })
 
+router.get('/uploads/:empID',  (req, res) => {
+    var requestedTitle = req.params.empID;
+     //console.log("the param is", req.params.empID);
+ 
+     mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+     {
+         if (err) {
+             //console.log(err);
+         }
+         else{
+             //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+             res.render('templateSelected',{
+                 salary:JSON.parse(JSON.stringify(result)),
+                 requestedTitle: req.params.empID
+                  //added the name field here to get the name wise reciept
+             });
+         }
+     })
+    // res.render("templateSelected");
+ });
 
 
 
