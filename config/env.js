@@ -1,7 +1,7 @@
 const env = {
   database: 'employee',
   username: 'root',
-  password: 'Vineet@nexa1',
+  password: 'sunandroot',
   host: 'localhost',
   dialect: 'mysql',
   pool: {
