@@ -549,25 +549,9 @@ router.post('/updateBasicPay',(req,res)=>{
 // })
 
 router.get('/showsalary', ensureAuthenticated, (req, res) => {
-<<<<<<< HEAD
-    // mysqldb.query(`select * from Employees`,(err,result)=>
-    // {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    //     else{
-    //         console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-    //         res.render('showsalary',{
-    //             employees:JSON.parse(JSON.stringify(result))
-    //         });
-    //     }
-    // })
-
-=======
->>>>>>> 452b6c1979b2074ed85275d50b037c469ca96097
 
     mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
-    {
+    { 
         if (err) {
             console.log(err);
         }

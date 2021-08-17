@@ -14,6 +14,12 @@
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+
+.card {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+}
 </style>
 
 </head>
@@ -70,13 +76,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <% for(var i = employees.length-1; i >= 0 ; i-- ) { %>
+                                                <% for(var i = salary.length-1; i >= 0 ; i-- ) { %>
                                                     <tr>
-                                                        <td><%= employees[i].empID %></td>
-                                                        <td><%= employees[i].empName %></td>
-                                                        <td><%= employees[i].dept %></td>
-                                                        <td><%= employees[i].designation %></td> 
-                                                        <!-- <td>
+                                                        <td><%= salary[i].empID %></td>
+                                                        <td><%= salary[i].empName %></td>
+                                                        <td><%= salary[i].dept %></td>
+                                                        <td><%= salary[i].designation %></td> 
+                                                         <td>
                                             
                                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter1">
                                                                    View
@@ -97,9 +103,9 @@
                                                                                               Employee Details
                                                                                             </div> 
                                                                                             <ul class="list-group list-group-flush">
-                                                                                              <li class="list-group-item"><%= employees[i].empName %></li>
-                                                                                              <li class="list-group-item"><%= employees[i].emailID %></li>
-                                                                                              <li class="list-group-item"><%= employees[i].dept %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].empName %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].emailID %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].dept %></li>
                                                                                               <li class="list-group-item">Increments</li>
                                                                                               <li class="list-group-item">Decrements</li>
                                                                                               <li class="list-group-item">Gross Salary</li>
@@ -118,7 +124,7 @@
                                                                             </div>
                                                                           </div>
                                                               
-                                                                 <button type="button" class="btn btn-primary btn-sm">Edit</button> 
+                                                                 
                                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2">
                                                                     Edit
                                                                   </button>
@@ -184,17 +190,12 @@
                                                                       </div>
                                                                     </div>
                                                                   </div>
-        
-                                                            
-                                                          
-        
-                                                                 <button type="button" class="btn btn-danger btn-sm">Delete</button> 
-        
+
                                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter3">
                                                                     Delete
                                                                   </button>
                                                                   
-                                                                  Modal 
+                                                                
                                                                   <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                                       <div class="modal-content">
