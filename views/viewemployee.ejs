@@ -21,6 +21,7 @@
         margin-bottom: 10px; /* Added */
 }
 </style>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -193,7 +194,9 @@
                                                                       </div>
                                                                     </div>
                                                                   </div>
-                                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter3">
+                                                                <button type="button" id="<%= salary[i].empID %>"
+                                                                  onclick="deleteFunction(this.id,this)"
+                                                                  class="btn btn-danger">
                                                                     Delete
                                                                   </button>
                                                                   
@@ -218,7 +221,7 @@
                                                                     </div>
                                                                   </div>
                                                            
-                                                        </td>                                                        -->
+                                                        </td>                                                        
                                                     </tr>
                                                 <% }%>
                                             </tbody>
@@ -268,6 +271,25 @@
     <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+    <script>
+      function deleteFunction(id,ref)
+      {
+        console.log(id)
+        axios.post('http://localhost:3000/deleteEmployee',{id})
+        .then(function (response) {
+          console.log(response)
+          if(response.data.status==="success")
+          {
+            // console.log(ref)
+            ref.parentNode.parentNode.remove()
+            alert("Deleted successfully!")
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        });
+      }
+    </script>
 
 </body>
 

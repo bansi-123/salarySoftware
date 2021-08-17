@@ -704,6 +704,31 @@ router.get('/uploads/:empID',  (req, res) => {
     // res.render("templateSelected");
  });
 
+ router.post('/deleteEmployee',(req,res)=>{
+     console.log("in route")
+     console.log(req.body.id)
+     mysqldb.query(`delete from Employees where empID=${req.body.id}`,(err,result)=>{
+        if (err) {
+            //------------ Invalid registration Number ------------//
+            // req.flash('error_msg',
+            // 'Please enter valid Id.')
+            console.log(err)
+            res.send({"status":"failure"})
+        }
+        else{
+            res.send(
+                {
+                    "status":"success"
+                }
+            );
+            // req.flash(
+            //     'success_msg',
+            //     'Employee found!'
+            // );
+        }
+    })
+    // res.send({"status":"success"});
+ })
 
 
 module.exports = router;
