@@ -549,7 +549,6 @@ router.post('/updateBasicPay',(req,res)=>{
 // })
 
 router.get('/showsalary', ensureAuthenticated, (req, res) => {
-
     mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
     {
         if (err) {
