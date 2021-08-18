@@ -78,7 +78,7 @@
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <form class="form-horizontal" action="\updateBasicPay" method="post">
+                                        <form class="form-horizontal" action="\updatepay" method="post">
                                        
                                         <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
 
@@ -100,6 +100,7 @@
                                             <tbody>
                                                 <% for(var i = employees.length-1; i >= 0 ; i-- ) { %>
                                                     <tr>
+                                                        <td><%= employees[i].empID %></td>
                                                         <td><%= employees[i].empName %></td>
                                                         <td><%= employees[i].dept %></td>
                                                         <td><%= employees[i].designation %></td>
@@ -143,7 +144,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-10 control-label">New Basic Pay Amt</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="increment" class="form-control" placeholder="Rs.">
+                                        <input type="text" name="increment" class="form-control" placeholder="In %">
                                     </div>
                                 </div>
                             </div>

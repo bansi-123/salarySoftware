@@ -1,4 +1,4 @@
-empID,empName,uan,dept,designation,basicPay,gp,pf,bankAccNum,bankName,doj,salaryCategory,emailID
+empID,empName,uan,dept,designation,pay,gp,pf,bankAccNum,bankName,doj,salaryCategory,emailID
 1,Kshitij,12345,IT,Teacher,20000,5000,600,123456789,IDBI,14-08-2021,Pay Scale,kshitij.deshpande7@gmail.com
 2,Ramesh,123456,CS,Teacher,25000,500,1000,55555,hdfc,15-08-2021,Pay Scale,ramesh@gmail.com
 3,kdd,124,comp,teacher,30000,1000,1000,123456,Axis,16-08-2021,Pay Scale,kdd@gmail.com

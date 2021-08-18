@@ -111,9 +111,9 @@ exports.uploadMultipleFiles = async (req, res) => {
 
 
 exports.downloadFile = (req, res) => {
-    Employee.findAll({attributes: ['empID', 'empName', 'uan', 'dept', 'designation', 'basicPay', 'gp', 'pf', 'bankAccNum', 'bankName', 'doj', 'salaryCategory' ]}).then(objects => {
+    Employee.findAll({attributes: ['empID', 'empName', 'uan', 'dept', 'designation', 'pay', 'gp', 'pf', 'bankAccNum', 'bankName', 'doj', 'salaryCategory' ]}).then(objects => {
         const jsonEmployees = JSON.parse(JSON.stringify(objects));
-        const csvFields = ['empID', 'empName', 'uan', 'dept', 'designation', 'basicPay', 'gp', 'pf', 'bankAccNum', 'bankName', 'doj', 'salaryCategory'];
+        const csvFields = ['empID', 'empName', 'uan', 'dept', 'designation', 'pay', 'gp', 'pf', 'bankAccNum', 'bankName', 'doj', 'salaryCategory'];
         const json2csvParser = new Json2csvParser({ csvFields });
         const csvData = json2csvParser.parse(jsonEmployees);
 
@@ -122,4 +122,4 @@ exports.downloadFile = (req, res) => {
         res.status(200).end(csvData);
     });
 }
-//empID	empName	uan	dept	designation	basicPay	gp	pf	bankAccNum	bankName	doj	salaryCategory
+//empID	empName	uan	dept	designation	pay	gp	pf	bankAccNum	bankName	doj	salaryCategory
