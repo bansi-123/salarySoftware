@@ -1,3 +1,9 @@
+// 
+// 
+// MODIFY THISSSSSSSSSSSSSSSSSSSSSSS
+// 
+// 
+// 
 module.exports = (sequelize, Sequelize) => {
 	const Employee = sequelize.define('Employee', {	
 	  empID: {

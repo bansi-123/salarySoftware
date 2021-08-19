@@ -231,27 +231,27 @@ router.post('/salsheet',  (req, res) => {
     res.redirect('dashboard');
 });
 
-//------------ Search for Employee Details Route ------------//
-// router.post('/searchEmployee',(req,res)=>{
-//     const id=req.body.id;
-//     console.log(req.body)
-//     db.query(`select * from Employees where empID=${id}`,(err,result)=>{
-//         if (result.length===0) {
-//             //------------ Invalid registration Number ------------//
-//             // req.flash('error_msg',
-//             // 'Please enter valid Id.')
-//             console.log("invalid registration number")
-//         }
-//         else{
-//             console.log(JSON.parse(JSON.stringify(result))[0])
-//             res.send("Done");
-//             // req.flash(
-//             //     'success_msg',
-//             //     'Employee found!'
-//             // );
-//         }
-//     })
-// })
+// ------------ Search for Employee Details Route ------------//
+router.post('/searchEmployee',(req,res)=>{
+    const id=req.body.id;
+    console.log(req.body)
+    db.query(`select * from Employees where empID=${id}`,(err,result)=>{
+        if (result.length===0) {
+            //------------ Invalid registration Number ------------//
+            // req.flash('error_msg',
+            // 'Please enter valid Id.')
+            console.log("invalid registration number")
+        }
+        else{
+            console.log(JSON.parse(JSON.stringify(result))[0])
+            res.send("Done");
+            // req.flash(
+            //     'success_msg',
+            //     'Employee found!'
+            // );
+        }
+    })
+})
 
 router.post('/table-export', ensureAuthenticated, (req, res) => {
     console.log(req.body)
@@ -290,7 +290,7 @@ router.post('/updatepay',(req,res)=>{
     console.log(JSON.parse(JSON.stringify(req.body)))
 
     const data=JSON.parse(JSON.stringify(req.body));
-    const pay=data["increment"];
+    // const pay=data["increment"];
     // console.log(JSON.parse(JSON.stringify(req.body)))
     // var list=[];
     var list="(";
@@ -307,7 +307,7 @@ router.post('/updatepay',(req,res)=>{
     }
     list=list.substring(0,list.length - 1);
     list+=")";
-    console.log(list)
+    console.log("list is",list)
     mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`,(err,result)=>
     {
         if (err) {
@@ -323,8 +323,16 @@ router.post('/updatepay',(req,res)=>{
             var queryData=JSON.parse(JSON.stringify(result))
             console.log(JSON.parse(JSON.stringify(result)));
             for (let i = 0; i < queryData.length; i++) {
-                var increment=(queryData[i].pay + queryData.gp)*1.03
-                mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`,(err,result)=>
+                var increment=(queryData[i].pay + queryData[i].gp)*1.03
+                if((Math.floor(increment)%10)===0)
+                {
+
+                }
+                else{
+                    increment=Math.ceil(increment/10)*10
+                }
+                var finalpay=increment-queryData[i].gp;
+                mysqldb.query(`update Employees set pay=${finalpay} where empID in ${list}`,(err,result)=>
                 {
                     if (err) {
                         //------------ Invalid Employement ID ------------//
@@ -350,113 +358,6 @@ router.post('/updatepay',(req,res)=>{
     res.redirect('dashboard');
 })
 
-
-// router.post('/storeInTempTable',(req,res)=>{
-
-// router.get('/viewAllEmployeeDetails',(req,res)=>{
-//     mysqldb.query(`select * from Employees`,(err,result)=>
-//     {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else{
-//             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-//             res.send("Done")
-            // for (let i = 1; i < length+1; i++) {
-    //     mysqldb.query(`select gp,pf from Employees where empID=${empID}`,(err,result)=>{
-    //         if (result.length===0) {
-    //             //------------ Invalid registration Number ------------//
-    //             // req.flash('error_msg',
-    //             // 'Please enter valid Id.')
-    //             console.log("invalid registration number")
-    //         }
-    //         else{
-    //             gp=JSON.parse(JSON.stringify(result))[0].gp;
-    //             pf=JSON.parse(JSON.stringify(result))[0].pf;
-    //             console.log(JSON.parse(JSON.stringify(result))[0]);
-    //             console.log("gp,pf selected",gp,pf);
-    //             // req.flash(
-    //             //     'success_msg',
-    //             //     'Employee found!'
-    //             // );
-    //             mysqlmysqldb.query(`UPDATE Employees SET pay=${pay} where empID=${empID}`,(err,result)=>{
-    //                 if (err) {
-    //                     //------------ Invalid registration Number ------------//
-    //                     // req.flash('error_msg',
-    //                     // 'Please enter valid Id.')
-    //                     console.log(err);
-    //                     console.log("invalid registration number")
-    //                 }
-    //                 else{
-    //                     // console.log(JSON.parse(JSON.stringify(result))[0])
-    //                     console.log("basic pay updated to ",pay);
-    //                     // req.flash(
-    //                     //     'success_msg',
-    //                     //     'Employee found!'
-    //                     // );
-    //                     var cca,diff,oth_spl,ta,prof_tax,in_tax,rev_stmp,sal_adv;
-    //                     console.log(`select cca,diff,oth_spl,ta,prof_tax,in_tax,rev_stmp,sal_adv from Salary where empID=${empID}`)
-    //                     mysqldb.query(`select cca,diff,oth_spl,ta,prof_tax,in_tax,rev_stmp,sal_adv from Salary where empID=${empID}`,(err,result)=>{
-    //                         if (err) {
-    //                             //------------ Invalid registration Number ------------//
-    //                             // req.flash('error_msg',
-    //                             // 'Please enter valid Id.')
-    //                             console.log(err);
-    //                             console.log("invalid registration number");
-    //                         }
-    //                         else{
-    //                             cca=JSON.parse(JSON.stringify(result))[0].cca;
-    //                             diff=JSON.parse(JSON.stringify(result))[0].diff;
-    //                             oth_spl=JSON.parse(JSON.stringify(result))[0].oth_spl;
-    //                             ta=JSON.parse(JSON.stringify(result))[0].ta;
-    //                             prof_tax=JSON.parse(JSON.stringify(result))[0].prof_tax;
-    //                             in_tax=JSON.parse(JSON.stringify(result))[0].in_tax;
-    //                             rev_stmp=JSON.parse(JSON.stringify(result))[0].rev_stmp;
-    //                             sal_adv=JSON.parse(JSON.stringify(result))[0].sal_adv;
-    //                             console.log(JSON.parse(JSON.stringify(result))[0])
-    //                             res.send("Done");
-    //                             // req.flash(
-    //                             //     'success_msg',
-    //                             //     'Employee found!'
-    //                             // );
-    //                             console.log("GP is",gp)
-    //                             var da=(pay+parseFloat(gp))*1.39;
-    //                             console.log(da);
-    //                             var hra=(pay+parseFloat(gp))*0.2;
-    //                             var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca)+parseFloat(diff)+parseFloat(oth_spl)+parseFloat(ta);
-    //                             var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv);
-    //                             var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
-
-    //                             mysqldb.query(`UPDATE Salary SET da=${da}, hra=${hra},  gross_sal=${gross_sal}, total_ded=${total_ded}, net_sal=${net_sal} where empID=${empID}`
-    //                                     ,(err,result)=>{
-    //                                 if (err) {
-    //                                     //------------ Invalid registration Number ------------//
-    //                                     // req.flash('error_msg',
-    //                                     // 'Please enter valid Id.')
-    //                                     console.log(err)
-    //                                     console.log("invalid update salary")
-    //                                 }
-    //                                 else{
-    //                                     // console.log(JSON.parse(JSON.stringify(result))[0])
-    //                                     // res.send("Done");
-    //                                     // req.flash(
-    //                                     //     'success_msg',
-    //                                     //     'Employee found!'
-    //                                     // );
-    //                                 }
-    //                             })
-    //                         }
-    //                     })
-    //                 }
-    //             })
-            
-    //         }
-    //     })
-    // }
-
-//         }
-//     })
-// })
 
 router.get('/showsalary', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
@@ -565,6 +466,11 @@ router.post('/generateSalary',(req,res)=>{
                                 else if(gross_sal<7500)
                                 {
                                     prof_tax=0;
+                                }
+
+                                if(gross_sal===0)
+                                {
+                                    rev_stmp=0
                                 }
                                 var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv); //+parseFloat(lwp_amt);
                                 var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
