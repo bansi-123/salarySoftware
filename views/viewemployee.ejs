@@ -1,6 +1,6 @@
 <%- include('partials/header.ejs'); -%>
 <head>
-
+  
 <style>
     .arrow {
       border: solid black;
@@ -44,8 +44,7 @@
                         <div class="page-header">
                             <div class="page-title">
                                 <ol class="breadcrumb">
-                                    <!-- <li class="breadcrumb-item"><a href="#">Dashboard</a></li> -->
-                                    <!-- <li class="breadcrumb-item active">Table-Export</li> -->
+                                    
                                 </ol>
                             </div>
                         </div>
@@ -60,11 +59,6 @@
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <!-- <form class="form-horizontal" action="\table-export" method="post"> -->
-                                       
-                                        <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
-
-                                        <input type="button"style="float: right;" onclick='selects()' value="Select All"/>   -->
                                         
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
@@ -84,11 +78,12 @@
                                                         <td><%= salary[i].dept %></td>
                                                         <td><%= salary[i].designation %></td> 
                                                          <td>
-                                            
-                                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter1">
+<!-- views button -->
+                                                                <button type="button" data-target="#<%= salary[i].empID %>" class="btn btn-outline-info btn-sm" data-toggle="modal">
                                                                    View
-                                                                  </button> 
-                                                                          <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                </button> 
+
+                                                                  <div class="modal fade" id="<%= salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                                               <div class="modal-content">
                                                                                 <div class="modal-header">
@@ -104,128 +99,142 @@
                                                                                               Employee Details
                                                                                             </div> 
                                                                                             <ul class="list-group list-group-flush">
-                                                                                              <li class="list-group-item"><%= salary[i].empName %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].emailID %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].dept %></li>
-                                                                                              <li class="list-group-item">Increments</li>
-                                                                                              <li class="list-group-item">Decrements</li>
-                                                                                              <li class="list-group-item">Gross Salary</li>
-                                
+                                                                                              <li  lclass="list-group-item"><%= salary[i].empName %></li>
+                                                                                              <li  class="list-group-item"><%= salary[i].emailID %></li>
+                                                                                              <li  class="list-group-item"><%= salary[i].dept %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].da %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].hra %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].cca %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].diff %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].oth_spl %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].lwp %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].ta %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].prof_tax %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].in_tax %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].gross_sal %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].total_ded %></li>
+                                                                                              <li class="list-group-item"><%= salary[i].net_sal %></li>
+                                                                                              
                                                                                             </ul>
         
                                                                                         </div>
                                                                                         
                                                                                     </p>
                                                                                 </div>
+
+                                                                             
                                                                                 <div class="modal-footer">
-                                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
                                                                                   
                                                                                 </div>
                                                                               </div>
                                                                             </div>
-                                                                          </div>
+                                                                  </div>
                                                               
-                                                                 
-                                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2">
+<!-- edit button -->                                                             
+                                                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#a<%= salary[i].empID %>">
                                                                     Edit
-                                                                  </button>
-
-                                                                <a href="/uploads/<%=salary[i].empID%>"><button type="submit" class="btn btn-success btn-sm" >Print</button></a>
-                                                                
-                                                                  <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                      <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                          <h5 class="modal-title" id="exampleModalLongTitle">Edit Details</h5>
-                                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                          </button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-6 control-label">Employee Name</label>
-                                                                                <div class="col-sm-10">
-                                                                                    <input type="text" name="empName" class="form-control"
-                                                                                        placeholder="Enter Name">
-                                                                                </div>
-                                                                            </div>
-                        
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-6 control-label">Email ID</label>
-                                                                                <div class="col-sm-10">
-                                                                                <input id="example-email" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email">
-                                                                                </div>
-                                                                            </div>
-        
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-6 control-label">Designation</label>
-                                                                                <div class="col-sm-10">
-                                                                                    <select class="form-control" name="designation">
-                                                                                        <option value="value" selected>Option Name</option> 
-                                                                                        <option value="professor" id="professor" selected>Professor</option>
-                                                                                        <option value="associateprof" id="associateprof" selected>Associate Professor</option>
-                                                                                        <option value="asstprof" id="asstprof" selected>Assistant Professor</option>
-                                                                                        <option value="techasst" id="techasst" selected>Technical Assistant</option>
-                                                                                        <option value="labasst" id="labasst" selected>Lab Assistant</option>
-                                                                                        <option value="nonteaching" id="nonteaching" selected>Non Teaching</option>    
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                        
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-6 control-label">Salary Category</label>
-                                                                                <div class="col-sm-10">
-                                                                                    <select class="form-control" name="salaryCategory">
-                                                                                        <option value="value" selected>Option Name</option> 
-                                                                                        <option value="consolidated" id="consolidated" selected>
-                                                                                            Consolidated</option>
-                                                                                        <option value="payscale" id="payscale" selected>Pay
-                                                                                            Scale</option>
-                        
-                                                                                    </select>
-                                                                                </div>
-                        
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                          <button type="button" class="btn btn-primary">Save Changes</button>
-                                                                        </div>
+                                                                </button>
+                                                                <div class="modal fade" id="a<%= salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Details</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                          <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                          <div class="form-group">
+                                                                              <label class="col-sm-6 control-label">Employee Name</label>
+                                                                              <div class="col-sm-10">
+                                                                                  <input type="text" name="empName" class="form-control"
+                                                                                      placeholder="Enter Name">
+                                                                              </div>
+                                                                          </div>
+                      
+                                                                          <div class="form-group">
+                                                                              <label class="col-sm-6 control-label">Email ID</label>
+                                                                              <div class="col-sm-10">
+                                                                              <input id="example-email" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email">
+                                                                              </div>
+                                                                          </div>
+      
+                                                                          <div class="form-group">
+                                                                              <label class="col-sm-6 control-label">Designation</label>
+                                                                              <div class="col-sm-10">
+                                                                                  <select class="form-control" name="designation">
+                                                                                      <option value="value" selected>Option Name</option> 
+                                                                                      <option value="professor" id="professor" selected>Professor</option>
+                                                                                      <option value="associateprof" id="associateprof" selected>Associate Professor</option>
+                                                                                      <option value="asstprof" id="asstprof" selected>Assistant Professor</option>
+                                                                                      <option value="techasst" id="techasst" selected>Technical Assistant</option>
+                                                                                      <option value="labasst" id="labasst" selected>Lab Assistant</option>
+                                                                                      <option value="nonteaching" id="nonteaching" selected>Non Teaching</option>    
+                                                                                  </select>
+                                                                              </div>
+                                                                          </div>
+                      
+                                                                          <div class="form-group">
+                                                                              <label class="col-sm-6 control-label">Salary Category</label>
+                                                                              <div class="col-sm-10">
+                                                                                  <select class="form-control" name="salaryCategory">
+                                                                                      <option value="value" selected>Option Name</option> 
+                                                                                      <option value="consolidated" id="consolidated" selected>
+                                                                                          Consolidated</option>
+                                                                                      <option value="payscale" id="payscale" selected>Pay
+                                                                                          Scale</option>
+                      
+                                                                                  </select>
+                                                                              </div>
+                      
+                                                                          </div>
+                                                                      </div>
+                                                                      <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="button" class="btn btn-outline-primary">Save Changes</button>
                                                                       </div>
                                                                     </div>
                                                                   </div>
-<<<<<<< HEAD
+                                                                </div>
 
-                                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter3">
-=======
-                                                                <button type="button" id="<%= salary[i].empID %>"
-                                                                  onclick="deleteFunction(this.id,this)"
-                                                                  class="btn btn-danger">
->>>>>>> 212f6b5d73b8bdae5794a26ad240f99b38dd614d
-                                                                    Delete
-                                                                  </button>
+<!-- print button -->                                                                    
+
+                                                                <a href="/uploads/<%=salary[i].empID%>"><button type="submit" class="btn btn-outline-success btn-sm" >Print</button></a>
+                                                                
                                                                   
-                                                                
-                                                                  <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                      <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                          <h5 class="modal-title" id="exampleModalLongTitle">Deletion</h5>
-                                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                          </button>
-                                                                        </div>
-                                                                        <div class="modal-body a">
-                                                                            <p style="color:red;"><b>Deleted Successfully</b></p>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                          
-                                                                        </div>
-                                                                      </div>
+                                                                <!-- <button type="button" id="<%= salary[i].empID %>"
+                                                                   
+                                                                    class="btn btn-outline-danger btn-sm">
+                                                                    Delete
+                                                                  </button> -->
+
+                                                                  <!-- Button trigger modal -->
+                                                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#b<%= salary[i].empID %>">
+                                                                Delete
+                                                              </button>
+
+                                                              <div class="modal fade" id="b<%= salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                  <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                      <h5 class="modal-title" id="exampleModalLongTitle">confirm</h5>
+                                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                      </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                      ...
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                      <button" class="btn btn-primary" id="<%= salary[i].empID %>" onclick="deleteFunction(this.id,this)" data-dismiss="modal">Delete</button>
+                                                                                                                                       
                                                                     </div>
                                                                   </div>
-                                                           
+                                                                </div>
+                                                              </div>
+
                                                         </td>                                                        
                                                     </tr>
                                                 <% }%>
@@ -244,10 +253,6 @@
                         </div>
 
                     </div>
-
-                    
-
-
 
                     <!-- <input type="submit" style="float: right;" value="Submit"> -->
 
@@ -288,6 +293,9 @@
             // console.log(ref)
             ref.parentNode.parentNode.remove()
             alert("Deleted successfully!")
+            // confirm("Deleted!");
+            window.location.reload();
+            // res.redirect('viewemployee');
           }
         })
         .catch(function (error) {
@@ -295,6 +303,12 @@
         });
       }
     </script>
+
+<!-- <script>
+  function deleteFunction() {
+    confirm("Deleted!");
+  }
+  </script> -->
 
 </body>
 

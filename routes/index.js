@@ -23,7 +23,7 @@ router.get('/form-basic', ensureAuthenticated, (req, res) => {
 
 router.post('/form-basic', ensureAuthenticated, (req, res) => {
     console.log(req.body)
-    res.redirect('dashboard');
+    // res.redirect('dashboard');
 });
 
 
@@ -211,6 +211,21 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 
 });
 
+router.get('/allowances',  (req, res) => {
+    mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('allowances',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
 
 
 router.get('/salsheet',  (req, res) => {
@@ -274,6 +289,41 @@ router.post('/addEmployee',(req,res)=>{
         }
     })
 })
+
+
+
+router.get('/advances', ensureAuthenticated, (req, res) => 
+{
+    mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('advances',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/view2', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('view_2',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
 
 // //------------ Update Basic Pay and Related Properties Route ------------//
 // router.post('/updateSalary',(req,res)=>{
@@ -549,10 +599,6 @@ router.post('/updateBasicPay',(req,res)=>{
 // })
 
 router.get('/showsalary', ensureAuthenticated, (req, res) => {
-<<<<<<< HEAD
-
-=======
->>>>>>> af32e1f5333470e270b6b218d235042f3d7e1c2f
     mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
     { 
         if (err) {
@@ -707,6 +753,24 @@ router.get('/uploads/:empID',  (req, res) => {
      })
     // res.render("templateSelected");
  });
+
+ router.get('/deductions', ensureAuthenticated, (req, res) => 
+ {
+     mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+     {
+         if (err) {
+             console.log(err);
+         }
+         else{
+             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+             res.render('deductions',{
+                 salary:JSON.parse(JSON.stringify(result))
+             });
+         }
+     })
+ 
+ });
+
 
  router.post('/deleteEmployee',(req,res)=>{
      console.log("in route")

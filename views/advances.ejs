@@ -1,0 +1,137 @@
+<%- include('partials/header.ejs'); -%>
+
+<body>
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <h1>Hello, <span>Welcome Here</span></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="bootstrap-data-table-panel">
+                                    <div class="table-responsive">
+                                       
+                                        <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
+
+                                        <input type="button"style="float: right;" onclick='selects()' value="Select All"/>   -->
+                                        <form class="form-horizontal" action="\advances" method="post"> 
+                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Employee ID <p><i class="arrow down" style="float: right;"></i></p>
+                                                    </th>
+                                                    <th>Name <p><i class="arrow down" style="float: right;"></i></p></th>
+                                                    <th>Amount</th>
+                                                    <th>Month</th>
+                                                    <th>Year</th>
+                                                    <th>Outstanding Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <% for(var i = salary.length-1; i >= 0 ; i-- ) { %>
+                                                        <tr>
+                                                            <td><%= salary[i].empID %></td>
+                                                            <td><%= salary[i].empName %></td>
+                                                            <td> <input type="text" name="lwp" value="0"></td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                <!-- <label class="col-sm-6 control-label">Select Month</label> -->
+                                                                <div class="col-sm-10">
+                                                                    <select class="form-control" name="month">
+                                                                        <!-- <option value="value" selected>Option Name</option> -->
+                                                                        <option value="january" name="1" id="january" selected>January</option>
+                                                                        <option value="february" id="february" selected>February</option>
+                                                                        <option value="march" id="march" selected>March</option>
+                                                                        <option value="april" id="april" selected>April</option>
+                                                                        <option value="may" id="may" selected>May</option>
+                                                                        <option value="june" id="june" selected>June</option>    
+                                                                        <option value="july" id="july" selected>July</option>  
+                                                                        <option value="aug" id="aug" selected>August</option>    
+                                                                        <option value="sept" id="sept" selected>September</option>    
+                                                                        <option value="october" id="october" selected>October</option>    
+                                                                        <option value="november" id="november" selected>November</option>    
+                                                                        <option value="december" id="december" selected>December</option>   
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                           
+                                                            <td> 
+                                                                <div class="form-group">
+                                                                    <!-- <label class="col-sm-6 control-label">Select Month</label> -->
+                                                                    <div class="col-sm-10">
+                                                                        <select class="form-control" name="year">
+                                                                            <!-- <option value="value" selected>Option Name</option> -->
+                                                                            <option value="2021" id="2021" selected>2021</option>
+                                                                            <option value="2022" id="2022" selected>2022</option>    
+                                                            <br></td>
+
+                                                            <td> <input type="text" name="outamt" value="0"></td>
+
+                                                            
+                                                            
+                                                    <% }%>
+                                                    
+                                                    <!-- <td> <input type="checkbox" name="chk" value="Smile"><br> </td> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!-- /# column -->
+                    </div>
+
+                    <input type="submit" style="float: right;" value="Submit">
+                </form>
+                   
+                  
+                </section>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+  
+
+    <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
+    <!-- scripit init-->
+    <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
