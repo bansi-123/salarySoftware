@@ -286,6 +286,7 @@ router.post('/addEmployee',(req,res)=>{
 // //------------ Update Basic Pay and Related Properties Route ------------//
 router.post('/updatepay',(req,res)=>{
     // const {empID,pay}=req.body;
+    // var increment=3
     console.log(JSON.parse(JSON.stringify(req.body)))
 
     const data=JSON.parse(JSON.stringify(req.body));
@@ -306,12 +307,15 @@ router.post('/updatepay',(req,res)=>{
         }
 
     }
+    var incrementPercent=parseInt(data["increment"]);
     list=list.substring(0,list.length - 1);
     list+=")";
     console.log("list is",list2)
+    var current = new Date();
+    var month=current.getMonth();
+    var year=current.getFullYear();
     
-    mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`,(err,result)=>
-    {
+    mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`,(err,result)=>    {
         if (err) {
             //------------ Invalid Employement ID ------------//
             // req.flash('error_msg',
@@ -325,7 +329,8 @@ router.post('/updatepay',(req,res)=>{
             var queryData=JSON.parse(JSON.stringify(result))
             console.log(JSON.parse(JSON.stringify(result)));
             for (let i = 0; i < queryData.length; i++) {
-                var increment=(queryData[i].pay + queryData[i].gp)*1.03
+                var multFactor=1+incrementPercent/100
+                var increment=(queryData[i].pay + queryData[i].gp)*multFactor
                 if((Math.floor(increment)%10)===0)
                 {
 
@@ -334,17 +339,23 @@ router.post('/updatepay',(req,res)=>{
                     increment=Math.ceil(increment/10)*10
                 }
                 var finalpay=increment-queryData[i].gp;
-                console.log
-                mysqldb.query(`update Employees set pay=${finalpay} where empID=${parseInt(list2[i])}`,(err,result)=>
+                console.log(`update Employees set pay=${finalpay} where empID=${parseInt(list2[i])})`)
+                
+                mysqldb.query(`INSERT INTO increment (empID, month, year, increment) VALUES (${parseInt(list2[i])}, ${month}, ${year}, ${incrementPercent})`,(err,result)=>
                 {
                     if (err) {
-                        //------------ Invalid Employement ID ------------//
-                        // req.flash('error_msg',
-                        // 'Please enter valid Id.')
                         console.log(err);
-                        console.log("invalid employment ID")
                     }
                     else{
+                        mysqldb.query(`update Employees set pay=${finalpay} where empID=${parseInt(list2[i])}`,(err,result)=>
+                        {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else{
+                            }
+                        })
+
                     }
                 })
             }
@@ -358,6 +369,7 @@ router.post('/updatepay',(req,res)=>{
         
         
     })
+    
     res.redirect('dashboard');
 })
 
