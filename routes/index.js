@@ -714,20 +714,36 @@ router.get('/uploads/:empID',  (req, res) => {
 
  router.get('/deductions', ensureAuthenticated, (req, res) => 
  {
-     mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
+     mysqldb.query(`select * from config`,(err,result)=>
      {
          if (err) {
              console.log(err);
          }
          else{
-             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+             console.log("Config Details",JSON.parse(JSON.stringify(result)));
              res.render('deductions',{
-                 salary:JSON.parse(JSON.stringify(result))
+                 data:JSON.parse(JSON.stringify(result))
              });
          }
      })
  
  });
+
+ router.post('/deductions',  (req, res) => {
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    const {prov_fund_DNA,prov_fund_Percent,prov_fund_Max,prof_tax_Max,prof_tax_Percent,prof_tax_DNA,rev_stamp_max,rev_stamp_DNA}=JSON.parse(JSON.stringify(req.body));
+    mysqldb.query(`update config set prov_fund_DNA=${prov_fund_DNA},prov_fund_Percent=${prov_fund_Percent},prov_fund_Max=${prov_fund_Max},prof_tax_Max=${prof_tax_Max},prof_tax_Percent=${prof_tax_Percent},prof_tax_DNA=${prof_tax_DNA},rev_stamp_max=${rev_stamp_max},rev_stamp_DNA=${rev_stamp_DNA} where ID=1`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            
+            res.render('index1');
+        }
+    })
+    
+});
 
 
  router.post('/deleteEmployee',(req,res)=>{
