@@ -320,7 +320,7 @@ router.post('/addEmployee',(req,res)=>{
 
 router.get('/advances', ensureAuthenticated, (req, res) => 
 {
-    mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
+    mysqldb.query(`select * from Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -332,6 +332,44 @@ router.get('/advances', ensureAuthenticated, (req, res) =>
             });
         }
     })
+});
+
+router.post('/advances', ensureAuthenticated, (req, res) => 
+{
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    var data=JSON.parse(JSON.stringify(req.body));
+    var length=data['duration'].length;
+    for (let i = 0; i < length; i++) {
+        mysqldb.query(`select empID from Employees ORDER BY empID LIMIT ${i},1`,(err,result)=>{
+            if (err) {
+                //------------ Invalid registration Number ------------//
+                // req.flash('error_msg',
+                // 'Please enter valid Id.')
+                console.log(err)
+            }
+            else{
+                console.log(result)
+                var empID=JSON.parse(JSON.stringify(result))[0].empID;
+                console.log(`INSERT INTO advance (empID, ,amount, month, year, duration, outstanding) VALUES (${empID}, ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`)
+                mysqldb.query(`INSERT INTO advance (empID, amount, month, year, duration, outstanding) VALUES (${empID}, ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`
+                ,(err,result)=>{
+                    if (err) {
+                        console.log(err);
+                        console.log("invalid details");
+                    }
+                    else{
+                        // console.log(JSON.parse(JSON.stringify(result))[0])
+                        
+                        // req.flash(
+                        //     'success_msg',
+                        //     'Employee found!'
+                        // );
+                    }
+                })
+            }
+        })
+    }
+    res.redirect('/index1')
 });
 
 router.get('/view2', ensureAuthenticated, (req, res) => {
