@@ -21,6 +21,7 @@
         margin-bottom: 10px; /* Added */
 }
 </style>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -59,7 +60,7 @@
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <form class="form-horizontal" action="\table-export" method="post">
+                                        <!-- <form class="form-horizontal" action="\table-export" method="post"> -->
                                        
                                         <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
 
@@ -128,7 +129,10 @@
                                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2">
                                                                     Edit
                                                                   </button>
-                                                                <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+                                                                <a href="/uploads/<%=salary[i].empID%>"><button type="submit" class="btn btn-success btn-sm" >Print</button></a>
+                                                                
+                                                                  <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                                       <div class="modal-content">
                                                                         <div class="modal-header">
@@ -190,8 +194,14 @@
                                                                       </div>
                                                                     </div>
                                                                   </div>
+<<<<<<< HEAD
 
                                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter3">
+=======
+                                                                <button type="button" id="<%= salary[i].empID %>"
+                                                                  onclick="deleteFunction(this.id,this)"
+                                                                  class="btn btn-danger">
+>>>>>>> 212f6b5d73b8bdae5794a26ad240f99b38dd614d
                                                                     Delete
                                                                   </button>
                                                                   
@@ -216,7 +226,7 @@
                                                                     </div>
                                                                   </div>
                                                            
-                                                        </td>                                                        -->
+                                                        </td>                                                        
                                                     </tr>
                                                 <% }%>
                                             </tbody>
@@ -237,7 +247,7 @@
 
                     
 
-                    </form>
+
 
                     <!-- <input type="submit" style="float: right;" value="Submit"> -->
 
@@ -266,6 +276,25 @@
     <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+    <script>
+      function deleteFunction(id,ref)
+      {
+        console.log(id)
+        axios.post('http://localhost:3000/deleteEmployee',{id})
+        .then(function (response) {
+          console.log(response)
+          if(response.data.status==="success")
+          {
+            // console.log(ref)
+            ref.parentNode.parentNode.remove()
+            alert("Deleted successfully!")
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        });
+      }
+    </script>
 
 </body>
 

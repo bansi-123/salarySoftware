@@ -687,7 +687,52 @@ router.post('/generateSalary',(req,res)=>{
     
 })
 
+router.get('/uploads/:empID',  (req, res) => {
+    var requestedTitle = req.params.empID;
+     //console.log("the param is", req.params.empID);
+ 
+     mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+     {
+         if (err) {
+             //console.log(err);
+         }
+         else{
+             //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+             res.render('templateSelected',{
+                 salary:JSON.parse(JSON.stringify(result)),
+                 requestedTitle: req.params.empID
+                  //added the name field here to get the name wise reciept
+             });
+         }
+     })
+    // res.render("templateSelected");
+ });
 
+ router.post('/deleteEmployee',(req,res)=>{
+     console.log("in route")
+     console.log(req.body.id)
+     mysqldb.query(`delete from Employees where empID=${req.body.id}`,(err,result)=>{
+        if (err) {
+            //------------ Invalid registration Number ------------//
+            // req.flash('error_msg',
+            // 'Please enter valid Id.')
+            console.log(err)
+            res.send({"status":"failure"})
+        }
+        else{
+            res.send(
+                {
+                    "status":"success"
+                }
+            );
+            // req.flash(
+            //     'success_msg',
+            //     'Employee found!'
+            // );
+        }
+    })
+    // res.send({"status":"success"});
+ })
 
 
 module.exports = router;
