@@ -20,30 +20,26 @@
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                       
-                                        <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
 
-                                        <input type="button"style="float: right;" onclick='selects()' value="Select All"/>   -->
-                                        <form class="form-horizontal" action="\pay" method="post"> 
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>Employee ID <p><i class="arrow down" style="float: right;"></i></p>
                                                     </th>
                                                     <!-- <th>Name <p><i class="arrow down" style="float: right;"></i></p></th> -->
-                                                    <th>Leave Without Pay (LWP)</th>
+                                                    <th>increment %</th>
                                                     <th>Month</th>
                                                     <th>Year</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                    <% for(var i = lwp.length-1; i >= 0 ; i-- ) { %>
+                                                    <% for(var i = increment.length-1; i >= 0 ; i-- ) { %>
                                                         <tr>
-                                                            <td><%= lwp[i].empID %></td>
-                                                            <!-- <td><%= lwp[i].empName %></td> -->
-                                                            <td> <%= lwp[i].lwp %></td>
-                                                            <td> <%= lwp[i].month %></td>
-                                                            <td> <%= lwp[i].year %></td>
+                                                            <td><%= increment[i].empID %></td>
+                                                            <!-- <td><%= increment[i].empName %></td> -->
+                                                            <td> <%= increment[i].increment %></td>
+                                                            <td> <%= increment[i].month %></td>
+                                                            <td> <%= increment[i].year %></td>
                                                                 
                                                     <% }%>
                                                     
@@ -60,8 +56,6 @@
                         <!-- /# column -->
                     </div>
 
-                   
-                  
                 </section>
             </div>
         </div>

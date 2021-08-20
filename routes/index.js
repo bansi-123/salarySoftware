@@ -68,6 +68,23 @@ router.get('/table-export', ensureAuthenticated, (req, res) => {
     
 });
 
+router.get('/showincrement', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from increment`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('showincrement',{
+                increment:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
+
+
 router.get('/generatesalary',(req,res)=>{
     mysqldb.query(`select * from Salary`,(err,result)=>
     {
@@ -265,7 +282,23 @@ router.post('/allowances',  (req, res) => {
         }
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-            res.render('index1');
+            res.render('viewallow');
+        }
+    })
+    
+});
+
+router.get('/viewallow',  (req, res) => {
+    mysqldb.query(`select * from config`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('viewallow',{
+                data:JSON.parse(JSON.stringify(result))
+            });
         }
     })
     
@@ -345,6 +378,22 @@ router.get('/advances', ensureAuthenticated, (req, res) =>
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
             res.render('advances',{
                 salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/showadvances', ensureAuthenticated, (req, res) => 
+{
+    mysqldb.query(`select * from advance`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('showadvances',{
+                advance:JSON.parse(JSON.stringify(result))
             });
         }
     })
@@ -797,6 +846,23 @@ router.get('/uploads/:empID',  (req, res) => {
         }
     })
     
+});
+
+router.get('/viewdeductions', ensureAuthenticated, (req, res) => 
+{
+    mysqldb.query(`select * from config`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Config Details",JSON.parse(JSON.stringify(result)));
+            res.render('viewdeduction',{
+                data:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
 });
 
 
