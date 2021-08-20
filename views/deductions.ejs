@@ -19,7 +19,7 @@
         <div class="content-wrap">
             <div class="main">
                 <div class="container-fluid">
-                    <form class="form-horizontal" action="\form-basic" method="post">
+                    <form class="form-horizontal" action="\deductions" method="post">
                         <div class="row">
                             <div class="col-lg-8 p-r-0 title-margin-right">
                                 <div class="page-header">
@@ -47,7 +47,7 @@
                                                         <label class="col-sm-6 control-label">PF Does Not Apply If
                                                             Amount</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="da" class="form-control">
+                                                            <input type="text" name="prov_fund_DNA" class="form-control" value=<%=data[0].prov_fund_DNA %>>
                                                         </div>
                                                     </div>
 
@@ -55,7 +55,7 @@
                                                         <label class="col-sm-6 control-label">Maximum PF To Be
                                                             Given</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="da" class="form-control">
+                                                            <input type="text" name="prov_fund_Max" class="form-control" value=<%=data[0].prov_fund_Max %>>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -64,8 +64,8 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">PF Percentage</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="cca" class="form-control"
-                                                                placeholder="Enter CCA">
+                                                            <input type="text" name="prov_fund_Percent" class="form-control"
+                                                                 value=<%=data[0].prov_fund_Percent %>>
 
                                                         </div>
                                                     </div>
@@ -96,7 +96,7 @@
                                                         <label class="col-sm-6 control-label">PT Does Not Apply If
                                                             Amount</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="da" class="form-control">
+                                                            <input type="text" name="prof_tax_DNA" class="form-control" value=<%=data[0].prof_tax_DNA %>>
                                                         </div>
                                                     </div>
 
@@ -104,7 +104,7 @@
                                                         <label class="col-sm-6 control-label">Maximum PT To Be
                                                             Given</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="da" class="form-control">
+                                                            <input type="text" name="prof_tax_Max" class="form-control" value=<%=data[0].prof_tax_Max %>>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -113,8 +113,8 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">PT Percentage</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="cca" class="form-control"
-                                                                placeholder="Enter CCA">
+                                                            <input type="text" name="prof_tax_Percent" class="form-control"
+                                                            value=<%=data[0].prof_tax_Percent %>>
 
                                                         </div>
                                                     </div>
@@ -147,7 +147,7 @@
                                                         <label class="col-sm-6 control-label">Revenue Stamp Does Not Apply If
                                                             Amount</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="da" class="form-control">
+                                                            <input type="text" name="rev_stamp_DNA" class="form-control" value=<%=data[0].rev_stamp_DNA %>>
                                                         </div>
                                                     </div>
 
@@ -158,8 +158,8 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Max Revenue</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" name="cca" class="form-control"
-                                                                placeholder="Enter CCA">
+                                                            <input type="text" name="rev_stamp_max" class="form-control"
+                                                            value=<%=data[0].rev_stamp_max %>>
 
                                                         </div>
                                                     </div>

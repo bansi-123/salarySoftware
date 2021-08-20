@@ -3,6 +3,9 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/checkAuth');
 const { route } = require('./auth');
 
+
+
+
 //------------ Welcome Route ------------//
 router.get('/', (req, res) => {
     res.render('welcome');
@@ -237,7 +240,7 @@ router.get('/showlwp',  (req, res) => {
 });
 
 router.get('/allowances',  (req, res) => {
-    mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+    mysqldb.query(`select * from config`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -245,7 +248,7 @@ router.get('/allowances',  (req, res) => {
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
             res.render('allowances',{
-                salary:JSON.parse(JSON.stringify(result))
+                data:JSON.parse(JSON.stringify(result))
             });
         }
     })
@@ -253,9 +256,20 @@ router.get('/allowances',  (req, res) => {
 });
 
 router.post('/allowances',  (req, res) => {
-    res.render('index1')
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    const {ta,cca,hra_MultFactor,da_MultFactor}=JSON.parse(JSON.stringify(req.body));
+    mysqldb.query(`update config set ta=${ta},cca=${cca},hra_MultFactor=${hra_MultFactor},da_MultFactor=${da_MultFactor} where ID=1`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('index1');
+        }
+    })
+    
 });
-
 
 router.get('/salsheet',  (req, res) => {
     res.render('salsheet');
@@ -322,7 +336,7 @@ router.post('/addEmployee',(req,res)=>{
 
 router.get('/advances', ensureAuthenticated, (req, res) => 
 {
-    mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+    mysqldb.query(`select * from Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -336,8 +350,46 @@ router.get('/advances', ensureAuthenticated, (req, res) =>
     })
 });
 
+router.post('/advances', ensureAuthenticated, (req, res) => 
+{
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    var data=JSON.parse(JSON.stringify(req.body));
+    var length=data['duration'].length;
+    for (let i = 0; i < length; i++) {
+        mysqldb.query(`select empID from Employees ORDER BY empID LIMIT ${i},1`,(err,result)=>{
+            if (err) {
+                //------------ Invalid registration Number ------------//
+                // req.flash('error_msg',
+                // 'Please enter valid Id.')
+                console.log(err)
+            }
+            else{
+                console.log(result)
+                var empID=JSON.parse(JSON.stringify(result))[0].empID;
+                console.log(`INSERT INTO advance (empID, ,amount, month, year, duration, outstanding) VALUES (${empID}, ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`)
+                mysqldb.query(`INSERT INTO advance (empID, amount, month, year, duration, outstanding) VALUES (${empID}, ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`
+                ,(err,result)=>{
+                    if (err) {
+                        console.log(err);
+                        console.log("invalid details");
+                    }
+                    else{
+                        // console.log(JSON.parse(JSON.stringify(result))[0])
+                        
+                        // req.flash(
+                        //     'success_msg',
+                        //     'Employee found!'
+                        // );
+                    }
+                })
+            }
+        })
+    }
+    res.redirect('/index1')
+});
+
 router.get('/view2', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+    mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -464,164 +516,72 @@ router.get('/showsalary', ensureAuthenticated, (req, res) => {
 router.post('/generateSalary',(req,res)=>{
     console.log("body is",JSON.parse(JSON.stringify(req.body)))
     var length;
-    mysqldb.query(`select count(*) from Employees`,(err,result)=>{
-        if (result.length===0) {
-            //------------ Invalid registration Number ------------//
-            // req.flash('error_msg',
-            // 'Please enter valid Id.')
-            console.log("invalid registration number")
+    mysqldb.query(`select * from config`,(err,result)=>{
+        if (err) {
+           
+            console.log(err)
         }
         else{
-            length=JSON.parse(JSON.stringify(result))[0]['count(*)'];
-            for (let i = 1; i < length+1; i++) {
-                mysqldb.query(`select pay,gp,pf,empID from Employees ORDER BY empID LIMIT ${i-1},1`,(err,result)=>{
-                    if (err) {
-                        //------------ Invalid registration Number ------------//
-                        // req.flash('error_msg',
-                        // 'Please enter valid Id.')
-                        console.log(err)
-                    }
-                    else{
-                        console.log(result)
-                        var empID=parseInt(JSON.parse(JSON.stringify(result))[0].empID);
-                        var gp=parseInt(JSON.parse(JSON.stringify(result))[0].gp);
-                        var pf=parseInt(JSON.parse(JSON.stringify(result))[0].pf);
-                        var pay=parseInt(JSON.parse(JSON.stringify(result))[0].pay);
-                        console.log(JSON.parse(JSON.stringify(result))[0]);
-                        console.log("gp,pf,bp selected",gp,pf,pay);
-                        // req.flash(
-                        //     'success_msg',
-                        //     'Employee found!'
-                        // );
-                        var cca=240
-                        var diff=0
-                        var oth_spl=0;
-                        var ta=1600;
-                        var prof_tax;
-                        var in_tax=3000;
-                        var rev_stmp=1
-                        var sal_adv=0;
-                        var da=(pay+parseFloat(gp))*1.39;
-                        console.log("da is",da);
-                        var hra=(pay+parseFloat(gp))*0.2;
-                        console.log("hra is",hra);
-                        
-                        mysqldb.query(`select month,year,days,lwp from lwp_temp where empID=${empID}`,(err,result)=>{
+            var da_MultFactor=JSON.parse(JSON.stringify(result))[0].da_MultFactor
+            var hra_MultFactor=JSON.parse(JSON.stringify(result))[0].hra_MultFactor
+            var ta=JSON.parse(JSON.stringify(result))[0].ta
+            var cca=JSON.parse(JSON.stringify(result))[0].cca
+            var prov_fund_DNA=JSON.parse(JSON.stringify(result))[0].prov_fund_DNA
+            var prov_fund_Percent=JSON.parse(JSON.stringify(result))[0].prov_fund_Percent
+            var prov_fund_Max=JSON.parse(JSON.stringify(result))[0].prov_fund_Max
+            var prof_tax_DNA=JSON.parse(JSON.stringify(result))[0].prof_tax_DNA
+            var prof_tax_Percent=JSON.parse(JSON.stringify(result))[0].prof_tax_Percent
+            var prof_tax_Max=JSON.parse(JSON.stringify(result))[0].prof_tax_Max
+            var rev_stamp_DNA=JSON.parse(JSON.stringify(result))[0].rev_stamp_DNA
+            var rev_stamp_max=JSON.parse(JSON.stringify(result))[0].rev_stamp_max
+
+            mysqldb.query(`select count(*) from Employees`,(err,result)=>{
+                if (result.length===0) {
+                    //------------ Invalid registration Number ------------//
+                    // req.flash('error_msg',
+                    // 'Please enter valid Id.')
+                    console.log("invalid registration number")
+                }
+                else{
+                    length=JSON.parse(JSON.stringify(result))[0]['count(*)'];
+                    for (let i = 1; i < length+1; i++) {
+                        mysqldb.query(`select pay,gp,pf,empID from Employees ORDER BY empID LIMIT ${i-1},1`,(err,result)=>{
                             if (err) {
                                 //------------ Invalid registration Number ------------//
                                 // req.flash('error_msg',
                                 // 'Please enter valid Id.')
                                 console.log(err)
-                                console.log("invalid update salary 1")
                             }
                             else{
-                                // console.log(JSON.parse(JSON.stringify(result))[0])
-                                // res.send("Done");
+                                console.log(result)
+                                var empID=parseInt(JSON.parse(JSON.stringify(result))[0].empID);
+                                var gp=parseInt(JSON.parse(JSON.stringify(result))[0].gp);
+                                var pf=parseInt(JSON.parse(JSON.stringify(result))[0].pf);
+                                var pay=parseInt(JSON.parse(JSON.stringify(result))[0].pay);
+                                console.log(JSON.parse(JSON.stringify(result))[0]);
+                                console.log("gp,pf,bp selected",gp,pf,pay);
                                 // req.flash(
                                 //     'success_msg',
                                 //     'Employee found!'
                                 // );
-                                // var month=JSON.parse(JSON.stringify(result))[0].month;
-                                // var year=JSON.parse(JSON.stringify(result))[0].year;
-                                var month=JSON.parse(JSON.stringify(req.body)).month
-                                var year=JSON.parse(JSON.stringify(req.body)).year
-                                var days;
-                                if(month==="january")
-                                {
-                                    days=31;
-                                }
-                                else if(month==="february")
-                                {
-                                    days=28;
-                                }
-                                else if(month==="march")
-                                {
-                                    days=31;
-                                }
-                                else if(month==="april")
-                                {
-                                    days=30;
-                                }
-                                else if(month==="may")
-                                {
-                                    days=31;
-                                }
-                                else if(month==="june")
-                                {
-                                    days=30
-                                }
-                                else if(month==="july")
-                                {
-                                    days=31
-                                }
-                                else if(month==="august")
-                                {
-                                    days=31
-                                }
-                                else if(month==="september")
-                                {
-                                    days=30
-                                }
-                                else if(month==="october")
-                                {
-                                    days=31
-                                }
-                                else if(month==="november")
-                                {
-                                    days=30
-                                }
-                                else if(month==="december")
-                                {
-                                    days=31
-                                }
-
-                                var daysOfMonth=days;
-                                var lwp=JSON.parse(JSON.stringify(result))[0].lwp;
-                                var workedDays=daysOfMonth-lwp;
-                                pay*=workedDays/daysOfMonth;
-                                gp*=workedDays/daysOfMonth;
-                                da*=workedDays/daysOfMonth;
-                                hra*=workedDays/daysOfMonth;
-                                ta*=workedDays/daysOfMonth;
-                                cca*=workedDays/daysOfMonth;
-                                var pfcheck=12/100*(pay+gp+da)
-                                if(pf>pfcheck)
-                                {
-                                    pf=pfcheck
-                                }
-                                // var lwp_amt=(parseInt(gross_sal)/parseInt(daysOfMonth))*parseInt(lwp);
-                                console.log("gross salary,days of month,lwp",gross_sal,daysOfMonth,lwp)
-                                // console.log("lwp_amt=",lwp_amt)
-                                var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca)+parseFloat(diff)+parseFloat(oth_spl)+parseFloat(ta);
-                                if(gross_sal>10000)
-                                {
-                                    prof_tax=200;
-                                }
-                                else if(gross_sal>7500 && gross_sal<10000)
-                                {
-                                    prof_tax=175;
-                                }
-                                else if(gross_sal<7500)
-                                {
-                                    prof_tax=0;
-                                }
-
-                                if(gross_sal===0)
-                                {
-                                    rev_stmp=0
-                                }
-                                var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv); //+parseFloat(lwp_amt);
-                                var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
-                                console.log("logging")
-                                console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${i}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
-                                mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
-                                ,(err,result)=>{
+                                var diff=0
+                                var oth_spl=0;
+                                var prof_tax;
+                                var in_tax=3000;
+                                var rev_stmp=1
+                                var sal_adv=0;
+                                var da=(pay+parseFloat(gp))*da_MultFactor;
+                                console.log("da is",da);
+                                var hra=(pay+parseFloat(gp))*hra_MultFactor;
+                                console.log("hra is",hra);
+                                
+                                mysqldb.query(`select month,year,days,lwp from lwp_temp where empID=${empID}`,(err,result)=>{
                                     if (err) {
                                         //------------ Invalid registration Number ------------//
                                         // req.flash('error_msg',
                                         // 'Please enter valid Id.')
                                         console.log(err)
-                                        console.log("invalid update salary 2")
+                                        console.log("invalid update salary 1")
                                     }
                                     else{
                                         // console.log(JSON.parse(JSON.stringify(result))[0])
@@ -630,37 +590,159 @@ router.post('/generateSalary',(req,res)=>{
                                         //     'success_msg',
                                         //     'Employee found!'
                                         // );
-                                        console.log("YAYYYYY")
-                                        console.log("i,length is ",i,length)
-                                        if(i===length)
+                                        // var month=JSON.parse(JSON.stringify(result))[0].month;
+                                        // var year=JSON.parse(JSON.stringify(result))[0].year;
+                                        var month=JSON.parse(JSON.stringify(req.body)).month
+                                        var year=JSON.parse(JSON.stringify(req.body)).year
+                                        var days;
+                                        if(month==="january")
                                         {
-                                            mysqldb.query('truncate table lwp_temp')
-                                            ,(err,result)=>{
-                                                if (err) {
-                                                    //------------ Invalid registration Number ------------//
-                                                    // req.flash('error_msg',
-                                                    // 'Please enter valid Id.')
-                                                    console.log(err)
-                                                    console.log("invalid update salary 2")
-                                                }
-                                                else{
-                                                    console.log("SUCCESS!")
-                                                }
-                                            }
-                                                 
+                                            days=31;
                                         }
+                                        else if(month==="february")
+                                        {
+                                            days=28;
+                                        }
+                                        else if(month==="march")
+                                        {
+                                            days=31;
+                                        }
+                                        else if(month==="april")
+                                        {
+                                            days=30;
+                                        }
+                                        else if(month==="may")
+                                        {
+                                            days=31;
+                                        }
+                                        else if(month==="june")
+                                        {
+                                            days=30
+                                        }
+                                        else if(month==="july")
+                                        {
+                                            days=31
+                                        }
+                                        else if(month==="august")
+                                        {
+                                            days=31
+                                        }
+                                        else if(month==="september")
+                                        {
+                                            days=30
+                                        }
+                                        else if(month==="october")
+                                        {
+                                            days=31
+                                        }
+                                        else if(month==="november")
+                                        {
+                                            days=30
+                                        }
+                                        else if(month==="december")
+                                        {
+                                            days=31
+                                        }
+
+                                        var daysOfMonth=days;
+                                        var lwp=JSON.parse(JSON.stringify(result))[0].lwp;
+                                        var workedDays=daysOfMonth-lwp;
+                                        pay*=workedDays/daysOfMonth;
+                                        gp*=workedDays/daysOfMonth;
+                                        da*=workedDays/daysOfMonth;
+                                        hra*=workedDays/daysOfMonth;
+                                        ta*=workedDays/daysOfMonth;
+                                        cca*=workedDays/daysOfMonth;
+                                        var pfcheck=prov_fund_Percent/100*(pay+gp+da)
+                                        if(pf>pfcheck)
+                                        {
+                                            pf=pfcheck
+                                        }
+                                        if(pf>prov_fund_Max)
+                                        {
+                                            pf=prov_fund_Max
+                                        }
+                                        // var lwp_amt=(parseInt(gross_sal)/parseInt(daysOfMonth))*parseInt(lwp);
+                                        console.log("gross salary,days of month,lwp",gross_sal,daysOfMonth,lwp)
+                                        // console.log("lwp_amt=",lwp_amt)
+                                        var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca)+parseFloat(diff)+parseFloat(oth_spl)+parseFloat(ta);
+                                        if(gross_sal>10000)
+                                        {
+                                            prof_tax=200;
+                                        }
+                                        else if(gross_sal>7500 && gross_sal<10000)
+                                        {
+                                            prof_tax=175;
+                                        }
+                                        else if(gross_sal<7500)
+                                        {
+                                            prof_tax=0;
+                                        }
+
+                                        if(prof_tax>prof_tax_Max)
+                                        {
+                                            prof_tax=prof_tax_Max
+                                        }
+
+                                        if(gross_sal===rev_stamp_DNA)
+                                        {
+                                            rev_stmp=0
+                                        }
+                                        if(rev_stmp>rev_stamp_max)
+                                        {
+                                            rev_stmp=rev_stamp_max
+                                        }
+                                        var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv); //+parseFloat(lwp_amt);
+                                        var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
+                                        console.log("logging")
+                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${i}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
+                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+                                        ,(err,result)=>{
+                                            if (err) {
+                                                //------------ Invalid registration Number ------------//
+                                                // req.flash('error_msg',
+                                                // 'Please enter valid Id.')
+                                                console.log(err)
+                                                console.log("invalid update salary 2")
+                                            }
+                                            else{
+                                                // console.log(JSON.parse(JSON.stringify(result))[0])
+                                                // res.send("Done");
+                                                // req.flash(
+                                                //     'success_msg',
+                                                //     'Employee found!'
+                                                // );
+                                                console.log("YAYYYYY")
+                                                console.log("i,length is ",i,length)
+                                                // if(i===length)
+                                                // {
+                                                //     mysqldb.query('truncate table lwp_temp')
+                                                //     ,(err,result)=>{
+                                                //         if (err) {
+                                                //             //------------ Invalid registration Number ------------//
+                                                //             // req.flash('error_msg',
+                                                //             // 'Please enter valid Id.')
+                                                //             console.log(err)
+                                                //             console.log("invalid update salary 2")
+                                                //         }
+                                                //         else{
+                                                //             console.log("SUCCESS!")
+                                                //         }
+                                                //     }
+                                                        
+                                                // }
+                                            }
+                                        })
                                     }
                                 })
                             }
                         })
                     }
-                })
-            }
 
+                }
+            })
         }
     })
-    
-    
 })
 
 router.get('/uploads/:empID',  (req, res) => {
@@ -686,20 +768,36 @@ router.get('/uploads/:empID',  (req, res) => {
 
  router.get('/deductions', ensureAuthenticated, (req, res) => 
  {
-     mysqldb.query(`select * from salary natural join Employees`,(err,result)=>
+     mysqldb.query(`select * from config`,(err,result)=>
      {
          if (err) {
              console.log(err);
          }
          else{
-             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+             console.log("Config Details",JSON.parse(JSON.stringify(result)));
              res.render('deductions',{
-                 salary:JSON.parse(JSON.stringify(result))
+                 data:JSON.parse(JSON.stringify(result))
              });
          }
      })
  
  });
+
+ router.post('/deductions',  (req, res) => {
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    const {prov_fund_DNA,prov_fund_Percent,prov_fund_Max,prof_tax_Max,prof_tax_Percent,prof_tax_DNA,rev_stamp_max,rev_stamp_DNA}=JSON.parse(JSON.stringify(req.body));
+    mysqldb.query(`update config set prov_fund_DNA=${prov_fund_DNA},prov_fund_Percent=${prov_fund_Percent},prov_fund_Max=${prov_fund_Max},prof_tax_Max=${prof_tax_Max},prof_tax_Percent=${prof_tax_Percent},prof_tax_DNA=${prof_tax_DNA},rev_stamp_max=${rev_stamp_max},rev_stamp_DNA=${rev_stamp_DNA} where ID=1`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            
+            res.render('index1');
+        }
+    })
+    
+});
 
 
  router.post('/deleteEmployee',(req,res)=>{
