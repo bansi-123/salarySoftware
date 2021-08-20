@@ -78,12 +78,11 @@
                                                         <td><%= employees[i].dept %></td>
                                                         <td><%= employees[i].designation %></td> 
                                                          <td>
-<!-- views button -->
-                                                                <button type="button" data-target="#<%= salary[i].empID %>" class="btn btn-outline-info btn-sm" data-toggle="modal">
+                                                                <button type="button" data-target="#<%= employees[i].empID %>" class="btn btn-outline-info btn-sm" data-toggle="modal">
                                                                    View
                                                                 </button> 
 
-                                                                  <div class="modal fade" id="<%= salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                  <div class="modal fade" id="<%= employees[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                                               <div class="modal-content">
                                                                                 <div class="modal-header">
@@ -99,21 +98,21 @@
                                                                                               Employee Details
                                                                                             </div> 
                                                                                             <ul class="list-group list-group-flush">
-                                                                                              <li  class="list-group-item"><%= salary[i].empName %></li>
-                                                                                              <li  class="list-group-item"><%= salary[i].emailID %></li>
-                                                                                              <li  class="list-group-item"><%= salary[i].dept %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].da %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].hra %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].cca %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].diff %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].oth_spl %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].lwp %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].ta %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].prof_tax %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].in_tax %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].gross_sal %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].total_ded %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].net_sal %></li>
+                                                                                              <li  class="list-group-item"><%= employees[i].empName %></li>
+                                                                                              <li  class="list-group-item"><%= employees[i].emailID %></li>
+                                                                                              <li  class="list-group-item"><%= employees[i].dept %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].da %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].hra %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].cca %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].diff %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].oth_spl %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].lwp %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].ta %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].prof_tax %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].in_tax %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].gross_sal %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].total_ded %></li>
+                                                                                              <li class="list-group-item"><%= employees[i].net_sal %></li>
                                                                                               
                                                                                             </ul>
         
@@ -132,10 +131,10 @@
                                                                   </div>
                                                               
 <!-- edit button -->                                                             
-                                                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#a<%= salary[i].empID %>">
+                                                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#a<%= employees[i].empID %>">
                                                                     Edit
                                                                 </button>
-                                                                <div class="modal fade" id="a<%= salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                <div class="modal fade" id="a<%= employees[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                                   <div class="modal-dialog modal-dialog-centered" role="document">
                                                                     <div class="modal-content">
                                                                       <div class="modal-header">
@@ -198,23 +197,16 @@
                                                                   </div>
                                                                 </div>
 
-<!-- print button -->                                                                    
-
-                                                                <a href="/uploads/<%=salary[i].empID%>"><button type="submit" class="btn btn-outline-success btn-sm" >Print</button></a>
                                                                 
-                                                                  
-                                                                <!-- <button type="button" id="<%= salary[i].empID %>"
-                                                                   
-                                                                    class="btn btn-outline-danger btn-sm">
-                                                                    Delete
-                                                                  </button> -->
 
-                                                                  <!-- Button trigger modal -->
-                                                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#b<%= salary[i].empID %>">
+                                                                <a href="/uploads/<%=employees[i].empID%>"><button type="submit" class="btn btn-outline-success btn-sm" >Print</button></a>
+                                                                
+
+                                                             <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#b<%= employees[i].empID %>">
                                                                 Delete
                                                               </button>
 
-                                                              <div class="modal fade" id="b<%= salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                              <div class="modal fade" id="b<%= employees[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                                   <div class="modal-content">
                                                                     <div class="modal-header">
@@ -228,7 +220,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                      <button" class="btn btn-primary" id="<%= salary[i].empID %>" onclick="deleteFunction(this.id,this)" data-dismiss="modal">Delete</button>
+                                                                      <button" class="btn btn-primary" id="<%= employees[i].empID %>" onclick="deleteFunction(this.id,this)" data-dismiss="modal">Delete</button>
                                                                                                                                        
                                                                     </div>
                                                                   </div>
