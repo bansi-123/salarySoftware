@@ -71,12 +71,12 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <% for(var i = salary.length-1; i >= 0 ; i-- ) { %>
+                                                <% for(var i = employees.length-1; i >= 0 ; i-- ) { %>
                                                     <tr>
-                                                        <td><%= salary[i].empID %></td>
-                                                        <td><%= salary[i].empName %></td>
-                                                        <td><%= salary[i].dept %></td>
-                                                        <td><%= salary[i].designation %></td> 
+                                                        <td><%= employees[i].empID %></td>
+                                                        <td><%= employees[i].empName %></td>
+                                                        <td><%= employees[i].dept %></td>
+                                                        <td><%= employees[i].designation %></td> 
                                                          <td>
 <!-- views button -->
                                                                 <button type="button" data-target="#<%= salary[i].empID %>" class="btn btn-outline-info btn-sm" data-toggle="modal">
@@ -99,7 +99,7 @@
                                                                                               Employee Details
                                                                                             </div> 
                                                                                             <ul class="list-group list-group-flush">
-                                                                                              <li  lclass="list-group-item"><%= salary[i].empName %></li>
+                                                                                              <li  class="list-group-item"><%= salary[i].empName %></li>
                                                                                               <li  class="list-group-item"><%= salary[i].emailID %></li>
                                                                                               <li  class="list-group-item"><%= salary[i].dept %></li>
                                                                                               <li class="list-group-item"><%= salary[i].da %></li>

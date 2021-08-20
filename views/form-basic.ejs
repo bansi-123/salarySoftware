@@ -39,14 +39,14 @@
                                                         <label class="col-sm-6 control-label">Employee Name</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" name="empName" class="form-control"
-                                                                placeholder="Enter Name">
+                                                                placeholder="Enter Name" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Email ID</label>
                                                         <div class="col-sm-10">
-                                                        <input id="example-email" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email">
+                                                        <input id="example-email" name="emailID" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email" required>
                                                         </div>
                                                     </div>
 
@@ -54,22 +54,22 @@
                                                         <label class="col-sm-6 control-label">UAN</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" name="uan" class="form-control"
-                                                                placeholder="UAN">
+                                                                placeholder="UAN" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Department</label>
                                                         <div class="col-sm-10">
-                                                            <input type="radio" id="comp" name="dept" value="comp">
+                                                            <input type="radio" id="comp" name="dept" value="comp" required>
                                                               <label for="comp">Computer</label><br>
-                                                              <input type="radio" id="IT" name="dept" value="IT">
+                                                              <input type="radio" id="IT" name="dept" value="IT" required>
                                                               <label for="IT">IT</label><br>
-                                                              <input type="radio" id="entc" name="dept" value="entc">
+                                                              <input type="radio" id="entc" name="dept" value="entc" required>
                                                               <label for="entc">ENTC</label><br>
-                                                              <input type="radio" id="accounts" name="dept" value="accounts">
+                                                              <input type="radio" id="accounts" name="dept" value="accounts" required>
                                                               <label for="entc">Accounts</label><br>
-                                                              <input type="radio" id="admin" name="dept" value="admin">
+                                                              <input type="radio" id="admin" name="dept" value="admin" required>
                                                               <label for="entc">Admin</label><br>
                                                         </div>
                                                     </div>
@@ -77,7 +77,15 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Designation</label>
                                                         <div class="col-sm-10">
-                                                            <select class="form-control" name="designation">
+                                                            <input type="text" name="designation" class="form-control"
+                                                                placeholder="designation" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Designation Category</label>
+                                                        <div class="col-sm-10">
+                                                            <select class="form-control" name="designationCategory">
                                                                 <!-- <option value="value" selected>Option Name</option> -->
                                                                 <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
                                                                 <option value="30k-40k" id="30k-40k" selected>Associate 20k-30k</option>
@@ -109,7 +117,7 @@
                                                             Joining</label>
                                                         <div class="col-sm-10">
                                                             <input type="date" class="form-control" id="doj"
-                                                                name="doj">
+                                                                name="doj" required>
 
                                                         </div>
                                                     </div>
@@ -124,8 +132,7 @@
                                                             <label class="col-sm-6 control-label">Bank Name</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="bankName" class="form-control"
-                                                                    placeholder="Bank Name">
-
+                                                                    placeholder="Bank Name" required>
                                                             </div>
                                                         </div>
 
@@ -133,7 +140,7 @@
                                                             <label class="col-sm-6 control-label">Branch Name</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="branchName" class="form-control"
-                                                                    placeholder="Branch Name">
+                                                                    placeholder="Branch Name" required>
 
                                                             </div>
                                                         </div>
@@ -141,8 +148,8 @@
                                                         <div class="form-group">
                                                             <label class="col-sm-6 control-label">IFSC Code</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" name="ifsc" class="form-control"
-                                                                    placeholder="IFSC Code">
+                                                                <input type="text" name="ifscCode" class="form-control"
+                                                                    placeholder="IFSC Code" required>
 
                                                             </div>
                                                         </div>
@@ -152,7 +159,7 @@
                                                                 No.</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="bankAccNum"
-                                                                    class="form-control" placeholder="Acc No.">
+                                                                    class="form-control" placeholder="Acc No." required>
 
                                                             </div>
                                                         </div>
@@ -160,8 +167,8 @@
                                                         <div class="form-group">
                                                             <label class="col-sm-6 control-label">Basic Pay</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" name="basicPay" class="form-control"
-                                                                    placeholder="Basic Pay">
+                                                                <input type="text" name="pay" class="form-control"
+                                                                    placeholder="Basic Pay" required>
 
 
                                                             </div>
@@ -171,22 +178,30 @@
                                                             <label class="col-sm-6 control-label">Grade Pay</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="gp" class="form-control"
-                                                                    placeholder="Grade Pay">
+                                                                    placeholder="Grade Pay" required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-sm-6 control-label">Provident Fund</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" name="pf" class="form-control"
+                                                                    placeholder="Provident Fund" required>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label class="col-sm-6 control-label">Group Insurance</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" name="grpinsur" class="form-control"
-                                                                    placeholder="Group Insurance">
+                                                                <input type="text" name="groupInsurance" class="form-control"
+                                                                    placeholder="Group Insurance" required>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label class="col-sm-6 control-label">Pay Band</label>
                                                             <div class="col-sm-10">
-                                                                <select class="form-control" name="payband">
+                                                                <select class="form-control" name="payBand" required>
                                                                     <!-- <option value="value" selected>Option Name</option> -->
                                                                     <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
                                                                     <option value="30k-40k" id="30k-40k" selected>Associate 20k-30k</option>
@@ -237,9 +252,11 @@
                                                         <br />
                                                         <div class="row text-center">
                                                           <div>
-                                                            <button class="button large round success">Submit</button>
+                                                            <button class="button large round success">Success notification</button>
                                                           </div>
-                                                          
+                                                          <div>
+                                                            <button class="button large round alert">Error notification</button>
+                                                          </div>
                                                         </div>
 
                                                       

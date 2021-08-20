@@ -1,3 +1,9 @@
+// 
+// 
+// MODIFY THISSSSSSSSSSSSSSSSSSSSSSS
+// 
+// 
+// 
 module.exports = (sequelize, Sequelize) => {
 	const Employee = sequelize.define('Employee', {	
 	  empID: {
@@ -18,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.STRING
 
 	},
-	basicPay:{
+	pay:{
 		type: Sequelize.INTEGER
 
 	},
@@ -54,4 +60,4 @@ module.exports = (sequelize, Sequelize) => {
 	
 	return Employee;
 }
-//empID	empName	uan	dept	designation	basicPay	gp	pf	bankAccNum	bankName	doj	salaryCategory
+//empID	empName	uan	dept	designation	pay	gp	pf	bankAccNum	bankName	doj	salaryCategory

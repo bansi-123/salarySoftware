@@ -77,7 +77,7 @@
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <form class="form-horizontal" action="\updateBasicPay" method="post">
+                                        <form class="form-horizontal" action="\updatepay" method="post">
                                        
                                         <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
 
@@ -103,16 +103,7 @@
                                                         <td><%= employees[i].empName %></td>
                                                         <td><%= employees[i].dept %></td>
                                                         <td><%= employees[i].designation %></td>
-                                                        <td> <input type="checkbox" name="check" id="check"><br> </td>
-                                                        <td> 
-                                                            <div class="form-group">
-                                                                <!-- <label class="col-sm-6 control-label">Select Month</label> -->
-                                                                <div class="col-sm-10">
-                                                                    <select class="form-control" name="year">
-                                                                        <!-- <option value="value" selected>Option Name</option> -->
-                                                                        <option value="2021" id="2021" selected>2021</option>
-                                                                        <option value="2022" id="2022">2022</option>    
-                                                        <br></td>
+                                                        <td> <input type="checkbox" name=<%= employees[i].empID %> id=<%= employees[i].empID %> value="1"><br> </td>
                                                     </tr>
                                                 <% }%>
                                             </tbody>
@@ -151,7 +142,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-10 control-label">New Basic Pay Amt</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="increment" class="form-control" placeholder="Rs.">
+                                        <input type="text" name="increment" class="form-control" value=3>
                                     </div>
                                 </div>
                             </div>
