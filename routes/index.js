@@ -233,7 +233,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('viewemployee',{
-                salary:JSON.parse(JSON.stringify(result))
+                Salary:JSON.parse(JSON.stringify(result))
             });
         }
     })
