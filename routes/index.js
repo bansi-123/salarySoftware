@@ -262,12 +262,11 @@ router.post('/table-export', ensureAuthenticated, (req, res) => {
 // ------------ Add Employee Route ------------//
 router.post('/addEmployee',(req,res)=>{
     const data=JSON.parse(JSON.stringify(req.body));
-    const {empName,uan,dept,designation,pay,gp,bankAccNum,bankName,doj,salaryCategory}=data;
-    const emailid="kshitij.deshpan@gmail.com"
+    const {empName,uan,dept,designation,pay,gp,pf,bankAccNum,bankName,doj,salaryCategory,emailID,groupInsurance,payBand,branchName,ifscCode,designationCategory}=data;
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("here")
-    console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, 1000, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailid}')`)
-    mysqldb.query(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, 1000, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailid}')`
+    console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName},${ifscCode},'${designationCategory}')`)
+    mysqldb.query(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}',${ifscCode},'${designationCategory}')`
     ,(err,result)=>{
         if (err) {
             console.log(err);
@@ -294,6 +293,7 @@ router.post('/updatepay',(req,res)=>{
     // console.log(JSON.parse(JSON.stringify(req.body)))
     // var list=[];
     var list="(";
+    var list2=[]
     for(var i in data)
     {
 
@@ -302,12 +302,14 @@ router.post('/updatepay',(req,res)=>{
             console.log(i)
             console.log(data[i])
             list+=i.toString()+","
+            list2.push(i)
         }
 
     }
     list=list.substring(0,list.length - 1);
     list+=")";
-    console.log("list is",list)
+    console.log("list is",list2)
+    
     mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`,(err,result)=>
     {
         if (err) {
@@ -332,7 +334,8 @@ router.post('/updatepay',(req,res)=>{
                     increment=Math.ceil(increment/10)*10
                 }
                 var finalpay=increment-queryData[i].gp;
-                mysqldb.query(`update Employees set pay=${finalpay} where empID in ${list}`,(err,result)=>
+                console.log
+                mysqldb.query(`update Employees set pay=${finalpay} where empID=${parseInt(list2[i])}`,(err,result)=>
                 {
                     if (err) {
                         //------------ Invalid Employement ID ------------//
@@ -377,6 +380,7 @@ router.get('/showsalary', ensureAuthenticated, (req, res) => {
 
 
 router.post('/generateSalary',(req,res)=>{
+    console.log("body is",JSON.parse(JSON.stringify(req.body)))
     var length;
     mysqldb.query(`select count(*) from Employees`,(err,result)=>{
         if (result.length===0) {
@@ -435,9 +439,61 @@ router.post('/generateSalary',(req,res)=>{
                                 //     'success_msg',
                                 //     'Employee found!'
                                 // );
-                                var month=JSON.parse(JSON.stringify(result))[0].month;
-                                var year=JSON.parse(JSON.stringify(result))[0].year;
-                                var daysOfMonth=JSON.parse(JSON.stringify(result))[0].days;
+                                // var month=JSON.parse(JSON.stringify(result))[0].month;
+                                // var year=JSON.parse(JSON.stringify(result))[0].year;
+                                var month=JSON.parse(JSON.stringify(req.body)).month
+                                var year=JSON.parse(JSON.stringify(req.body)).year
+                                var days;
+                                if(month==="january")
+                                {
+                                    days=31;
+                                }
+                                else if(month==="february")
+                                {
+                                    days=28;
+                                }
+                                else if(month==="march")
+                                {
+                                    days=31;
+                                }
+                                else if(month==="april")
+                                {
+                                    days=30;
+                                }
+                                else if(month==="may")
+                                {
+                                    days=31;
+                                }
+                                else if(month==="june")
+                                {
+                                    days=30
+                                }
+                                else if(month==="july")
+                                {
+                                    days=31
+                                }
+                                else if(month==="august")
+                                {
+                                    days=31
+                                }
+                                else if(month==="september")
+                                {
+                                    days=30
+                                }
+                                else if(month==="october")
+                                {
+                                    days=31
+                                }
+                                else if(month==="november")
+                                {
+                                    days=30
+                                }
+                                else if(month==="december")
+                                {
+                                    days=31
+                                }
+
+                                var daysOfMonth=days;
                                 var lwp=JSON.parse(JSON.stringify(result))[0].lwp;
                                 var workedDays=daysOfMonth-lwp;
                                 pay*=workedDays/daysOfMonth;
@@ -453,7 +509,7 @@ router.post('/generateSalary',(req,res)=>{
                                 }
                                 // var lwp_amt=(parseInt(gross_sal)/parseInt(daysOfMonth))*parseInt(lwp);
                                 console.log("gross salary,days of month,lwp",gross_sal,daysOfMonth,lwp)
-                                console.log("lwp_amt=",lwp_amt)
+                                // console.log("lwp_amt=",lwp_amt)
                                 var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca)+parseFloat(diff)+parseFloat(oth_spl)+parseFloat(ta);
                                 if(gross_sal>10000)
                                 {

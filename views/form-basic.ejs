@@ -1,4 +1,17 @@
 <%- include('partials/header.ejs'); -%>
+
+<head>
+
+    <meta charset="UTF-8">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'><link rel="stylesheet" href="../assets/alert/style.css">
+    <!-- <link href="../assets/alert/style.css" rel="stylesheet">
+  
+    <script src="../assets/alert/bigjava.js"></script> -->
+
+
+
+
+</head>
 <body>
 
         <div class="content-wrap">
@@ -31,14 +44,14 @@
                                                         <label class="col-sm-6 control-label">Employee Name</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" name="empName" class="form-control"
-                                                                placeholder="Enter Name">
+                                                                placeholder="Enter Name" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Email ID</label>
                                                         <div class="col-sm-10">
-                                                        <input id="example-email" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email">
+                                                        <input id="example-email" name="emailID" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email" required>
                                                         </div>
                                                     </div>
 
@@ -46,22 +59,22 @@
                                                         <label class="col-sm-6 control-label">UAN</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" name="uan" class="form-control"
-                                                                placeholder="UAN">
+                                                                placeholder="UAN" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Department</label>
                                                         <div class="col-sm-10">
-                                                            <input type="radio" id="comp" name="dept" value="comp">
+                                                            <input type="radio" id="comp" name="dept" value="comp" required>
                                                               <label for="comp">Computer</label><br>
-                                                              <input type="radio" id="IT" name="dept" value="IT">
+                                                              <input type="radio" id="IT" name="dept" value="IT" required>
                                                               <label for="IT">IT</label><br>
-                                                              <input type="radio" id="entc" name="dept" value="entc">
+                                                              <input type="radio" id="entc" name="dept" value="entc" required>
                                                               <label for="entc">ENTC</label><br>
-                                                              <input type="radio" id="accounts" name="dept" value="accounts">
+                                                              <input type="radio" id="accounts" name="dept" value="accounts" required>
                                                               <label for="entc">Accounts</label><br>
-                                                              <input type="radio" id="admin" name="dept" value="admin">
+                                                              <input type="radio" id="admin" name="dept" value="admin" required>
                                                               <label for="entc">Admin</label><br>
                                                         </div>
                                                     </div>
@@ -69,14 +82,22 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Designation</label>
                                                         <div class="col-sm-10">
-                                                            <select class="form-control" name="designation">
+                                                            <input type="text" name="designation" class="form-control"
+                                                                placeholder="designation" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Designation Category</label>
+                                                        <div class="col-sm-10">
+                                                            <select class="form-control" name="designationCategory">
                                                                 <!-- <option value="value" selected>Option Name</option> -->
-                                                                <option value="professor" id="professor" selected>Professor</option>
-                                                                <option value="associateprof" id="associateprof" selected>Associate Professor</option>
-                                                                <option value="asstprof" id="asstprof" selected>Assistant Professor</option>
-                                                                <option value="techasst" id="techasst" selected>Technical Assistant</option>
-                                                                <option value="labasst" id="labasst" selected>Lab Assistant</option>
-                                                                <option value="nonteaching" id="nonteaching" selected>Non Teaching</option>    
+                                                                <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
+                                                                <option value="30k-40k" id="30k-40k" selected>Associate 20k-30k</option>
+                                                                <option value="40k-50k" id="40k-50k" selected>Assistant 20k-30k</option>
+                                                                <option value="50k-60k" id="50k-60k" selected>Technical Assistant</option>
+                                                                <option value="60k-70k" id="60k-70k" selected>Lab Assistant</option>
+                                                                <option value="70k-80k" id="70k-80k" selected>Non Teaching</option>    
                                                             </select>
                                                         </div>
                                                     </div>
@@ -95,26 +116,45 @@
                                                         </div>
 
                                                     </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Date of
+                                                            Joining</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="date" class="form-control" id="doj"
+                                                                name="doj" required>
+
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                     <!-- /# column -->
                                                     <!-- <div class="column"> -->
                                                     <div class="col-lg-6">
 
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 control-label">Date of
-                                                                Joining</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="date" class="form-control" id="doj"
-                                                                    name="doj">
-
-                                                            </div>
-                                                        </div>
+                                                        
 
                                                         <div class="form-group">
                                                             <label class="col-sm-6 control-label">Bank Name</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="bankName" class="form-control"
-                                                                    placeholder="Bank Name">
+                                                                    placeholder="Bank Name" required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-sm-6 control-label">Branch Name</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" name="branchName" class="form-control"
+                                                                    placeholder="Branch Name" required>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-sm-6 control-label">IFSC Code</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" name="ifscCode" class="form-control"
+                                                                    placeholder="IFSC Code" required>
 
                                                             </div>
                                                         </div>
@@ -124,7 +164,7 @@
                                                                 No.</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="bankAccNum"
-                                                                    class="form-control" placeholder="Acc No.">
+                                                                    class="form-control" placeholder="Acc No." required>
 
                                                             </div>
                                                         </div>
@@ -133,7 +173,7 @@
                                                             <label class="col-sm-6 control-label">Basic Pay</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="pay" class="form-control"
-                                                                    placeholder="Basic Pay">
+                                                                    placeholder="Basic Pay" required>
 
 
                                                             </div>
@@ -143,11 +183,90 @@
                                                             <label class="col-sm-6 control-label">Grade Pay</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="gp" class="form-control"
-                                                                    placeholder="Grade Pay">
+                                                                    placeholder="Grade Pay" required>
                                                             </div>
                                                         </div>
 
-                                                    <input type="submit"  value="Submit">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-6 control-label">Provident Fund</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" name="pf" class="form-control"
+                                                                    placeholder="Provident Fund" required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-sm-6 control-label">Group Insurance</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" name="groupInsurance" class="form-control"
+                                                                    placeholder="Group Insurance" required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-sm-6 control-label">Pay Band</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" name="payBand" required>
+                                                                    <!-- <option value="value" selected>Option Name</option> -->
+                                                                    <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
+                                                                    <option value="30k-40k" id="30k-40k" selected>Associate 20k-30k</option>
+                                                                    <option value="40k-50k" id="40k-50k" selected>Assistant 20k-30k</option>
+                                                                    <option value="50k-60k" id="50k-60k" selected>Technical Assistant</option>
+                                                                    <option value="60k-70k" id="60k-70k" selected>Lab Assistant</option>
+                                                                    <option value="70k-80k" id="70k-80k" selected>Non Teaching</option>
+                                                                    <option value="80k-90k" id="80k-90k" selected>80k-90k</option> 
+                                                                    <option value="90k-100k" id="90k-100k" selected>90k-100k</option>  
+                                                                    <option value="lakh" id="lakh" selected>1 lakh+</option>  
+                                                                </select>
+                                                            </div>
+                                                        </div>
+    
+                                                        <!-- <button type="submit" onclick="alertFunction()" class="btn btn-primary">Primary</button> -->
+                                                    <!-- <input type="submit" value="Submit"> -->
+
+
+
+                                                    <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert" value="submit" id="myAlert">
+                                                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                        </button>
+
+
+                                                      </div> -->
+
+                                                      <!-- <div class='customAlert'>
+                                                        <p class='message'></p>
+                                                          <input type='button' class='confirmButton' value='Ok'>
+                                                      </div>
+                                                        
+                                                      <input type='button' class='rab' value='Raise alert'> -->
+
+                                                      <!-- <button type="submit" value="showAlert" onclick="showAlert();"> Show Alert</button>
+
+                                                        <div class="container" style="display:none;" id="myAlert">
+                                                            <h2>Dismissal Alert Messages</h2>
+                                                            <div class="alert alert-success alert-dismissable" id="myAlert2">
+                                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                                Success! message sent successfully.
+                                                            </div>
+
+                                                        </div> -->
+
+                                                        
+                                                        <br />
+                                                        <div class="row text-center">
+                                                          <div>
+                                                            <button class="button large round success">Success notification</button>
+                                                          </div>
+                                                          <div>
+                                                            <button class="button large round alert">Error notification</button>
+                                                          </div>
+                                                        </div>
+
+                                                      
+
+                                                      
 
                                                     </div>
 
@@ -162,6 +281,9 @@
                 </div>
             </div>
         </div>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script><script  src="../assets/alert/bigjava.js"></script>
 </body>
 
 </html>
