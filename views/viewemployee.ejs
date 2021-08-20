@@ -14,7 +14,33 @@
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
 
+.left {
+  left: 0;
+  background-color: #ADD8E6;
+}
+
+.right {
+  right: 0;
+  background-color: #ADD8E6;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 .card {
         margin: 0 auto; /* Added */
         float: none; /* Added */
@@ -71,67 +97,138 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <% for(var i = employees.length-1; i >= 0 ; i-- ) { %>
+                                                <% for(var i = salary.length-1; i >= 0 ; i-- ) { %>
                                                     <tr>
-                                                        <td><%= employees[i].empID %></td>
-                                                        <td><%= employees[i].empName %></td>
-                                                        <td><%= employees[i].dept %></td>
-                                                        <td><%= employees[i].designation %></td> 
+                                                        <td><%= salary[i].empID %></td>
+                                                        <td><%= salary[i].empName %></td>
+                                                        <td><%= salary[i].dept %></td>
+                                                        <td><%= salary[i].designation %></td> 
                                                          <td>
 <!-- views button -->
                                                                 <button type="button" data-target="#<%= salary[i].empID %>" class="btn btn-outline-info btn-sm" data-toggle="modal">
                                                                    View
                                                                 </button> 
 
-                                                                  <div class="modal fade" id="<%= salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                              <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                  <h5 class="modal-title" id="exampleModalLongTitle">Employee Details</h5>
-                                                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                  </button>
-                                                                                </div>
-                                                                                <div class="modal-body cardalign">
-                                                                                    <p>
-                                                                                        <div class="card " style="width: 18rem;">
-                                                                                          <div class="card-header">
-                                                                                              Employee Details
-                                                                                            </div> 
-                                                                                            <ul class="list-group list-group-flush">
-                                                                                              <li  class="list-group-item"><%= salary[i].empName %></li>
-                                                                                              <li  class="list-group-item"><%= salary[i].emailID %></li>
-                                                                                              <li  class="list-group-item"><%= salary[i].dept %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].da %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].hra %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].cca %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].diff %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].oth_spl %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].lwp %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].ta %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].prof_tax %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].in_tax %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].gross_sal %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].total_ded %></li>
-                                                                                              <li class="list-group-item"><%= salary[i].net_sal %></li>
-                                                                                              
-                                                                                            </ul>
-        
-                                                                                        </div>
-                                                                                        
-                                                                                    </p>
-                                                                                </div>
+                                                               
 
-                                                                             
-                                                                                <div class="modal-footer">
-                                                                                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                                                                  
-                                                                                </div>
-                                                                              </div>
-                                                                            </div>
-                                                                  </div>
-                                                              
-<!-- edit button -->                                                             
+<!-- Modal: modalCart -->
+<div class="modal fade" id="<%= salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Your cart</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Body-->
+ 
+      <div class="modal-body">
+
+        <table class="table table-hover"><br><br><br><br><br><br>
+          <thead>
+            <tr>
+              <th> </th>
+              <th>Field</th>
+              <th>Value</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Name</td>
+              <td><%= salary[i].empName %></td>
+              
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Email ID</td>
+              <td><%= salary[i].emailID %></td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Department</td>
+              <td><%= salary[i].dept %></td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>DA</td>
+              <td><%= salary[i].da %></td>
+            </tr>
+            <tr class="total">
+              <th scope="row">5</th>
+              <td>HRA</td>
+              <td>   <%= salary[i].hra %></td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>CCA</td>
+            <td> <%= salary[i].cca %></td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>Difference</td>
+            <td> <%= salary[i].diff %></td>
+          </tr>
+          <tr>
+            <th scope="row">8</th>
+            <td>Other spl </td>
+            <td> <%= salary[i].oth_spl %></td>
+          </tr>
+          <tr>
+            <th scope="row">9</th>
+            <td>LWP</td>
+            <td> <%= salary[i].lwp %></td>
+          </tr>
+          <tr>
+            <th scope="row">10</th>
+            <td>TA</td>
+            <td> <%= salary[i].ta %></td>
+          </tr>
+          <tr>
+            <th scope="row">11</th>
+            <td>Prof tax</td>
+            <td> <%= salary[i].prof_tax %></td>
+          </tr>
+          <tr>
+            <th scope="row">12</th>
+            <td>Income tax</td>
+            <td> <%= salary[i].in_tax %></td>
+          </tr>
+          <tr>
+            <th scope="row">13</th>
+            <td>Gross sal</td>
+            <td> <%= salary[i].gross_sal %></td>
+          </tr>
+          <tr>
+            <th scope="row">14</th>
+            <td>Toral deduction</td>
+            <td> <%= salary[i].total_ded %></td>
+          </tr>
+          <tr>
+            <th scope="row">15</th>
+            <td>Net salary</td>
+            <td> <%= salary[i].net_sal %></td>
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal: modalCart -->
+
+
+
                                                                 <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#a<%= salary[i].empID %>">
                                                                     Edit
                                                                 </button>
@@ -192,7 +289,7 @@
                                                                       </div>
                                                                       <div class="modal-footer">
                                                                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                                                        <button type="button" class="btn btn-outline-primary">Save Changes</button>
+                                                                        
                                                                       </div>
                                                                     </div>
                                                                   </div>

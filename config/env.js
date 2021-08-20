@@ -1,5 +1,5 @@
 const env = {
-  database: 'employee',
+  database: 'employees2',
   username: 'root',
   password: 'sunandroot',
   host: 'localhost',

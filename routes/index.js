@@ -188,24 +188,11 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
             }
         })
     }
-    res.redirect('dashboard');
+    res.redirect('showlwp');
 });
 
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`,(err,result)=>
-    {
-        if (err) {
-            console.log(err);
-        }
-        else{
-            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-            res.render('viewemployee',{
-                employees:JSON.parse(JSON.stringify(result))
-            });
-        }
-    })
-
-    // mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
+    // mysqldb.query(`select * from Employees`,(err,result)=>
     // {
     //     if (err) {
     //         console.log(err);
@@ -213,11 +200,40 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
     //     else{
     //         console.log("Employees Details",JSON.parse(JSON.stringify(result)));
     //         res.render('viewemployee',{
-    //             salary:JSON.parse(JSON.stringify(result))
+    //             employees:JSON.parse(JSON.stringify(result))
     //         });
     //     }
     // })
 
+    mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('viewemployee',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
+router.get('/showlwp',  (req, res) => {
+    mysqldb.query(`select * from lwp_temp`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('showlwp',{
+                lwp:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
 });
 
 router.get('/allowances',  (req, res) => {
@@ -234,6 +250,10 @@ router.get('/allowances',  (req, res) => {
         }
     })
     
+});
+
+router.post('/allowances',  (req, res) => {
+    res.render('index1')
 });
 
 
@@ -420,7 +440,7 @@ router.post('/updatepay',(req,res)=>{
         
     })
     
-    res.redirect('dashboard');
+    res.redirect('index1');
 })
 
 
