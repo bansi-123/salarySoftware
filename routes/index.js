@@ -30,6 +30,8 @@ router.post('/form-basic', ensureAuthenticated, (req, res) => {
 });
 
 
+
+
 //------------ Search for Employee Details Route ------------//
 router.post('/searchEmployee',(req,res)=>{
     const id=req.body.id;
