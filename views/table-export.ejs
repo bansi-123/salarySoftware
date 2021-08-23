@@ -16,18 +16,19 @@
     </style>
      <script type="text/javascript">  
         function selects(){  
-            var ele=document.getElementsById("check").options;  
-            for(var i=0; i<ele.length; i++){  
-                if(ele[i].type=='checkbox')  
-                    ele[i].checked=true;  
-            }  
+            var checkedButtons = document
+                .querySelectorAll(".checkedButtons");
+            console.log(checkedButtons)
+            for (var i = 0; i < checkedButtons.length; i++) {
+                checkedButtons[i].checked = true;
+            }
         }  
         function deSelect(){  
-            var ele=document.getElementsByName('check');  
-            for(var i=0; i<ele.length; i++){  
-                if(ele[i].type=='checkbox')  
-                    ele[i].checked=false;  
-            }  
+            var checkedButtons = document.querySelectorAll(".checkedButtons");
+            //  console.log(checkedButtons)
+            for (var i = 0; i < checkedButtons.length; i++) {
+                checkedButtons[i].checked = false;
+            }
         }     
         // $(document).ready(function() {
         //  // on form submit
@@ -103,7 +104,7 @@
                                                         <td><%= employees[i].empName %></td>
                                                         <td><%= employees[i].dept %></td>
                                                         <td><%= employees[i].designation %></td>
-                                                        <td> <input type="checkbox" name=<%= employees[i].empID %> id=<%= employees[i].empID %> value="1"><br> </td>
+                                                        <td> <input class="checkedButtons" type="checkbox" name=<%= employees[i].empID %> id="check" value="1"><br> </td>
                                                     </tr>
                                                 <% }%>
                                             </tbody>
