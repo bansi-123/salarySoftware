@@ -97,21 +97,21 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
+                                                <% for(var i = Salary.length-1; i >= 0 ; i-- ) { %>
                                                     <tr>
-                                                        <td><%= Employees[i].empID %></td>
-                                                        <td><%= Employees[i].empName %></td>
-                                                        <td><%= Employees[i].dept %></td>
-                                                        <td><%= Employees[i].designation %></td> 
+                                                        <td><%= Salary[i].empID %></td>
+                                                        <td><%= Salary[i].empName %></td>
+                                                        <td><%= Salary[i].dept %></td>
+                                                        <td><%= Salary[i].designation %></td> 
                                                          <td>
-                                                                <button type="button" data-target="#<%= Employees[i].empID %>" class="btn btn-outline-info btn-sm" data-toggle="modal">
+                                                                <button type="button" data-target="#<%= Salary[i].empID %>" class="btn btn-outline-info btn-sm" data-toggle="modal">
                                                                    View
                                                                 </button> 
 
                                                                
 
 <!-- Modal: modalCart -->
-<div class="modal fade" id="<%= Employees[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="<%= Salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -139,99 +139,99 @@
             <tr>
               <th scope="row">1</th>
               <td>Employee ID</td>
-              <td><%= Employees[i].empID %></td>
+              <td><%= Salary[i].empID %></td>
               
             </tr>
             <tr>
               <th scope="row">1</th>
               <td>Name</td>
-              <td><%= Employees[i].empName %></td>
+              <td><%= Salary[i].empName %></td>
               
             </tr>
             <tr>
               <th scope="row">2</th>
               <td>Email ID</td>
-              <td><%= Employees[i].emailID %></td>
+              <td><%= Salary[i].emailID %></td>
             </tr>
 
             <tr>
               <th scope="row">1</th>
               <td>Department</td>
-              <td><%= Employees[i].dept %></td>
+              <td><%= Salary[i].dept %></td>
               
             </tr>
 
             <tr>
               <th scope="row">1</th>
               <td>Designation</td>
-              <td><%= Employees[i].designation %></td>
+              <td><%= Salary[i].designation %></td>
               
             </tr>
             <!-- <tr>
               <th scope="row">3</th>
               <td>Department</td>
-              <td><%= Employees[i].dept %></td>
+              <td><%= Salary[i].dept %></td>
             </tr>
             <tr>
               <th scope="row">4</th>
               <td>DA</td>
-              <td><%= Employees[i].da %></td>
+              <td><%= Salary[i].da %></td>
             </tr>
 
             <tr class="total">
               <th scope="row">5</th>
               <td>HRA</td>
-              <td>   <%= Employees[i].hra %></td>
+              <td>   <%= Salary[i].hra %></td>
           </tr>
           <tr>
             <th scope="row">6</th>
             <td>CCA</td>
-            <td> <%= Employees[i].cca %></td>
+            <td> <%= Salary[i].cca %></td>
           </tr>
           <tr>
             <th scope="row">7</th>
             <td>Difference</td>
-            <td> <%= Employees[i].diff %></td>
+            <td> <%= Salary[i].diff %></td>
           </tr>
           <tr>
             <th scope="row">8</th>
             <td>Other spl </td>
-            <td> <%= Employees[i].oth_spl %></td>
+            <td> <%= Salary[i].oth_spl %></td>
           </tr>
           <tr>
             <th scope="row">9</th>
             <td>LWP</td>
-            <td> <%= Employees[i].lwp %></td>
+            <td> <%= Salary[i].lwp %></td>
           </tr>
           <tr>
             <th scope="row">10</th>
             <td>TA</td>
-            <td> <%= Employees[i].ta %></td>
+            <td> <%= Salary[i].ta %></td>
           </tr>
           <tr>
             <th scope="row">11</th>
             <td>Prof tax</td>
-            <td> <%= Employees[i].prof_tax %></td>
+            <td> <%= Salary[i].prof_tax %></td>
           </tr>
           <tr>
             <th scope="row">12</th>
             <td>Income tax</td>
-            <td> <%= Employees[i].in_tax %></td>
+            <td> <%= Salary[i].in_tax %></td>
           </tr>
           <tr>
             <th scope="row">13</th>
             <td>Gross sal</td>
-            <td> <%= Employees[i].gross_sal %></td>
+            <td> <%= Salary[i].gross_sal %></td>
           </tr>
           <tr>
             <th scope="row">14</th>
             <td>Toral deduction</td>
-            <td> <%= Employees[i].total_ded %></td>
+            <td> <%= Salary[i].total_ded %></td>
           </tr>
           <tr>
             <th scope="row">15</th>
             <td>Net Salary</td>
-            <td> <%= Employees[i].net_sal %></td>
+            <td> <%= Salary[i].net_sal %></td>
           </tr> -->
 
           </tbody>
@@ -249,10 +249,10 @@
 
 
 
-                                                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#a<%= Employees[i].empID %>">
+                                                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#a<%= Salary[i].empID %>">
                                                                     Edit
                                                                 </button>
-                                                                <div class="modal fade" id="a<%= Employees[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                <div class="modal fade" id="a<%= Salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                                   <div class="modal-dialog modal-dialog-centered" role="document">
                                                                     <div class="modal-content">
                                                                       <div class="modal-header">
@@ -317,14 +317,14 @@
 
                                                                 
 
-                                                                <a href="/uploads/<%=Employees[i].empID%>"><button type="submit" class="btn btn-outline-success btn-sm" >Print</button></a>
+                                                                <a href="/uploads/<%=Salary[i].empID%>"><button type="submit" class="btn btn-outline-success btn-sm" >Print</button></a>
                                                                 
 
-                                                             <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#b<%= Employees[i].empID %>">
+                                                             <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#b<%= Salary[i].empID %>">
                                                                 Delete
                                                               </button>
 
-                                                              <div class="modal fade" id="b<%= Employees[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                              <div class="modal fade" id="b<%= Salary[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                                   <div class="modal-content">
                                                                     <div class="modal-header">
@@ -338,7 +338,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                      <button" class="btn btn-primary" id="<%= Employees[i].empID %>" onclick="deleteFunction(this.id,this)" data-dismiss="modal">Delete</button>
+                                                                      <button" class="btn btn-primary" id="<%= Salary[i].empID %>" onclick="deleteFunction(this.id,this)" data-dismiss="modal">Delete</button>
                                                                                                                                        
                                                                     </div>
                                                                   </div>

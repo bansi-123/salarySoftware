@@ -227,7 +227,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
     //     }
     // })
 
-    mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
+    mysqldb.query(`select * from Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -235,7 +235,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('viewemployee',{
-                Salary:JSON.parse(JSON.stringify(result))
+                Employees:JSON.parse(JSON.stringify(result))
             });
         }
     })
@@ -284,7 +284,7 @@ router.post('/allowances',  (req, res) => {
         }
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-            res.render('viewallow');
+            res.render('index1');
         }
     })
     
