@@ -52,6 +52,21 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.STRING
 		
 	},
+	ifscCode:{
+		type: Sequelize.STRING
+	},
+	groupInsurance:{
+		type: Sequelize.INTEGER
+	},
+	payBand:{
+		type: Sequelize.STRING
+	},
+	designationCategory:{
+		type: Sequelize.STRING
+	},
+	branchName:{
+		type: Sequelize.STRING
+	},
 	emailID:{
 		type: Sequelize.STRING
 	}

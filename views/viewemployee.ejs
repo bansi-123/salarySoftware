@@ -117,7 +117,7 @@
     <div class="modal-content">
       <!--Header-->
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Your cart</h4>
+        <h4 class="modal-title" id="myModalLabel">Employee Details</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
@@ -126,7 +126,7 @@
  
       <div class="modal-body">
 
-        <table class="table table-hover"><br><br><br><br><br><br>
+        <table class="table table-hover"><br>
           <thead>
             <tr>
               <th> </th>
@@ -138,6 +138,12 @@
           <tbody>
             <tr>
               <th scope="row">1</th>
+              <td>Employee ID</td>
+              <td><%= Salary[i].empID %></td>
+              
+            </tr>
+            <tr>
+              <th scope="row">1</th>
               <td>Name</td>
               <td><%= Salary[i].empName %></td>
               
@@ -147,7 +153,21 @@
               <td>Email ID</td>
               <td><%= Salary[i].emailID %></td>
             </tr>
+
             <tr>
+              <th scope="row">1</th>
+              <td>Department</td>
+              <td><%= Salary[i].dept %></td>
+              
+            </tr>
+
+            <tr>
+              <th scope="row">1</th>
+              <td>Designation</td>
+              <td><%= Salary[i].designation %></td>
+              
+            </tr>
+            <!-- <tr>
               <th scope="row">3</th>
               <td>Department</td>
               <td><%= Salary[i].dept %></td>
@@ -157,6 +177,7 @@
               <td>DA</td>
               <td><%= Salary[i].da %></td>
             </tr>
+
             <tr class="total">
               <th scope="row">5</th>
               <td>HRA</td>
@@ -211,7 +232,7 @@
             <th scope="row">15</th>
             <td>Net Salary</td>
             <td> <%= Salary[i].net_sal %></td>
-          </tr>
+          </tr> -->
 
           </tbody>
         </table>
