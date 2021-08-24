@@ -6,6 +6,24 @@
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
   <link rel="stylesheet" href="../assets/alert/style.css">
 
+    <script type="text/javascript">
+    function validateCode() {
+    var TCode = document.getElementById("TCode").value;
+
+    for (var i = 0; i < TCode.length; i++) {
+        var char1 = TCode.charAt(i);
+        var cc = char1.charCodeAt(0);
+
+        if ((cc > 47 && cc < 58) || (cc > 64 && cc < 91) || (cc > 96 && cc < 123)) {
+        } else {
+            alert("Input is not alphanumeric");
+            return false;
+        }
+    }
+
+    return true;
+}  
+</script>
 </head>
 <body>
 
@@ -39,14 +57,14 @@
                                                         <label class="col-sm-6 control-label">Employee Name</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" name="empName" class="form-control"
-                                                                placeholder="Enter Name" required>
+                                                                placeholder="Enter Name" required="required">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Email ID</label>
                                                         <div class="col-sm-10">
-                                                        <input id="example-email" name="emailID" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email" required>
+                                                        <input id="example-email" name="emailID" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email" required="required">
                                                         </div>
                                                     </div>
 
@@ -54,7 +72,7 @@
                                                         <label class="col-sm-6 control-label">UAN</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" name="uan" class="form-control"
-                                                                placeholder="UAN" required>
+                                                                placeholder="UAN" required="required">
                                                         </div>
                                                     </div>
 
@@ -74,25 +92,30 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Designation</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" name="designation" class="form-control"
-                                                                placeholder="designation" required>
-                                                        </div>
-                                                    </div>
+                                                   
 
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Designation Category</label>
                                                         <div class="col-sm-10">
                                                             <select class="form-control" name="designationCategory">
                                                                 <!-- <option value="value" selected>Option Name</option> -->
-                                                                <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
-                                                                <option value="30k-40k" id="30k-40k" selected>Associate 20k-30k</option>
-                                                                <option value="40k-50k" id="40k-50k" selected>Assistant 20k-30k</option>
-                                                                <option value="50k-60k" id="50k-60k" selected>Technical Assistant</option>
-                                                                <option value="60k-70k" id="60k-70k" selected>Lab Assistant</option>
-                                                                <option value="70k-80k" id="70k-80k" selected>Non Teaching</option>    
+                                                                <option value="Teaching" id="Teaching" selected>Teaching</option>
+                                                                <option value="Non-Teaching" id="Non-Teaching" selected>Non-Teaching</option>
+                                                                <option value="Other" id="Other" selected>Other</option>
+                                                               
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Designation</label>
+                                                        <div class="col-sm-10">
+                                                            <select class="form-control" name="designationCategory">
+                                                                <!-- <option value="value" selected>Option Name</option> -->
+                                                                <option value="hod" id="hod" selected>HOD</option>
+                                                                <option value="teacher" id="teacher" selected>Teacher</option>
+                                                                <option value="Other" id="Other" selected>Other</option>
+                                                               
                                                             </select>
                                                         </div>
                                                     </div>
@@ -117,7 +140,7 @@
                                                             Joining</label>
                                                         <div class="col-sm-10">
                                                             <input type="date" class="form-control" id="doj"
-                                                                name="doj" required>
+                                                                name="doj" required="required">
 
                                                         </div>
                                                     </div>
@@ -132,7 +155,7 @@
                                                             <label class="col-sm-6 control-label">Bank Name</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="bankName" class="form-control"
-                                                                    placeholder="Bank Name" required>
+                                                                    placeholder="Bank Name" required="required">
                                                             </div>
                                                         </div>
 
@@ -140,7 +163,7 @@
                                                             <label class="col-sm-6 control-label">Branch Name</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="branchName" class="form-control"
-                                                                    placeholder="Branch Name" required>
+                                                                    placeholder="Branch Name" required="required">
 
                                                             </div>
                                                         </div>
@@ -148,8 +171,8 @@
                                                         <div class="form-group">
                                                             <label class="col-sm-6 control-label">IFSC Code</label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" name="ifscCode" class="form-control"
-                                                                    placeholder="IFSC Code" required>
+                                                                <input type="text" name="ifscCode" id= "ifsc"class="form-control"
+                                                                    placeholder="IFSC Code" required pattern="([^\s][A-z0-9À-ž\s]+)">
 
                                                             </div>
                                                         </div>
@@ -159,7 +182,7 @@
                                                                 No.</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="bankAccNum"
-                                                                    class="form-control" placeholder="Acc No." required>
+                                                                    class="form-control" placeholder="Acc No." required="required">
 
                                                             </div>
                                                         </div>
@@ -168,7 +191,7 @@
                                                             <label class="col-sm-6 control-label">Basic Pay</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="pay" class="form-control"
-                                                                    placeholder="Basic Pay" required>
+                                                                    placeholder="Basic Pay" required="required">
 
 
                                                             </div>
@@ -178,7 +201,7 @@
                                                             <label class="col-sm-6 control-label">Grade Pay</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="gp" class="form-control"
-                                                                    placeholder="Grade Pay" required>
+                                                                    placeholder="Grade Pay" required="required">
                                                             </div>
                                                         </div>
 
@@ -186,7 +209,7 @@
                                                             <label class="col-sm-6 control-label">Provident Fund</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="pf" class="form-control"
-                                                                    placeholder="Provident Fund" required>
+                                                                    placeholder="Provident Fund" required="required">
                                                             </div>
                                                         </div>
 
@@ -194,21 +217,21 @@
                                                             <label class="col-sm-6 control-label">Group Insurance</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="groupInsurance" class="form-control"
-                                                                    placeholder="Group Insurance" required>
+                                                                    placeholder="Group Insurance" required="required">
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label class="col-sm-6 control-label">Pay Band</label>
                                                             <div class="col-sm-10">
-                                                                <select class="form-control" name="payBand" required>
+                                                                <select class="form-control" name="payBand" >
                                                                     <!-- <option value="value" selected>Option Name</option> -->
                                                                     <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
-                                                                    <option value="30k-40k" id="30k-40k" selected>Associate 20k-30k</option>
-                                                                    <option value="40k-50k" id="40k-50k" selected>Assistant 20k-30k</option>
-                                                                    <option value="50k-60k" id="50k-60k" selected>Technical Assistant</option>
-                                                                    <option value="60k-70k" id="60k-70k" selected>Lab Assistant</option>
-                                                                    <option value="70k-80k" id="70k-80k" selected>Non Teaching</option>
+                                                                    <option value="30k-40k" id="30k-40k" selected>30k-40k</option>
+                                                                    <option value="40k-50k" id="40k-50k" selected>40k-50k</option>
+                                                                    <option value="50k-60k" id="50k-60k" selected>50k-60k</option>
+                                                                    <option value="60k-70k" id="60k-70k" selected>60k-70k</option>
+                                                                    <option value="70k-80k" id="70k-80k" selected>70k-80k</option>
                                                                     <option value="80k-90k" id="80k-90k" selected>80k-90k</option> 
                                                                     <option value="90k-100k" id="90k-100k" selected>90k-100k</option>  
                                                                     <option value="lakh" id="lakh" selected>1 lakh+</option>  
@@ -252,17 +275,10 @@
                                                         <br />
                                                         <div class="row text-center">
                                                           <div>
-                                                            <button class="button large round success">Success notification</button>
+                                                            <button class="button large round success">Submit</button>
                                                           </div>
-                                                          <div>
-                                                            <button class="button large round alert">Error notification</button>
-                                                          </div>
+                                                          
                                                         </div>
-
-                                                      
-
-                                                      
-
                                                     </div>
 
                                             </div>

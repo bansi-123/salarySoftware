@@ -30,6 +30,8 @@ router.post('/form-basic', ensureAuthenticated, (req, res) => {
 });
 
 
+
+
 //------------ Search for Employee Details Route ------------//
 router.post('/searchEmployee',(req,res)=>{
     const id=req.body.id;
@@ -225,7 +227,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
     //     }
     // })
 
-    mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
+    mysqldb.query(`select * from Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -233,7 +235,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('viewemployee',{
-                Salary:JSON.parse(JSON.stringify(result))
+                Employees:JSON.parse(JSON.stringify(result))
             });
         }
     })
@@ -249,6 +251,22 @@ router.get('/showlwp',  (req, res) => {
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
             res.render('showlwp',{
+                lwp:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
+
+router.get('/templwp',  (req, res) => {
+    mysqldb.query(`select * from lwp_temp`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('templwp',{
                 lwp:JSON.parse(JSON.stringify(result))
             });
         }
@@ -282,7 +300,7 @@ router.post('/allowances',  (req, res) => {
         }
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-            res.render('viewallow');
+            res.render('index1');
         }
     })
     
@@ -347,8 +365,8 @@ router.post('/addEmployee',(req,res)=>{
     const {empName,uan,dept,designation,pay,gp,pf,bankAccNum,bankName,doj,salaryCategory,emailID,groupInsurance,payBand,branchName,ifscCode,designationCategory}=data;
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("here")
-    console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName},${ifscCode},'${designationCategory}')`)
-    mysqldb.query(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}',${ifscCode},'${designationCategory}')`
+    console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
+    mysqldb.query(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`
     ,(err,result)=>{
         if (err) {
             console.log(err);
@@ -368,6 +386,22 @@ router.post('/addEmployee',(req,res)=>{
 
 
 router.get('/advances', ensureAuthenticated, (req, res) => 
+{
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('advances',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/tempadvances', ensureAuthenticated, (req, res) => 
 {
     mysqldb.query(`select * from Employees`,(err,result)=>
     {
