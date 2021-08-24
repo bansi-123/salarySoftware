@@ -242,6 +242,22 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 
 });
 
+
+router.get('/trial', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('viewemployee',{
+                Salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
 router.get('/showlwp',  (req, res) => {
     mysqldb.query(`select * from lwp_temp`,(err,result)=>
     {
