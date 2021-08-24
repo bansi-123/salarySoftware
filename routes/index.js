@@ -623,13 +623,22 @@ router.post('/generateSalary',(req,res)=>{
                                 console.log("hra is",hra);
 
                                 //variable to calc advances
-                                mysqldb.query(`select month,year,days,lwp from advance_temp where empID=${empID}`,(err,result)=>{
+                                mysqldb.query(`select * from advance_temp where empID=${empID}`,(err,result)=>{
                                     if (err) {
                                         
                                         console.log(err)
-                                        console.log("invalid update salary 1")
+                                        console.log("invalid update salary 0")
                                     }
                                     else{
+                                        var results=JSON.parse(JSON.stringify(result))[0]
+                                        var adv_amount=results.amount
+                                        var adv_month=result.month
+                                        var adv_year=result.year
+                                        var adv_duration=result.duration
+                                        var adv_outstanding=result.outstanding
+
+
+
                                         //to get lwp data for calculating part of deduction value
                                         mysqldb.query(`select month,year,days,lwp from lwp_temp where empID=${empID}`,(err,result)=>{
                                             if (err) {
