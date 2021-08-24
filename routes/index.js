@@ -258,6 +258,22 @@ router.get('/showlwp',  (req, res) => {
     
 });
 
+router.get('/templwp',  (req, res) => {
+    mysqldb.query(`select * from lwp_temp`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('templwp',{
+                lwp:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
+
 router.get('/allowances',  (req, res) => {
     mysqldb.query(`select * from config`,(err,result)=>
     {
@@ -370,6 +386,22 @@ router.post('/addEmployee',(req,res)=>{
 
 
 router.get('/advances', ensureAuthenticated, (req, res) => 
+{
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('advances',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/tempadvances', ensureAuthenticated, (req, res) => 
 {
     mysqldb.query(`select * from Employees`,(err,result)=>
     {
