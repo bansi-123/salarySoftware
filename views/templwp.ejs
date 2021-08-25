@@ -60,19 +60,39 @@
                                                 </div>
                                               </div> -->
 
-                                              <div class="input-group">
-                                                <!-- <div class="form-outline"> -->
-                                                  <input id="search-input" type="search" id="form1" class="form-control" />
-                                                  <div class="col-sm-10">
-                                                      <div>
-                                                        <label class=" col-sm-6 form-label" for="form1">Search</label>
-                                                        <button id="search-button" type="button" class="btn btn-primary">
-                                                            <i class="fas fa-search"></i>
-                                                        </button>
-                                                        </div>
-                                                    </div>
+                                              <div class="dropdown">
+                                                <label><h3> LWP of EMPLOYEE </label></h3> <button  padding="40px" onclick="myFunction()" class="dropbtn">ADD LWP</button>
+                                                <div id="myDropdown" class="dropdown-content">
+                                                  <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+            
+                                                  <% for(var i=lwp.length-1; i>= 0; i-- ) { %>
+                                                    <a href="/lwp/<%=lwp[i].empID%>"><%= lwp[i].empName %></a>
+                                                  <% }%>
+                                                </div>
                                               </div>
-
+                                              <script>
+                                                /* When the user clicks on the button,
+                                                toggle between hiding and showing the dropdown content */
+                                                function myFunction() {
+                                                  document.getElementById("myDropdown").classList.toggle("show");
+                                                }
+                                            
+                                                function filterFunction() {
+                                                  var input, filter, ul, li, a, i;
+                                                  input = document.getElementById("myInput");
+                                                  filter = input.value.toUpperCase();
+                                                  div = document.getElementById("myDropdown");
+                                                  a = div.getElementsByTagName("a");
+                                                  for (i = 0; i < a.length; i++) {
+                                                    txtValue = a[i].textContent || a[i].innerText;
+                                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                                      a[i].style.display = "";
+                                                    } else {
+                                                      a[i].style.display = "none";
+                                                    }
+                                                  }
+                                                }
+                                              </script>
 
                                               <div class="form-group">
                                                 <label class="col-sm-6 control-label">Employee ID</label>

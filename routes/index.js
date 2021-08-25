@@ -208,7 +208,7 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
             }
         })
     }
-    res.render('showlwp');
+    res.redirect('showlwp');
 });
 
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
@@ -257,7 +257,7 @@ router.get('/trial', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/showlwp',  (req, res) => {
-    mysqldb.query(`select * from lwp_temp natural join Employees`,(err,result)=>
+    mysqldb.query(`select * from lwp_temp natural join employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -407,7 +407,7 @@ router.get('/groupinsurance', ensureAuthenticated, (req, res) =>
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
             res.render('groupinsurance',{
-                salary:JSON.parse(JSON.stringify(result))
+                Employees:JSON.parse(JSON.stringify(result))
             });
         }
     })
