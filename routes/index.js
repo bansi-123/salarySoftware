@@ -604,6 +604,7 @@ router.post('/generateSalary',(req,res)=>{
         if (err) {
            
             console.log(err)
+            console.log("error while select from config query")
         }
         else{
             var da_MultFactor=JSON.parse(JSON.stringify(result))[0].da_MultFactor
@@ -622,7 +623,7 @@ router.post('/generateSalary',(req,res)=>{
             //to get total number of employees
             mysqldb.query(`select count(*) from Employees`,(err,result)=>{
                 if (result.length===0) {
-                    console.log("invalid registration number")
+                    console.log("no employees")
                 }
                 else{
                     length=JSON.parse(JSON.stringify(result))[0]['count(*)'];
@@ -634,6 +635,7 @@ router.post('/generateSalary',(req,res)=>{
                             if (err) {
     
                                 console.log(err)
+                                console.log("error in select query of Employee")
                             }
                             else{
                                 console.log(result)
@@ -664,7 +666,7 @@ router.post('/generateSalary',(req,res)=>{
                                     if (err) {
                                         
                                         console.log(err)
-                                        console.log("invalid update salary 0")
+                                        console.log("error in select from advance_temp query")
                                     }
                                     else{
                                         console.log("results after advance temp is",result)
@@ -830,7 +832,7 @@ router.post('/generateSalary',(req,res)=>{
                                             if (err) {
                                                 
                                                 console.log(err)
-                                                console.log("invalid update salary 1")
+                                                console.log("invalid select from lwp query")
                                             }
                                             else{
                                                 // var month=JSON.parse(JSON.stringify(req.body)).month
@@ -891,6 +893,30 @@ router.post('/generateSalary',(req,res)=>{
                                                 var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl); //+parseFloat(lwp_amt);
                                                 var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
                                                 console.log("logging")
+
+
+                                                mysqldb.query(`insert into lwp (empID,month,year,days,lwp) values (${empID},${month},${year},${daysOfMonth},${lwp})`,(err,result)=>{
+                                                    if(err)
+                                                    {
+                                                        console.log(err)
+                                                        console.log("error in lwp permanent table insert query")
+                                                    }
+                                                    else
+                                                    {
+                                                        mysqldb.query(`delete from lwp_temp where empID=${empID}`,(err,result)=>{
+                                                            if(err)
+                                                            {
+                                                                console.log(err)
+                                                                console.log("error in deletion of lwp temp table query")
+                                                            }
+                                                            else
+                                                            {
+                                                            }
+                                                        })
+                                                    }
+                                                })
+
+
                                                 console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${i}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
                                                 mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
                                                 ,(err,result)=>{
