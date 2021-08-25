@@ -383,6 +383,54 @@ router.post('/addEmployee',(req,res)=>{
     })
 })
 
+router.get('/groupinsurance', ensureAuthenticated, (req, res) => 
+{
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('groupinsurance',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/lateattendance', ensureAuthenticated, (req, res) => 
+{
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('lateattendance',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/miscellaneous', ensureAuthenticated, (req, res) => 
+{
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+            res.render('miscellaneous',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
 
 
 router.get('/advances', ensureAuthenticated, (req, res) => 
@@ -410,7 +458,7 @@ router.get('/tempadvances', ensureAuthenticated, (req, res) =>
         }
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-            res.render('advances',{
+            res.render('tempadvances',{
                 salary:JSON.parse(JSON.stringify(result))
             });
         }
