@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
   <link rel="stylesheet" href="../assets/alert/style.css">
-
+</style>
+<script> const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+</script>
 </head>
 
 <div class="content-wrap">
@@ -57,31 +59,20 @@
                                         <div class="col-lg-6">
 
      
-                                              <div class="input-group">
-                                                <!-- <div class="form-outline"> -->
-                                                  <input id="search-input" type="search" id="form1" class="form-control" />
-                                                  <div class="col-sm-10">
-                                                      <div>
-                                                        <label class=" col-sm-6 form-label" for="form1">Search</label>
-                                                        <button id="search-button" type="button" class="btn btn-primary">
-                                                            <i class="fas fa-search"></i>
-                                                        </button>
-                                                        </div>
-                                                    </div>
-                                              </div>
+                                             
                                               <% var i = requestedTitle-1 %>
 
                                               <div class="form-group">
                                                 <label class="col-sm-6 control-label">Employee ID</label>
                                                 <div class="col-sm-10">
-                                                    <label type="text" name="<%= Employees[i].empID %>" id="<%= Employees[i].ID %>" class="form-control"> <%= Employees[i].empID %></label>
+                                                    <input value="<%= Employees[i].empID %>" type="text" id="<%= Employees[i].empID %>" class="form-control" readonly>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-sm-6 control-label">Employee Name</label>
                                                 <div class="col-sm-10">
-                                                    <label type="text" id="<%= Employees[i].empName %>" name="<%= Employees[i].empName %>" class="form-control"> <%= Employees[i].empName %></label>
+                                                    <input value="<%= Employees[i].empName %>" type="text" id="<%= Employees[i].empName %>" class="form-control" readonly>
                                                 </div>
                                             </div>
 
@@ -94,30 +85,24 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-6 control-label">Month</label>
                                                     <div class="col-sm-10">
-                                                        <select class="form-control" name="month">
-                                                            <option value="january" name="1" id="january" selected>January</option>
-                                                                            <option value="february" id="february" selected>February</option>
-                                                                            <option value="march" id="march" selected>March</option>
-                                                                            <option value="april" id="april" selected>April</option>
-                                                                            <option value="may" id="may" selected>May</option>
-                                                                            <option value="june" id="june" selected>June</option>    
-                                                                            <option value="july" id="july" selected>July</option>  
-                                                                            <option value="aug" id="aug" selected>August</option>    
-                                                                            <option value="sept" id="sept" selected>September</option>    
-                                                                            <option value="october" id="october" selected>October</option>    
-                                                                            <option value="november" id="november" selected>November</option>    
-                                                                            <option value="december" id="december" selected>December</option>   
+                                                        <select class="form-control" name="month">                                                    
+                                                            <option id="demo" ></option>
+                                                             <option id="demo1" ></option>
                                                         </select>
                                                     </div>
                                                 </div>
-
+                   <script>
+                              const d = new Date();
+                            document.getElementById("demo").innerHTML = months[d.getMonth()];
+                           document.getElementById("demo1").innerHTML = months[d.getMonth()+1];
+                     </script>
                                                 <div class="form-group">
                                                     <label class="col-sm-6 control-label">Year</label>
                                                     <div class="col-sm-10">
                                                         <select class="form-control" name="year">
                                                             <option value="january" name="1" id="2021" selected>2021</option>
-                                                                            <option value="2023" id="2022" selected>2022</option>
-                                                                            <option value="2023" id="2023" selected>2023</option>
+                                                                            <option value="2023" id="2022" >2022</option>
+                                                                            <option value="2023" id="2023" >2023</option>
                                                                             
                                                         </select>
                                                     </div>
