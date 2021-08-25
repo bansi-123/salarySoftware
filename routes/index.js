@@ -831,7 +831,7 @@ router.post('/generateSalary',(req,res)=>{
             })
         }
     })
-    res.redirect('index1')
+    res.redirect('showsalary')
 })
 
 router.get('/uploads/:empID',  (req, res) => {
