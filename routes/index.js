@@ -3,9 +3,6 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/checkAuth');
 const { route } = require('./auth');
 
-
-
-
 //------------ Welcome Route ------------//
 router.get('/', (req, res) => {
     res.render('welcome');
@@ -25,6 +22,7 @@ router.get('/form-basic', ensureAuthenticated, (req, res) => {
 });
 
 router.post('/form-basic', ensureAuthenticated, (req, res) => {
+    
     console.log(req.body)
     // res.redirect('dashboard');
 });
@@ -210,7 +208,7 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
             }
         })
     }
-    res.redirect('showlwp');
+    res.render('showlwp');
 });
 
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
@@ -242,8 +240,24 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 
 });
 
+
+router.get('/trial', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('trial',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
 router.get('/showlwp',  (req, res) => {
-    mysqldb.query(`select * from lwp_temp`,(err,result)=>
+    mysqldb.query(`select * from lwp_temp natural join Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -1012,13 +1026,12 @@ router.post('/generateSalary',(req,res)=>{
             })
         }
     })
-    res.redirect('index1')
+    res.redirect('showsalary')
 })
 
 router.get('/uploads/:empID',  (req, res) => {
     var requestedTitle = req.params.empID;
      //console.log("the param is", req.params.empID);
- 
      mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
      {
          if (err) {
@@ -1035,6 +1048,42 @@ router.get('/uploads/:empID',  (req, res) => {
      })
     // res.render("templateSelected");
  });
+ router.get('/lwp/:empID',  (req, res) => {
+    var requestedTitle = req.params.empID;
+     //console.log("the param is", req.params.empID);
+     const data=JSON.parse(JSON.stringify(req.params));
+     mysqldb.query(`select * from Employees`,(err,result)=>
+     {
+         if (err) {
+             console.log(err);
+         }
+         else{
+             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+             res.render('templwp-2',{
+                 Employees:JSON.parse(JSON.stringify(result)),
+                 requestedTitle: req.params.empID
+            });
+         }
+     })
+ });
+
+ router.get('/templwp-2', (req, res) => {
+
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('templwp-2',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+
 
  router.get('/deductions', ensureAuthenticated, (req, res) => 
  {
