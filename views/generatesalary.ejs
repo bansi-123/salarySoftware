@@ -12,6 +12,7 @@
     top: 50%;
 }
 </style>
+
 </head>
 
 
@@ -42,15 +43,17 @@
                                 <div class="stat-widget-one">
                                     <div class="stat-icon dib"><i class="ti-calendar color-pink border-pink"></i>
                                     </div>
+                                 
+                                    
                                     <div class="stat-content dib">
-                                        <div class="stat-text">Select Month</div>
+                                        <div class="stat-text"><b>Month</b></div>
+                                        
                                         <div class="form-group">
                                             <!-- <label class="col-sm-6 control-label">Select Month</label> -->
                                             <div class="col-sm-20">
 
                                         <form class="form-horizontal" action="\generatesalary" method="post">    
-                                                <select class="form-control" name="month">
-                                                    <!-- <option value="value" selected>Option Name</option> -->
+                                                <!-- <select class="form-control" name="month">                                                    
                                                     <option value="january" id="january" selected>January</option>
                                                     <option value="february" id="february" selected>February</option>
                                                     <option value="march" id="march" selected>March</option>
@@ -63,7 +66,16 @@
                                                     <option value="october" id="october" selected>October</option>    
                                                     <option value="november" id="november" selected>November</option>    
                                                     <option value="december" id="december" selected>December</option>   
-                                                </select>
+                                                </select> -->
+                                                <p><b> </b> </p>
+
+                                                <p id="demo"></p>
+
+<script>
+const d = new Date();
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+document.getElementById("demo").innerHTML = months[d.getMonth()];
+</script>
                                             </div>
                                         </div>
                                     
