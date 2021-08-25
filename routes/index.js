@@ -243,7 +243,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/showlwp',  (req, res) => {
-    mysqldb.query(`select * from lwp_temp`,(err,result)=>
+    mysqldb.query(`select * from lwp`,(err,result)=>
     {
         if (err) {
             console.log(err);

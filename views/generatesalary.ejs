@@ -67,13 +67,13 @@
                                                     <option value="november" id="november" selected>November</option>    
                                                     <option value="december" id="december" selected>December</option>   
                                                 </select> -->
-                                                <p><b> </b> </p>
+                                                <!-- <p><b> </b> </p> -->
 
-                                                <p id="demo"></p>
+                                                <p id="demo" name="month"></p>
 
 <script>
 const d = new Date();
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 document.getElementById("demo").innerHTML = months[d.getMonth()];
 </script>
                                             </div>
