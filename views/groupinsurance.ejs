@@ -220,7 +220,7 @@
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <form class="form-horizontal" action="\updatepay" method="post">
+                                        <form class="form-horizontal" action="\groupinsurance" method="post">
                                        
                                         <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
 
@@ -251,7 +251,7 @@
                                                             <div class="col-sm-10">
                                                                 <select class="form-control" name="month">
                                                                     
-                                                                    <option value="january" name="1" id="january" selected>January</option>
+                                                                    <option value="january" id="january" selected>January</option>
                                                                     <option value="february" id="february" selected>February</option>
                                                                     <option value="march" id="march" selected>March</option>
                                                                     <option value="april" id="april" selected>April</option>
@@ -277,7 +277,7 @@
                                                                         <option value="2022" id="2022" selected>2022</option>    
                                                         <br></td>
                                                         <!-- <td> <input type="text" name="grpinsurance" value="0"><br></td> -->
-                                                        <td> <input class="checkedButtons" type="checkbox" name=<%= Employees[i].empID %> id="check" value="1"><br> </td>
+                                                        <td> <input class="checkedButtons" type="checkbox" name=<%=Employees[i].empID%> id="check" value=<%=i%>><br> </td>
                                                     </tr>
                                                 <% }%>
                                             </tbody>
