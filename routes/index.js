@@ -1354,4 +1354,90 @@ router.get('/viewdeductions', ensureAuthenticated, (req, res) =>
  })
 
 
+ router.post('/lateattendance', ensureAuthenticated, (req, res) => {
+    const data=JSON.parse(JSON.stringify(req.body));
+    const empID=req.params.empID;   
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    // const length=data["lwp"].length
+    var monthNames = [ "january", "february", "march", "april", "may", "june",
+"july", "august", "september", "october", "november", "december" ];
+            var prev=data.month;
+            prev=monthNames[monthNames.indexOf(prev.toLowerCase())-1]
+    // console.log(length)
+    // for (let i = 0; i < length; i++) {
+        var prevdays;
+        console.log("prev" ,prev)
+        if(prev.toLowerCase()==="january")
+        {
+            prevdays=31;
+        }
+        else if(prev.toLowerCase()==="february")
+        {
+            prevdays=28;
+        }
+        else if(prev.toLowerCase()==="march")
+        {
+            prevdays=31;
+        }
+        else if(prev.toLowerCase()==="april")
+        {
+            prevdays=30;
+        }
+        else if(prev.toLowerCase()==="may")
+        {
+            prevdays=31;
+        }
+        else if(prev.toLowerCase()==="june")
+        {
+            prevdays=30
+        }
+        else if(prev.toLowerCase()==="july")
+        {
+            prevdays=31
+        }
+        else if(prev.toLowerCase()==="august")
+        {
+            prevdays=31
+        }
+        else if(prev.toLowerCase()==="september")
+        {
+            prevdays=30
+        }
+        else if(prev.toLowerCase()==="october")
+        {
+            prevdays=31
+        }
+        else if(prev.toLowerCase()==="november")
+        {
+            prevdays=30
+        }
+        else if(prev.toLowerCase()==="december")
+        {
+            prevdays=31
+        }
+
+        // console.log(data["lwp"],data["month"],data["year"],days)
+        // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
+        mysqldb.query(`INSERT INTO late_attendance (empID, empName, latedays,month, year, prevdays) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${prevdays})`,(err,result)=>{
+            if (err) {
+                console.log(err);
+                console.log("invalid details");
+            }
+            else{
+                // console.log(JSON.parse(JSON.stringify(result))[0])
+                // res.redirect('/dashboard')
+                // req.flash(
+                //     'success_msg',
+                //     'Employee found!'
+                // );
+            }
+        })
+        //     }
+        // })
+    res.redirect('index1');
+});
+
+
+
+
 module.exports = router;
