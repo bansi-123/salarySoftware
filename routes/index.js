@@ -564,18 +564,31 @@ router.get('/lateattendance/:empID', ensureAuthenticated, (req, res) =>
 });
 
 
-router.get('/miscellaneous', ensureAuthenticated, (req, res) => 
+router.get('/miscellaneous/:empID', ensureAuthenticated, (req, res) => 
 {
-    mysqldb.query(`select * from Employees`,(err,result)=>
+    var requestedTitle = req.params.empID;
+    console.log(req.params.empID)
+    mysqldb.query(`select * from Employees `,(err,result)=>
     {
         if (err) {
             console.log(err);
         }
         else{
-            console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-            res.render('miscellaneous',{
-                salary:JSON.parse(JSON.stringify(result))
-            });
+            mysqldb.query(`select * from Employees where empID=${req.params.empID}`,(err,result2)=>
+            {
+                if (err) {
+                    console.log(err);
+                }
+                else{
+                    // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                    // var set=new Set(JSON.parse(JSON.stringify(result)))
+                   console.log("result2 is",result2)
+                    res.render('miscellaneous',{
+                        Employees:JSON.parse(JSON.stringify(result)),
+                        name:JSON.parse(JSON.stringify(result2))
+                    });
+                }
+            })
         }
     })
 });
