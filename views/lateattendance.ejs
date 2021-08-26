@@ -128,7 +128,7 @@
 
                         <div class="card-body">
                             <div class="horizontal-form-elements">
-                                <form class="form-horizontal" action="\FORM-BASIC" method="post">
+                                <form class="form-horizontal" action="\lateattendance" method="post">
                                     <div class="row">
                                         <div class="col-lg-6">
                                                
@@ -138,21 +138,21 @@
                                               <div class="form-group">
                                                 <label class="col-sm-6 control-label">Employee ID</label>
                                                 <div class="col-sm-10">
-                                                    <input value="<%= name[i].empID %>" type="text" id="<%= name[i].empID %>" class="form-control" readonly>
+                                                    <input name="empID" value="<%= name[i].empID %>" type="text" id="<%= name[i].empID %>" class="form-control" readonly>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-sm-6 control-label">Employee Name</label>
                                                 <div class="col-sm-10">
-                                                    <input value="<%= name[i].empName %>" type="text" id="<%= name[i].empName %>" class="form-control" readonly>
+                                                    <input name="empName" value=" <%= name[i].empName %>" type="text" id="<%= name[i].empName %>" class="form-control" readonly>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-sm-6 control-label">Total Days of Late Attendance</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="days" class="form-control"
+                                                    <input type="text" name="latedays" class="form-control"
                                                         placeholder="Enter No. of Days" required>
                                                 </div>
                                             </div>
