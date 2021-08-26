@@ -31,12 +31,19 @@ require('./config/passport')(passport);
 //     database: 'employees2'
 // });
 
-const mysqldb = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: 'Vineet@nexa1',
-    database: 'employee' 
-});
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Vineet@nexa1',
+//     database: 'employee' 
+// });
+
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Vineet@nexa1',
+//     database: 'employee' 
+// });
 
 // const mysqldb = mysql.createConnection ({
 //     host: 'localhost',
