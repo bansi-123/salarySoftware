@@ -1,0 +1,264 @@
+<%- include('partials/header.ejs'); -%>
+<head>
+    <style>
+        .arrow {
+          border: solid black;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+          
+        }
+        
+        .down {
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+    }
+    </style>
+     <script type="text/javascript">  
+        function selects(){  
+            var checkedButtons = document
+                .querySelectorAll(".checkedButtons");
+            console.log(checkedButtons)
+            for (var i = 0; i < checkedButtons.length; i++) {
+                checkedButtons[i].checked = true;
+            }
+        }  
+        function deSelect(){  
+            var checkedButtons = document.querySelectorAll(".checkedButtons");
+            //   console.log(checkedButtons)
+            for (var i = 0; i < checkedButtons.length; i++) {
+                checkedButtons[i].checked = false;
+            }
+        }  
+        
+        // $(document).ready(function() {
+        //  // on form submit
+        // $("#form").on('submit', function() {
+        //     // to each unchecked checkbox
+        //     $(this + 'input[type=checkbox]:not(:checked)').each(function () {
+        //         // set value 0 and check it
+        //         $(this).attr('checked', true).val(0);
+        //     });
+        // })
+        // var checkBoxValue = $('#checkBox').is(':checked')?$('#checkBox').val():false-->
+        
+        var x = document.querySelector("#checks");
+      //  console.log("x= ",x);
+        
+</script>  
+</head>
+    <body>
+
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+                    <form class="form-horizontal" action="\form-basic" method="post">
+                        <div class="row">
+                            <div class="col-lg-8 p-r-0 title-margin-right">
+                                <div class="page-header">
+                                    <div class="page-title">
+                                        <h1>Hello, Welcome Here</h1>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-title">
+                                        <h4>HRA</h4>
+
+                                    </div>
+
+
+                                    <div class="card-body">
+                                        <div class="horizontal-form-elements">
+
+                                            <div class="row">
+                                                <div class="col-lg-6">
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-10 control-label">Present HRA
+                                                            </label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="presenthra" class="form-control">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-10 control-label">Enter No. of Months</label>
+                                                            
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="monthhra" class="form-control">
+                                                        </div>
+                                                    </div>
+
+                                                    
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">New HRA</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="newhra" class="form-control">
+                                                        
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-title">
+                                        <h4>DDA</h4>
+
+                                    </div>
+
+
+                                    <div class="card-body">
+                                        <div class="horizontal-form-elements">
+
+                                            <div class="row">
+                                                <div class="col-lg-6">
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-10 control-label">Present DDA
+                                                            </label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="presentdda" class="form-control">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-10 control-label">Enter No. of Months
+                                                            </label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="monthdda" class="form-control">
+                                                        </div>
+                                                    </div>
+
+                                                    
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">New DDA</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="newdda" class="form-control">
+                                                            
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <section id="main-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="bootstrap-data-table-panel">
+                                            <div class="table-responsive">
+                                                <form class="form-horizontal" action="\updatepay" method="post">
+                                               
+                                                <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
+        
+                                                <input type="button"style="float: right;" onclick='selects()' value="Select All"/>  
+                                                
+                                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Employee ID<p><i class="arrow down" style="float: right;"></i></th>
+                                                            <th>Name <p><i class="arrow down" style="float: right;"></i></th>
+                                                            <th>Department <p><i class="arrow down" style="float: right;"></i></th>
+                                                            <th>Position <p><i class="arrow down" style="float: right;"></i></th>
+                                                            <th>Difference<p><i class="arrow down" style="float: right;"></i></th>
+                                                            
+        
+                                                        
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
+                                                            <tr>
+                                                                <td><%= Employees[i].empID %></td>
+                                                                <td><%= Employees[i].empName %></td>
+                                                                <td><%= Employees[i].dept %></td>
+                                                                <td><%= Employees[i].designation %></td>
+                                                                <td> <input class="checkedButtons" type="checkbox" name=<%= Employees[i].empID %> id="check" value="1"><br> </td>
+                                                            </tr>
+                                                        <% }%>
+                                                    </tbody>
+        
+        
+                                                </table>
+        
+        
+                                                  
+                                            </div>
+        
+                                        </div>
+                                    </div>
+               
+                                </div>
+        
+                            </div>
+        
+                                
+        
+                            
+                            </div>
+                            
+        
+                        </section>
+
+
+                        <input type="submit" style="float: right;" value="Submit"> 
+  
+                    </form>
+
+                   
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+                  
+                      <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
+                      <!-- scripit init-->
+                      <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
+                      <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+                      <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
+                      <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
+                      <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
+                      <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
+                      <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
+                      <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
+                      <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+    </body>
+
+    </html>

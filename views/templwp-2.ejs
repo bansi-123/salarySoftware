@@ -54,18 +54,18 @@
 
                         <div class="card-body">
                             <div class="horizontal-form-elements">
-                                <form class="form-horizontal" action="\form-basic" method="post">
+                                <form class="form-horizontal" action="\pay" method="post">
                                     <div class="row">
                                         <div class="col-lg-6">
 
      
                                              
-                                              <% var i = requestedTitle-1 %>
+                                              <% var i = 0 %>
 
                                               <div class="form-group">
                                                 <label class="col-sm-6 control-label">Employee ID</label>
                                                 <div class="col-sm-10">
-                                                    <input value="<%= Employees[i].empID %>" type="text" id="<%= Employees[i].empID %>" class="form-control" readonly>
+                                                    <input value="<%= Employees[i].empID %>" type="text" name="empID" id="<%= Employees[i].empID %>" class="form-control" readonly>
                                                 </div>
                                             </div>
 
@@ -100,8 +100,8 @@
                                                     <label class="col-sm-6 control-label">Year</label>
                                                     <div class="col-sm-10">
                                                         <select class="form-control" name="year">
-                                                            <option value="january" name="1" id="2021" selected>2021</option>
-                                                                            <option value="2023" id="2022" >2022</option>
+                                                            <option value="2021" name="1" id="2021" selected>2021</option>
+                                                                            <option value="2022" id="2022" >2022</option>
                                                                             <option value="2023" id="2023" >2023</option>
                                                                             
                                                         </select>
@@ -111,7 +111,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-6 control-label">Total Days of LWP</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="days" class="form-control"
+                                                        <input type="text" name="lwp" class="form-control"
                                                             placeholder="Enter LWP" required>
                                                     </div>
                                                 </div>
@@ -119,9 +119,9 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-6 control-label">Select One Option</label>
                                                     <div class="col-sm-10">
-                                                        <input type="radio" id="onbef25" name="beforafter25" value="onbef25" >
+                                                        <input type="radio" id="onbef25" name="beforeafter25" value="before" >
                                                           <label for="onbef25">On or Before 25th of Month</label><br>
-                                                          <input type="radio" id="after25" name="beforafter25" value="after25" >
+                                                          <input type="radio" id="after25" name="beforeafter25" value="after" >
                                                           <label for="after25">After 25th of Month</label><br>
                                             
                                                     </div>
