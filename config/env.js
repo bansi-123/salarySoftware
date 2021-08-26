@@ -11,7 +11,6 @@
 //     idle: 10000
 //   }
 // };
-
 // const env = {
 //   database: 'employees',
 //   username: 'root',
