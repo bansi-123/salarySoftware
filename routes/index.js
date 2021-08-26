@@ -61,13 +61,44 @@ router.get('/table-export', ensureAuthenticated, (req, res) => {
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('table-export',{
-                employees:JSON.parse(JSON.stringify(result))
+                Employees:JSON.parse(JSON.stringify(result))
             });
         }
     })
     
 });
 
+router.get('/differences', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('differences',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
+
+router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('otherdifferences',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
 router.get('/showincrement', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from increment`,(err,result)=>
     {
