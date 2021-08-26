@@ -1069,18 +1069,35 @@ router.get('/uploads/:empID',  (req, res) => {
 
  router.get('/templwp-2', (req, res) => {
 
-    mysqldb.query(`select * from Employees`,(err,result)=>
-    {
-        if (err) {
-            console.log(err);
-        }
-        else{
-            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-            res.render('templwp-2',{
-                Employees:JSON.parse(JSON.stringify(result))
+    // mysqldb.query(`select * from Employees`,(err,result)=>
+    // {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else{
+    //         console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+    //         res.render('templwp-2',{
+    //             Employees:JSON.parse(JSON.stringify(result))
+    //         });
+    //     }
+    // })
+
+    var requestedTitle = req.params.empID;
+     //console.log("the param is", req.params.empID);
+     const data=JSON.parse(JSON.stringify(req.params));
+     mysqldb.query(`select * from Employees`,(err,result)=>
+     {
+         if (err) {
+             console.log(err);
+         }
+         else{
+             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+             res.render('templwp',{
+                 Employees:JSON.parse(JSON.stringify(result)),
+                 requestedTitle: req.params.empID
             });
-        }
-    })
+         }
+     })
 });
 
 

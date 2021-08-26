@@ -231,8 +231,7 @@
                                                 <tr>
                                                     <th>Employee ID<p><i class="arrow down" style="float: right;"></i></th>
                                                     <th>Name <p><i class="arrow down" style="float: right;"></i></th>
-                                                    <!-- <th>Department <p><i class="arrow down" style="float: right;"></i></th> -->
-                                                    <!-- <th>Position <p><i class="arrow down" style="float: right;"></i></th> -->
+                                                    <th>Group Insurance Details</th>
                                                     <th>Group Insurance<p><i class="arrow down" style="float: right;"></i></th>
                                                     
 
@@ -244,8 +243,7 @@
                                                     <tr>
                                                         <td><%= Employees[i].empID %></td>
                                                         <td><%= Employees[i].empName %></td>
-                                                        <!-- <td><%= Employees[i].dept %></td> -->
-                                                        <!-- <td><%= Employees[i].designation %></td> -->
+                                                        <td> <input type="text" name="grpinsurance" value="0"><br></td>
                                                         <td> <input class="checkedButtons" type="checkbox" name=<%= Employees[i].empID %> id="check" value="1"><br> </td>
                                                     </tr>
                                                 <% }%>
@@ -264,22 +262,6 @@
                         </div>
 
                     </div>
-
-   
-                        
-
-                    <!-- <form class="form-horizontal" action="\table-export" method="post"> -->
-                        <div class="row">
-                            <div class="col-lg-6">
-
-                                <div class="form-group">
-                                    <label class="col-sm-10 control-label">New Basic Pay Amt</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="increment" class="form-control" value=3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     <input type="submit" style="float: right;" value="Submit"> 
 
