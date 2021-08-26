@@ -1301,42 +1301,65 @@ router.post('/generateSalary',(req,res)=>{
                                                                                 }
                                                                                 oth_spl+=late_attendance_deduction
                                                                                 console.log("late attendance deductions is",late_attendance_deduction)
-                                                                                console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${i}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
-                                                                                mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+
+                                                                                mysqldb.query(`select * from miscellaneous where empID=${empID} and month='${month}' and year=${year}`
                                                                                 ,(err,result)=>{
                                                                                     if (err) {
                                                                                         console.log(err)
-                                                                                        console.log("error while inserting into salary table")
+                                                                                        console.log("error while selecting from miscellaneous table")
                                                                                     }
                                                                                     else{
-                                                                                        // console.log(JSON.parse(JSON.stringify(result))[0])
-                                                                                        // res.send("Done");
-                                                                                        // req.flash(
-                                                                                        //     'success_msg',
-                                                                                        //     'Employee found!'
-                                                                                        // );
-                                                                                        console.log("YAYYYYY")
-                                                                                        console.log("i,length is ",i,length)
-                                                                                        // if(i===length)
-                                                                                        // {
-                                                                                        //     mysqldb.query('truncate table lwp_temp')
-                                                                                        //     ,(err,result)=>{
-                                                                                        //         if (err) {
-                                                                                        //             //------------ Invalid registration Number ------------//
-                                                                                        //             // req.flash('error_msg',
-                                                                                        //             // 'Please enter valid Id.')
-                                                                                        //             console.log(err)
-                                                                                        //             console.log("invalid update salary 2")
-                                                                                        //         }
-                                                                                        //         else{
-                                                                                        //             console.log("SUCCESS!")
-                                                                                        //         }
-                                                                                        //     }
-                                                                                                
-                                                                                        // }
+                                                                                    var miscellaneous_deduction=0;
+                                                                                    if(result.length===0)
+                                                                                    {
+
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        var data=JSON.parse(JSON.stringify(result))[0];
+                                                                                        miscellaneous_deduction=data.miscellaneous_amt
+
+                                                                                    }
+                                                                                    oth_spl+=miscellaneous_deduction
+                                                                                    console.log("miscellaneous deductions is",miscellaneous_deduction)
+                                                                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${i}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
+                                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+                                                                                        ,(err,result)=>{
+                                                                                            if (err) {
+                                                                                                console.log(err)
+                                                                                                console.log("error while inserting into salary table")
+                                                                                            }
+                                                                                            else{
+                                                                                                // console.log(JSON.parse(JSON.stringify(result))[0])
+                                                                                                // res.send("Done");
+                                                                                                // req.flash(
+                                                                                                //     'success_msg',
+                                                                                                //     'Employee found!'
+                                                                                                // );
+                                                                                                console.log("YAYYYYY")
+                                                                                                console.log("i,length is ",i,length)
+                                                                                                // if(i===length)
+                                                                                                // {
+                                                                                                //     mysqldb.query('truncate table lwp_temp')
+                                                                                                //     ,(err,result)=>{
+                                                                                                //         if (err) {
+                                                                                                //             //------------ Invalid registration Number ------------//
+                                                                                                //             // req.flash('error_msg',
+                                                                                                //             // 'Please enter valid Id.')
+                                                                                                //             console.log(err)
+                                                                                                //             console.log("invalid update salary 2")
+                                                                                                //         }
+                                                                                                //         else{
+                                                                                                //             console.log("SUCCESS!")
+                                                                                                //         }
+                                                                                                //     }
+                                                                                                        
+                                                                                                // }
+                                                                                            }
+                                                                                        })
                                                                                     }
                                                                                 })
-                                                                            }
+                                                                            }       
                                                                         })
                                                                     }
                                                                 })
