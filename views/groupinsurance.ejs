@@ -231,8 +231,10 @@
                                                 <tr>
                                                     <th>Employee ID<p><i class="arrow down" style="float: right;"></i></th>
                                                     <th>Name <p><i class="arrow down" style="float: right;"></i></th>
-                                                    <th>Group Insurance Details</th>
-                                                    <th>Group Insurance<p><i class="arrow down" style="float: right;"></i></th>
+                                                    <!-- <th>Group Insurance Details</th> -->
+                                                    <th>Month</th>
+                                                    <th>Year</th>
+                                                    <th>Group Insurance</th>
                                                     
 
                                                 
@@ -243,7 +245,38 @@
                                                     <tr>
                                                         <td><%= Employees[i].empID %></td>
                                                         <td><%= Employees[i].empName %></td>
-                                                        <td> <input type="text" name="grpinsurance" value="0"><br></td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                        
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" name="month">
+                                                                    
+                                                                    <option value="january" name="1" id="january" selected>January</option>
+                                                                    <option value="february" id="february" selected>February</option>
+                                                                    <option value="march" id="march" selected>March</option>
+                                                                    <option value="april" id="april" selected>April</option>
+                                                                    <option value="may" id="may" selected>May</option>
+                                                                    <option value="june" id="june" selected>June</option>    
+                                                                    <option value="july" id="july" selected>July</option>  
+                                                                    <option value="aug" id="aug" selected>August</option>    
+                                                                    <option value="sept" id="sept" selected>September</option>    
+                                                                    <option value="october" id="october" selected>October</option>    
+                                                                    <option value="november" id="november" selected>November</option>    
+                                                                    <option value="december" id="december" selected>December</option>   
+                                                                </select>
+                                                            </div>
+                                                        </td>
+
+                                                        <td> 
+                                                            <div class="form-group">
+                                                               
+                                                                <div class="col-sm-10">
+                                                                    <select class="form-control" name="year">
+                                                                      
+                                                                        <option value="2021" id="2021" selected>2021</option>
+                                                                        <option value="2022" id="2022" selected>2022</option>    
+                                                        <br></td>
+                                                        <!-- <td> <input type="text" name="grpinsurance" value="0"><br></td> -->
                                                         <td> <input class="checkedButtons" type="checkbox" name=<%= Employees[i].empID %> id="check" value="1"><br> </td>
                                                     </tr>
                                                 <% }%>
