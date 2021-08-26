@@ -1,3 +1,4 @@
+const e = require('connect-flash');
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/checkAuth');
@@ -591,11 +592,12 @@ router.get('/lateattendance', ensureAuthenticated, (req, res) =>
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
             res.render('lateattendance',{
-                Employees:JSON.parse(JSON.stringify(result))
+                salary:JSON.parse(JSON.stringify(result))
             });
         }
     })
 });
+
 router.get('/lateattendance/:empID', ensureAuthenticated, (req, res) => 
 {
     var requestedTitle = req.params.empID;
@@ -654,7 +656,6 @@ router.get('/miscellaneous/:empID', ensureAuthenticated, (req, res) =>
         }
     })
 });
-
 
 
 router.get('/advances', ensureAuthenticated, (req, res) => 
@@ -936,329 +937,385 @@ router.post('/generateSalary',(req,res)=>{
                                 var hra=(pay+parseFloat(gp))*hra_MultFactor;
                                 console.log("hra is",hra);
 
-                                //variable to calc advances
-                                mysqldb.query(`select * from advance_temp where empID=${empID}`,(err,result)=>{
+                                var month=JSON.parse(JSON.stringify(req.body)).month.toLowerCase()
+                                var year=parseInt(JSON.parse(JSON.stringify(req.body)).year)
+
+                                //to calculate hra_dda_differences
+                                mysqldb.query(`select * from hra_difference where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
                                     if (err) {
                                         
                                         console.log(err)
-                                        console.log("error in select from advance_temp query")
+                                        console.log("invalid select from lwp query")
                                     }
                                     else{
-                                        console.log("results after advance temp is",result)
-                                        var month=JSON.parse(JSON.stringify(req.body)).month.toLowerCase()
-                                        var month_num=0;
-                                        var days;
-                                        if(month.toLowerCase()==="january")
-                                            {
-                                                days=31;
-                                                month_num=1;
-                                            }
-                                            else if(month.toLowerCase()==="february")
-                                            {
-                                                days=28;
-                                                month_num=2;
-                                            }
-                                            else if(month.toLowerCase()==="march")
-                                            {
-                                                days=31;
-                                                month_num=3;
-                                            }
-                                            else if(month.toLowerCase()==="april")
-                                            {
-                                                days=30;
-                                                month_num=4;
-                                            }
-                                            else if(month.toLowerCase()==="may")
-                                            {
-                                                days=31;
-                                                month_num=5;
-                                            }
-                                            else if(month.toLowerCase()==="june")
-                                            {
-                                                days=30
-                                                month_num=6;
-                                            }
-                                            else if(month.toLowerCase()==="july")
-                                            {
-                                                days=31
-                                                month_num=7;
-                                            }
-                                            else if(month.toLowerCase()==="august")
-                                            {
-                                                days=31
-                                                month_num=8;
-                                            }
-                                            else if(month.toLowerCase()==="september")
-                                            {
-                                                days=30
-                                                month_num=9;
-                                            }
-                                            else if(month.toLowerCase()==="october")
-                                            {
-                                                days=31
-                                                month_num=10;
-                                            }
-                                            else if(month.toLowerCase()==="november")
-                                            {
-                                                days=30
-                                                month_num=11;
-                                            }
-                                            else if(month.toLowerCase()==="december")
-                                            {
-                                                days=31
-                                                month_num=12;
-                                            }
-                                        var year=parseInt(JSON.parse(JSON.stringify(req.body)).year)
-                                        if(JSON.parse(JSON.stringify(result.length===0)))
+                                        var hra_final_difference=0;
+                                        if(result.length===0)
                                         {
 
                                         }
-                                        else
-                                        {
-                                            var results=JSON.parse(JSON.stringify(result))[0]
-                                            console.log("in else of advance, results is",results)
-                                            var adv_amount=results.amount
-                                            var adv_month=results.month
-                                            var adv_year=results.year
-                                            var adv_duration=results.duration
-                                            var adv_outstanding=results.outstanding
-                                           
-                                            console.log("year,month in advanced",year,month_num);
-                                            console.log("adv_year,adv_month,adv_duration is",adv_year,adv_month,adv_duration)
-                                            if( year>=adv_year)
-                                            {
-                                                // var curr_month=new Date().getMonth()+1
-                                                // if(month_num>=adv_month)
-                                                // {
-                                                    //if duration isn't over yet
-                                                    if(adv_month>month_num)
-                                                    {
-                                                        if(year===adv_year+1)
-                                                        {
-                                                            if((adv_month+adv_duration)%12>month_num)
-                                                            {
-                                                                
-                                                                adv_deduction=adv_amount/adv_duration;
-                                                                console.log("advance deducted!",adv_deduction)
-                                                                
-                                                            }
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        if((adv_month+adv_duration)>month_num)
-                                                        {
-                                                            if(year===adv_year)
-                                                            {
-                                                                console.log("advance deducted!",adv_deduction)
-                                                                adv_deduction=adv_amount/adv_duration;
-                                                                console.log(adv_deduction)
-                                                            }
-                                                            
-                                                        }
-                                                    }
-                                                    //independant query
-                                                    mysqldb.query(`update advance_temp set outstanding=outstanding-${adv_deduction} where empID=${empID}`,(err,result)=>{
-                                                        if(err)
-                                                        {
-                                                            console.log(err)
-                                                            console.log("error in advance temp table query")
-                                                        }
-                                                        else
-                                                        {
-                                                            console.log("outstanding updated in advance_temp")
-                                                        }
-                                                        if((adv_outstanding-adv_deduction)===0)
-                                                        {
-                                                            mysqldb.query(`insert into advance (empID,amount,month,year,duration,outstanding) values (${empID},${adv_amount},${adv_month},${adv_year},${adv_duration},${adv_outstanding-adv_deduction})`,(err,result)=>{
-                                                                if(err)
-                                                                {
-                                                                    console.log(err)
-                                                                    console.log("error in advance permanent table query")
-                                                                }
-                                                                else
-                                                                {
-                                                                    mysqldb.query(`delete from advance_temp where empID=${empID}`,(err,result)=>{
-                                                                        if(err)
-                                                                        {
-                                                                            console.log(err)
-                                                                            console.log("error in deletion of advance temp table query")
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                        }
-                                                                    })
-                                                                }
-                                                            })
-                                                        }
-                                                        
-                                                    })
-                                                   
-                                                // }
-                                            }
-
+                                        else{
+                                            var data=JSON.parse(JSON.stringify(result))[0];
+                                            console.log("Data is",data)
+                                            var hra_difference=data.difference;
+                                            var hra_duration=data.duration;
+                                            hra_final_difference=(pay+gp)*hra_difference*hra_duration/100
                                         }
-                                        
-
-                                        var groupInsurance=0;
-                                        mysqldb.query(`select groupInsurance from group_insurance natural join Employees where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
-                                            if(err)
-                                            {
-                                                console.log(err)
-                                                console.log("error in groupinsurance table read query")
-                                            }
-                                            else
-                                            {
-                                                console.log("group insurance read result",result)
+                                        mysqldb.query(`select * from da_difference where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
+                                            if (err) {
                                                 
+                                                console.log(err)
+                                                console.log("invalid select from lwp query")
+                                            }
+                                            else{
+                                                var da_final_difference=0;
                                                 if(result.length===0)
                                                 {
 
                                                 }
-                                                else
-                                                {
-                                                    groupInsurance+=JSON.parse(JSON.stringify(result))[0].groupInsurance
+                                                else{
+                                                    var data=JSON.parse(JSON.stringify(result))[0];
+                                                    var da_difference=data.difference;
+                                                    var da_duration=data.duration;
+                                                    da_final_difference=(pay+gp)*da_difference*da_duration/100
                                                 }
-                                                console.log("group insurance is",groupInsurance)
-                                                //to get lwp data for calculating part of deduction value
-                                                // console.log(`select days,lwp from lwp where empID=${empID} and month=${month} and year=${year}`);
-
-                                                mysqldb.query(`select days,lwp from lwp where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
+                                               
+                                                //variable to calc advances
+                                                mysqldb.query(`select * from advance_temp where empID=${empID}`,(err,result)=>{
                                                     if (err) {
                                                         
                                                         console.log(err)
-                                                        console.log("invalid select from lwp query")
+                                                        console.log("error in select from advance_temp query")
                                                     }
                                                     else{
-                                                        // var month=JSON.parse(JSON.stringify(req.body)).month
-                                                        // var year=JSON.parse(JSON.stringify(req.body)).year
-                                                        // var days;
+                                                        console.log("results after advance temp is",result)
                                                         
-                                                        
-                                                        var daysOfMonth=days;
-                                                        console.log("days are",days)
-                                                        var lwp=JSON.parse(JSON.stringify(result))[0].lwp;
-                                                        var workedDays=daysOfMonth-lwp;
-                                                        pay*=workedDays/daysOfMonth;
-                                                        gp*=workedDays/daysOfMonth;
-                                                        da*=workedDays/daysOfMonth;
-                                                        hra*=workedDays/daysOfMonth;
-                                                        ta_temp=ta;
-                                                        cca_temp=cca;
-                                                        ta_temp*=workedDays/daysOfMonth;
-                                                        cca_temp*=workedDays/daysOfMonth;
-                                                        var pfcheck=prov_fund_Percent/100*(pay+gp+da)
-                                                        if(pf>pfcheck)
-                                                        {
-                                                            pf=pfcheck
-                                                        }
-                                                        if(pf>prov_fund_Max)
-                                                        {
-                                                            pf=prov_fund_Max
-                                                        }
-                                                        // var lwp_amt=(parseInt(gross_sal)/parseInt(daysOfMonth))*parseInt(lwp);
-                                                    
-                                                        // console.log("lwp_amt=",lwp_amt)
-
-                                                        //pay+gp
-                                                        //(15600+6000)*1.03
-                                                        //648 is increment
-                                                        //ceil the increment=650
-                                                        //650 x (da_factor+hra_factor) i.e 1.59=1033.5
-                                                        //increment=1033.5 + 650
-                                                        //x number of months is final difference
-
-                                                        //get new basic pay, diff calculated on old basic pay.
-
-                                                       //hra difference ,da change in percent x (pay+gp) on current only.
-                                                        var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca_temp)+parseFloat(diff)+parseFloat(oth_spl)+parseFloat(ta_temp);
-                                                        console.log("gross salary,days of month,lwp",gross_sal,daysOfMonth,lwp)
-                                                        if(gross_sal>10000)
-                                                        {
-                                                            prof_tax=200;
-                                                        }
-                                                        else if(gross_sal>7500 && gross_sal<10000)
-                                                        {
-                                                            prof_tax=175;
-                                                        }
-                                                        else if(gross_sal<7500)
-                                                        {
-                                                            prof_tax=0;
-                                                        }
-
-                                                        if(prof_tax>prof_tax_Max)
-                                                        {
-                                                            prof_tax=prof_tax_Max
-                                                        }
-
-                                                        if(gross_sal===rev_stamp_DNA)
-                                                        {
-                                                            rev_stmp=0
-                                                        }
-                                                        if(rev_stmp>rev_stamp_max)
-                                                        {
-                                                            rev_stmp=rev_stamp_max
-                                                        }
-                                                        oth_spl+=adv_deduction;
-                                                        oth_spl+=groupInsurance;
-                                                        var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl); //+parseFloat(lwp_amt);
-                                                        var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
-                                                        console.log("logging")
-
-                                                        //independant query
-                                                        // mysqldb.query(`insert into lwp (empID,month,year,days,lwp) values (${empID},'${month}',${year},${daysOfMonth},${lwp})`,(err,result)=>{
-                                                        //     if(err)
-                                                        //     {
-                                                        //         console.log(err)
-                                                        //         console.log("error in lwp permanent table insert query")
-                                                        //     }
-                                                        //     else
-                                                        //     {
-                                                        //         mysqldb.query(`delete from lwp_temp where empID=${empID}`,(err,result)=>{
-                                                        //             if(err)
-                                                        //             {
-                                                        //                 console.log(err)
-                                                        //                 console.log("error in deletion of lwp temp table query")
-                                                        //             }
-                                                        //             else
-                                                        //             {
-                                                        //             }
-                                                        //         })
-                                                        //     }
-                                                        // })
-                                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${i}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
-                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
-                                                        ,(err,result)=>{
-                                                            if (err) {
-                                                                console.log(err)
-                                                                console.log("error while inserting into salary table")
+                                                        var month_num=0;
+                                                        var days;
+                                                        if(month.toLowerCase()==="january")
+                                                            {
+                                                                days=31;
+                                                                month_num=1;
                                                             }
-                                                            else{
-                                                                // console.log(JSON.parse(JSON.stringify(result))[0])
-                                                                // res.send("Done");
-                                                                // req.flash(
-                                                                //     'success_msg',
-                                                                //     'Employee found!'
-                                                                // );
-                                                                console.log("YAYYYYY")
-                                                                console.log("i,length is ",i,length)
-                                                                // if(i===length)
+                                                            else if(month.toLowerCase()==="february")
+                                                            {
+                                                                days=28;
+                                                                month_num=2;
+                                                            }
+                                                            else if(month.toLowerCase()==="march")
+                                                            {
+                                                                days=31;
+                                                                month_num=3;
+                                                            }
+                                                            else if(month.toLowerCase()==="april")
+                                                            {
+                                                                days=30;
+                                                                month_num=4;
+                                                            }
+                                                            else if(month.toLowerCase()==="may")
+                                                            {
+                                                                days=31;
+                                                                month_num=5;
+                                                            }
+                                                            else if(month.toLowerCase()==="june")
+                                                            {
+                                                                days=30
+                                                                month_num=6;
+                                                            }
+                                                            else if(month.toLowerCase()==="july")
+                                                            {
+                                                                days=31
+                                                                month_num=7;
+                                                            }
+                                                            else if(month.toLowerCase()==="august")
+                                                            {
+                                                                days=31
+                                                                month_num=8;
+                                                            }
+                                                            else if(month.toLowerCase()==="september")
+                                                            {
+                                                                days=30
+                                                                month_num=9;
+                                                            }
+                                                            else if(month.toLowerCase()==="october")
+                                                            {
+                                                                days=31
+                                                                month_num=10;
+                                                            }
+                                                            else if(month.toLowerCase()==="november")
+                                                            {
+                                                                days=30
+                                                                month_num=11;
+                                                            }
+                                                            else if(month.toLowerCase()==="december")
+                                                            {
+                                                                days=31
+                                                                month_num=12;
+                                                            }
+                                                        if(JSON.parse(JSON.stringify(result.length===0)))
+                                                        {
+
+                                                        }
+                                                        else
+                                                        {
+                                                            var results=JSON.parse(JSON.stringify(result))[0]
+                                                            console.log("in else of advance, results is",results)
+                                                            var adv_amount=results.amount
+                                                            var adv_month=results.month
+                                                            var adv_year=results.year
+                                                            var adv_duration=results.duration
+                                                            var adv_outstanding=results.outstanding
+                                                        
+                                                            console.log("year,month in advanced",year,month_num);
+                                                            console.log("adv_year,adv_month,adv_duration is",adv_year,adv_month,adv_duration)
+                                                            if( year>=adv_year)
+                                                            {
+                                                                // var curr_month=new Date().getMonth()+1
+                                                                // if(month_num>=adv_month)
                                                                 // {
-                                                                //     mysqldb.query('truncate table lwp_temp')
-                                                                //     ,(err,result)=>{
-                                                                //         if (err) {
-                                                                //             //------------ Invalid registration Number ------------//
-                                                                //             // req.flash('error_msg',
-                                                                //             // 'Please enter valid Id.')
-                                                                //             console.log(err)
-                                                                //             console.log("invalid update salary 2")
-                                                                //         }
-                                                                //         else{
-                                                                //             console.log("SUCCESS!")
-                                                                //         }
-                                                                //     }
+                                                                    //if duration isn't over yet
+                                                                    if(adv_month>month_num)
+                                                                    {
+                                                                        if(year===adv_year+1)
+                                                                        {
+                                                                            if((adv_month+adv_duration)%12>month_num)
+                                                                            {
+                                                                                
+                                                                                adv_deduction=adv_amount/adv_duration;
+                                                                                console.log("advance deducted!",adv_deduction)
+                                                                                
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if((adv_month+adv_duration)>month_num)
+                                                                        {
+                                                                            if(year===adv_year)
+                                                                            {
+                                                                                console.log("advance deducted!",adv_deduction)
+                                                                                adv_deduction=adv_amount/adv_duration;
+                                                                                console.log(adv_deduction)
+                                                                            }
+                                                                            
+                                                                        }
+                                                                    }
+                                                                    //independant query
+                                                                    mysqldb.query(`update advance_temp set outstanding=outstanding-${adv_deduction} where empID=${empID}`,(err,result)=>{
+                                                                        if(err)
+                                                                        {
+                                                                            console.log(err)
+                                                                            console.log("error in advance temp table query")
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            console.log("outstanding updated in advance_temp")
+                                                                        }
+                                                                        if((adv_outstanding-adv_deduction)===0)
+                                                                        {
+                                                                            mysqldb.query(`insert into advance (empID,amount,month,year,duration,outstanding) values (${empID},${adv_amount},${adv_month},${adv_year},${adv_duration},${adv_outstanding-adv_deduction})`,(err,result)=>{
+                                                                                if(err)
+                                                                                {
+                                                                                    console.log(err)
+                                                                                    console.log("error in advance permanent table query")
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    mysqldb.query(`delete from advance_temp where empID=${empID}`,(err,result)=>{
+                                                                                        if(err)
+                                                                                        {
+                                                                                            console.log(err)
+                                                                                            console.log("error in deletion of advance temp table query")
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                        }
+                                                                                    })
+                                                                                }
+                                                                            })
+                                                                        }
                                                                         
+                                                                    })
+                                                                
                                                                 // }
+                                                            }
+
+                                                        }
+                                                        
+
+                                                        var groupInsurance=0;
+                                                        mysqldb.query(`select groupInsurance from group_insurance natural join Employees where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
+                                                            if(err)
+                                                            {
+                                                                console.log(err)
+                                                                console.log("error in groupinsurance table read query")
+                                                            }
+                                                            else
+                                                            {
+                                                                console.log("group insurance read result",result)
+                                                                
+                                                                if(result.length===0)
+                                                                {
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    groupInsurance+=JSON.parse(JSON.stringify(result))[0].groupInsurance
+                                                                }
+                                                                console.log("group insurance is",groupInsurance)
+                                                                //to get lwp data for calculating part of deduction value
+                                                                // console.log(`select days,lwp from lwp where empID=${empID} and month=${month} and year=${year}`);
+
+                                                                mysqldb.query(`select days,lwp from lwp where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
+                                                                    if (err) {
+                                                                        
+                                                                        console.log(err)
+                                                                        console.log("invalid select from lwp query")
+                                                                    }
+                                                                    else{
+                                                                        // var month=JSON.parse(JSON.stringify(req.body)).month
+                                                                        // var year=JSON.parse(JSON.stringify(req.body)).year
+                                                                        // var days;
+                                                                        var lwp=0;
+                                                                        if(result.length===0)
+                                                                        {
+
+                                                                        }
+                                                                        else{
+                                                                            lwp=JSON.parse(JSON.stringify(result))[0].lwp;
+                                                                        }
+                                                                        
+                                                                        var daysOfMonth=days;
+                                                                        console.log("days are",days)
+                                                                        
+                                                                        var workedDays=daysOfMonth-lwp;
+                                                                        pay*=workedDays/daysOfMonth;
+                                                                        gp*=workedDays/daysOfMonth;
+                                                                        da*=workedDays/daysOfMonth;
+                                                                        hra*=workedDays/daysOfMonth;
+                                                                        ta_temp=ta;
+                                                                        cca_temp=cca;
+                                                                        ta_temp*=workedDays/daysOfMonth;
+                                                                        cca_temp*=workedDays/daysOfMonth;
+                                                                        var pfcheck=prov_fund_Percent/100*(pay+gp+da)
+                                                                        if(pf>pfcheck)
+                                                                        {
+                                                                            pf=pfcheck
+                                                                        }
+                                                                        if(pf>prov_fund_Max)
+                                                                        {
+                                                                            pf=prov_fund_Max
+                                                                        }
+                                                                        // var lwp_amt=(parseInt(gross_sal)/parseInt(daysOfMonth))*parseInt(lwp);
+                                                                    
+                                                                        // console.log("lwp_amt=",lwp_amt)
+
+                                                                        //pay+gp
+                                                                        //(15600+6000)*1.03
+                                                                        //648 is increment
+                                                                        //ceil the increment=650
+                                                                        //650 x (da_factor+hra_factor) i.e 1.59=1033.5
+                                                                        //increment=1033.5 + 650
+                                                                        //x number of months is final difference
+
+                                                                        //get new basic pay, diff calculated on old basic pay.
+
+                                                                    //hra difference ,da change in percent x (pay+gp) on current only.
+                                                                        var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca_temp)+parseFloat(diff)+parseFloat(ta_temp);
+                                                                        console.log("gross salary,days of month,lwp",gross_sal,daysOfMonth,lwp)
+                                                                        if(gross_sal>10000)
+                                                                        {
+                                                                            prof_tax=200;
+                                                                        }
+                                                                        else if(gross_sal>7500 && gross_sal<10000)
+                                                                        {
+                                                                            prof_tax=175;
+                                                                        }
+                                                                        else if(gross_sal<7500)
+                                                                        {
+                                                                            prof_tax=0;
+                                                                        }
+
+                                                                        if(prof_tax>prof_tax_Max)
+                                                                        {
+                                                                            prof_tax=prof_tax_Max
+                                                                        }
+
+                                                                        if(gross_sal===rev_stamp_DNA)
+                                                                        {
+                                                                            rev_stmp=0
+                                                                        }
+                                                                        if(rev_stmp>rev_stamp_max)
+                                                                        {
+                                                                            rev_stmp=rev_stamp_max
+                                                                        }
+                                                                        oth_spl+=adv_deduction;
+                                                                        oth_spl+=groupInsurance;
+                                                                        oth_spl+=hra_final_difference;
+                                                                        console.log("hra difference is",hra_final_difference)
+                                                                        oth_spl+=da_final_difference;
+                                                                        console.log("da difference is",hra_final_difference)
+                                                                        var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl); //+parseFloat(lwp_amt);
+                                                                        var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
+                                                                        console.log("logging")
+
+                                                                        //independant query
+                                                                        // mysqldb.query(`insert into lwp (empID,month,year,days,lwp) values (${empID},'${month}',${year},${daysOfMonth},${lwp})`,(err,result)=>{
+                                                                        //     if(err)
+                                                                        //     {
+                                                                        //         console.log(err)
+                                                                        //         console.log("error in lwp permanent table insert query")
+                                                                        //     }
+                                                                        //     else
+                                                                        //     {
+                                                                        //         mysqldb.query(`delete from lwp_temp where empID=${empID}`,(err,result)=>{
+                                                                        //             if(err)
+                                                                        //             {
+                                                                        //                 console.log(err)
+                                                                        //                 console.log("error in deletion of lwp temp table query")
+                                                                        //             }
+                                                                        //             else
+                                                                        //             {
+                                                                        //             }
+                                                                        //         })
+                                                                        //     }
+                                                                        // })
+                                                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${i}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
+                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+                                                                        ,(err,result)=>{
+                                                                            if (err) {
+                                                                                console.log(err)
+                                                                                console.log("error while inserting into salary table")
+                                                                            }
+                                                                            else{
+                                                                                // console.log(JSON.parse(JSON.stringify(result))[0])
+                                                                                // res.send("Done");
+                                                                                // req.flash(
+                                                                                //     'success_msg',
+                                                                                //     'Employee found!'
+                                                                                // );
+                                                                                console.log("YAYYYYY")
+                                                                                console.log("i,length is ",i,length)
+                                                                                // if(i===length)
+                                                                                // {
+                                                                                //     mysqldb.query('truncate table lwp_temp')
+                                                                                //     ,(err,result)=>{
+                                                                                //         if (err) {
+                                                                                //             //------------ Invalid registration Number ------------//
+                                                                                //             // req.flash('error_msg',
+                                                                                //             // 'Please enter valid Id.')
+                                                                                //             console.log(err)
+                                                                                //             console.log("invalid update salary 2")
+                                                                                //         }
+                                                                                //         else{
+                                                                                //             console.log("SUCCESS!")
+                                                                                //         }
+                                                                                //     }
+                                                                                        
+                                                                                // }
+                                                                            }
+                                                                        })
+                                                                    }
+                                                                })
                                                             }
                                                         })
                                                     }
