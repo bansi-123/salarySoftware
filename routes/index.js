@@ -1569,6 +1569,36 @@ router.get('/viewdeductions', ensureAuthenticated, (req, res) =>
 });
 
 
+router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
+    const data=JSON.parse(JSON.stringify(req.body));
+    const empID=req.params.empID;   
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    // const length=data["lwp"].length
+    var monthNames = [ "january", "february", "march", "april", "may", "june",
+"july", "august", "september", "october", "november", "december" ];
+           
+
+        // console.log(data["lwp"],data["month"],data["year"],days)
+        // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
+        mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt,month, year) VALUES (${data.empID}, '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]})`,(err,result)=>{
+            if (err) {
+                console.log(err);
+                console.log("invalid details");
+            }
+            else{
+                // console.log(JSON.parse(JSON.stringify(result))[0])
+                // res.redirect('/dashboard')
+                // req.flash(
+                //     'success_msg',
+                //     'Employee found!'
+                // );
+            }
+        })
+        //     }
+        // })
+    res.redirect('index1');
+});
+
 
 
 module.exports = router;
