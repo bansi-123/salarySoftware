@@ -84,6 +84,11 @@ router.get('/differences', ensureAuthenticated, (req, res) => {
     
 });
 
+router.post('/differences',ensureAuthenticated,(req,res)=>{
+    var data=JSON.parse(JSON.stringify(req.body))
+
+})
+
 router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>
     {
@@ -91,14 +96,71 @@ router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
             console.log(err);
         }
         else{
-            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-            res.render('otherdifferences',{
-                Employees:JSON.parse(JSON.stringify(result))
-            });
+            mysqldb.query(`select * from config`,(err,result2)=>
+            {
+                if (err) {
+                    console.log(err);
+                }
+                else{
+                    console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+                    res.render('otherdifferences',{
+                        Employees:JSON.parse(JSON.stringify(result)),
+                        config:JSON.parse(JSON.stringify(result2))
+                    });
+                }
+            })
         }
     })
-    
 });
+
+router.post('/otherdifferences',ensureAuthenticated,(req,res)=>{
+    var data=JSON.parse(JSON.stringify(req.body))
+    console.log(data)
+    var list2=[]
+    for(var i in data)
+    {
+
+        if(Number.isInteger(parseInt(i)))
+        {
+            console.log(i)
+            console.log(data[i])
+            list2.push(parseInt(i))
+        }
+
+    }
+    console.log("list is",list2)
+    var da_difference=parseFloat(data.newdda)-parseFloat(data.presentdda)
+    var hra_difference=parseFloat(data.newhra)-parseFloat(data.presenthra)
+    mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+    var month=mlist[new Date().getMonth()]
+    var year=new Date().getFullYear()
+    var da_duration=data.monthdda;
+    var hra_duration=data.monthhra;
+    for(let i = 0; i < list2.length; i++)
+    {
+        console.log("i is",list2[i])
+        mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES (${list2[i]},${da_difference},'${month}',${da_duration},${year})`,(err,result)=>
+        {
+            if (err) {
+                console.log(err);
+            }
+            else{
+                
+            }
+        })
+        mysqldb.query(`insert into hra_difference(empID,difference,month,duration,year) VALUES (${list2[i]},${hra_difference},'${month}',${hra_duration},${year})`,(err,result)=>
+        {
+            if (err) {
+                console.log(err);
+            }
+            else{
+                
+            }
+        })
+    }
+
+})
+
 router.get('/showincrement', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from increment`,(err,result)=>
     {
@@ -1055,6 +1117,18 @@ router.post('/generateSalary',(req,res)=>{
                                                         // var lwp_amt=(parseInt(gross_sal)/parseInt(daysOfMonth))*parseInt(lwp);
                                                     
                                                         // console.log("lwp_amt=",lwp_amt)
+
+                                                        //pay+gp
+                                                        //(15600+6000)*1.03
+                                                        //648 is increment
+                                                        //ceil the increment=650
+                                                        //650 x (da_factor+hra_factor) i.e 1.59=1033.5
+                                                        //increment=1033.5 + 650
+                                                        //x number of months is final difference
+
+                                                        //get new basic pay, diff calculated on old basic pay.
+
+                                                       //hra difference ,da change in percent x (pay+gp) on current only.
                                                         var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca_temp)+parseFloat(diff)+parseFloat(oth_spl)+parseFloat(ta_temp);
                                                         console.log("gross salary,days of month,lwp",gross_sal,daysOfMonth,lwp)
                                                         if(gross_sal>10000)
