@@ -1,10 +1,69 @@
 <%- include('partials/header.ejs'); -%>
 
 <head>
-
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
   <link rel="stylesheet" href="../assets/alert/style.css">
+<style>
+        /* .dropbtn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    } */
+    
+        .dropbtn:hover,
+        .dropbtn:focus {
+          background-color: #3e8e41;
+        }
+    
+        #myInput {
+          box-sizing: border-box;
+          background-image: url('searchicon.png');
+          background-position: 14px 12px;
+          background-repeat: no-repeat;
+          font-size: 16px;
+          padding: 14px 20px 12px 45px;
+          border: none;
+          border-bottom: 1px solid #ddd;
+        }
+    
+        #myInput:focus {
+          outline: 3px solid #ddd;
+        }
+    
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+    
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f6f6f6;
+          min-width: 230px;
+          overflow: auto;
+          border: 1px solid #ddd;
+          z-index: 1;
+        }
+    
+        .dropdown-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+    
+        .dropdown a:hover {
+          background-color: #ddd;
+        }
+    
+        .show {
+          display: block;
+        }
+</style>
 
 </head>
 
@@ -25,31 +84,68 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-title">
-                            <h4>Advances</h4>
+                            <h4>Late Attendance</h4>
 
                         </div>
+                        <div class="dropdown">
+                            <label><h3>Search </label></h3> <button  padding="40px" onclick="myFunction()" class="dropbtn">Add Late Attendance </button>
+                            <div id="myDropdown" class="dropdown-content">
+                              <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+
+                              <% for(var i=Employees.length-1; i>= 0; i-- ) { %>
+                                <a href="/lateattendance/<%=Employees[i].empID%>"><%= Employees[i].empName %></a>
+                              <% }%>
+                            </div>
+                          </div>
+                        <script>
+                        function myFunction() {
+                            document.getElementById("myDropdown").classList.toggle("show");
+                          }
+                      
+                          function filterFunction() {
+                            var input, filter, ul, li, a, i;
+                            input = document.getElementById("myInput");
+                            filter = input.value.toUpperCase();
+                            div = document.getElementById("myDropdown");
+                            a = div.getElementsByTagName("a");
+                            for (i = 0; i < a.length; i++) {
+                              txtValue = a[i].textContent || a[i].innerText;
+                              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                a[i].style.display = "";
+                              } else {
+                                a[i].style.display = "none";
+                              }
+                            }
+                          }
+                        </script>
+                      <div class="col-lg-12">
+                          <div class="card">
+                              <div class="card-title">
+                                  <h4>Late attendance</h4>
+      
+                              </div>
 
 
                         <div class="card-body">
                             <div class="horizontal-form-elements">
-                                <form class="form-horizontal" action="\addemployee" method="post">
+                                <form class="form-horizontal" action="\FORM-BASIC" method="post">
                                     <div class="row">
                                         <div class="col-lg-6">
                                                
-
+                              
+                        <% var i = 0 %>
+           
                                               <div class="form-group">
                                                 <label class="col-sm-6 control-label">Employee ID</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="empID" class="form-control"
-                                                        required>
+                                                    <input value="<%= name[i].empID %>" type="text" id="<%= name[i].empID %>" class="form-control" readonly>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="col-sm-6 control-label">Employee Name</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="empName" class="form-control"
-                                                        required>
+                                                    <input value="<%= name[i].empName %>" type="text" id="<%= name[i].empName %>" class="form-control" readonly>
                                                 </div>
                                             </div>
 
@@ -57,7 +153,7 @@
                                                 <label class="col-sm-6 control-label">Total Days of Late Attendance</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" name="days" class="form-control"
-                                                        placeholder="Enter Advances" required>
+                                                        placeholder="Enter No. of Days" required>
                                                 </div>
                                             </div>
 
