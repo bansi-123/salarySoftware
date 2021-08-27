@@ -12,9 +12,9 @@
 //   }
 // };
 // const env = {
-//   database: 'employees',
+//   database: 'employees2',
 //   username: 'root',
-//   password: 'Vineet@nexa1',
+//   password: 'sunandroot',
 //   host: 'localhost',
 //   dialect: 'mysql',
 //   pool: {
