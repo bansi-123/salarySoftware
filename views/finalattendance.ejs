@@ -8,6 +8,32 @@
 
         <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
   <link rel="stylesheet" href="../assets/alert/style.css">
+
+        
+           
+             <script type="text/javascript">  
+                function selects(){  
+                    var checkedButtons = document
+                        .querySelectorAll(".checkedButtons");
+                    console.log(checkedButtons)
+                    for (var i = 0; i < checkedButtons.length; i++) {
+                        checkedButtons[i].checked = true;
+                    }
+                }  
+                function deSelect(){  
+                    var checkedButtons = document.querySelectorAll(".checkedButtons");
+             
+                    for (var i = 0; i < checkedButtons.length; i++) {
+                        checkedButtons[i].checked = false;
+                    }
+                }  
+                
+                
+                var x = document.querySelector("#checks");
+            
+                
+        </script>  
+       
     </head>
 
     <body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
@@ -15,7 +41,7 @@
         <div class="content-wrap">
             <div class="main">
                 <div class="container-fluid">
-       <div class="text-xl font-bold m-5 text-center">Check All The Added Advances, Added Late Attendance, Added Miscellaneous and Added LWP To Proceed With Salary Generation To Proceed With Salary Generation</div>
+       <div class="text-xl font-bold m-5 text-center">Check All The Added Advances, Added Late Attendance, Added Miscellaneous and Added LWP To Proceed With Salary Generation</div>
                     <div class="gallery border-2 rounded mx-auto m-5 bg-white" style="width:750px;">
                         <div class="top flex p-2 border-b select-none">
 
@@ -39,7 +65,7 @@
                             <div class="platform shadow-xl h-full flex">
                                 
                                 
-                                <div class="each-frame border-box flex-none h-full" title="LWP">
+                                <div class="each-frame border-box flex-none h-full" title="Late Attendance">
                                     
                                     <div class="main flex w-full p-8">
                                         <!-- <div class="sub w-4/6 my-auto">
@@ -51,7 +77,7 @@
                                             <img class="w-full p-8" src="../assets/PICT.jpg">
                                         </div>
                                         <div class="sub w-full my-auto">
-                                            <div class="head text-3xl font-bold mb-4">Leave Without Pay</div>
+                                            <div class="head text-3xl font-bold mb-4">Late Attendance</div>
                                             <div class="bootstrap-data-table-panel">
                                                 <div class="table-responsive">
                                                    
@@ -64,19 +90,19 @@
                                                                 </th>
                                                                 <th>Employee Name <p><i class="arrow down" style="float: right;"></i></p>
                                                                 </th>
-                                                                <th>LWP Days</th>
+                                                                <th>Late Attendance Days</th>
                                                                 <th>Month</th>
                                                                 <th>Year</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                                <% for(var i = lwp.length-1; i >= 0 ; i-- ) { %>
+                                                                <% for(var i = late.length-1; i >= 0 ; i-- ) { %>
                                                                     <tr>
-                                                                        <td><%= lwp[i].empID %></td>
-                                                                        <td><%= lwp[i].empName %></td>
-                                                                        <td> <%= lwp[i].lwp %></td>
-                                                                        <td> <%= lwp[i].month %></td>
-                                                                        <td> <%= lwp[i].year %></td>
+                                                                        <td><%= late[i].empID %></td>
+                                                                        <td><%= late[i].empName %></td>
+                                                                        <td> <%= late[i].latedays %></td>
+                                                                        <td> <%= late[i].month %></td>
+                                                                        <td> <%= late[i].year %></td>
                                                                             
                                                                 <% }%>
                                                                 
@@ -86,27 +112,25 @@
                                                 </div>
                                             </div>
                                             <!-- this buttons are usable everywhere inside gallery element -->
-                                            <a href="finalmiscellaneous"><div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
-                                                action="goto" goto="2">Miscellaneous</div></a>
+                                            <a href="finalcheck"><div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                action="goto" goto="2">LWP</div></a>
                                             <!-- add (action="goto" goto="[val]{0 means first frame and so on}") attribute to jump into frames -->
                                             <a href="finaladvances"><div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
                                                 action="goto" goto="end">Advances</div></a>
-                                                <a href="finalattendance"><div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
-                                                    action="goto" goto="2">Late Attendance</div></a>
+                                            <a href="finalmiscellaneous"><div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                action="goto" goto="2">Miscellaneous</div></a>
 
-                                                    <br><br><br><br>
-                                                    <div class="row text-center">
-                                                        <div>
-                                                            <a href="generatesalary"><button class="button large round info"><a href="generatesalary">Generate Salary</a></button></a>
-                                                        </div>
-                                                        
-                                                      </div>
+                                                <br><br><br><br>
+                                            <div class="row text-center">
+                                                <div>
+                                                    <a href="generatesalary"><button class="button large round info"><a href="generatesalary">Generate Salary</a></button></a>
+                                                </div>
+                                                
+                                              </div>
                                         </div>
                                     </div>
                                 </div>
                                
-                                <!-- frame end -->
-
                                 
 
 
