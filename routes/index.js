@@ -341,6 +341,45 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 
 });
 
+router.get('/finalcheck', ensureAuthenticated, (req, res) => {
+
+    mysqldb.query(`SELECT * from Employees natural join lwp`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            mysqldb.query(`SELECT * from Employees natural join late_attendance`,(err,result1)=>
+            {
+                if (err) {
+                    console.log(err);
+                }
+                 else{
+            mysqldb.query(`SELECT * from Employees natural join miscellaneous`,(err,result2)=>
+            {
+                if (err) {
+                    console.log(err);
+                }
+                else{
+                    // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                    //var set=new Set(JSON.parse(JSON.stringify(result)))
+                    // console.log("result2 is",result2)
+                    res.render('finalcheck',{
+                        lwp:JSON.parse(JSON.stringify(result)),
+                        late:JSON.parse(JSON.stringify(result1)),
+                        miscell:JSON.parse(JSON.stringify(result2))
+                    });
+                }
+            })
+           
+        }
+            })
+           
+        }
+    })
+
+});
+
 
 router.get('/trial', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>
