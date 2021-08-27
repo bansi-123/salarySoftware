@@ -345,24 +345,29 @@ router.get('/finalcheck', ensureAuthenticated, (req, res) => {
 
     mysqldb.query(`SELECT * from Employees natural join lwp`,(err,result)=>
     {
+        console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+        // console.log("Salary Details",JSON.parse(JSON.stringify(result1)));
+        // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
         if (err) {
             console.log(err);
         }
+        
         else{
-            mysqldb.query(`SELECT * from Employees natural join late_attendance`,(err,result1)=>
+            mysqldb.query(`SELECT * from lwp natural join late_attendance`,(err,result1)=>
             {
                 if (err) {
                     console.log(err);
                 }
                  else{
-            mysqldb.query(`SELECT * from Employees natural join miscellaneous`,(err,result2)=>
+            mysqldb.query(`SELECT * from late_attendance natural join miscellaneous`,(err,result2)=>
             {
                 if (err) {
                     console.log(err);
                 }
+
                 else{
-                    // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-                    //var set=new Set(JSON.parse(JSON.stringify(result)))
+                    console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                    var set=new Set(JSON.parse(JSON.stringify(result)))
                     // console.log("result2 is",result2)
                     res.render('finalcheck',{
                         lwp:JSON.parse(JSON.stringify(result)),
