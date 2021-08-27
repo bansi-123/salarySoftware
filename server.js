@@ -59,12 +59,12 @@ const mysqldb = mysql.createConnection ({
 //     database: 'employee' 
 // });
 
-const mysqldb = mysql.createConnection ({
-    host: 'localhost',
-    user: 'kshitij',
-    password: 'salary123',
-    database: 'employee'
-});
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'kshitij',
+//     password: 'salary123',
+//     database: 'employee'
+// });
 
 // connect to database
 mysqldb.connect((err) => {
