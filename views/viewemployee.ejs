@@ -1,173 +1,198 @@
 <%- include('partials/header.ejs'); -%>
-<head>
-  
-<style>
-    .arrow {
-      border: solid black;
-      border-width: 0 3px 3px 0;
-      display: inline-block;
-      padding: 3px;
-      
-    }
-    
-    .down {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-}
-.split {
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
-}
 
-.left {
-  left: 0;
-  background-color: #ADD8E6;
-}
+  <head>
 
-.right {
-  right: 0;
-  background-color: #ADD8E6;
-}
+    <style>
+      .arrow {
+        border: solid black;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
 
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-.card {
-        margin: 0 auto; /* Added */
-        float: none; /* Added */
-        margin-bottom: 10px; /* Added */
-}
-</style>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      }
 
-</head>
+      .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+      }
 
-<body>
+      .split {
+        height: 100%;
+        width: 50%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        overflow-x: hidden;
+        padding-top: 20px;
+      }
+
+      .left {
+        left: 0;
+        background-color: #ADD8E6;
+      }
+
+      .right {
+        right: 0;
+        background-color: #ADD8E6;
+      }
+
+      .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      .card {
+        margin: 0 auto;
+        /* Added */
+        float: none;
+        /* Added */
+        margin-bottom: 10px;
+        /* Added */
+      }
+    </style>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  </head>
+
+  <body>
 
 
     <div class="content-wrap">
-        <div class="main">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-8 p-r-0 title-margin-right">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <h1>Hello, <span>Welcome Here</span></h1>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /# column -->
-                    <div class="col-lg-4 p-l-0 title-margin-left">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <ol class="breadcrumb">
-                                    
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /# column -->
+      <div class="main">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-8 p-r-0 title-margin-right">
+              <div class="page-header">
+                <div class="page-title">
+                  <h1>Hello, <span>Welcome Here</span></h1>
                 </div>
-                <!-- /# row -->
+              </div>
+            </div>
+            <!-- /# column -->
+            <div class="col-lg-4 p-l-0 title-margin-left">
+              <div class="page-header">
+                <div class="page-title">
+                  <ol class="breadcrumb">
 
-                <section id="main-content">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="bootstrap-data-table-panel">
-                                    <div class="table-responsive">
-                                        
-                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Employee ID <p><i class="arrow down" style="float: right;"></i></th>
-                                                    <th>Name <p><i class="arrow down" style="float: right;"></i></th>
-                                                    <th>Department <p><i class="arrow down" style="float: right;"></i></th>
-                                                    <th>Designation<p><i class="arrow down" style="float: right;"></i></th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
-                                                    <tr>
-                                                        <td><%= Employees[i].empID %></td>
-                                                        <td><%= Employees[i].empName %></td>
-                                                        <td><%= Employees[i].dept %></td>
-                                                        <td><%= Employees[i].designation %></td> 
-                                                         <td>
-                                                                <button type="button" data-target="#<%= Employees[i].empID %>" class="btn btn-outline-info btn-sm" data-toggle="modal">
-                                                                   View
-                                                                </button> 
+                  </ol>
+                </div>
+              </div>
+            </div>
+            <!-- /# column -->
+          </div>
+          <!-- /# row -->
 
-                                                               
+          <section id="main-content">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card">
+                  <div class="bootstrap-data-table-panel">
+                    <div class="table-responsive">
 
-<!-- Modal: modalCart -->
-<div class="modal fade" id="<%= Employees[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <!--Header-->
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Employee Details</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <!--Body-->
- 
-      <div class="modal-body">
+                      <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Employee ID <p><i class="arrow down" style="float: right;"></i></th>
+                            <th>Name <p><i class="arrow down" style="float: right;"></i></th>
+                            <th>Department <p><i class="arrow down" style="float: right;"></i></th>
+                            <th>Designation<p><i class="arrow down" style="float: right;"></i></th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=Employees.length-1; i>= 0 ; i-- ) { %>
+                            <tr>
+                              <td>
+                                <%= Employees[i].empID %>
+                              </td>
+                              <td>
+                                <%= Employees[i].empName %>
+                              </td>
+                              <td>
+                                <%= Employees[i].dept %>
+                              </td>
+                              <td>
+                                <%= Employees[i].designation %>
+                              </td>
+                              <td>
+                                <button type="button" data-target="#<%= Employees[i].empID %>"
+                                  class="btn btn-outline-info btn-sm" data-toggle="modal">
+                                  View
+                                </button>
 
-        <table class="table table-hover"><br>
-          <thead>
-            <tr>
-              <th> </th>
-              <th>Field</th>
-              <th>Value</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Employee ID</td>
-              <td><%= Employees[i].empID %></td>
-              
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>Name</td>
-              <td><%= Employees[i].empName %></td>
-              
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Email ID</td>
-              <td><%= Employees[i].emailID %></td>
-            </tr>
 
-            <tr>
-              <th scope="row">1</th>
-              <td>Department</td>
-              <td><%= Employees[i].dept %></td>
-              
-            </tr>
 
-            <tr>
-              <th scope="row">1</th>
-              <td>Designation</td>
-              <td><%= Employees[i].designation %></td>
-              
-            </tr>
-            <!-- <tr>
+                                <!-- Modal: modalCart -->
+                                <div class="modal fade" id="<%= Employees[i].empID %>" tabindex="-1" role="dialog"
+                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <!--Header-->
+                                      <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel">Employee Details</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                                      </div>
+                                      <!--Body-->
+
+                                      <div class="modal-body">
+
+                                        <table class="table table-hover"><br>
+                                          <thead>
+                                            <tr>
+                                              <th> </th>
+                                              <th>Field</th>
+                                              <th>Value</th>
+
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <th scope="row">1</th>
+                                              <td>Employee ID</td>
+                                              <td>
+                                                <%= Employees[i].empID %>
+                                              </td>
+
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">1</th>
+                                              <td>Name</td>
+                                              <td>
+                                                <%= Employees[i].empName %>
+                                              </td>
+
+                                            </tr>
+                                            <tr>
+                                              <th scope="row">2</th>
+                                              <td>Email ID</td>
+                                              <td>
+                                                <%= Employees[i].emailID %>
+                                              </td>
+                                            </tr>
+
+                                            <tr>
+                                              <th scope="row">1</th>
+                                              <td>Department</td>
+                                              <td>
+                                                <%= Employees[i].dept %>
+                                              </td>
+
+                                            </tr>
+
+                                            <tr>
+                                              <th scope="row">1</th>
+                                              <td>Designation</td>
+                                              <td>
+                                                <%= Employees[i].designation %>
+                                              </td>
+
+                                            </tr>
+                                            <!-- <tr>
               <th scope="row">3</th>
               <td>Department</td>
               <td><%= Employees[i].dept %></td>
@@ -234,153 +259,168 @@
             <td> <%= Employees[i].net_sal %></td>
           </tr> -->
 
-          </tbody>
-        </table>
-
-      </div>
-      <!--Footer-->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal: modalCart -->
-
-
-
-                                                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#a<%= Employees[i].empID %>">
-                                                                    Edit
-                                                                </button>
-                                                                <div class="modal fade" id="a<%= Employees[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                                  <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                    <div class="modal-content">
-                                                                      <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Details</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                          <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                      </div>
-                                                                      <div class="modal-body">
-                                                                          <div class="form-group">
-                                                                              <label class="col-sm-6 control-label">Employee Name</label>
-                                                                              <div class="col-sm-10">
-                                                                                  <input type="text" name="empName" class="form-control"
-                                                                                      placeholder="Enter Name">
-                                                                              </div>
-                                                                          </div>
-                      
-                                                                          <div class="form-group">
-                                                                              <label class="col-sm-6 control-label">Email ID</label>
-                                                                              <div class="col-sm-10">
-                                                                              <input id="example-email" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email">
-                                                                              </div>
-                                                                          </div>
-      
-                                                                          <div class="form-group">
-                                                                              <label class="col-sm-6 control-label">Designation</label>
-                                                                              <div class="col-sm-10">
-                                                                                  <select class="form-control" name="designation">
-                                                                                      <option value="value" selected>Option Name</option> 
-                                                                                      <option value="professor" id="professor" selected>Professor</option>
-                                                                                      <option value="associateprof" id="associateprof" selected>Associate Professor</option>
-                                                                                      <option value="asstprof" id="asstprof" selected>Assistant Professor</option>
-                                                                                      <option value="techasst" id="techasst" selected>Technical Assistant</option>
-                                                                                      <option value="labasst" id="labasst" selected>Lab Assistant</option>
-                                                                                      <option value="nonteaching" id="nonteaching" selected>Non Teaching</option>    
-                                                                                  </select>
-                                                                              </div>
-                                                                          </div>
-                      
-                                                                          <div class="form-group">
-                                                                              <label class="col-sm-6 control-label">Salary Category</label>
-                                                                              <div class="col-sm-10">
-                                                                                  <select class="form-control" name="SalaryCategory">
-                                                                                      <option value="value" selected>Option Name</option> 
-                                                                                      <option value="consolidated" id="consolidated" selected>
-                                                                                          Consolidated</option>
-                                                                                      <option value="payscale" id="payscale" selected>Pay
-                                                                                          Scale</option>
-                      
-                                                                                  </select>
-                                                                              </div>
-                      
-                                                                          </div>
-                                                                      </div>
-                                                                      <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                                                        
-                                                                      </div>
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-
-                                                                
-
-                                                                <a href="/uploads/<%=Employees[i].empID%>"><button type="submit" class="btn btn-outline-success btn-sm" >Print</button></a>
-                                                                
-
-                                                             <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#b<%= Employees[i].empID %>">
-                                                                Delete
-                                                              </button>
-
-                                                              <div class="modal fade" id="b<%= Employees[i].empID %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                  <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                      <h5 class="modal-title" id="exampleModalLongTitle">confirm</h5>
-                                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                      </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                      ...
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                      <button" class="btn btn-primary" id="<%= Employees[i].empID %>" onclick="deleteFunction(this.id,this)" data-dismiss="modal">Delete</button>
-                                                                                                                                       
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-
-                                                        </td>                                                        
-                                                    </tr>
-                                                <% }%>
-                                            </tbody>
-
-
+                                          </tbody>
                                         </table>
 
-
-                                          
+                                      </div>
+                                      <!--Footer-->
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-primary"
+                                          data-dismiss="modal">Close</button>
+                                      </div>
                                     </div>
-
+                                  </div>
                                 </div>
-                            </div>
-                            <!-- /# card -->
-                        </div>
+                                <!-- Modal: modalCart -->
+
+
+
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                                  data-target="#a<%= Employees[i].empID %>">
+                                  Edit
+                                </button>
+                                <div class="modal fade" id="a<%= Employees[i].empID %>" tabindex="-1" role="dialog"
+                                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Details</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="form-group">
+                                          <label class="col-sm-6 control-label">Employee Name</label>
+                                          <div class="col-sm-10">
+                                            <input type="text" name="empName" class="form-control"
+                                              placeholder="Enter Name">
+                                          </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label class="col-sm-6 control-label">Email ID</label>
+                                          <div class="col-sm-10">
+                                            <input id="example-email" class="form-control" type="email"
+                                              placeholder="admin@pict.edu" name="example-email">
+                                          </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label class="col-sm-6 control-label">Designation</label>
+                                          <div class="col-sm-10">
+                                            <select class="form-control" name="designation">
+                                              <option value="value" selected>Option Name</option>
+                                              <option value="professor" id="professor" selected>Professor</option>
+                                              <option value="associateprof" id="associateprof" selected>Associate
+                                                Professor</option>
+                                              <option value="asstprof" id="asstprof" selected>Assistant Professor
+                                              </option>
+                                              <option value="techasst" id="techasst" selected>Technical Assistant
+                                              </option>
+                                              <option value="labasst" id="labasst" selected>Lab Assistant</option>
+                                              <option value="nonteaching" id="nonteaching" selected>Non Teaching
+                                              </option>
+                                            </select>
+                                          </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label class="col-sm-6 control-label">Salary Category</label>
+                                          <div class="col-sm-10">
+                                            <select class="form-control" name="SalaryCategory">
+                                              <option value="value" selected>Option Name</option>
+                                              <option value="consolidated" id="consolidated" selected>
+                                                Consolidated</option>
+                                              <option value="payscale" id="payscale" selected>Pay
+                                                Scale</option>
+
+                                            </select>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                          data-dismiss="modal">Close</button>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+
+                                <a href="/uploads/<%=Employees[i].empID%>"><button type="submit"
+                                    class="btn btn-outline-success btn-sm">Print</button></a>
+
+
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                  data-target="#b<%= Employees[i].empID %>">
+                                  Delete
+                                </button>
+
+                                <div class="modal fade" id="b<%= Employees[i].empID %>" tabindex="-1" role="dialog"
+                                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">confirm</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        ...
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                          data-dismiss="modal">Close</button>
+                                        <button" class="btn btn-primary" id="<%= Employees[i].empID %>"
+                                          onclick="deleteFunction(this.id,this)" data-dismiss="modal">Delete</button>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </td>
+                            </tr>
+                            <% }%>
+                        </tbody>
+
+
+                      </table>
+
+
 
                     </div>
 
-                    <!-- <input type="submit" style="float: right;" value="Submit"> -->
+                  </div>
+                </div>
+                <!-- /# card -->
+              </div>
 
-                    </div>
-
-
-                    <!-- /# row -->
-
-                    
-                </section>
             </div>
+
+            <!-- <input type="submit" style="float: right;" value="Submit"> -->
+
         </div>
+
+
+        <!-- /# row -->
+
+
+        </section>
+      </div>
+    </div>
     </div>
 
-    
+
     <!-- bootstrap -->
 
-    <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
+    <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
+    <script src="../assets/assets/js/scripts.js"></script>
     <!-- scripit init-->
     <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
     <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
@@ -392,34 +432,32 @@
     <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
     <script>
-      function deleteFunction(id,ref)
-      {
+      function deleteFunction(id, ref) {
         console.log(id)
-        axios.post('http://localhost:3000/deleteEmployee',{id})
-        .then(function (response) {
-          console.log(response)
-          if(response.data.status==="success")
-          {
-            // console.log(ref)
-            ref.parentNode.parentNode.remove()
-            alert("Deleted successfully!")
-            // confirm("Deleted!");
-            window.location.reload();
-            // res.redirect('viewemployee');
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        });
+        axios.post('http://localhost:3000/deleteEmployee', { id })
+          .then(function (response) {
+            console.log(response)
+            if (response.data.status === "success") {
+              // console.log(ref)
+              ref.parentNode.parentNode.remove()
+              alert("Deleted successfully!")
+              // confirm("Deleted!");
+              window.location.reload();
+              // res.redirect('viewemployee');
+            }
+          })
+          .catch(function (error) {
+            console.log(error)
+          });
       }
     </script>
 
-<!-- <script>
+    <!-- <script>
   function deleteFunction() {
     confirm("Deleted!");
   }
   </script> -->
 
-</body>
+  </body>
 
-</html>
+  </html>

@@ -341,6 +341,37 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 
 });
 
+router.get('/finalcheck', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees natural join lwp`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('finalcheck',{
+                late:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+router.get('/miscellaneous', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees natural join miscellaneous`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('finalcheck',{
+                late:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+
+
 
 router.get('/trial', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>

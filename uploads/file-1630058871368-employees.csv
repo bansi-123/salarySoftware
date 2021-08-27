@@ -1,0 +1,7 @@
+empID,empName,uan,dept,designation,pay,gp,pf,bankAccNum,bankName,doj,salaryCategory,emailID,groupInsurance,payBand,branchName,ifscCode,designationCategory
+1,Ramesh,123456,CS,Teacher,1020,500,1000,55555,hdfc,"2020-12-31 00:00:00","Pay Scale",ramesh@gmail.com,500,50k-60k,Kothrud,345,Non-Teaching
+3,kdd,124,comp,teacher,6530,1000,1000,123456,Axis,"2021-08-02 00:00:00","Pay Scale",kdd@gmail.com,0,45k-55k,Dhankawadi,243,Other
+4,abc,1234,comp,teacher,1020,789,1000,45678,SBI,"2021-07-05 00:00:00",Consolidated,abc@gmail.com,0,10k-20k,Warje,45,Teaching
+7,Kshitij,12345,IT,Teacher,1020,5000,600,123456789,IDBI,"2020-10-05 00:00:00","Pay Scale",kshitij.deshpande7@gmail.com,0,20k-30k,Warje,1234,Teaching
+11,"Kshitij Deshpande",678,comp,teacher,600,1890,0,50000,Warje,"2021-08-25 00:00:00",consolidated,xyz@gmail.com,0,90k-100k,6789,6789,60k-70k
+12,"Kshitij Deshpande",1234,entc,teacher,60890,6000,1890,89,HDFC,"2021-08-25 00:00:00",consolidated,xyz@gmail.com,0,90k-100k,Warje,1234,60k-70k
