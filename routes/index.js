@@ -1580,7 +1580,7 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
 
         // console.log(data["lwp"],data["month"],data["year"],days)
         // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
-        mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt,month, year) VALUES (${data.empID}, '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]})`,(err,result)=>{
+        mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES (${data.empID}, '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}')`,(err,result)=>{
             if (err) {
                 console.log(err);
                 console.log("invalid details");

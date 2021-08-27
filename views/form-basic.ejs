@@ -23,6 +23,23 @@
 
     return true;
 }  
+
+  function stringLengthCheck(name, length)
+{
+// var mnlen = minlength;
+// var mxlen = maxlength;
+ 
+if(length!=12)
+{ 
+alert("Name should be 12 characters.");
+return false;
+}
+else
+{ 
+return true;
+}
+}
+
 </script>
 </head>
 <body>
@@ -72,7 +89,7 @@
                                                         <label class="col-sm-6 control-label">UAN</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" name="uan" class="form-control"
-                                                                placeholder="UAN" required="required" minlength="12" maxlength="12">
+                                                                placeholder="UAN"  pattern=".{12,12}" required title="12 characters needed">
                                                         </div>
                                                     </div>
 
@@ -172,7 +189,7 @@
                                                             <label class="col-sm-6 control-label">IFSC Code</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="ifscCode" id= "ifsc"class="form-control"
-                                                                    placeholder="IFSC Code" required pattern="([^\s][A-z0-9À-ž\s]+)" minlength="11" maxlength="11" />
+                                                                    placeholder="IFSC Code"  pattern=".{11,11}" required title="11 characters needed" />
 
                                                             </div>
                                                         </div>
