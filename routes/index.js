@@ -209,10 +209,22 @@ router.get('/pay', ensureAuthenticated, (req, res) => {
             console.log(err);
         }
         else{
-            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-            res.render('pay',{
-                employees:JSON.parse(JSON.stringify(result))
-            });
+            mysqldb.query(`select empName,empID from Employees`,(err,result2)=>
+            {
+                if (err) {
+                    console.log(err);
+                }
+                else{
+                    console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                    //var set=new Set(JSON.parse(JSON.stringify(result)))
+                    console.log("result2 is",result2)
+                    res.render('pay',{
+                        lwp:JSON.parse(JSON.stringify(result)),
+                        name:JSON.parse(JSON.stringify(result2))
+                    });
+                }
+            })
+           
         }
     })
 });
@@ -655,8 +667,8 @@ router.get('/lateattendance', ensureAuthenticated, (req, res) =>
         }
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-            res.render('lateattendance',{
-                salary:JSON.parse(JSON.stringify(result))
+            res.render('late_home',{
+                employees:JSON.parse(JSON.stringify(result))
             });
         }
     })
