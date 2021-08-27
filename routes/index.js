@@ -382,6 +382,21 @@ router.get('/finaladvances', ensureAuthenticated, (req, res) => {
         }
     })
 });
+
+router.get('/miscellaneous', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('mis_home',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
 router.get('/finalmiscellaneous', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees natural join miscellaneous`,(err,result)=>
     {
@@ -668,7 +683,7 @@ router.get('/lateattendance', ensureAuthenticated, (req, res) =>
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
             res.render('late_home',{
-                employees:JSON.parse(JSON.stringify(result))
+                Employees:JSON.parse(JSON.stringify(result))
             });
         }
     })
