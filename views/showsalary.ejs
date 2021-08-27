@@ -64,6 +64,7 @@
                                                 <tr>
                                                     <th>Employee ID <p><i class="arrow down" style="float: right;"></i></th>
                                                     <th>Name <p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>EmailID</th>
                                                     <th>Basic Pay</th>
                                                     <th>Grade Pay</th>
                                                     <th>Provident Fund</th>
@@ -84,6 +85,8 @@
                                                     <th>Gross Sal</th>
                                                     <th>Total Ded</th>
                                                     <th>Net Salary</th>
+                                                    <th>Bank Name</th>
+                                                    <th>Bank Acc number</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -92,6 +95,8 @@
                                                 <tr>
                                                     <td><%= salary[i].empID %></td>
                                                     <td><%= salary[i].empName %></td>
+                                                    <td><%= salary[i].emailID %></td>
+
                                                     <td><%= salary[i].pay %></td>
                                                     <td><%= salary[i].gp %></td>
                                                     <td><%= salary[i].pf%></td>
@@ -107,6 +112,8 @@
                                                     <td><%= salary[i].gross_sal %></td>
                                                     <td><%= salary[i].total_ded %></td>
                                                     <td><%= salary[i].net_sal %></td>
+                                                    <td><%= salary[i].bankName %></td>
+                                                    <td><%= salary[i].bankAccNum %></td>
                                                     
                                                 </tr>
                                                 <% }%>
