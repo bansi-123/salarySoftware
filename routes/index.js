@@ -350,12 +350,27 @@ router.get('/finalcheck', ensureAuthenticated, (req, res) => {
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('finalcheck',{
-                late:JSON.parse(JSON.stringify(result))
+                lwp:JSON.parse(JSON.stringify(result))
             });
         }
     })
 });
-router.get('/miscellaneous', ensureAuthenticated, (req, res) => {
+
+router.get('/finaladvances', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees natural join advance_temp`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('finaladvances',{
+                adv:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+router.get('/finalmiscellaneous', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees natural join miscellaneous`,(err,result)=>
     {
         if (err) {
@@ -363,7 +378,25 @@ router.get('/miscellaneous', ensureAuthenticated, (req, res) => {
         }
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-            res.render('finalcheck',{
+            res.render('finalmiscellaneous',{
+                miscell:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/finalattendance', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`SELECT *
+    FROM Employees
+    RIGHT JOIN late_attendance
+    ON Employees.empID= late_attendance.empID`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('finalattendance',{
                 late:JSON.parse(JSON.stringify(result))
             });
         }
@@ -884,7 +917,10 @@ router.post('/updatepay',(req,res)=>{
 
 
 router.get('/showsalary', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
+    mlist = [ "January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December" ];
+    var cur_month=mlist[new Date().getMonth()]
+    var cur_year=new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -1410,7 +1446,7 @@ router.post('/generateSalary',(req,res)=>{
             })
         }
     })
-    // res.redirect('showsalary')
+    res.redirect('showsalary')
 })
 
 router.get('/uploads/:empID',  (req, res) => {
