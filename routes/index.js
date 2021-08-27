@@ -1584,51 +1584,51 @@ router.get('/viewdeductions', ensureAuthenticated, (req, res) =>
     // for (let i = 0; i < length; i++) {
         var prevdays;
         console.log("prev" ,prev)
-        if(prev.toLowerCase()==="january")
+        if(prev==="january")
         {
             prevdays=31;
         }
-        else if(prev.toLowerCase()==="february")
+        else if(prev==="february")
         {
             prevdays=28;
         }
-        else if(prev.toLowerCase()==="march")
+        else if(prev==="march")
         {
             prevdays=31;
         }
-        else if(prev.toLowerCase()==="april")
+        else if(prev==="april")
         {
             prevdays=30;
         }
-        else if(prev.toLowerCase()==="may")
+        else if(prev==="may")
         {
             prevdays=31;
         }
-        else if(prev.toLowerCase()==="june")
+        else if(prev==="june")
         {
             prevdays=30
         }
-        else if(prev.toLowerCase()==="july")
+        else if(prev==="july")
         {
             prevdays=31
         }
-        else if(prev.toLowerCase()==="august")
+        else if(prev==="august")
         {
             prevdays=31
         }
-        else if(prev.toLowerCase()==="september")
+        else if(prev==="september")
         {
             prevdays=30
         }
-        else if(prev.toLowerCase()==="october")
+        else if(prev==="october")
         {
             prevdays=31
         }
-        else if(prev.toLowerCase()==="november")
+        else if(prev==="november")
         {
             prevdays=30
         }
-        else if(prev.toLowerCase()==="december")
+        else if(prev==="december")
         {
             prevdays=31
         }
