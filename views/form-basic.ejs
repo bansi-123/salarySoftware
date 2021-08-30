@@ -5,24 +5,63 @@
     <meta charset="UTF-8">
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
   <link rel="stylesheet" href="../assets/alert/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script  >
+  
+   
 
-    <script type="text/javascript">
-    function validateCode() {
-    var TCode = document.getElementById("TCode").value;
+      var handle_dependent_selects = function($category) {
+    var $designation = document.getElementById($category.getAttribute('data-designation-id')),
+        $selected = $category.options[$category.selectedIndex],
+        category_val = $selected.value;
 
-    for (var i = 0; i < TCode.length; i++) {
-        var char1 = TCode.charAt(i);
-        var cc = char1.charCodeAt(0);
-
-        if ((cc > 47 && cc < 58) || (cc > 64 && cc < 91) || (cc > 96 && cc < 123)) {
-        } else {
-            alert("Input is not alphanumeric");
-            return false;
+    for (var i=0; i<$designation.options.length; i++) {
+        var $option = $designation.options[i];
+        if($option.value != '') {
+            $option.setAttribute('hidden',true);
         }
-    }
+    };
 
-    return true;
-}  
+    if(category_val) {
+        var designation_options = $selected.getAttribute('data-designation-options'),
+            designation_options_array = designation_options.split('|#');
+        
+        for (i=0; i<$designation.options.length; i++) {
+            var $option = $designation.options[i];
+            if ($option.value == "") {
+                $option.innerText = "--------";
+                continue;
+            }
+            if(designation_options_array.indexOf($option.value) != -1) {
+                $option.removeAttribute('hidden');
+            }
+        };
+
+    } else {
+        var show_text = $designation.getAttribute('data-text-if-category-empty');
+        if(!show_text) {
+            show_text = 'Select ' + $category.name;
+        }
+        for (i=0; i<$designation.options.length; i++) {
+            var $option = $designation.options[$designation.selectedIndex];
+            if ($option.value == "") {
+                $option.innerText = '- ' + show_text + ' -';
+                break;
+            }
+        };
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var $categorys = document.getElementsByClassName('dependent-selects__category');
+    for (var i=0; i<$categorys.length; i++) {
+        handle_dependent_selects($categorys[i]);
+        $categorys[i].addEventListener('change', function() {
+            handle_dependent_selects(this)
+        })
+    }
+}, false);
+
 </script>
 </head>
 <body>
@@ -72,7 +111,7 @@
                                                         <label class="col-sm-6 control-label">UAN</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" name="uan" class="form-control"
-                                                                placeholder="UAN" required="required" minlength="12" maxlength="12">
+                                                                placeholder="UAN"  pattern=".{12,12}" required title="12 characters needed">
                                                         </div>
                                                     </div>
 
@@ -94,31 +133,72 @@
 
                                                    
 
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Designation Category</label>
-                                                        <div class="col-sm-10">
-                                                            <select class="form-control" name="designationCategory">
-                                                                <!-- <option value="value" selected>Option Name</option> -->
-                                                                <option value="Teaching" id="Teaching" selected>Teaching</option>
-                                                                <option value="Non-Teaching" id="Non-Teaching" selected>Non-Teaching</option>
-                                                                <option value="Other" id="Other" selected>Other</option>
-                                                               
-                                                            </select>
-                                                        </div>
+<!--                                                   
+                                                    <div id="myQuestions">
+                                                        <select id="QuestionOptions">
+                                                            <option value disalbe selected>designationCategory</option>
+                                                            <option value="A">Teaching</option>
+                                                            <option value="B">Non-Teaching</option>
+                                                            <option value="C">Other</option>
+                                                           
+                                                        </select>
                                                     </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Designation</label>
-                                                        <div class="col-sm-10">
-                                                            <select class="form-control" name="designationCategory">
-                                                                <!-- <option value="value" selected>Option Name</option> -->
-                                                                <option value="hod" id="hod" selected>HOD</option>
-                                                                <option value="teacher" id="teacher" selected>Teacher</option>
-                                                                <option value="Other" id="Other" selected>Other</option>
-                                                               
-                                                            </select>
+                                                    <div id="myAnswers">
+                                                        <div id="A" style="display: none;">
+                                                            <div id="QuestionC">
+                                                                <p>Designation</p>
+                                                            </div>
+                                                            <div id="QuestionD">
+                                                                <select id="QuestionOptionsD">
+                                                                    <option value disalbe selected>Choose Your Answer</option>
+                                                                    <option value="Professor">Professor</option>
+                                                                    <option value="Assistant Professor">Assistant Professor</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                        <div id="B" style="display: none;">
+                                                            <div id="QuestionE">
+                                                                <p>Designation</p>
+                                                            </div>
+                                                            <div id="QuestionF">
+                                                                <select id="QuestionOptionsF">
+                                                                    <option value disalbe selected>Choose Your Answer</option>
+                                                                    <option value="Lab Assistant">Lab Assistant</option>
+                                                                    <option value="Caretaker">Caretaker</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div id="C" style="display: none;">
+                                                            <div id="QuestionE">
+                                                                <p>Designation</p>
+                                                            </div>
+                                                            <div id="QuestionF">
+                                                                <select id="QuestionOptionsF">
+                                                                    <option value disalbe selected>Choose Your Answer</option>
+                                                                    <option value="Accountant">Accountant</option>
+                                                                    <option value="Admin">Admin</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                       
+                                                    </div> -->
+                                                    Designation Category 1: <select name="category" id="id_category" data-designation-id='id_designation' class='dependent-selects__category'>
+                                                        <option value="">---------</option>
+                                                        <option value="teaching" data-designation-options="prof|#asstprof|#hod">Teaching</option>
+                                                        <option value="nonteaching" data-designation-options="labsst|#caretaker">Non- Teaching</option>
+                                                      </select><br><br>
+                                                      
+                                                      Designation: <select name="designation" id="id_designation" class='dependent-selects__designation'>
+                                                        <option value="">-----</option>
+                                                        <option value="prof">prof</option>
+                                                        <option value="asstprof">Assistant Prof</option>
+                                                        <option value="hod">HOD</option>
+                                                        <option value="labasst">Lab Assistant</option>
+                                                        <option value="Caretaker">Caretaker</option>
+                                                      </select>
+                                                      
+                                                      <br>
+                                                      <br>
 
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Salary Category</label>
@@ -172,7 +252,7 @@
                                                             <label class="col-sm-6 control-label">IFSC Code</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="ifscCode" id= "ifsc"class="form-control"
-                                                                    placeholder="IFSC Code" required pattern="([^\s][A-z0-9À-ž\s]+)" minlength="11" maxlength="11" />
+                                                                    placeholder="IFSC Code"  pattern=".{11,11}" required title="11 characters needed" />
 
                                                             </div>
                                                         </div>
@@ -239,38 +319,7 @@
                                                             </div>
                                                         </div>
     
-                                                        <!-- <button type="submit" onclick="alertFunction()" class="btn btn-primary">Primary</button> -->
-                                                    <!-- <input type="submit" value="Submit"> -->
-
-
-
-                                                    <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert" value="submit" id="myAlert">
-                                                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                          <span aria-hidden="true">&times;</span>
-                                                        </button>
-
-
-                                                      </div> -->
-
-                                                      <!-- <div class='customAlert'>
-                                                        <p class='message'></p>
-                                                          <input type='button' class='confirmButton' value='Ok'>
-                                                      </div>
-                                                        
-                                                      <input type='button' class='rab' value='Raise alert'> -->
-
-                                                      <!-- <button type="submit" value="showAlert" onclick="showAlert();"> Show Alert</button>
-
-                                                        <div class="container" style="display:none;" id="myAlert">
-                                                            <h2>Dismissal Alert Messages</h2>
-                                                            <div class="alert alert-success alert-dismissable" id="myAlert2">
-                                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                                                Success! message sent successfully.
-                                                            </div>
-
-                                                        </div> -->
-
+                                                      
                                                         
                                                         <br />
                                                         <div class="row text-center">
@@ -295,4 +344,5 @@
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script><script  src="../assets/alert/script.js"></script>
-</body>
+
+        </body>

@@ -93,7 +93,7 @@
                               <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
 
                               <% for(var i=Employees.length-1; i>= 0; i-- ) { %>
-                                <a href="/lateattendance/<%=Employees[i].empID%>"><%= Employees[i].empName %></a>
+                                <a href="/miscellaneous/<%=Employees[i].empID%>"><%= Employees[i].empName %></a>
                               <% }%>
                             </div>
                           </div>
@@ -173,8 +173,8 @@
                                                                             <option value="may" id="may" selected>May</option>
                                                                             <option value="june" id="june" selected>June</option>    
                                                                             <option value="july" id="july" selected>July</option>  
-                                                                            <option value="aug" id="aug" selected>August</option>    
-                                                                            <option value="sept" id="sept" selected>September</option>    
+                                                                            <option value="august" id="aug" selected>August</option>    
+                                                                            <option value="september" id="sept" selected>September</option>    
                                                                             <option value="october" id="october" selected>October</option>    
                                                                             <option value="november" id="november" selected>November</option>    
                                                                             <option value="december" id="december" selected>December</option>   
@@ -186,7 +186,7 @@
                                                     <label class="col-sm-6 control-label">Year</label>
                                                     <div class="col-sm-10">
                                                         <select class="form-control" name="year">
-                                                            <option value="january" name="1" id="2021" selected>2021</option>
+                                                            <option value="2021" id="2021" selected>2021</option>
                                                                             <option value="2023" id="2022" selected>2022</option>
                                                                             <option value="2023" id="2023" selected>2023</option>
                                                                             

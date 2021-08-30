@@ -1,5 +1,5 @@
 exports.showHomePage = function(req, res) {
-	res.render('index');
+	res.render('salcert');
 }
 
 exports.uploadFiles = function(req, res) {
@@ -13,7 +13,7 @@ exports.downloadSample = function(req,res) {
 	var html, options;
 
 	try {
-		html = fs.readFileSync('./uploads/templateSelected.html', 'utf8');
+		html = fs.readFileSync('./uploads/templateSelected3.html', 'utf8');
 		options = { height: '676px',
 					width: '878px',
 					timeout: 30000,
@@ -48,11 +48,11 @@ exports.sendEmails = function(req, res) {
 
 	var obj = csv();
 
-	function AttendeeData(name, email,diff, empID, basicPay, gp,pf,da,hra,cca,lwp,ta,prof_tax,in_tax,sal_adv,rev_stmp,gross_sal, total_ded,net_sal, bankAccNum, bankName, othspl) {
+	function AttendeeData(name, email,branch, empID, basicPay, gp,pf,da,hra,cca,lwp,ta,prof_tax,in_tax,sal_adv,rev_stmp,gross_sal, total_ded,net_sal ) {
 	    this.Name = name;
 	    this.EmailID = email;
 		this.empID = empID;
-
+		this.branch = branch;
 		this.basicPay = basicPay;
 		this.gp = gp;
 		this.pf = pf;
@@ -61,8 +61,6 @@ exports.sendEmails = function(req, res) {
 		this.cca = cca;
 		this.lwp = lwp;
 		this.ta = ta;
-		this.diff=diff;
-		this.othspl=othspl;
 		this.prof_tax = prof_tax;
 		this.in_tax = in_tax;
 		this.sal_adv = sal_adv;
@@ -70,8 +68,6 @@ exports.sendEmails = function(req, res) {
 		this.gross_sal = gross_sal;
 		this.total_ded = total_ded;
 		this.net_sal = net_sal;
-		this.bankName = bankName;
-		this.bankAccNum = bankAccNum;
 
 
 	};
@@ -80,10 +76,10 @@ exports.sendEmails = function(req, res) {
 	var num = 0;
 
 	var readCSVPromise = new Promise(function(resolve, reject) {
-		obj.from.path(path.join(__dirname, '../uploads/sheetSelected.csv')).to.array(function(data) {
+		obj.from.path(path.join(__dirname, '../uploads/sheetSelected3.csv')).to.array(function(data) {
 			for (var index = 1; index < data.length; index++) {
 				num++;
-	        	Attendees.push(new AttendeeData(data[index][0], data[index][1], data[index][2],data[index][3], data[index][4],data[index][5], data[index][6],data[index][7], data[index][8],data[index][9], data[index][10],data[index][11], data[index][12],data[index][13], data[index][14],data[index][15], data[index][16],data[index][17],data[index][18],data[index][19],data[index][20],data[index][21]));
+	        	Attendees.push(new AttendeeData(data[index][0], data[index][1], data[index][2],data[index][3], data[index][4],data[index][5], data[index][6],data[index][7], data[index][8],data[index][9], data[index][10],data[index][11], data[index][12],data[index][13], data[index][14],data[index][15], data[index][16],data[index][17],data[index][18],));
 	    	}
 	    	resolve(Attendees);
 	
@@ -93,7 +89,7 @@ exports.sendEmails = function(req, res) {
 	var htmlSource;
 	readCSVPromise.then(function(result) {
 
-		htmlSource = fs.readFileSync("./uploads/templateSelected.html", "utf8");
+		htmlSource = fs.readFileSync("./uploads/templateSelected3.html", "utf8");
 	
 	}).then(function(){
 
@@ -121,33 +117,30 @@ exports.sendEmails = function(req, res) {
 
 			let str = templateStr;
 			const mapObj = {
-			  apple: Attendees[index].Name,
-			  banana: Attendees[index].empID,
-			  bankname: Attendees[index].branch,
+			  Example: Attendees[index].Name,
+			  empno: Attendees[index].empID,
+			  bob: Attendees[index].branch,
 			  uanno: Attendees[index].uan,
-			  basicPay: Attendees[index].basicPay,
+			  bpay: Attendees[index].basicPay,
 			  pf: Attendees[index].pf,
-			  agpdp: Attendees[index].agpdp,
 			  proftax: Attendees[index].prof_tax,
 			  da: Attendees[index].da,
 			  inctax: Attendees[index].in_tax,
 			  hra: Attendees[index].hra,
-			  othded: Attendees[index].othded,
+			  //othded: Attendees[index].othded,
 			  cca: Attendees[index].cca,
 			  revstamp: Attendees[index].rev_stmp,
-			  othspl: Attendees[index].othspl,
-			  diff:Attendees[index].diff,
-			  ta: Attendees[index].ta,
+			  bpay: Attendees[index].basicPay,
+			  //diff
 			  totpay: Attendees[index].gross_sal,
-			  grosssal: Attendees[index].total_ded,
+			  totded: Attendees[index].total_ded,
 			  netsal: Attendees[index].net_sal,
-			  bankacc: Attendees[index].bankacc,
 
 
 			//   catch: "Nidhi"
 			
 			};
-			str = str.replace(/\b(?:empName|EmpID|bankname|uanno|basicPay|pf|agpdp|proftax|da|inctax|hra|othded|cca|revstamp|totpay|totalded|netsal|diff|othspl|ta|grosssal|bankacc)\b/gi, matched => mapObj[matched]);
+			str = str.replace(/\b(?:Example|empno|bob|uanno|bpay|pf|agpdp|proftax|da|inctax|hra|cca|revstamp|totpay|totded|netsal)\b/gi, matched => mapObj[matched]);
 			// console.log(templateStr);
 
 

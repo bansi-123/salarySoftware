@@ -209,10 +209,22 @@ router.get('/pay', ensureAuthenticated, (req, res) => {
             console.log(err);
         }
         else{
-            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-            res.render('pay',{
-                employees:JSON.parse(JSON.stringify(result))
-            });
+            mysqldb.query(`select empName,empID from Employees`,(err,result2)=>
+            {
+                if (err) {
+                    console.log(err);
+                }
+                else{
+                    console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                    //var set=new Set(JSON.parse(JSON.stringify(result)))
+                    console.log("result2 is",result2)
+                    res.render('pay',{
+                        lwp:JSON.parse(JSON.stringify(result)),
+                        name:JSON.parse(JSON.stringify(result2))
+                    });
+                }
+            })
+           
         }
     })
 });
@@ -340,6 +352,85 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
     })
 
 });
+
+router.get('/finalcheck', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees natural join lwp`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('finalcheck',{
+                lwp:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/finaladvances', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees natural join advance_temp`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('finaladvances',{
+                adv:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/miscellaneous', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('mis_home',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+router.get('/finalmiscellaneous', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees natural join miscellaneous`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('finalmiscellaneous',{
+                miscell:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/finalattendance', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`SELECT *
+    FROM Employees
+    RIGHT JOIN late_attendance
+    ON Employees.empID= late_attendance.empID`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('finalattendance',{
+                late:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+
 
 
 router.get('/trial', ensureAuthenticated, (req, res) => {
@@ -591,8 +682,8 @@ router.get('/lateattendance', ensureAuthenticated, (req, res) =>
         }
         else{
             console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-            res.render('lateattendance',{
-                salary:JSON.parse(JSON.stringify(result))
+            res.render('late_home',{
+                Employees:JSON.parse(JSON.stringify(result))
             });
         }
     })
@@ -853,7 +944,10 @@ router.post('/updatepay',(req,res)=>{
 
 
 router.get('/showsalary', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Salary natural join Employees`,(err,result)=>
+    mlist = [ "January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December" ];
+    var cur_month=mlist[new Date().getMonth()]
+    var cur_year=new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -1379,7 +1473,7 @@ router.post('/generateSalary',(req,res)=>{
             })
         }
     })
-    // res.redirect('showsalary')
+    res.redirect('showsalary')
 })
 
 router.get('/uploads/:empID',  (req, res) => {
@@ -1545,51 +1639,51 @@ router.get('/viewdeductions', ensureAuthenticated, (req, res) =>
     // for (let i = 0; i < length; i++) {
         var prevdays;
         console.log("prev" ,prev)
-        if(prev.toLowerCase()==="january")
+        if(prev==="january")
         {
             prevdays=31;
         }
-        else if(prev.toLowerCase()==="february")
+        else if(prev==="february")
         {
             prevdays=28;
         }
-        else if(prev.toLowerCase()==="march")
+        else if(prev==="march")
         {
             prevdays=31;
         }
-        else if(prev.toLowerCase()==="april")
+        else if(prev==="april")
         {
             prevdays=30;
         }
-        else if(prev.toLowerCase()==="may")
+        else if(prev==="may")
         {
             prevdays=31;
         }
-        else if(prev.toLowerCase()==="june")
+        else if(prev==="june")
         {
             prevdays=30
         }
-        else if(prev.toLowerCase()==="july")
+        else if(prev==="july")
         {
             prevdays=31
         }
-        else if(prev.toLowerCase()==="august")
+        else if(prev==="august")
         {
             prevdays=31
         }
-        else if(prev.toLowerCase()==="september")
+        else if(prev==="september")
         {
             prevdays=30
         }
-        else if(prev.toLowerCase()==="october")
+        else if(prev==="october")
         {
             prevdays=31
         }
-        else if(prev.toLowerCase()==="november")
+        else if(prev==="november")
         {
             prevdays=30
         }
-        else if(prev.toLowerCase()==="december")
+        else if(prev==="december")
         {
             prevdays=31
         }
@@ -1627,7 +1721,7 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
 
         // console.log(data["lwp"],data["month"],data["year"],days)
         // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
-        mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt,month, year) VALUES (${data.empID}, '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]})`,(err,result)=>{
+        mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES (${data.empID}, '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}')`,(err,result)=>{
             if (err) {
                 console.log(err);
                 console.log("invalid details");
