@@ -27,12 +27,19 @@
     <link href="../assets/assets/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/assets/css/lib/helper.css" rel="stylesheet">
     <link href="../assets/assets/css/style.css" rel="stylesheet">
-    
+
+
+    <style>
+        .center {
+            text-align: center;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    
+
 
 
     <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
@@ -42,115 +49,125 @@
                         <!-- <img src="../assets/assets/images/logo.png" alt="" /> --><span>PICT Pune</span>
                     </a></div>
                 <ul>
-                
+
                     <li><a href="index1"><i class="ti-home"></i>Dashboard</a></li>
 
-                <li><a class="sidebar-sub-toggle"><i class="ti-user"></i> Employee <span
-                        class="sidebar-collapse-icon ti-angle-down"></span></a>
-                <ul>
-                    <li><a href="form-basic">Add Employee</a></li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-user"></i> Employee <span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="form-basic">Add Employee</a></li>
 
-                    <li><a href="viewemployee">View All Employees</a></li>
-                   
-                </ul>
-            </li>
+                            <li><a href="viewemployee">View All Employees</a></li>
 
-            <li><a class="sidebar-sub-toggle"><i class="ti-arrow-up"></i> Allowances <span
-                        class="sidebar-collapse-icon ti-angle-down"></span></a>
-                <ul>
-                    <li><a href="viewallow">View Allowance</a></li>
+                        </ul>
+                    </li>
 
-                    <li><a href="allowances">Edit Allowances</a></li>
-                   
-                </ul>
-            </li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-arrow-up"></i> Allowances <span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="viewallow">View Allowance</a></li>
 
-            <li><a class="sidebar-sub-toggle"><i class="ti-arrow-down"></i> Deductions <span
-                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                <ul>
-            <li><a href="viewdeductions">View Deductions</a></li>
+                            <li><a href="allowances">Edit Allowances</a></li>
 
-            <li><a href="deductions">Calculations</a></li>
-           
-            </ul>
-        </li>
-        
-        <li><a class="sidebar-sub-toggle"><i class="ti-arrow-down"></i> Other Deductions <span
-            class="sidebar-collapse-icon ti-angle-down"></span></a>
-            <ul>
-        <li><a href="groupinsurance">Group Insurance</a></li>
+                        </ul>
+                    </li>
 
-        <li><a href="lateattendance">Late Attendance Deductions</a></li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-arrow-down"></i> Deductions <span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="viewdeductions">View Deductions</a></li>
 
-       <li><a href="miscellaneous">Miscellaneous Deductions</a></li>
-        
-        </ul>
-    </li>
-                
-            <li><a class="sidebar-sub-toggle"><i class="ti-stats-down"></i>Leave Without Pay<span
-                        class="sidebar-collapse-icon ti-angle-down"></span></a>
-                <ul>
-                    <li><a href="pay">Add LWP</a></li>
+                            <li><a href="deductions">Calculations</a></li>
 
-                    <li><a href="showlwp">Show LWP</a></li>
-                   
-                </ul>
-            </li>
+                        </ul>
+                    </li>
 
-            <li><a class="sidebar-sub-toggle"><i class="ti-stats-up"></i>Advances<span
-                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                <ul>
-                    <li><a href="advances">Change Constants</a></li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-arrow-down"></i> Other Deductions <span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="groupinsurance">Group Insurance</a></li>
 
-                    <li><a href="showadvances">Show Advance</a></li>
-           
-                </ul>
-            </li>
+                            <li><a href="lateattendance">Late Attendance Deductions</a></li>
+                            <li><a href="donations">Donations</a></li>
+                            <li><a href="miscellaneous">Miscellaneous Deductions</a></li>
 
-            
+                        </ul>
+                    </li>
 
-            <li><a class="sidebar-sub-toggle"><i class="ti-stats-up"></i>Increment<span
-                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                <ul>
-                    <li><a href="table-export">Add Increments</a></li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-stats-down"></i>Leave Without Pay<span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="pay">Add LWP</a></li>
 
-                    <li><a href="showincrement">Show Increment</a></li>
-           
-                </ul>
-            </li>
+                            <li><a href="showlwp">Show LWP</a></li>
 
-            <li><a class="sidebar-sub-toggle"><i class="ti-arrow-up"></i>Differences<span
-                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                <ul>
-                    <li><a href="differences">Increment Difference</a></li>
-                    <li><a href="otherdifferences">HRA and DDA Differences</a></li>
-                </ul>
-            </li>
-                    
+                        </ul>
+                    </li>
 
-            <li><a class="sidebar-sub-toggle"><i class="ti-ticket"></i>Generate Salary<span
-                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                <ul>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-stats-up"></i>Advances<span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="advances">Apply For Advances</a></li>
 
-                    <li><a href="finalcheck">Generate Salary</a></li>
-                    <li><a href="showSalary">Masterview</a></li>
-                </ul>
-            </li>
+                            <li><a href="showadvances">Show Advance</a></li>
 
-            <li><a class="sidebar-sub-toggle"><i class="ti-notepad"></i> Reports <span
-                class="sidebar-collapse-icon ti-angle-down"></span></a>
-        <ul>
-            <li><a href="upload">Salary Slip</a></li>
+                        </ul>
+                    </li>
 
-            <li><a href="viewemployee">Register</a></li>
-            <li><a href="viewemployee">Sheet</a></li>
-            <li><a href="viewemployee">Salary Certificate</a></li>
-            <li><a href="viewemployee">Form 16</a></li>
-            <li><a href="annual salary">Annual salary</a></li>
-            <li><a href="annual salary">Bank list</a></li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-stats-down"></i>TA<span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="ta">Add TA</a></li>
 
-        </ul>
-    </li>   
+                            <!-- <li><a href="showlwp">Show LWP</a></li> -->
+
+                        </ul>
+                    </li>
+
+
+
+                    <li><a class="sidebar-sub-toggle"><i class="ti-stats-up"></i>Increment<span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="table-export">Add Increments</a></li>
+
+                            <li><a href="showincrement">Show Increment</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li><a class="sidebar-sub-toggle"><i class="ti-arrow-up"></i>Differences<span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="differences">Increment Difference</a></li>
+                            <li><a href="otherdifferences">HRA and DDA Differences</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li><a class="sidebar-sub-toggle"><i class="ti-ticket"></i>Generate Salary<span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+
+                            <li><a href="finalcheck">Generate Salary</a></li>
+                            <li><a href="showSalary">Masterview</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a class="sidebar-sub-toggle"><i class="ti-notepad"></i> Reports <span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="upload">Salary Slip</a></li>
+
+                            <li><a href="upload">Salary Register</a></li>
+                            <li><a href="upload">Salary Sheet</a></li>
+                            <li><a href="upload">Salary Certificate</a></li>
+                            <li><a href="upload">Form 16</a></li>
+                            <!-- <li><a href="upload">Annual salary</a></li>
+            <li><a href="upload">Bank list</a></li> -->
+
+                        </ul>
+                    </li>
 
 
 
@@ -164,7 +181,7 @@
     <div class="header">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12" class="float-center">
                     <div class="float-left">
                         <div class="hamburger sidebar-toggle">
                             <span class="line"></span>
@@ -172,31 +189,32 @@
                             <span class="line"></span>
                         </div>
                     </div>
-                    <div class="float-right">
-                   
-                            <div class="header-icon">
-                                <span class="user-avatar"><h3> Pune Institute Of Computer Technology,Pune</h3>
-                                </span>
-                            </div>
+                    <div class="float-center">
+
+                        <div class="header-icon" class="center">
+                            <span class="user-avatar" style="text-align: center">
+                                <h3>SCTR'S PUNE INSTITUTE OF COMPUTER TECHNOLOGY, PUNE</h3>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-      <!-- jquery vendor -->
-  <script src="../assets/assets/js/lib/jquery.min.js"></script>
-  <script src="../assets/assets/js/lib/jquery.nanoscroller.min.js"></script>
-  <!-- nano scroller -->
-  <script src="../assets/assets/js/lib/menubar/sidebar.js"></script>
-  <script src="../assets/assets/js/lib/preloader/pace.min.js"></script>
-  <!-- sidebar -->
+    <!-- jquery vendor -->
+    <script src="../assets/assets/js/lib/jquery.min.js"></script>
+    <script src="../assets/assets/js/lib/jquery.nanoscroller.min.js"></script>
+    <!-- nano scroller -->
+    <script src="../assets/assets/js/lib/menubar/sidebar.js"></script>
+    <script src="../assets/assets/js/lib/preloader/pace.min.js"></script>
+    <!-- sidebar -->
 
-  <!-- bootstrap -->
-  <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
-  <script src="../assets/assets/js/scripts.js"></script>
-  <!-- scripit init-->
+    <!-- bootstrap -->
+    <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
+    <script src="../assets/assets/js/scripts.js"></script>
+    <!-- scripit init-->
 
-   
+
 
 </body>
