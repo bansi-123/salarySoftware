@@ -130,6 +130,7 @@ var storage =   multer.diskStorage({
   var uploadOptions = upload.fields([{ name: 'templateSelected', maxCount: 1 }, { name: 'sheetSelected', maxCount: 1 }])
   
   var routes = require('./routes/uiRoutes');
+  var routes = require('./routes/uiRoutes2');  
   routes(app, uploadOptions);
 
   
