@@ -1,0 +1,9 @@
+empID,empName,uan,dept,designation,pay,gp,pf,bankAccNum,bankName,doj,salaryCategory,emailID
+1,Kshitij,12345,IT,Teacher,120000,5000,600,123456789,IDBI,2020-10-05,Pay Scale,kshitij.deshpande7@gmail.com
+2,Ramesh,123456,CS,Teacher,100000,500,1000,55555,hdfc,2020-12-31,Pay Scale,ramesh@gmail.com
+3,kdd,124,comp,teacher,75000,1000,1000,123456,Axis,2021-08-02,Pay Scale,kdd@gmail.com
+4,abc,1234,comp,teacher,85000,789,1000,45678,SBI,2021-07-05,Consolidated,abc@gmail.com
+5,abcd,1234,IT,HOD,50000,4567,1000,123243,HDFC,2021-08-23,Pay Scale,abcd@gmail.com
+6,abcde,1234,comp,HOD,50000,789,1000,6789,hdfc,2021-07-27,undefined,kshitij.deshpan@gmail.com
+7,abcdef,67890,comp,HOD,80000,6789,1000,234,hdfc,2021-06-01,undefined,kshitij.deshpan@gmail.com
+8,abcdefg,890,comp,teacher,95000,29,1000,890,idbi,2021-08-29,consolidated,kshitij.deshpan@gmail.com

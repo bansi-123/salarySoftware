@@ -1,0 +1,12 @@
+empID,empName,uan,dept,designation,pay,gp,pf,bankAccNum,bankName,doj,salaryCategory
+1,Kshitij,12345,IT,Teacher,50,5000,600,123456789,IDBI,2020-10-05,"Pay Scale"
+2,Ramesh,123456,CS,Teacher,50000,500,1000,55555,hdfc,2020-12-31,"Pay Scale"
+3,kdd,124,comp,teacher,5000,1000,1000,123456,Axis,2021-08-02,"Pay Scale"
+4,kdd,124,comp,teacher,5000,1000,1000,123456,Axis,2021-08-02,"Pay Scale"
+5,kdd,124,comp,teacher,5000,1000,1000,123456,Axis,2021-08-02,"Pay Scale"
+6,kdd,124,comp,teacher,5000,1000,1000,123456,Axis,2021-08-02,"Pay Scale"
+7,kdd,124,comp,teacher,5000,1000,1000,123456,Axis,2021-08-02,"Pay Scale"
+8,kdd,124,comp,teacher,5000,1000,1000,123456,Axis,2021-08-02,"Pay Scale"
+9,kdd,124,comp,teacher,5000,1000,1000,123456,Axis,2021-08-02,"Pay Scale"
+10,kdd,124,comp,teacher,5000,1000,1000,123456,Axis,2021-08-02,"Pay Scale"
+11,abc,1234,comp,teacher,34567,789,1000,45678,SBI,2021-07-05,Consolidated
