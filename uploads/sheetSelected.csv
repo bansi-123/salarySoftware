@@ -1,4 +1,6 @@
-Sunand Goel,kowtalnidhi@gmail.com,SBI,1234,50000,120,12,120,15,0,300,20,12,12,12,45000,500,40000
-Bansi Shelke,shelkebansi123@gmail.com,SBI,1234,50000,120,12,120,300,15,0,20,12,12,12,45000,500,40000
-Kshitij,goel.sunand@gmail.com,HDFC,456,878676,87,8778,766,78,65,767,9889,9,90,90,99999,67,78908
-Kavita Sultanpure,goel.sunand@gmail.com,BOI,100000,20000,236,254,120,26,15,768,98,11,11,12,1254,23,2457
+Employee ID,Name,EmailID,Basic Pay,Grade Pay,Provident Fund,DA,HRA,CCA,LWP,TA,Prof Tax,Income Tax,Sal Adv,Rev Stmp,Gross Sal,Total Ded,Net Salary,Bank Name,Bank Acc number
+1,Kshitij,kshitij.deshpande7@gmail.com,5293,5000,600,14307.3,2058.6,240,0,1600,0,3000,0,1,28498.9,3631.88,24867,IDBI,123456789
+2,Ramesh,goel.sunand@gmail.com,5293,500,1000,8052.27,1158.6,240,0,1600,0,3000,0,1,16843.9,4018.38,12825.5,hdfc,55555
+3,kdd,shelkebansi123@gmail.com,5293,1000,1000,8747.27,1258.6,240,0,1600,0,3000,0,1,18138.9,4019.88,14119,Axis,123456
+4,abc,kowtalnidhi@gmail.com,5293,789,1000,8453.98,1216.4,240,0,1600,0,3000,0,1,17592.4,4019.25,13573.1,SBI,45678
+5,abcd,abcd@gmail.com,5293,4567,1000,13705.4,1972,240,0,1600,0,3000,0,1,27377.4,4030.58,23346.8,HDFC,123243
