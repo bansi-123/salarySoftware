@@ -1236,7 +1236,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                         {
                                                                             console.log("outstanding updated in advance_temp")
                                                                         }
-                                                                        if((adv_outstanding-adv_deduction)===0)
+                                                                        if(parseInt(adv_outstanding-adv_deduction)===0)
                                                                         {
                                                                             mysqldb.query(`insert into advance (empID,amount,month,year,duration,outstanding) values (${empID},${adv_amount},${adv_month},${adv_year},${adv_duration},${adv_outstanding-adv_deduction})`,(err,result)=>{
                                                                                 if(err)

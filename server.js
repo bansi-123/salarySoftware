@@ -24,19 +24,19 @@ require('./config/passport')(passport);
 
 //------------ MySQL Connection ------------//
 
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'sunandroot',
-//     database: 'employees2'
-// });
-
 const mysqldb = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
-    password: 'Vineet@nexa1',
-    database: 'employee' 
+    password: 'sunandroot',
+    database: 'employees2'
 });
+
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Vineet@nexa1',
+//     database: 'employee' 
+// });
 
 // const mysqldb = mysql.createConnection ({
 //     host: 'localhost',
@@ -130,6 +130,7 @@ var storage =   multer.diskStorage({
   var uploadOptions = upload.fields([{ name: 'templateSelected', maxCount: 1 }, { name: 'sheetSelected', maxCount: 1 }])
   
   var routes = require('./routes/uiRoutes');
+  var routes = require('./routes/uiRoutes2');  
   routes(app, uploadOptions);
 
   
