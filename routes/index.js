@@ -69,6 +69,38 @@ router.get('/table-export', ensureAuthenticated, (req, res) => {
     
 });
 
+router.get('/donations', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('donations',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
+
+router.get('/ta', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('ta',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
+
 router.get('/differences', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>
     {

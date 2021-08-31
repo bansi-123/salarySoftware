@@ -1,5 +1,73 @@
 <%- include('partials/header.ejs'); -%>
 
+<<<<<<< HEAD
+    <head>
+
+        <meta charset="UTF-8">
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
+        <link rel="stylesheet" href="../assets/alert/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+
+
+
+            var handle_dependent_selects = function ($category) {
+                var $designation = document.getElementById($category.getAttribute('data-designation-id')),
+                    $selected = $category.options[$category.selectedIndex],
+                    category_val = $selected.value;
+
+                for (var i = 0; i < $designation.options.length; i++) {
+                    var $option = $designation.options[i];
+                    if ($option.value != '') {
+                        $option.setAttribute('hidden', true);
+                    }
+                };
+
+                if (category_val) {
+                    var designation_options = $selected.getAttribute('data-designation-options'),
+                        designation_options_array = designation_options.split('|#');
+
+                    for (i = 0; i < $designation.options.length; i++) {
+                        var $option = $designation.options[i];
+                        if ($option.value == "") {
+                            $option.innerText = "--------";
+                            continue;
+                        }
+                        if (designation_options_array.indexOf($option.value) != -1) {
+                            $option.removeAttribute('hidden');
+                        }
+                    };
+
+                } else {
+                    var show_text = $designation.getAttribute('data-text-if-category-empty');
+                    if (!show_text) {
+                        show_text = 'Select ' + $category.name;
+                    }
+                    for (i = 0; i < $designation.options.length; i++) {
+                        var $option = $designation.options[$designation.selectedIndex];
+                        if ($option.value == "") {
+                            $option.innerText = '- ' + show_text + ' -';
+                            break;
+                        }
+                    };
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var $categorys = document.getElementsByClassName('dependent-selects__category');
+                for (var i = 0; i < $categorys.length; i++) {
+                    handle_dependent_selects($categorys[i]);
+                    $categorys[i].addEventListener('change', function () {
+                        handle_dependent_selects(this)
+                    })
+                }
+            }, false);
+
+        </script>
+    </head>
+
+    <body>
+=======
 <head>
 
     <meta charset="UTF-8">
@@ -65,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </head>
 <body>
+>>>>>>> dc11c56e9daebe661987d7a9a3426f20b04c8b11
 
         <div class="content-wrap">
             <div class="main">
@@ -77,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-title">
@@ -103,7 +172,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Email ID</label>
                                                         <div class="col-sm-10">
-                                                        <input id="example-email" name="emailID" class="form-control" type="email" placeholder="admin@pict.edu" name="example-email" required="required">
+                                                            <input id="example-email" name="emailID"
+                                                                class="form-control" type="email"
+                                                                placeholder="admin@pict.edu" name="example-email"
+                                                                required="required">
                                                         </div>
                                                     </div>
 
@@ -111,29 +183,38 @@ document.addEventListener('DOMContentLoaded', function() {
                                                         <label class="col-sm-6 control-label">UAN</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" name="uan" class="form-control"
-                                                                placeholder="UAN"  pattern=".{12,12}" required title="12 characters needed">
+                                                                placeholder="UAN">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Department</label>
                                                         <div class="col-sm-10">
-                                                            <input type="radio" id="comp" name="dept" value="comp" required>
+                                                            <input type="radio" id="comp" name="dept" value="comp"
+                                                                required>
                                                               <label for="comp">Computer</label><br>
-                                                              <input type="radio" id="IT" name="dept" value="IT" required>
+                                                              <input type="radio" id="IT" name="dept" value="IT"
+                                                                required>
                                                               <label for="IT">IT</label><br>
-                                                              <input type="radio" id="entc" name="dept" value="entc" required>
+                                                              <input type="radio" id="entc" name="dept" value="entc"
+                                                                required>
                                                               <label for="entc">ENTC</label><br>
-                                                              <input type="radio" id="accounts" name="dept" value="accounts" required>
+                                                            <input type="radio" id="accounts" name="dept"
+                                                                value="accounts" required>
                                                               <label for="entc">Accounts</label><br>
-                                                              <input type="radio" id="admin" name="dept" value="admin" required>
+                                                            <input type="radio" id="admin" name="dept" value="admin"
+                                                                required>
                                                               <label for="entc">Admin</label><br>
                                                         </div>
                                                     </div>
 
-                                                   
 
+<<<<<<< HEAD
+
+                                                    <!--                                                   
+=======
 <!--                                                   
+>>>>>>> dc11c56e9daebe661987d7a9a3426f20b04c8b11
                                                     <div id="myQuestions">
                                                         <select id="QuestionOptions">
                                                             <option value disalbe selected>designationCategory</option>
@@ -182,6 +263,22 @@ document.addEventListener('DOMContentLoaded', function() {
                                                         </div>
                                                        
                                                     </div> -->
+<<<<<<< HEAD
+                                                    Designation Category 1: <select name="category" id="id_category"
+                                                        data-designation-id='id_designation'
+                                                        class='dependent-selects__category'>
+                                                        <option value="">---------</option>
+                                                        <option value="teaching"
+                                                            data-designation-options="prof|#asstprof|#hod">Teaching
+                                                        </option>
+                                                        <option value="nonteaching"
+                                                            data-designation-options="labasst|#caretaker">Non- Teaching
+                                                        </option>
+                                                    </select><br><br>
+
+                                                    Designation: <select name="designation" id="id_designation"
+                                                        class='dependent-selects__designation'>
+=======
                                                     Designation Category 1: <select name="category" id="id_category" data-designation-id='id_designation' class='dependent-selects__category'>
                                                         <option value="">---------</option>
                                                         <option value="teaching" data-designation-options="prof|#asstprof|#hod">Teaching</option>
@@ -189,16 +286,24 @@ document.addEventListener('DOMContentLoaded', function() {
                                                       </select><br><br>
                                                       
                                                       Designation: <select name="designation" id="id_designation" class='dependent-selects__designation'>
+>>>>>>> dc11c56e9daebe661987d7a9a3426f20b04c8b11
                                                         <option value="">-----</option>
                                                         <option value="prof">prof</option>
                                                         <option value="asstprof">Assistant Prof</option>
                                                         <option value="hod">HOD</option>
                                                         <option value="labasst">Lab Assistant</option>
                                                         <option value="Caretaker">Caretaker</option>
+<<<<<<< HEAD
+                                                    </select>
+
+                                                    <br>
+                                                    <br>
+=======
                                                       </select>
                                                       
                                                       <br>
                                                       <br>
+>>>>>>> dc11c56e9daebe661987d7a9a3426f20b04c8b11
 
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Salary Category</label>
@@ -219,116 +324,133 @@ document.addEventListener('DOMContentLoaded', function() {
                                                         <label class="col-sm-6 control-label">Date of
                                                             Joining</label>
                                                         <div class="col-sm-10">
-                                                            <input type="date" class="form-control" id="doj"
-                                                                name="doj" required="required">
+                                                            <input type="date" class="form-control" id="doj" name="doj"
+                                                                required="required">
 
                                                         </div>
                                                     </div>
                                                 </div>
-                                                    <!-- /# column -->
-                                                    <!-- <div class="column"> -->
-                                                    <div class="col-lg-6">
+                                                <!-- /# column -->
+                                                <!-- <div class="column"> -->
+                                                <div class="col-lg-6">
 
-                                                        
 
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 control-label">Bank Name</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" name="bankName" class="form-control"
-                                                                    placeholder="Bank Name" required="required">
-                                                            </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Bank Name</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="bankName" class="form-control"
+                                                                placeholder="Bank Name" required="required">
                                                         </div>
+                                                    </div>
 
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 control-label">Branch Name</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" name="branchName" class="form-control"
-                                                                    placeholder="Branch Name" required="required">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Branch Name</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="branchName" class="form-control"
+                                                                placeholder="Branch Name" required="required">
 
-                                                            </div>
                                                         </div>
+                                                    </div>
 
+<<<<<<< HEAD
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">IFSC Code</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="ifscCode" id="ifsc"
+                                                                class="form-control" placeholder="IFSC Code">
+=======
                                                         <div class="form-group">
                                                             <label class="col-sm-6 control-label">IFSC Code</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" name="ifscCode" id= "ifsc"class="form-control"
-                                                                    placeholder="IFSC Code"  pattern=".{11,11}" required title="11 characters needed" />
+                                                                    placeholder="IFSC Code">
+>>>>>>> dc11c56e9daebe661987d7a9a3426f20b04c8b11
 
-                                                            </div>
-                                                        </div>
-                                                        <!-- pattern=".{9}" required name="patternTest" title="Field must be 9 characters long" /> -->
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 control-label">Enter Account
-                                                                No.</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" name="bankAccNum"
-                                                                    class="form-control" placeholder="Acc No." required="required">
-
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 control-label">Basic Pay</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" name="pay" class="form-control"
-                                                                    placeholder="Basic Pay" required="required">
-
-
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 control-label">Grade Pay</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" name="gp" class="form-control"
-                                                                    placeholder="Grade Pay" required="required">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 control-label">Provident Fund</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" name="pf" class="form-control"
-                                                                    placeholder="Provident Fund" required="required">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 control-label">Group Insurance</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" name="groupInsurance" class="form-control"
-                                                                    placeholder="Group Insurance" required="required">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 control-label">Pay Band</label>
-                                                            <div class="col-sm-10">
-                                                                <select class="form-control" name="payBand" >
-                                                                    <!-- <option value="value" selected>Option Name</option> -->
-                                                                    <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
-                                                                    <option value="30k-40k" id="30k-40k" selected>30k-40k</option>
-                                                                    <option value="40k-50k" id="40k-50k" selected>40k-50k</option>
-                                                                    <option value="50k-60k" id="50k-60k" selected>50k-60k</option>
-                                                                    <option value="60k-70k" id="60k-70k" selected>60k-70k</option>
-                                                                    <option value="70k-80k" id="70k-80k" selected>70k-80k</option>
-                                                                    <option value="80k-90k" id="80k-90k" selected>80k-90k</option> 
-                                                                    <option value="90k-100k" id="90k-100k" selected>90k-100k</option>  
-                                                                    <option value="lakh" id="lakh" selected>1 lakh+</option>  
-                                                                </select>
-                                                            </div>
-                                                        </div>
-    
-                                                      
-                                                        
-                                                        <br />
-                                                        <div class="row text-center">
-                                                          <div>
-                                                            <button class="button large round success">Submit</button>
-                                                          </div>
-                                                          
                                                         </div>
                                                     </div>
+                                                    <!-- pattern=".{9}" required name="patternTest" title="Field must be 9 characters long" /> -->
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Enter Account
+                                                            No.</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="bankAccNum" class="form-control"
+                                                                placeholder="Acc No." required="required">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Basic Pay</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="pay" class="form-control"
+                                                                placeholder="Basic Pay" required="required">
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Grade Pay</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="gp" class="form-control"
+                                                                placeholder="Grade Pay" required="required">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Provident Fund</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="pf" class="form-control"
+                                                                placeholder="Provident Fund" required="required">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Group Insurance</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" name="groupInsurance"
+                                                                class="form-control" placeholder="Group Insurance"
+                                                                required="required">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 control-label">Pay Band</label>
+                                                        <div class="col-sm-10">
+                                                            <select class="form-control" name="payBand">
+                                                                <!-- <option value="value" selected>Option Name</option> -->
+                                                                <option value="20k-30k" id="20k-30k" selected>20k-30k
+                                                                </option>
+                                                                <option value="30k-40k" id="30k-40k" selected>30k-40k
+                                                                </option>
+                                                                <option value="40k-50k" id="40k-50k" selected>40k-50k
+                                                                </option>
+                                                                <option value="50k-60k" id="50k-60k" selected>50k-60k
+                                                                </option>
+                                                                <option value="60k-70k" id="60k-70k" selected>60k-70k
+                                                                </option>
+                                                                <option value="70k-80k" id="70k-80k" selected>70k-80k
+                                                                </option>
+                                                                <option value="80k-90k" id="80k-90k" selected>80k-90k
+                                                                </option>
+                                                                <option value="90k-100k" id="90k-100k" selected>90k-100k
+                                                                </option>
+                                                                <option value="lakh" id="lakh" selected>1 lakh+</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <br />
+                                                    <div class="row text-center">
+                                                        <div>
+                                                            <button class="button large round success">Submit</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
 
                                             </div>
                                         </form>
@@ -343,6 +465,13 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<<<<<<< HEAD
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
+        <script src="../assets/alert/script.js"></script>
+
+    </body>
+=======
         <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script><script  src="../assets/alert/script.js"></script>
 
         </body>
+>>>>>>> dc11c56e9daebe661987d7a9a3426f20b04c8b11
