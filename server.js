@@ -31,40 +31,28 @@ require('./config/passport')(passport);
 //     database: 'employees2'
 // });
 
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Vineet@nexa1',
+//     database: 'employee' 
+// });
+
 const mysqldb = mysql.createConnection ({
     host: 'localhost',
-    user: 'root',
-    password: 'Vineet@nexa1',
-    database: 'employee' 
+    user: 'kshitij',
+    password: 'salary123',
+    database: 'employee'
 });
 
 // const mysqldb = mysql.createConnection ({
 //     host: 'localhost',
-//     user: 'kshitij',
-//     password: 'salary123',
-//     database: 'employee'
-// });
-
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
 //     user: 'root',
 //     password: 'Vineet@nexa1',
 //     database: 'employee' 
 // });
 
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'Vineet@nexa1',
-//     database: 'employee' 
-// });
 
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
-//     user: 'kshitij',
-//     password: 'salary123',
-//     database: 'employee'
-// });
 
 // connect to database
 mysqldb.connect((err) => {
@@ -129,7 +117,7 @@ var storage =   multer.diskStorage({
   var upload = multer({ storage: storage })
   var uploadOptions = upload.fields([{ name: 'templateSelected', maxCount: 1 }, { name: 'sheetSelected', maxCount: 1 }])
   
-  var routes = require('./routes/uiRoutes');
+  var routes = require('./routes/uiRoutes2');
   routes(app, uploadOptions);
 
   

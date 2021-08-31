@@ -87,6 +87,37 @@ router.get('/differences', ensureAuthenticated, (req, res) => {
 
 router.post('/differences',ensureAuthenticated,(req,res)=>{
     var data=JSON.parse(JSON.stringify(req.body))
+    console.log(data)
+    var list2=[]
+    for(var i in data)
+    {
+
+        if(Number.isInteger(parseInt(i)))
+        {
+            console.log(i)
+            console.log(data[i])
+            list2.push(parseInt(i))
+        }
+
+    }
+    console.log("list is",list2)
+    mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+    var month=mlist[new Date().getMonth()]
+    var year=new Date().getFullYear()
+    var duration=data.months
+    for(let i = 0; i < list2.length; i++)
+    {
+        console.log("i is",list2[i])
+        mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES (${list2[i]},'${month}',${duration},${year})`,(err,result)=>
+        {
+            if (err) {
+                console.log(err);
+            }
+            else{
+                
+            }
+        })
+    }
 
 })
 
@@ -910,7 +941,7 @@ router.post('/updatepay',(req,res)=>{
                 var finalpay=increment-queryData[i].gp;
                 console.log(`update Employees set pay=${finalpay} where empID=${parseInt(list2[i])})`)
                 
-                mysqldb.query(`INSERT INTO increment (empID, month, year, increment) VALUES (${parseInt(list2[i])}, ${month}, ${year}, ${incrementPercent})`,(err,result)=>
+                mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES (${parseInt(list2[i])}, ${month}, ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
                 {
                     if (err) {
                         console.log(err);
@@ -1304,7 +1335,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                         // console.log("lwp_amt=",lwp_amt)
 
                                                                         //pay+gp
-                                                                        //(15600+6000)*1.03
+                                                                        //(15600+6000)*0.03
                                                                         //648 is increment
                                                                         //ceil the increment=650
                                                                         //650 x (da_factor+hra_factor) i.e 1.59=1033.5
@@ -1403,57 +1434,106 @@ router.post('/generateSalary',(req,res)=>{
                                                                                         console.log("error while selecting from miscellaneous table")
                                                                                     }
                                                                                     else{
-                                                                                    var miscellaneous_deduction=0;
-                                                                                    if(result.length===0)
-                                                                                    {
+                                                                                        var miscellaneous_deduction=0;
+                                                                                        if(result.length===0)
+                                                                                        {
 
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        var data=JSON.parse(JSON.stringify(result))[0];
-                                                                                        miscellaneous_deduction=data.miscellaneous_amt
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            var data=JSON.parse(JSON.stringify(result))[0];
+                                                                                            miscellaneous_deduction=data.miscellaneous_amt
 
-                                                                                    }
-                                                                                    oth_spl+=miscellaneous_deduction
-                                                                                    console.log("miscellaneous deductions is",miscellaneous_deduction)
-                                                                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${i}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
-                                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
-                                                                                        ,(err,result)=>{
+                                                                                        }
+                                                                                        oth_spl+=miscellaneous_deduction
+                                                                                        console.log("miscellaneous deductions is",miscellaneous_deduction)
+                                                                                        mysqldb.query(`select * from increment_difference where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
                                                                                             if (err) {
                                                                                                 console.log(err)
-                                                                                                console.log("error while inserting into salary table")
+                                                                                                console.log("error while calculating from increment difference table,select query")
                                                                                             }
                                                                                             else{
-                                                                                                // console.log(JSON.parse(JSON.stringify(result))[0])
-                                                                                                // res.send("Done");
-                                                                                                // req.flash(
-                                                                                                //     'success_msg',
-                                                                                                //     'Employee found!'
-                                                                                                // );
-                                                                                                console.log("YAYYYYY")
-                                                                                                console.log("i,length is ",i,length)
-                                                                                                // if(i===length)
-                                                                                                // {
-                                                                                                //     mysqldb.query('truncate table lwp_temp')
-                                                                                                //     ,(err,result)=>{
-                                                                                                //         if (err) {
-                                                                                                //             //------------ Invalid registration Number ------------//
-                                                                                                //             // req.flash('error_msg',
-                                                                                                //             // 'Please enter valid Id.')
-                                                                                                //             console.log(err)
-                                                                                                //             console.log("invalid update salary 2")
-                                                                                                //         }
-                                                                                                //         else{
-                                                                                                //             console.log("SUCCESS!")
-                                                                                                //         }
-                                                                                                //     }
-                                                                                                        
-                                                                                                // }
+                                                                                                if(result.length==0)
+                                                                                                {
+                                                                                                    console.log("for empid",empID,"not found in increment difference", month,year)
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    var durationIncrement=JSON.parse(JSON.stringify(result))[0].duration
+                                                                                                     //take latest increment value
+                                                                                                    mysqldb.query(`select * from increment where empID=${empID} order by year desc,month desc limit 1`,(err,result)=>{
+                                                                                                        if (err) {
+                                                                                                            console.log(err)
+                                                                                                            console.log("error while calculating from increment table,select query")
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            // var finalIncrement=0
+                                                                                                            if(result.length===0)
+                                                                                                            {
+                                                                                                                console.log("no prior increment history")
+                                                                                                            }
+                                                                                                            else{
+                                                                                                                var prevPay=JSON.parse(JSON.stringify(result))[0].prevPay;
+                                                                                                                var increment=JSON.parse(JSON.stringify(result))[0].increment;
+                                                                                                                // var durationIncrement=JSON.parse(JSON.stringify())
+                                                                                                                var incrementvalue=(prevPay+gp)*(increment/100)
+                                                                                                                if((Math.floor(incrementvalue)%10)===0)
+                                                                                                                {
+
+                                                                                                                }
+                                                                                                                else{
+                                                                                                                    incrementvalue=Math.ceil(incrementvalue/10)*10
+                                                                                                                }
+                                                                                                                var toAddValue=(hra_MultFactor+da_MultFactor)*incrementvalue
+                                                                                                                finalIncrement=(toAddValue+incrementvalue)*durationIncrement
+                                                                                                                oth_spl+=finalIncrement
+                                                                                                                console.log("increment difference is ",finalIncrement,"for empID",empID)
+                                                                                                            }
+                                                                                                        }
+                                                                                                    })
+                                                                                                }  
+                                                                                                console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
+                                                                                                mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+                                                                                                ,(err,result)=>{
+                                                                                                    if (err) {
+                                                                                                        console.log(err)
+                                                                                                        console.log("error while inserting into salary table")
+                                                                                                    }
+                                                                                                    else{
+                                                                                                        // console.log(JSON.parse(JSON.stringify(result))[0])
+                                                                                                        // res.send("Done");
+                                                                                                        // req.flash(
+                                                                                                        //     'success_msg',
+                                                                                                        //     'Employee found!'
+                                                                                                        // );
+                                                                                                        console.log("YAYYYYY")
+                                                                                                        console.log("i,length is ",i,length)
+                                                                                                        // if(i===length)
+                                                                                                    // {
+                                                                                                    //     mysqldb.query('truncate table lwp_temp')
+                                                                                                    //     ,(err,result)=>{
+                                                                                                    //         if (err) {
+                                                                                                    //             //------------ Invalid registration Number ------------//
+                                                                                                    //             // req.flash('error_msg',
+                                                                                                    //             // 'Please enter valid Id.')
+                                                                                                    //             console.log(err)
+                                                                                                    //             console.log("invalid update salary 2")
+                                                                                                    //         }
+                                                                                                    //         else{
+                                                                                                    //             console.log("SUCCESS!")
+                                                                                                    //         }
+                                                                                                    //     }
+                                                                                                            
+                                                                                                    // }
+                                                                                                    }
+                                                                                                })
+                                                                
                                                                                             }
                                                                                         })
                                                                                     }
-                                                                                })
-                                                                            }       
+                                                                                })   
+                                                                            }
                                                                         })
                                                                     }
                                                                 })
@@ -1467,13 +1547,13 @@ router.post('/generateSalary',(req,res)=>{
                                 })
                             }
                         })
-                    }
 
+                    }
                 }
             })
         }
-    })
     res.redirect('showsalary')
+    })
 })
 
 router.get('/uploads/:empID',  (req, res) => {
