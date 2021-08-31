@@ -101,6 +101,95 @@ router.get('/ta', ensureAuthenticated, (req, res) => {
     
 });
 
+router.post('/ta', ensureAuthenticated, (req, res) => {
+    
+    console.log(JSON.parse(JSON.stringify(req.body)))
+
+    const data=JSON.parse(JSON.stringify(req.body));
+    var list="(";
+    var list2=[]
+    for(var i in data)
+    {
+
+        if(Number.isInteger(parseInt(i)))
+        {
+            console.log(i)
+            console.log(data[i])
+            list+=i.toString()+","
+            list2.push(i)
+        }
+
+    }
+    var newValue=parseInt(data["newValue"]);
+    list=list.substring(0,list.length - 1);
+    list+=")";
+    console.log("list is",list2)
+    mysqldb.query(`update Employees set ta=${newValue} where empID in ${list}`,(err,result)=>{
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            console.log("updated ta in employee")
+        }
+    })
+    
+});
+
+router.get('/cca', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('cca',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
+
+router.post('/cca', ensureAuthenticated, (req, res) => {
+    
+    console.log(JSON.parse(JSON.stringify(req.body)))
+
+    const data=JSON.parse(JSON.stringify(req.body));
+    var list="(";
+    var list2=[]
+    for(var i in data)
+    {
+
+        if(Number.isInteger(parseInt(i)))
+        {
+            console.log(i)
+            console.log(data[i])
+            list+=i.toString()+","
+            list2.push(i)
+        }
+
+    }
+    var newValue=parseInt(data["newValue"]);
+    list=list.substring(0,list.length - 1);
+    list+=")";
+    console.log("list is",list2)
+    mysqldb.query(`update Employees set cca=${newValue} where empID in ${list}`,(err,result)=>{
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            console.log("updated cca in employee")
+        }
+    })
+    
+});
+
+
 router.get('/differences', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>
     {
