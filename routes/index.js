@@ -18,9 +18,9 @@ router.get('/index1', ensureAuthenticated, (req, res) => {
     res.render('index1');
 });
 
-router.get('/form-basic', ensureAuthenticated, (req, res) => {
-    res.render('form-basic');
-});
+router.get('/form-basic', ensureAuthenticated, (req, res) => res.render('form-basic', {
+    name: req.user.name
+}));
 
 router.post('/form-basic', ensureAuthenticated, (req, res) => {
     
@@ -84,6 +84,49 @@ router.get('/donations', ensureAuthenticated, (req, res) => {
     })
     
 });
+
+router.post('/donations',ensureAuthenticated,(req,res)=>{
+    mlist = [ "January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December" ];
+    var cur_month=mlist[new Date().getMonth()]
+    var cur_year=new Date().getFullYear()
+    console.log(JSON.parse(JSON.stringify(req.body)))
+
+    const data=JSON.parse(JSON.stringify(req.body));
+    var list="(";
+    var list2=[]
+    for(var i in data)
+    {
+
+        if(Number.isInteger(parseInt(i)))
+        {
+            console.log(i)
+            console.log(data[i])
+            list+=i.toString()+","
+            list2.push(i)
+        }
+
+    }
+    var donateDays=parseInt(data["donateDays"]);
+    var cause=data["cause"];
+    list=list.substring(0,list.length - 1);
+    list+=")";
+    console.log("list is",list2)
+    for(var i in list2)
+    {
+        mysqldb.query(`insert into donation(empID,donationDays,month,year,cause) VALUES(${list2[i]},${donateDays},'${cur_month}',${cur_year},'${cause}')`,(err,result)=>{
+            if(err)
+            {
+                console.log(err)
+                console.log("error while inserting into donation table")
+            }
+            else
+            {
+                console.log("inserted in donation for employee with emp id",list2[i])
+            }
+        })
+    }
+    
+})
 
 router.get('/ta', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>
@@ -732,19 +775,24 @@ router.post('/table-export', ensureAuthenticated, (req, res) => {
 
 // ------------ Add Employee Route ------------//
 router.post('/addEmployee',(req,res)=>{
+    
     const data=JSON.parse(JSON.stringify(req.body));
-    const {empName,uan,dept,designation,pay,gp,pf,bankAccNum,bankName,doj,salaryCategory,emailID,groupInsurance,payBand,branchName,ifscCode,designationCategory}=data;
+    const {empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment   , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age}=data;
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("here")
-    console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
-    mysqldb.query(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`
+    // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
+ //  empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , Type  , Type1 ,  onroll  , dop  , doc   ,appointment ,  Relieving  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,(err,result)=>{
+   
+    // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
+    mysqldb.query(`INSERT INTO Employees (empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}','${appointment}','${category}','${gender}','${status}',${mobile},'${address_correspondence}','${address_permanent}','${mis}','${biometric}','${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}',${phdYr},'${pgSub}','${pgUni}',${pgYr},'${ugSub}','${ugUni}',${ugYr},'${grade}','${netset}','${othqual}',${exp},${industry_exp},${uni_approval},'${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}',${age})`
     ,(err,result)=>{
-        if (err) {
+            if (err) {
             console.log(err);
             console.log("invalid details");
         }
         else{
             // console.log(JSON.parse(JSON.stringify(result))[0])
+            console.log(result);
             res.redirect('/index1')
             // req.flash(
             //     'success_msg',
@@ -753,7 +801,6 @@ router.post('/addEmployee',(req,res)=>{
         }
     })
 })
-
 router.get('/groupinsurance', ensureAuthenticated, (req, res) => 
 {
     mysqldb.query(`select * from Employees`,(err,result)=>
@@ -1465,7 +1512,7 @@ router.post('/generateSalary',(req,res)=>{
 
                                                                         //get new basic pay, diff calculated on old basic pay.
 
-                                                                    //hra difference ,da change in percent x (pay+gp) on current only.
+                                                                        //hra difference ,da change in percent x (pay+gp) on current only.
                                                                         var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca_temp)+parseFloat(diff)+parseFloat(ta_temp);
                                                                         console.log("gross salary,days of month,lwp",gross_sal,daysOfMonth,lwp)
                                                                         if(gross_sal>10000)
@@ -1500,8 +1547,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                         console.log("hra difference is",hra_final_difference)
                                                                         oth_spl+=da_final_difference;
                                                                         console.log("da difference is",hra_final_difference)
-                                                                        var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl); //+parseFloat(lwp_amt);
-                                                                        var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
+                                                                        
                                                                         console.log("logging")
 
                                                                         //independant query
@@ -1607,49 +1653,70 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                                     incrementvalue=Math.ceil(incrementvalue/10)*10
                                                                                                                 }
                                                                                                                 var toAddValue=(hra_MultFactor+da_MultFactor)*incrementvalue
-                                                                                                                finalIncrement=(toAddValue+incrementvalue)*durationIncrement
+                                                                                                                finalIncrement=Math.ceil((toAddValue+incrementvalue)*durationIncrement)
                                                                                                                 oth_spl+=finalIncrement
                                                                                                                 console.log("increment difference is ",finalIncrement,"for empID",empID)
                                                                                                             }
                                                                                                         }
                                                                                                     })
-                                                                                                }  
-                                                                                                console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
-                                                                                                mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+                                                                                                }
+                                                                                                mysqldb.query(`select * from donation where empID=${empID}`
                                                                                                 ,(err,result)=>{
                                                                                                     if (err) {
                                                                                                         console.log(err)
-                                                                                                        console.log("error while inserting into salary table")
+                                                                                                        console.log("error while selecting from donation table")
                                                                                                     }
                                                                                                     else{
-                                                                                                        // console.log(JSON.parse(JSON.stringify(result))[0])
-                                                                                                        // res.send("Done");
-                                                                                                        // req.flash(
-                                                                                                        //     'success_msg',
-                                                                                                        //     'Employee found!'
-                                                                                                        // );
-                                                                                                        console.log("YAYYYYY")
-                                                                                                        console.log("i,length is ",i,length)
-                                                                                                        // if(i===length)
-                                                                                                    // {
-                                                                                                    //     mysqldb.query('truncate table lwp_temp')
-                                                                                                    //     ,(err,result)=>{
-                                                                                                    //         if (err) {
-                                                                                                    //             //------------ Invalid registration Number ------------//
-                                                                                                    //             // req.flash('error_msg',
-                                                                                                    //             // 'Please enter valid Id.')
-                                                                                                    //             console.log(err)
-                                                                                                    //             console.log("invalid update salary 2")
-                                                                                                    //         }
-                                                                                                    //         else{
-                                                                                                    //             console.log("SUCCESS!")
-                                                                                                    //         }
-                                                                                                    //     }
-                                                                                                            
-                                                                                                    // }
+                                                                                                        if(result.length===0)
+                                                                                                        {
+                                                                                                            console.log("no donations for employee with empID",empID)
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            var donationDays=JSON.parse(JSON.stringify(result))[0].donationDays;
+                                                                                                            var amount=gross_sal/daysOfMonth*donationDays
+                                                                                                            oth_spl+=amount
+                                                                                                            console.log("donation amount is ",amount,"for empID ",empID)
+                                                                                                        }
+                                                                                                        var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl); //+parseFloat(lwp_amt);
+                                                                                                        var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
+                                                                                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
+                                                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+                                                                                                        ,(err,result)=>{
+                                                                                                            if (err) {
+                                                                                                                console.log(err)
+                                                                                                                console.log("error while inserting into salary table")
+                                                                                                            }
+                                                                                                            else{
+                                                                                                                // console.log(JSON.parse(JSON.stringify(result))[0])
+                                                                                                                // res.send("Done");
+                                                                                                                // req.flash(
+                                                                                                                //     'success_msg',
+                                                                                                                //     'Employee found!'
+                                                                                                                // );
+                                                                                                                console.log("YAYYYYY")
+                                                                                                                console.log("i,length is ",i,length)
+                                                                                                                // if(i===length)
+                                                                                                            // {
+                                                                                                            //     mysqldb.query('truncate table lwp_temp')
+                                                                                                            //     ,(err,result)=>{
+                                                                                                            //         if (err) {
+                                                                                                            //             //------------ Invalid registration Number ------------//
+                                                                                                            //             // req.flash('error_msg',
+                                                                                                            //             // 'Please enter valid Id.')
+                                                                                                            //             console.log(err)
+                                                                                                            //             console.log("invalid update salary 2")
+                                                                                                            //         }
+                                                                                                            //         else{
+                                                                                                            //             console.log("SUCCESS!")
+                                                                                                            //         }
+                                                                                                            //     }
+                                                                                                                    
+                                                                                                            // }
+                                                                                                            }
+                                                                                                        })
                                                                                                     }
-                                                                                                })
-                                                                
+                                                                                                })                                
                                                                                             }
                                                                                         })
                                                                                     }
@@ -1941,6 +2008,184 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
     res.redirect('index1');
 });
 
+router.get('/storeIncomeTax',ensureAuthenticated,(req,res)=>{
+    mysqldb.query(`select * from income_tax natural join Salary`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('incometax',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+})
 
+
+
+router.post('/storeIncomeTax',(req,res)=>{
+     //to get total number of employees
+     mysqldb.query(`select count(*) from Employees`,(err,result)=>{
+        if (result.length===0) {
+            console.log("no employees")
+        }
+        else{
+            length=JSON.parse(JSON.stringify(result))[0]['count(*)'];
+            mlist = [ "January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December" ];
+            // var cur_month=mlist[new Date().getMonth()]
+            var cur_month="august"
+            var cur_year=new Date().getFullYear()
+            for (let i = 1; i < length+1; i++) {
+                console.log(`select * from Employees natural join Salary where month='${cur_month}' and year=${cur_year} ORDER BY empID LIMIT ${i-1},1`)
+                //to get employee specific properties for calculation
+                mysqldb.query(`select * from Employees natural join Salary where month='${cur_month}' and year=${cur_year} ORDER BY empID LIMIT ${i-1},1`,(err,result)=>{
+                    if (err) {
+
+                        console.log(err)
+                        console.log("error in select query of Employee")
+                    }
+                    else{
+                        console.log("Result is",result,"for i-1",i-1)
+                        //tax regime,age,investment
+                        var empID=parseInt(JSON.parse(JSON.stringify(result))[0].empID);
+                        var age=parseInt(JSON.parse(JSON.stringify(result))[0].age);
+                        var investment=parseInt(JSON.parse(JSON.stringify(result))[0].investment);
+                        var emp_temp_regime=JSON.parse(JSON.stringify(result))[0].emp_temp_regime;
+                        var gross_sal=parseInt(JSON.parse(JSON.stringify(result))[0].gross_sal);
+                        var gross_total_income=gross_sal*12;
+                        console.log(JSON.parse(JSON.stringify(result))[0]);
+                        var tax_on_income;
+                        var exemption=250000+investment
+                        var net_taxable_income=gross_sal-exemption;
+                        console.log("regime is",emp_temp_regime)
+                        if(emp_temp_regime==="old")
+                        {
+                            console.log("in if")
+                            if(gross_total_income<250000)
+                            {
+                                console.log("in less")
+                                tax_on_income=0;
+                            }
+                            else if(gross_total_income<300000 && age>=60 && age<80)
+                            {
+                                tax_on_income=0;
+                            }
+                            else if(gross_total_income<500000 && age>80)
+                            {
+                                tax_on_income=0;
+                            }
+                            else if(gross_total_income>=250000 && gross_sal<500000)
+                            {
+                                tax_on_income=net_taxable_income*0.05
+                            }
+                            else if(gross_total_income>=500000 && gross_sal<1000000)
+                            {
+                                tax_on_income=net_taxable_income*0.20
+                            }
+                            else if(gross_total_income>=1000000)
+                            {
+                                tax_on_income=net_taxable_income*0.30
+                            }
+                            
+                        }
+                        else if(emp_temp_regime==="new")
+                        {
+                            if(gross_total_income<250000)
+                            {
+                                tax_on_income=0;
+                            }
+            
+                            else if(gross_total_income>=250000 && gross_sal<500000)
+                            {
+                                tax_on_income=net_taxable_income*0.05
+                            }
+                            else if(gross_total_income>=500000 && gross_sal<750000)
+                            {
+                                tax_on_income=net_taxable_income*0.10
+                            }
+                            else if(gross_total_income>=750000 && gross_sal<1000000)
+                            {
+                                tax_on_income=net_taxable_income*0.15
+                            }
+                            else if(gross_total_income>=1000000 && gross_sal<1250000)
+                            {
+                                tax_on_income=net_taxable_income*0.20
+                            }
+                            else if(gross_total_income>=1250000 && gross_sal<1500000)
+                            {
+                                tax_on_income=net_taxable_income*0.25
+                            }
+                            else if(gross_total_income>=1500000)
+                            {
+                                tax_on_income=net_taxable_income*0.30
+                            }
+                            
+                        }
+                        var health_and_edu_cess=0.04*tax_on_income;
+                        var total_tax=tax_on_income+health_and_edu_cess;
+                        var tds_per_month=total_tax/12;
+                        var balance=total_tax;
+                        console.log(`insert into income_tax (empID,exemption,prev_investment,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES (${empID},${exemption},${investment},${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year})`)
+                        mysqldb.query(`insert into income_tax (empID,exemption,prev_investment,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES (${empID},${exemption},${investment},${investment},${net_taxable_income},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year})`,(err,result)=>{
+                            if (err) {
+        
+                                console.log(err)
+                                console.log("error in insert query of income_tax")
+                            }
+                            else{
+                                // res.redirect('/index1')
+
+                            }
+                        })
+                       
+                    }
+                })
+            }
+        }
+     })
+
+})
+
+
+router.get('/updateIncomeTax',ensureAuthenticated,(req,res)=>{
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('addincometax',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+})
+
+router.post('/updateIncomeTax',ensureAuthenticated,(req,res)=>{
+    const data=JSON.parse(JSON.stringify(req.body));
+    const empID=req.params.empID;
+    const prev_investment=req.body.prev_investment;
+    console.log(JSON.parse(JSON.stringify(req.body)))
+
+    mysqldb.query(`INSERT INTO lwp (empID, month, year, days, lwp) VALUES (${data.empID}, '${data["month"]}', ${data["year"]}, ${days}, ${data["lwp"]}) ON DUPLICATE KEY UPDATE
+    lwp=lwp+${data["lwp"]}`
+    ,(err,result)=>{
+        if (err) {
+            console.log(err);
+            console.log("invalid details");
+        }
+        else{
+            // console.log(JSON.parse(JSON.stringify(result))[0])
+            // res.redirect('/dashboard')
+            // req.flash(
+            //     'success_msg',
+            //     'Employee found!'
+            // );
+        }
+    })
+})
 
 module.exports = router;
