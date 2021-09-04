@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+
     <style>
       .arrow {
         border: solid black;
@@ -14,6 +15,10 @@
         display: inline-block;
         padding: 3px;
 
+      }
+
+      .modal-lg {
+        max-width: 1000% !important;
       }
 
       .down {
@@ -28,7 +33,7 @@
         z-index: 1;
         top: 0;
         overflow-x: hidden;
-        padding-top: 20px;
+        padding-top: 0px;
       }
 
       .left {
@@ -40,6 +45,8 @@
         right: 0;
         background-color: #ADD8E6;
       }
+
+      .modalfade {}
 
       .centered {
         position: absolute;
@@ -56,6 +63,13 @@
         /* Added */
         margin-bottom: 10px;
         /* Added */
+      }
+
+      .modal-dialog,
+      .modal-content {
+        /* 80% of window height */
+        width: 100%;
+        /* margin: 20px auto; */
       }
 
       @media screen {
@@ -130,6 +144,7 @@
                             <th>Actions</th>
                           </tr>
                         </thead>
+
                         <tbody>
                           <% for(var i=Employees.length-1; i>= 0 ; i-- ) { %>
                             <tr>
@@ -147,279 +162,251 @@
                               </td>
                               <td>
 
-                                <div class="wrap">
-                                  <!-- <h1>Bootstrap Modal Example</h1> -->
-                                  <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#MyModal">
-                                    Large modal
-                                  </button>
-                                </div>
-                                <div id="printThis">
-                                  <div id="MyModal" class="modal fade" tabindex="-1" role="dialog"
-                                    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <!-- <h1>Bootstrap Modal Example</h1> -->
+                                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
+                                  data-target="#<%= Employees[i].empID %>">
+                                  Details
+                                </button>
 
-                                    <div class="modal-dialog modal-lg">
 
-                                      <!-- Modal Content: begins -->
+                                <div id="print<%= Employees[i].empID %>">
+
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="<%= Employees[i].empID %>" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable" style="max-width: 200%"
+                                      role="document">
                                       <div class="modal-content">
-
-                                        <!-- Modal Header -->
                                         <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal"
-                                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                          <h4 class="modal-title" id="gridSystemModalLabel">Your Headings</h4>
+                                          <h5 class="modal-title">
+                                            <%= Employees[i].empName %>
+                                          </h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
                                         </div>
 
-
-
                                         <div class="modal-body">
-                                          <!-- <table class="table table-hover"><br>
-                                            <thead>
-                                              <tr>
-                                                <th> </th>
-                                                <th>Field</th>
-                                                <th>Value</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr>
-                                                <th scope="row">1</th>
-                                                <td>Employee ID</td>
-                                                <td>
-                                                  <%= Employees[i].empID %>
-                                                </td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">1</th>
-                                                <td>Name</td>
-                                                <td>
-                                                  <%= Employees[i].empName %>
-                                                </td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">2</th>
-                                                <td>Email ID</td>
-                                                <td>
-                                                  <%= Employees[i].emailID %>
-                                                </td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">1</th>
-                                                <td>Department</td>
-                                                <td>
-                                                  <%= Employees[i].dept %>
-                                                </td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">1</th>
-                                                <td>Designation</td>
-                                                <td>
-                                                  <%= Employees[i].designation %>
-                                                </td>
-                                              </tr>
 
-                                              
-                                          </tbody>
-                                        </table> -->
+
                                           <div class="media align-items-center py-3 mb-3">
                                             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
                                               class="d-block ui-w-100 rounded-circle">
                                             <div class="media-body ml-4">
-                                              <h4 class="font-weight-bold mb-0">John Doe <span
-                                                  class="text-muted font-weight-normal">@johndoe</span></h4>
-                                              <div class="text-muted mb-2">ID: 3425433</div>
-                                              <!-- <a href="javascript:void(0)" class="btn btn-primary btn-sm">Edit</a>&nbsp;
-                                            <a href="javascript:void(0)" class="btn btn-default btn-sm">Profile</a>&nbsp; -->
-                                              <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn"><i
-                                                  class="fa fa-mail"></i></a>
+                                              <h4 class="font-weight-bold mb-0">
+                                                <%= Employees[i].empName %>
+                                              </h4>
+                                              <div class="text-muted mb-2">ID: <%= Employees[i].empID %>
+                                              </div>
+
                                             </div>
                                           </div>
 
-                                          <div class="card mb-4">
+                                          <div class="card mb-6">
                                             <div class="card-body">
-                                              <table class="table user-view-table m-0">
-                                                <tbody>
-                                                  <tr>
-                                                    <td>Registered:</td>
-                                                    <td>01/23/2017</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Latest activity:</td>
-                                                    <td>01/23/2018 (14 days ago)</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Verified:</td>
-                                                    <td><span class="fa fa-check text-primary"></span>&nbsp; Yes</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Role:</td>
-                                                    <td>User</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Status:</td>
-                                                    <td><span class="badge badge-outline-success">Active</span></td>
-                                                  </tr>
-                                                </tbody>
-                                              </table>
+                                              <div class="row">
+                                                <div class="col-lg-6">
+                                                  <table class="table user-view-table" col>
+                                                    <tbody>
+                                                      <tr>
+                                                        <td>E-mail:</td>
+                                                        <td>
+                                                          <%= Employees[i].emailID%>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>UAN</td>
+                                                        <td>
+                                                          <%= Employees[i].uan%>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Department</td>
+                                                        <td>
+                                                          <%= Employees[i].dept%>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Designation</td>
+                                                        <td>
+                                                          <%= Employees[i].designation %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Salary Category</td>
+                                                        <td>
+                                                          <%= Employees[i].salaryCategory %>
+                                                        </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                        <div class="col-sm-6">
+                                                          <td>Date of Joining</td>
+                                                        </div>
+                                                        <td>
+                                                          <%= Employees[i].doj %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Basic Pay</td>
+                                                        <td>
+                                                          <%= Employees[i].pay %>
+                                                        </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                        <td>Grade Pay</td>
+                                                        <td>
+                                                          <%= Employees[i].gp %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Provident Fund</td>
+                                                        <td>
+                                                          <%= Employees[i].pf %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Group Insurance</td>
+                                                        <td>
+                                                          <%= Employees[i].groupInsurance %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Date of Birth</td>
+                                                        <td>
+                                                          <%= Employees[i].dob %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Category</td>
+                                                        <td>
+                                                          <%= Employees[i].category %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Gender</td>
+                                                        <td>
+                                                          <%= Employees[i].gender %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Marital Status</td>
+                                                        <td>
+                                                          <%= Employees[i].status %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Date of Promotion</td>
+                                                        <td>nmaxwell</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Date Confirmation of Service</td>
+                                                        <td>Nelle Maxwell</td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                                </div>
+
+
+                                                <div class="col-lg-6">
+                                                  <table class="table user-view-table">
+                                                    <tbody>
+
+                                                      <tr>
+                                                        <td>Nature of Appointment</td>
+                                                        <td>nmaxwell@mail.com</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Mobile No.</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+
+                                                      <tr>
+                                                        <td>Address for Correspondence</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Permanent Address</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>MIS Login ID</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Biometric Attendance ID</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Vacation</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>NET/SET</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Other Qualification</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Teaching Experiance (Other than PICT)</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Industry Experience</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+
+                                                      <tr>
+                                                        <td>Work Experience (for NT - Non PICT)</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Overall Seniority No.</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Dept Seniority No.</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Aadhar Number</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>PAN No.</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Employee on Roll</td>
+                                                        <td>Company Ltd.</td>
+                                                      </tr>
+
+                                                    </tbody>
+                                                  </table>
+                                                </div>
+                                              </div>
+
                                             </div>
-                                            <hr class="border-light m-0">
-                                            <!-- <div class="table-responsive">
-                                              <table class="table card-table m-0">
-                                                <tbody>
-                                                  <tr>
-                                                    <th>Module Permission</th>
-                                                    <th>Read</th>
-                                                    <th>Write</th>
-                                                    <th>Create</th>
-                                                    <th>Delete</th>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Users</td>
-                                                    <td><span class="fa fa-check text-primary"></span></td>
-                                                    <td><span class="fa fa-times text-light"></span></td>
-                                                    <td><span class="fa fa-times text-light"></span></td>
-                                                    <td><span class="fa fa-times text-light"></span></td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Articles</td>
-                                                    <td><span class="fa fa-check text-primary"></span></td>
-                                                    <td><span class="fa fa-check text-primary"></span></td>
-                                                    <td><span class="fa fa-check text-primary"></span></td>
-                                                    <td><span class="fa fa-times text-light"></span></td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Staff</td>
-                                                    <td><span class="fa fa-times text-light"></span></td>
-                                                    <td><span class="fa fa-times text-light"></span></td>
-                                                    <td><span class="fa fa-times text-light"></span></td>
-                                                    <td><span class="fa fa-times text-light"></span></td>
-                                                  </tr>
-                                                </tbody>
-                                              </table>
-                                            </div> -->
+
                                           </div>
 
-                                          <hr class="border-light m-0">
-              <div class="card-body">
+                                          <div class="modal-footer">
+                                            <button class="btn btn-danger" data-dismiss="modal"
+                                              aria-hidden="true">Close</button>
+                                            <button id="btn<%= Employees[i].empID %>" type="button"
+                                              class="btn btn-default">Print</button>
+                                          </div>
 
-                <table class="table user-view-table m-0">
-                  <tbody>
-                    <tr>
-                      <td>Username:</td>
-                      <td>nmaxwell</td>
-                    </tr>
-                    <tr>
-                      <td>Name:</td>
-                      <td>Nelle Maxwell</td>
-                    </tr>
-                    <tr>
-                      <td>E-mail:</td>
-                      <td>nmaxwell@mail.com</td>
-                    </tr>
-                    <tr>
-                      <td>Company:</td>
-                      <td>Company Ltd.</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <h6 class="mt-4 mb-3">Social links</h6>
-
-                <table class="table user-view-table m-0">
-                  <tbody>
-                    <tr>
-                      <td>Twitter:</td>
-                      <td><a href="javascript:void(0)">https://twitter.com/user</a></td>
-                    </tr>
-                    <tr>
-                      <td>Facebook:</td>
-                      <td><a href="javascript:void(0)">https://www.facebook.com/user</a></td>
-                    </tr>
-                    <tr>
-                      <td>Instagram:</td>
-                      <td><a href="javascript:void(0)">https://www.instagram.com/user</a></td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <h6 class="mt-4 mb-3">Personal info</h6>
-
-                <table class="table user-view-table m-0">
-                  <tbody>
-                    <tr>
-                      <td>Birthday:</td>
-                      <td>May 3, 1995</td>
-                    </tr>
-                    <tr>
-                      <td>Country:</td>
-                      <td>Canada</td>
-                    </tr>
-                    <tr>
-                      <td>Languages:</td>
-                      <td>English</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <h6 class="mt-4 mb-3">Contacts</h6>
-
-                <table class="table user-view-table m-0">
-                  <tbody>
-                    <tr>
-                      <td>Phone:</td>
-                      <td>+0 (123) 456 7891</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <h6 class="mt-4 mb-3">Interests</h6>
-
-                <table class="table user-view-table m-0">
-                  <tbody>
-                    <tr>
-                      <td>Favorite music:</td>
-                      <td>
-                        Rock,
-                        Alternative,
-                        Electro,
-                        Drum &amp; Bass,
-                        Dance
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Favorite movies:</td>
-                      <td>
-                        The Green Mile,
-                        Pulp Fiction,
-                        Back to the Future,
-                        WALL·E,
-                        Django Unchained,
-                        The Truman Show,
-                        Home Alone,
-                        Seven Pounds
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-              </div>
-                                        </div>
-
-
-                                        <!-- Modal Footer -->
-                                        <div class="modal-footer">
-                                          <button class="btn btn-danger" data-dismiss="modal"
-                                            aria-hidden="true">Close</button>
-                                          <button id="btnPrint" type="button" class="btn btn-default">Print</button>
                                         </div>
 
                                       </div>
-                                      <!-- Modal Content: ends -->
-
                                     </div>
+
                                   </div>
                                 </div>
-
 
 
                                 <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
@@ -496,10 +483,165 @@
                                   </div>
                                 </div>
 
+                                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
+                                  data-target="#abc<%= Employees[i].empID %>">
+                                  Educational Details
+                                </button>
+
+                                <div id="print1<%= Employees[i].empID %>">
+
+                                  <div class="modal fade" id="abc<%= Employees[i].empID %>" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable" style="max-width: 200%"
+                                      role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title">
+                                            <%= Employees[i].empName %>
+                                          </h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+
+                                        <div class="modal-body">
 
 
-                                <a href="/uploads/<%=Employees[i].empID%>"><button type="submit"
-                                    class="btn btn-outline-success btn-sm">Print</button></a>
+                                          <div class="media align-items-center py-3 mb-3">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
+                                              class="d-block ui-w-100 rounded-circle">
+                                            <div class="media-body ml-4">
+                                              <h4 class="font-weight-bold mb-0">
+                                                <%= Employees[i].empName %>
+                                              </h4>
+                                              <div class="text-muted mb-2">ID: <%= Employees[i].empID %>
+                                              </div>
+
+                                            </div>
+                                          </div>
+
+                                          <div class="card mb-6">
+                                            <div class="card-body">
+                                              <div class="row">
+                                                <div class="col-lg-6">
+                                                  <table class="table user-view-table">
+                                                    <tbody>
+                                                      <tr>
+                                                        <td>PhD:</td>
+                                                        <td>
+                                                          <%= Employees[i].phd%>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>PhD Subject:</td>
+                                                        <td>
+                                                          <%= Employees[i].phdSub%>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>PhD Institute</td>
+                                                        <td>
+                                                          <%= Employees[i].phdInsti%>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>PhD University</td>
+                                                        <td>
+                                                          <%= Employees[i].phdUni %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>PhD Passing Year</td>
+                                                        <td>
+                                                          <%= Employees[i].phdYr %>
+                                                        </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                        <div class="col-sm-6">
+                                                          <td>P.G Subject</td>
+                                                        </div>
+                                                        <td>
+                                                          <%= Employees[i].pjSub %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>P.G University</td>
+                                                        <td>
+                                                          <%= Employees[i].pgUni %>
+                                                        </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                        <td>P.G Passing Year</td>
+                                                        <td>
+                                                          <%= Employees[i].pgYr %>
+                                                        </td>
+
+
+                                                    </tbody>
+                                                  </table>
+                                                </div>
+
+
+                                                <div class="col-lg-6">
+                                                  <table class="table user-view-table">
+                                                    <tbody>
+
+
+                                                      <tr>
+                                                        <td>U.G Subject</td>
+                                                        <td>
+                                                          <%= Employees[i].ugSub %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>U.G University</td>
+                                                        <td>
+                                                          <%= Employees[i].ugUni %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <!-- <td>U.G Institute</td>
+                                                        <td>
+                                                          <%= Employees[i].ugInsti %>
+                                                        </td> -->
+                                                      </tr>
+                                                      <tr>
+                                                        <td>U.G Passing Year</td>
+                                                        <td>
+                                                          <%= Employees[i].ugYr %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>U.G Grade/Class</td>
+                                                        <td>
+                                                          <%= Employees[i].grade %>
+                                                        </td>
+                                                      </tr>
+
+                                                    </tbody>
+                                                  </table>
+                                                </div>
+                                              </div>
+
+                                            </div>
+
+                                          </div>
+
+                                          <div class="modal-footer">
+                                            <button class="btn btn-danger" data-dismiss="modal"
+                                              aria-hidden="true">Close</button>
+                                            <button id="btn1<%= Employees[i].empID %>" type="button" class="btn btn-default">Print</button>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
 
 
                                 <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
@@ -512,7 +654,7 @@
                                   <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">confirm</h5>
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                         </button>
@@ -524,7 +666,8 @@
                                         <button type="button" class="btn btn-secondary"
                                           data-dismiss="modal">Close</button>
                                         <button" class="btn btn-primary" id="<%= Employees[i].empID %>"
-                                          onclick="deleteFunction(this.id,this)" data-dismiss="modal">Delete</button>
+                                          onclick="deleteFunction(this.id,this)" data-dismiss="modal">
+                                          Delete</button>
 
                                       </div>
                                     </div>
@@ -533,37 +676,69 @@
 
                               </td>
                             </tr>
+
+                            <script>
+                              document.getElementById("btn<%= Employees[i].empID %>").onclick = function () {
+                                printElement(document.getElementById("print<%= Employees[i].empID %>"));
+                              }
+
+                              function printElement(elem) {
+                                var domClone = elem.cloneNode(true);
+
+                                var $printSection = document.getElementById("printSection");
+
+                                if (!$printSection) {
+                                  var $printSection = document.createElement("div");
+                                  $printSection.id = "printSection";
+                                  document.body.appendChild($printSection);
+                                }
+
+                                $printSection.innerHTML = "";
+                                $printSection.appendChild(domClone);
+                                window.print();
+                              }
+                            </script>
+
+                            <script>
+                              document.getElementById("btn1<%= Employees[i].empID %>").onclick = function () {
+                                printElement(document.getElementById("print1<%= Employees[i].empID %>"));
+                              }
+
+                              function printElement(elem) {
+                                var domClone = elem.cloneNode(true);
+
+                                var $printSection = document.getElementById("printSection");
+
+                                if (!$printSection) {
+                                  var $printSection = document.createElement("div");
+                                  $printSection.id = "printSection";
+                                  document.body.appendChild($printSection);
+                                }
+
+                                $printSection.innerHTML = "";
+                                $printSection.appendChild(domClone);
+                                window.print();
+                              }
+                            </script>
+
                             <% }%>
                         </tbody>
 
 
                       </table>
-
-
-
                     </div>
-
                   </div>
                 </div>
                 <!-- /# card -->
               </div>
-
             </div>
-
             <!-- <input type="submit" style="float: right;" value="Submit"> -->
-
         </div>
-
-
         <!-- /# row -->
-
-
         </section>
       </div>
     </div>
     </div>
-
-
     <!-- bootstrap -->
 
     <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
@@ -599,27 +774,8 @@
       }
     </script>
 
-    <script>
-      document.getElementById("btnPrint").onclick = function () {
-        printElement(document.getElementById("printThis"));
-      }
 
-      function printElement(elem) {
-        var domClone = elem.cloneNode(true);
 
-        var $printSection = document.getElementById("printSection");
-
-        if (!$printSection) {
-          var $printSection = document.createElement("div");
-          $printSection.id = "printSection";
-          document.body.appendChild($printSection);
-        }
-
-        $printSection.innerHTML = "";
-        $printSection.appendChild(domClone);
-        window.print();
-      }
-    </script>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
@@ -630,6 +786,49 @@
     confirm("Deleted!");
   }
   </script> -->
+
+    <style type="text/css">
+      body {
+        margin-top: 0px;
+        background: #f5f5f5;
+      }
+
+      .ui-w-100 {
+        width: 100px !important;
+        height: auto;
+      }
+
+      .card {
+        background-clip: padding-box;
+        box-shadow: 0 1px 4px rgba(24, 28, 33, 0.012);
+      }
+
+      .user-view-table td:first-child {
+        width: 30rem;
+      }
+
+      .user-view-table td {
+        padding-right: 0;
+        padding-left: 0;
+        border: 0;
+      }
+
+      .text-light {
+        color: #babbbc !important;
+      }
+
+      .card .row-bordered>[class*=" col-"]::after {
+        border-color: rgba(24, 28, 33, 0.075);
+      }
+
+      .text-xlarge {
+        font-size: 100% !important;
+      }
+    </style>
+
+    <script type="text/javascript">
+
+    </script>
 
   </body>
 
