@@ -1,0 +1,167 @@
+<%- include('partials/header.ejs'); -%>
+<head>
+    <style>
+        /* .dropbtn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    } */
+    
+        .dropbtn:hover,
+        .dropbtn:focus {
+          background-color: #3e8e41;
+        }
+    
+        /* #myInput {
+          box-sizing: border-box;
+          background-image: url('searchicon.png');
+          background-position: 14px 12px;
+          background-repeat: no-repeat;
+          font-size: 16px;
+          padding: 14px 20px 12px 45px;
+          border: none;
+          border-bottom: 1px solid #ddd;
+        } */
+    
+        #myInput:focus {
+          outline: 3px solid #ddd;
+        }
+    
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+    
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f6f6f6;
+          min-width: 230px;
+          overflow: auto;
+          border: 1px solid #ddd;
+          z-index: 1;
+        }
+    
+        .dropdown-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+    
+        .dropdown a:hover {
+          background-color: #ddd;
+        }
+    
+        .show {
+          display: block;
+        }
+      </style>
+
+</head>
+
+<body>
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <h1>Hello, <span>Welcome Here</span></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+
+                                <div class="dropdown">
+                                    <label><h3> LWP of EMPLOYEE </label></h3> <button  padding="40px" onclick="myFunction()" class="dropbtn">ADD LWP</button>
+                                    <div id="myDropdown" class="dropdown-content">
+                                      <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                                      
+                                      <% for(var i=name.length-1; i>= 0; i-- ) { %>
+                                        <a href="/lwp/<%=name[i].empID%>"><%= name[i].empName %></a>
+                                      <% }%>
+                                    </div>
+                                  </div>
+                                  <script>
+                                    /* When the user clicks on the button,
+                                    toggle between hiding and showing the dropdown content */
+                                    function myFunction() {
+                                      document.getElementById("myDropdown").classList.toggle("show");
+                                    }
+                                
+                                    function filterFunction() {
+                                      var input, filter, ul, li, a, i;
+                                      input = document.getElementById("myInput");
+                                      filter = input.value.toUpperCase();
+                                      div = document.getElementById("myDropdown");
+                                      a = div.getElementsByTagName("a");
+                                      for (i = 0; i < a.length; i++) {
+                                        txtValue = a[i].textContent || a[i].innerText;
+                                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                          a[i].style.display = "";
+                                        } else {
+                                          a[i].style.display = "none";
+                                        }
+                                      }
+                                    }
+                                  </script>
+
+
+                            </div>
+                            <div class="card">
+                                <div class="bootstrap-data-table-panel">
+                                    <div class="table-responsive">
+                                       
+                                        <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
+
+                                        <input type="button"style="float: right;" onclick='selects()' value="Select All"/>   -->
+                                        <form class="form-horizontal" action="\pay" method="post"> 
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
+    <script src="../assets/assets/js/lib/weather/weather-init.js"></script>
+    <script src="../assets/assets/js/lib/circle-progress/circle-progress.min.js"></script>
+    <script src="../assets/assets/js/lib/circle-progress/circle-progress-init.js"></script>
+    <script src="../assets/assets/js/lib/chartist/chartist.min.js"></script>
+    <script src="../assets/assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script>
+    <script src="../assets/assets/js/lib/sparklinechart/sparkline.init.js"></script>
+    <script src="../assets/assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="../assets/assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+    <!-- scripit init-->
+    <script src="../assets/assets/js/dashboard2.js"></script>
+</body>
+
+</html>
+    <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
+    <!-- scripit init-->
+    <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<%- include('partials/header.ejs'); -%>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://unpkg.com/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
+  <link rel="stylesheet" href="../assets/alert/style.css">
+    </head>
+
+    <body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
+
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+       <div class="text-xl font-bold m-5 text-center">Check All The Added Advances, Added Late Attendance, Added Miscellaneous and Added LWP To Proceed With Salary Generation To Proceed With Salary Generation</div>
+                    <div class="gallery border-2 rounded mx-auto m-5 bg-white" style="width:750px;">
+                        <div class="top flex p-2 border-b select-none">
+
+                            <div class="heading text-gray-800 w-full pl-3 font-semibold my-auto"></div>
+                            <!-- <div class="buttons ml-auto flex text-gray-600 mr-1">
+                                <svg action="prev" class="w-7 border-2 rounded-l-lg p-1 cursor-pointer border-r-0"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path action="prev" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                </svg>
+                               <svg action="next" class="w-7 border-2 rounded-r-lg p-1 cursor-pointer"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path action="next" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </div> -->
+                        </div>
+                        <div class="content-area w-full h-full overflow-hidden">
+                            <div class="platform shadow-xl h-full flex">
+                                
+                                
+                                <div class="each-frame border-box flex-none h-full" title="LWP">
+                                    
+                                    <div class="main flex w-full p-8">
+                                        <!-- <div class="sub w-4/6 my-auto">
+                                            <img class="w-full p-8"
+                                                src="https://images-na.ssl-images-amazon.com/images/I/81eJpEEQwYL._AC_SL1500_.jpg"
+                                                alt="">
+                                        </div> -->
+                                        <div class="sub w-4/6 my-auto">
+                                            <img class="w-full p-8" src="../assets/PICT.jpg">
+                                        </div>
+                                        <div class="sub w-full my-auto">
+                                            <div class="head text-3xl font-bold mb-4">Leave Without Pay</div>
+                                            <div class="bootstrap-data-table-panel">
+                                                <div class="table-responsive">
+                                                   
+                                                   
+                                                    <form class="form-horizontal" action="\form-basic" method="post"> 
+                                                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Employee ID <p><i class="arrow down" style="float: right;"></i></p>
+                                                                </th>
+                                                                <th>Employee Name <p><i class="arrow down" style="float: right;"></i></p>
+                                                                </th>
+                                                                <th>LWP Days</th>
+                                                                <th>Month</th>
+                                                                <th>Year</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                                <% for(var i = lwp.length-1; i >= 0 ; i-- ) { %>
+                                                                    <tr>
+                                                                        <td><%= lwp[i].empID %></td>
+                                                                        <td><%= lwp[i].empName %></td>
+                                                                        <td> <%= lwp[i].lwp %></td>
+                                                                        <td> <%= lwp[i].month %></td>
+                                                                        <td> <%= lwp[i].year %></td>
+                                                                            
+                                                                <% }%>
+                                                                
+                                                                
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- this buttons are usable everywhere inside gallery element -->
+                                            <a href="finalmiscellaneous"><div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                action="goto" goto="2">Miscellaneous</div></a>
+                                            <!-- add (action="goto" goto="[val]{0 means first frame and so on}") attribute to jump into frames -->
+                                            <a href="finaladvances"><div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                action="goto" goto="end">Advances</div></a>
+                                                <a href="finalattendance"><div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                    action="goto" goto="2">Late Attendance</div></a>
+
+                                                    <br><br><br><br>
+                                                    <div class="row text-center">
+                                                        <div>
+                                                            <a href="generatesalary"><button class="button large round info"><a href="generatesalary">Generate Salary</a></button></a>
+                                                        </div>
+                                                        
+                                                      </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <!-- frame end -->
+
+                                
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .platform {
+                position: relative;
+                transition: right 0.3s;
+            }
+
+            .body {
+                background-color: white !important;
+            }
+        </style>
+
+        <script>
+            function gallery() {
+                this.index = 0;
+                this.load = function () {
+                    this.rootEl = document.querySelector(".gallery");
+                    this.platform = this.rootEl.querySelector(".platform");
+                    this.frames = this.platform.querySelectorAll(".each-frame");
+                    this.contentArea = this.rootEl.querySelector(".content-area");
+                    this.width = parseInt(this.rootEl.style.width);
+                    this.limit = { start: 0, end: this.frames.length - 1 };
+                    this.frames.forEach(each => { each.style.width = this.width + "px"; });
+                    this.goto(this.index);
+                }
+                this.set_title = function () { this.rootEl.querySelector(".heading").innerText = this.frames[this.index].getAttribute("title"); }
+                this.next = function () { this.platform.style.right = this.width * ++this.index + "px"; this.set_title(); }
+                this.prev = function () { this.platform.style.right = this.width * --this.index + "px"; this.set_title(); }
+                this.goto = function (index) { this.platform.style.right = this.width * index + "px"; this.index = index; this.set_title(); }
+                this.load();
+            }
+            var G = new gallery();
+            G.rootEl.addEventListener("click", function (t) {
+                var val = t.target.getAttribute("action");
+                if (val == "next" && G.index != G.limit.end) { G.next(); }
+                if (val == "prev" && G.index != G.limit.start) { G.prev(); }
+                if (val == "goto") {
+                    let rv = t.target.getAttribute("goto");
+                    rv = rv == "end" ? G.limit.end : rv;
+                    G.goto(parseInt(rv));
+                }
+            });
+            document.addEventListener("keyup", function (t) {
+                var val = t.keyCode;
+                if (val == 39 && G.index != G.limit.end) { G.next(); }
+                if (val == 37 && G.index != G.limit.start) { G.prev(); }
+            });
+
+            // run G.load() if new data loaded with ajax
+
+        </script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script><script  src="../assets/alert/script.js"></script>
+    </body>
+
+    </html>

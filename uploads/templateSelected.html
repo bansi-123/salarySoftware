@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Salary Slip</title>
+  <!-- <link rel="stylesheet" href="./style.css"> -->
+  <style>
+    .salary-slip {
+  margin: 15px;
+}
+.salary-slip .empDetail {
+  width: 100%;
+  text-align: left;
+  border: 2px solid black;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.salary-slip .head {
+  margin: 10px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+.salary-slip .companyName {
+  text-align: right;
+  font-size: 25px;
+  font-weight: bold;
+}
+.salary-slip .salaryMonth {
+  text-align: center;
+}
+.salary-slip .table-border-bottom {
+  border-bottom: 1px solid;
+}
+.salary-slip .table-border-right {
+  border-right: 1px solid;
+}
+.salary-slip .myBackground {
+  padding-top: 10px;
+  text-align: left;
+  border: 1px solid black;
+  height: 40px;
+}
+.salary-slip .myAlign {
+  text-align: center;
+  border-right: 1px solid black;
+}
+.salary-slip .myTotalBackground {
+  padding-top: 10px;
+  text-align: left;
+  background-color: #EBF1DE;
+  border-spacing: 0px;
+}
+.salary-slip .align-4 {
+  width: 25%;
+  float: left;
+}
+.salary-slip .tail {
+  margin-top: 35px;
+}
+.salary-slip .align-2 {
+  margin-top: 25px;
+  width: 50%;
+  float: left;
+}
+.salary-slip .border-center {
+  text-align: center;
+}
+.salary-slip .border-center th, .salary-slip .border-center td {
+  border: 1px solid black;
+}
+.salary-slip th, .salary-slip td {
+  padding-left: 6px;
+}
+  </style>
+
+</head>
+<body>
+<<<<<<< HEAD
+<!-- partial:index.partial.html -->
+<div class="salary-slip" >
+            <table class="empDetail">
+              <tr height="100px" style='background-color: #c2d69b'>
+                <td colspan='4'>
+                  <!-- <img height="90px" src='https://organisationmedia.toggleflow.com/demo/logo.png' /> -->
+                </td>
+                <td colspan='4' class="companyName"> SCTR'S Pune Institute of Computer Technology, Pune 411043 <br> SALARY SLIP</td>
+              </tr>
+              <tr>
+                <th>
+                  Employee Name
+      </th>
+                <td>
+                  one
+      </td>
+                <td></td>
+                <th>
+                  Employee No.
+      </th>
+                <td>
+                  two
+      </td>
+                <td></td>
+                <th>
+                  Bank Name
+      </th>
+                <td>
+                  three
+      </td>
+              </tr>
+              <tr>
+                <th>
+                  Employee No.
+      </th>
+                <td>
+                  four
+      </td>
+                <td></td>
+                <th>
+                  UAN
+      </th>
+                <td>
+                  five
+      </td>
+                <td></td>
+                <th>
+                  <!-- Payslip no. -->
+      </th>
+                <td>
+                  <!-- XXXXXXXXXX -->
+      </td>
+              </tr>
+              <tr>
+                <th>
+                  <!-- Cost Centre -->
+      </th>
+                <td>
+                  <!-- XXXXXXXXXXX -->
+      </td><td></td>
+                <th>
+                  <!-- Bank Branch -->
+      </th>
+                <td>
+                  <!-- XXXXXXXXXX -->
+      </td><td></td>
+                <th>
+                  <!-- Pay Period -->
+      </th>
+                <td>
+                  <!-- XXXXXXXXXXX -->
+      </td>
+              </tr>
+              <tr>
+                <th>
+                  <!-- CC Description: -->
+      </th>
+                <td>
+                  <!-- XXXXXXXXXXX -->
+      </td><td></td>
+                <th>
+<!-- XXXXXXXXXXX -->      </th>
+                <td>
+<!-- XXXXXXXXXXX -->      </td><td></td>
+                <th>
+                  <!-- Personel Area -->
+      </th>
+                <td>
+                  <!-- XXXXXXXXXX -->
+      </td>
+              </tr>
+              <tr>
+                <th>
+                  <!-- Grade: -->
+      </th>
+                <td>
+                  <!-- 18 -->
+      </td><td></td>
+                <th>
+                  <!-- Employee Group -->
+      </th>
+                <td>
+                  <!-- Sales Manager -->
+      </td><td></td>
+                <th>
+                  <!-- PAN No: -->
+      </th>
+                <td>
+                  <!-- MOP72182E -->
+      </td>
+              </tr>
+              <tr class="myBackground">
+                <th colspan="2">
+                  Earnings
+      </th>
+                <th >
+                  <!-- Particular -->
+      </th>
+                <th class="table-border-right">
+                  Amount (Rs.)
+      </th>
+                <th colspan="2">
+                  Deductions
+      </th>
+                <th >
+                  <!-- Particular -->
+      </th>
+                <th >
+                  Amount (Rs.)
+      </th>
+              </tr>
+              <tr>
+                <th colspan="2">
+                  PAY
+      </th>
+                <td></td>
+                <td class="myAlign">
+                  six
+      </td>
+                <th colspan="2" >
+                  PROVIDENT FUND
+      </th >
+                <td></td>
+
+                <td class="myAlign">
+                  seven
+      </td>
+              </tr >
+              <tr>
+                <th colspan="2">
+                  AGP/DP
+      </th>
+                <td></td>
+
+                <td class="myAlign">
+                  eight
+      </td>
+                <th colspan="2" >
+                  PROF. TAX
+      </th >
+                <td></td>
+
+                <td class="myAlign">
+                  nine
+      </td>
+              </tr >
+              <tr>
+                <th colspan="2">
+                  D.A
+      </th>
+                <td></td>
+
+                <td class="myAlign">
+                  ten
+      </td>
+                <th colspan="2" >
+                  INCOME TAX
+      </th >
+                <td></td>
+
+                <td class="myAlign">
+                  eleven
+      </td>
+              </tr >
+              <tr>
+                <th colspan="2">
+                  H.R.A
+      </th>
+                <td></td>
+                <td class="myAlign">
+                  twelve
+      </td>
+                <th colspan="2" >
+                  OTHER DEDUCTIONS
+      </th >
+                <td></td>
+                <td class="myAlign">
+                  thirteen
+      </td>
+              </tr >
+              <tr>
+                <th colspan="2">
+                  C.C.A
+      </th>
+                <td></td>
+
+                <td class="myAlign">
+                  fourteen
+      </td>
+                <th colspan="2" >
+                  REV. STAMP
+      </th >
+                <td></td>
+
+                <td class="myAlign">
+                  fifteen
+      </td>
+              </tr >
+              <tr>
+                <th colspan="2">
+                 DIFF.
+      </th> <td></td>
+                <td class="myAlign">
+                  sixteen
+      </td>
+                <th colspan="2" >
+                  <!-- Staff Benefit(SB) -->
+      </th >
+                <td></td>
+                <td class="myAlign">
+                  
+      </td>
+              </tr >
+              <tr>
+                <th colspan="2">
+                  OTHER SPL.
+      </th>
+                <td></td>
+                <td class="myAlign">
+                  seventeen
+      </td>
+                <th colspan="2" >
+                  <!-- Labour Welfare Fund -->
+      </th >
+                <td></td>
+                <td class="myAlign">
+                 
+      </td>
+              </tr >
+              <tr>
+                <th colspan="2">
+                  T.A
+      </th>
+                <td></td>
+                <td class="myAlign">
+                  eighteen
+      </td>
+                <th colspan="2" >
+                  
+      </th >
+                <td></td>
+                <td class="myAlign">
+                  
+      </td>
+              </tr >
+              <!-- <tr>
+                <td colspan="4" class="table-border-right"></td> 
+                <th colspan="2" >
+                  Union Thanco Officer(UTO)
+      </th >
+                <td></td>
+                <td class="myAlign">
+                  00.00
+      </td>
+              </tr >
+              <tr>
+                <td colspan="4" class="table-border-right"></td>
+                <th colspan="2" >
+                  Advance
+      </th >
+                <td></td>
+                <td class="myAlign">
+                  00.00
+      </td>
+              </tr >
+              <tr>
+                <td colspan="4" class="table-border-right"></td>
+                <th colspan="2" >
+                  Income Tax
+      </th > <td></td>
+                <td class="myAlign">
+                  00.00
+      </td>
+              </tr > -->
+              <tr class="myBackground">
+                <th colspan="3">
+                  Total Payments
+      </th>
+                <td class="myAlign">
+                  ninteen
+      </td>
+                <th colspan="3" >
+                  Total Deductions
+      </th >
+                <td class="myAlign">
+                  twenty
+      </td>
+              </tr >
+              <!-- <tr height="40px">
+                <th colspan="2">
+                  Projection for Financial Year:
+                </th>
+                <th>
+                </th>
+                <td class="table-border-right">
+                </td> -->
+                <th colspan="2" class="table-border-bottom" >
+                  Net Salary
+                </th >
+                <td >
+                </td>
+                <td >
+                  twentyone
+                </td>
+              </tr >
+              <!-- <tr>
+                <td colspan="2">
+                  Gross Salary
+                </td> <td></td>
+                <td class="myAlign">
+                  00.00
+      </td><td colspan="4"></td>
+              </tr >
+              <tr>
+                <td colspan="2">
+                  Aggr. Dedu - P.Tax & Std Ded
+      </td> <td></td>
+                <td class="myAlign">
+                  00.00
+      </td>
+                <th colspan="2" >
+                  Cumulative
+      </th >
+                <td colspan="2"></td>
+              </tr >
+              <tr>
+                <td colspan="2">
+                  Gross Total Income
+      </td> <td></td>
+                <td class="myAlign">
+                  00.00
+      </td>
+                <td colspan="2" >
+                  Empl PF Contribution
+      </td > <td></td>
+                <td class="myAlign">
+                  00.00
+      </td>
+              </tr >
+              <tr>
+                <td colspan="2">
+                  Aggr of Chapter "PF"
+      </td> <td></td>
+                <td class="myAlign">
+                  00.00
+      </td><td colspan="4"></td>
+              </tr >
+              <tr>
+                <td colspan="2">
+                  Total Income
+      </td> <td></td>
+                <td class="myAlign">
+                  00.00
+      </td>
+                <td colspan="4"></td>
+              </tr > -->
+              <!-- <tbody class="border-center">
+                <tr>
+                  <th>
+                    Attend/ Absence
+      </th>
+                  <th>
+                    Days in Month
+      </th>
+                  <th>
+                    Days Paid
+      </th>
+                  <th>
+                    Days Not Paid
+      </th>
+                  <th>
+                    Leave Position
+      </th>
+                  <th>
+                    Privilege Leave
+      </th>
+                  <th>
+                    Sick Leave
+      </th>
+                  <th>
+                    Casual Leave
+      </th>
+                </tr>
+                <tr>
+                  <td ></td>
+                  <td ></td>
+                  <td ></td>
+                  <td ></td>
+                  <td>Yrly Open Balance</td>
+                  <td>0.0</td> <td>0.0</td>
+                  <td>0.0</td>
+                </tr >
+                <tr>
+                  <th >Current Month</th>
+                  <td >31.0</td>
+                  <td >31.0</td>
+                  <td >31.0</td>
+                  <td>Availed</td>
+                  <td>0.0</td> <td>0.0</td>
+                  <td>0.0</td>
+                </tr >
+                <tr>
+                  <td colspan="4"></td>
+                  <td>Closing Balance</td>
+                  <td>0.0</td> <td>0.0</td>
+                  <td>0.0</td>
+                </tr >
+                <tr>
+                  <td colspan="4"> &nbsp; </td>
+                  <td > </td>
+                  <td > </td>
+                  <td > </td>
+                  <td > </td>
+                </tr >
+                <tr>
+                  <td colspan="4"></td>
+                  <td>Company Pool Leave Balance</td>
+                  <td>1500</td>
+                  <td ></td>
+                  <td ></td>
+                </tr >
+              </tbody> -->
+            </table >
+=======
+<div style="position:absolute;left:50%;margin-left:-297px;top:0px;width:595px;height:841px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="../assets/salslip.jpg" width=595 height=841></div>
+<div style="position:absolute;left:79.01px;top:31.82px" class="cls_002"><span class="cls_002">SCTR'S PUNE INSTITUTE OF COMPUTER TECHNOLOGY, PUNE 411043</span></div>
+<div style="position:absolute;left:159.70px;top:58.03px" class="cls_003"><span class="cls_003">SALARY SLIP FOR THE MONTH OF MAY - 2021</span></div>
+<div style="position:absolute;left:31.19px;top:90.63px" class="cls_003"><span class="cls_003">EMPLOYEE NAME : -</span></div>
+<div style="position:absolute;left:144.57px;top:90.63px" class="cls_003"><span class="cls_003">apple</span></div>
+
+<div style="position:absolute;left:31.19px;top:114.72px" class="cls_004"><span class="cls_004">EMPLOYEE NO : -</span></div>
+<div style="position:absolute;left:144.57px;top:114.72px" class="cls_004"><span class="cls_004">banana</span></div>
+
+<div style="position:absolute;left:257.96px;top:114.72px" class="cls_004"><span class="cls_004">UAN: -</span></div>
+<div style="position:absolute;left:371.34px;top:114.72px" class="cls_004"><span class="cls_004">uanno</span></div>
+
+<div style="position:absolute;left:126.88px;top:154.41px" class="cls_003"><span class="cls_003">EARNINGS</span></div>
+<div style="position:absolute;left:374.67px;top:154.41px" class="cls_003"><span class="cls_003">DEDUCTIONS</span></div>
+
+<div style="position:absolute;left:31.19px;top:174.25px" class="cls_004"><span class="cls_004">PAY</span></div>
+<div style="position:absolute;left:158.74px;top:174.25px" class="cls_004"><span class="cls_004">basicPay</span></div>
+
+<div style="position:absolute;left:286.30px;top:174.25px" class="cls_004"><span class="cls_004">PROVIDENT FUND</span></div>
+<div style="position:absolute;left:413.86px;top:174.25px" class="cls_004"><span class="cls_004">pf</span></div>
+
+<div style="position:absolute;left:31.19px;top:194.09px" class="cls_004"><span class="cls_004">AGP/DP</span></div>
+<div style="position:absolute;left:158.74px;top:194.09px" class="cls_004"><span class="cls_004">agpdp</span></div>
+
+<div style="position:absolute;left:286.30px;top:194.09px" class="cls_004"><span class="cls_004">PROF.TAX</span></div>
+<div style="position:absolute;left:413.86px;top:194.09px" class="cls_004"><span class="cls_004">proftax</span></div>
+
+<div style="position:absolute;left:31.19px;top:213.93px" class="cls_004"><span class="cls_004">D.A.</span></div>
+<div style="position:absolute;left:158.74px;top:213.93px" class="cls_004"><span class="cls_004">da</span></div>
+
+<div style="position:absolute;left:286.30px;top:213.93px" class="cls_004"><span class="cls_004">INCOME TAX</span></div>
+<div style="position:absolute;left:413.86px;top:213.93px" class="cls_004"><span class="cls_004">inctax</span></div>
+
+<div style="position:absolute;left:31.19px;top:233.78px" class="cls_004"><span class="cls_004">H.R.A.</span></div>
+<div style="position:absolute;left:158.74px;top:233.78px" class="cls_004"><span class="cls_004">hra</span></div>
+
+<div style="position:absolute;left:286.30px;top:233.78px" class="cls_004"><span class="cls_004">OTHER DEDUCTIONS</span></div>
+<div style="position:absolute;left:413.86px;top:233.78px" class="cls_004"><span class="cls_004">othded</span></div>
+
+<div style="position:absolute;left:31.19px;top:253.62px" class="cls_004"><span class="cls_004">C.C.A.</span></div>
+<div style="position:absolute;left:158.74px;top:253.62px" class="cls_004"><span class="cls_004">cca</span></div>
+
+<div style="position:absolute;left:286.30px;top:253.62px" class="cls_004"><span class="cls_004">REV. STAMP</span></div>
+<div style="position:absolute;left:413.86px;top:253.62px" class="cls_004"><span class="cls_004">revstamp</span></div>
+
+<div style="position:absolute;left:31.19px;top:273.46px" class="cls_004"><span class="cls_004">DIFF.</span></div>
+<div style="position:absolute;left:158.74px;top:273.46px" class="cls_004"><span class="cls_004">diff</span></div>
+
+<div style="position:absolute;left:31.19px;top:293.30px" class="cls_004"><span class="cls_004">OTHER SPL.</span></div>
+<div style="position:absolute;left:158.74px;top:293.30px" class="cls_004"><span class="cls_004">othspl</span></div>
+
+<div style="position:absolute;left:31.19px;top:313.15px" class="cls_004"><span class="cls_004">T.A.</span></div>
+<div style="position:absolute;left:158.74px;top:313.15px" class="cls_004"><span class="cls_004">ta</span></div>
+
+<div style="position:absolute;left:31.19px;top:332.99px" class="cls_003"><span class="cls_003">GROSS TOTAL</span></div>
+<div style="position:absolute;left:158.74px;top:332.99px" class="cls_003"><span class="cls_003">grosssal</span></div>
+
+<div style="position:absolute;left:286.30px;top:332.99px" class="cls_003"><span class="cls_003">TOTAL DEDUCTIONS</span></div>
+<div style="position:absolute;left:413.86px;top:332.99px" class="cls_003"><span class="cls_003">totalded</span></div>
+
+<div style="position:absolute;left:31.19px;top:351.41px" class="cls_003"><span class="cls_003">NET SALARY</span></div>
+<div style="position:absolute;left:286.30px;top:351.41px" class="cls_003"><span class="cls_003">netsal</span></div>
+<div style="position:absolute;left:31.19px;top:387.55px" class="cls_005"><span class="cls_005">NET SALARY RS. netsal HAS BEEN DEPOSITED IN empName'S</span></div>
+
+<div style="position:absolute;left:31.19px;top:407.39px" class="cls_005"><span class="cls_005">BANK A/C NO:-</span></div>
+<div style="position:absolute;left:116.22px;top:407.39px" class="cls_005"><span class="cls_005">bankacc</span></div>
+
+<div style="position:absolute;left:229.61px;top:407.39px" class="cls_005"><span class="cls_005">BANK NAME:-    bankname</span></div>
+
+<div style="position:absolute;left:31.19px;top:466.92px" class="cls_006"><span class="cls_006">REMARK:</span></div>
+
+<div style="position:absolute;left:31.19px;top:486.76px" class="cls_005"><span class="cls_005">THIS IS COMPUTER GENERATED DOCUMENT. NOT VALID FOR LOAN.</span></div>
+<div style="position:absolute;left:31.19px;top:506.60px" class="cls_005"><span class="cls_005">FOR INTERNAL USE ONLY.</span></div>
+</div>
+>>>>>>> dc11c56e9daebe661987d7a9a3426f20b04c8b11
+
+          </div >
+<!-- partial -->
+  
+</body>
+</html>

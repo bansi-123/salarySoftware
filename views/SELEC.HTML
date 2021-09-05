@@ -1,0 +1,30 @@
+<html>
+<head>
+<script>
+
+function selectAll(id, isSelected) {
+
+ //alert("id="+id+" selected? "+isSelected);
+ var selectObj=document.getElementById(id);
+ //alert("obj="+selectObj.type);
+ var options=selectObj.options;
+ //alert("option length="+options.length);
+ for(var i=0; i<options.length; i++) {
+    options[i].selected=isSelected;
+ }
+}
+
+</script>
+<body>
+
+  <form>
+
+    <select id="s1" name="country" multiple size=5>
+      <option value="China">China, PRC</option>
+      <option value="USA">United States of American</option>
+    </select>
+    <a href="#" onclick="return selectAll('s1', true)">Select All</a>
+    <a href="#" onclick="return selectAll('s1', false)">DeSelect All</a>
+  </form>
+</body>
+</html>
