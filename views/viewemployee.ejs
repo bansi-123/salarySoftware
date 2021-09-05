@@ -169,7 +169,7 @@
                                 </button>
 
 
-                                <div id="printThis">
+                                <div id="print<%= Employees[i].empID %>">
 
                                   <!-- Modal -->
                                   <div class="modal fade" id="<%= Employees[i].empID %>" tabindex="-1" role="dialog"
@@ -358,18 +358,6 @@
                                                         <td>Industry Experience</td>
                                                         <td>Company Ltd.</td>
                                                       </tr>
-                                                      <!-- <tr>
-                                                        <td>University Approval No.</td>
-                                                        <td>Company Ltd.</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>University Approval Date</td>
-                                                        <td>Company Ltd.</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>University Approval Period</td>
-                                                        <td>Company Ltd.</td>
-                                                      </tr> -->
                                                       <tr>
                                                         <td>Work Experience (for NT - Non PICT)</td>
                                                         <td>Company Ltd.</td>
@@ -407,7 +395,8 @@
                                           <div class="modal-footer">
                                             <button class="btn btn-danger" data-dismiss="modal"
                                               aria-hidden="true">Close</button>
-                                            <button id="btnPrint" type="button" class="btn btn-default">Print</button>
+                                            <button id="btn<%= Employees[i].empID %>" type="button"
+                                              class="btn btn-default">Print</button>
                                           </div>
 
                                         </div>
@@ -498,7 +487,7 @@
                                   Educational Details
                                 </button>
 
-                                <div id="printThis1">
+                                <div id="print1<%= Employees[i].empID %>">
 
                                   <div class="modal fade" id="abc<%= Employees[i].empID %>" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -539,31 +528,31 @@
                                                       <tr>
                                                         <td>PhD:</td>
                                                         <td>
-                                                          <%= Employees[i].emailID%>
+                                                          <%= Employees[i].phd%>
                                                         </td>
                                                       </tr>
                                                       <tr>
                                                         <td>PhD Subject:</td>
                                                         <td>
-                                                          <%= Employees[i].uan%>
+                                                          <%= Employees[i].phdSub%>
                                                         </td>
                                                       </tr>
                                                       <tr>
                                                         <td>PhD Institute</td>
                                                         <td>
-                                                          <%= Employees[i].dept%>
+                                                          <%= Employees[i].phdInsti%>
                                                         </td>
                                                       </tr>
                                                       <tr>
                                                         <td>PhD University</td>
                                                         <td>
-                                                          <%= Employees[i].designation %>
+                                                          <%= Employees[i].phdUni %>
                                                         </td>
                                                       </tr>
                                                       <tr>
                                                         <td>PhD Passing Year</td>
                                                         <td>
-                                                          <%= Employees[i].salaryCategory %>
+                                                          <%= Employees[i].phdYr %>
                                                         </td>
                                                       </tr>
 
@@ -572,20 +561,20 @@
                                                           <td>P.G Subject</td>
                                                         </div>
                                                         <td>
-                                                          <%= Employees[i].doj %>
+                                                          <%= Employees[i].pjSub %>
                                                         </td>
                                                       </tr>
                                                       <tr>
                                                         <td>P.G University</td>
                                                         <td>
-                                                          <%= Employees[i].pay %>
+                                                          <%= Employees[i].pgUni %>
                                                         </td>
                                                       </tr>
 
                                                       <tr>
                                                         <td>P.G Passing Year</td>
                                                         <td>
-                                                          <%= Employees[i].gp %>
+                                                          <%= Employees[i].pgYr %>
                                                         </td>
 
 
@@ -602,31 +591,31 @@
                                                       <tr>
                                                         <td>U.G Subject</td>
                                                         <td>
-                                                          <%= Employees[i].pf %>
+                                                          <%= Employees[i].ugSub %>
                                                         </td>
                                                       </tr>
                                                       <tr>
                                                         <td>U.G University</td>
                                                         <td>
-                                                          <%= Employees[i].groupInsurance %>
+                                                          <%= Employees[i].ugUni %>
                                                         </td>
                                                       </tr>
                                                       <tr>
-                                                        <td>U.G Institute</td>
+                                                        <!-- <td>U.G Institute</td>
                                                         <td>
-                                                          <%= Employees[i].dob %>
-                                                        </td>
+                                                          <%= Employees[i].ugInsti %>
+                                                        </td> -->
                                                       </tr>
                                                       <tr>
                                                         <td>U.G Passing Year</td>
                                                         <td>
-                                                          <%= Employees[i].category %>
+                                                          <%= Employees[i].ugYr %>
                                                         </td>
                                                       </tr>
                                                       <tr>
                                                         <td>U.G Grade/Class</td>
                                                         <td>
-                                                          <%= Employees[i].gender %>
+                                                          <%= Employees[i].grade %>
                                                         </td>
                                                       </tr>
 
@@ -642,7 +631,7 @@
                                           <div class="modal-footer">
                                             <button class="btn btn-danger" data-dismiss="modal"
                                               aria-hidden="true">Close</button>
-                                            <button id="btnPrint1" type="button" class="btn btn-default">Print</button>
+                                            <button id="btn1<%= Employees[i].empID %>" type="button" class="btn btn-default">Print</button>
                                           </div>
 
                                         </div>
@@ -686,6 +675,51 @@
 
                               </td>
                             </tr>
+
+                            <script>
+                              document.getElementById("btn<%= Employees[i].empID %>").onclick = function () {
+                                printElement(document.getElementById("print<%= Employees[i].empID %>"));
+                              }
+
+                              function printElement(elem) {
+                                var domClone = elem.cloneNode(true);
+
+                                var $printSection = document.getElementById("printSection");
+
+                                if (!$printSection) {
+                                  var $printSection = document.createElement("div");
+                                  $printSection.id = "printSection";
+                                  document.body.appendChild($printSection);
+                                }
+
+                                $printSection.innerHTML = "";
+                                $printSection.appendChild(domClone);
+                                window.print();
+                              }
+                            </script>
+
+                            <script>
+                              document.getElementById("btn1<%= Employees[i].empID %>").onclick = function () {
+                                printElement(document.getElementById("print1<%= Employees[i].empID %>"));
+                              }
+
+                              function printElement(elem) {
+                                var domClone = elem.cloneNode(true);
+
+                                var $printSection = document.getElementById("printSection");
+
+                                if (!$printSection) {
+                                  var $printSection = document.createElement("div");
+                                  $printSection.id = "printSection";
+                                  document.body.appendChild($printSection);
+                                }
+
+                                $printSection.innerHTML = "";
+                                $printSection.appendChild(domClone);
+                                window.print();
+                              }
+                            </script>
+
                             <% }%>
                         </tbody>
 
@@ -739,49 +773,8 @@
       }
     </script>
 
-    <script>
-      document.getElementById("btnPrint").onclick = function () {
-        printElement(document.getElementById("printThis1"));
-      }
 
-      function printElement(elem) {
-        var domClone = elem.cloneNode(true);
 
-        var $printSection = document.getElementById("printSection");
-
-        if (!$printSection) {
-          var $printSection = document.createElement("div");
-          $printSection.id = "printSection";
-          document.body.appendChild($printSection);
-        }
-
-        $printSection.innerHTML = "";
-        $printSection.appendChild(domClone);
-        window.print();
-      }
-    </script>
-
-<script>
-  document.getElementById("btnPrint1").onclick = function () {
-    printElement(document.getElementById("printThis1"));
-  }
-
-  function printElement(elem) {
-    var domClone = elem.cloneNode(true);
-
-    var $printSection = document.getElementById("printSection");
-
-    if (!$printSection) {
-      var $printSection = document.createElement("div");
-      $printSection.id = "printSection";
-      document.body.appendChild($printSection);
-    }
-
-    $printSection.innerHTML = "";
-    $printSection.appendChild(domClone);
-    window.print();
-  }
-</script>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
