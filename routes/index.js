@@ -27,10 +27,28 @@ router.post('/form-basic', ensureAuthenticated, (req, res) => {
     console.log(req.body)
     // res.redirect('dashboard');
 });
+for (let i = 1; i < 10; i++) {
+router.get('/4', ensureAuthenticated, (req, res) => {
+    const empID=i;
+    console.log(empID)
+    mysqldb.query(`select * from Employees  where empID=${empID}`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('form-basic',{
+                Employees:JSON.parse(JSON.stringify(result)),
+                name: req.user.name
 
+            });
+        }
+    });
 
+});
 
-
+}
 //------------ Search for Employee Details Route ------------//
 router.post('/searchEmployee',(req,res)=>{
     const id=req.body.id;

@@ -1,89 +1,90 @@
 <%- include('partials/header.ejs'); -%>
 
-<head>
+    <head>
 
-    <meta charset="UTF-8">
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
-    <link rel="stylesheet" href="../assets/alert/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    
-    <style>
-        .required:after {
-          content:" *";
-          color: red;
-        }
-      </style>
-    <script>
+        <meta charset="UTF-8">
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
+        <link rel="stylesheet" href="../assets/alert/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-        var handle_dependent_selects = function ($category) {
-            var $designation = document.getElementById($category.getAttribute('data-designation-id')),
-                $selected = $category.options[$category.selectedIndex],
-                category_val = $selected.value;
+        <style>
+            .required:after {
+                content: " *";
+                color: red;
+            }
+        </style>
+        <script>
 
-            for (var i = 0; i < $designation.options.length; i++) {
-                var $option = $designation.options[i];
-                if ($option.value != '') {
-                    $option.setAttribute('hidden', true);
-                }
-            };
+            var handle_dependent_selects = function ($category) {
+                var $designation = document.getElementById($category.getAttribute('data-designation-id')),
+                    $selected = $category.options[$category.selectedIndex],
+                    category_val = $selected.value;
 
-            if (category_val) {
-                var designation_options = $selected.getAttribute('data-designation-options'),
-                    designation_options_array = designation_options.split('|#');
-
-                for (i = 0; i < $designation.options.length; i++) {
+                for (var i = 0; i < $designation.options.length; i++) {
                     var $option = $designation.options[i];
-                    if ($option.value == "") {
-                        $option.innerText = "--------";
-                        continue;
-                    }
-                    if (designation_options_array.indexOf($option.value) != -1) {
-                        $option.removeAttribute('hidden');
+                    if ($option.value != '') {
+                        $option.setAttribute('hidden', true);
                     }
                 };
 
-            } else {
-                var show_text = $designation.getAttribute('data-text-if-category-empty');
-                if (!show_text) {
-                    show_text = 'Select ' + $category.name;
+                if (category_val) {
+                    var designation_options = $selected.getAttribute('data-designation-options'),
+                        designation_options_array = designation_options.split('|#');
+
+                    for (i = 0; i < $designation.options.length; i++) {
+                        var $option = $designation.options[i];
+                        if ($option.value == "") {
+                            $option.innerText = "--------";
+                            continue;
+                        }
+                        if (designation_options_array.indexOf($option.value) != -1) {
+                            $option.removeAttribute('hidden');
+                        }
+                    };
+
+                } else {
+                    var show_text = $designation.getAttribute('data-text-if-category-empty');
+                    if (!show_text) {
+                        show_text = 'Select ' + $category.name;
+                    }
+                    for (i = 0; i < $designation.options.length; i++) {
+                        var $option = $designation.options[$designation.selectedIndex];
+                        if ($option.value == "") {
+                            $option.innerText = '- ' + show_text + ' -';
+                            break;
+                        }
+                    };
                 }
-                for (i = 0; i < $designation.options.length; i++) {
-                    var $option = $designation.options[$designation.selectedIndex];
-                    if ($option.value == "") {
-                        $option.innerText = '- ' + show_text + ' -';
-                        break;
-                    }
-                };
             }
-        }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var $categorys = document.getElementsByClassName('dependent-selects__category');
-            for (var i = 0; i < $categorys.length; i++) {
-                handle_dependent_selects($categorys[i]);
-                $categorys[i].addEventListener('change', function () {
-                    handle_dependent_selects(this)
-                })
-            }
-        }, false);
+            document.addEventListener('DOMContentLoaded', function () {
+                var $categorys = document.getElementsByClassName('dependent-selects__category');
+                for (var i = 0; i < $categorys.length; i++) {
+                    handle_dependent_selects($categorys[i]);
+                    $categorys[i].addEventListener('change', function () {
+                        handle_dependent_selects(this)
+                    })
+                }
+            }, false);
 
-    </script>
-</head>
+        </script>
+    </head>
 
-<body>
+    <body>
 
-<div class="content-wrap">
-    <div class="main">
-        <div class="container-fluid">
-                
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                            <p class="lead mb-2">Welcome <%= name %></p>
+                                <p class="lead mb-2">Welcome <%= name %>
+                                </p>
                             </div>
                         </div>
                     </div>
-                           <div class="col-lg-12">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-title">
                                 <h4>Add New Employee</h4>
@@ -92,135 +93,157 @@
 
 
                             <!-- <div class="card-body"> -->
-                                <div class="horizontal-form-elements"  class="form-validation">
+                            <div class="horizontal-form-elements" class="form-validation">
 
-                                    <form class="form-valide" action="\form-basic" method="post">
-                                        
-                                                
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                              
+                                <form class="form-valide" action="\form-basic" method="post">
 
-                                                <div class="form-group row">
-                                                    <label  class="col-lg-6 col-form-label">Name (As per Aadhar Card)</label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" name="empName" class="form-control"
-                                                            placeholder="Enter Name"    ruqt>
-                                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-5">
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Name (As per Aadhar Card)</label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="empName" class="form-control"
+                                                        placeholder="Enter Name" ruqt>
                                                 </div>
-                                                
-                                               <div class="form-group row">
-                                                    <label  class="col-lg-6 col-form-label">Email ID (Personal)</label>
-                                                    <div class="col-lg-6">
-                                                    <input id="val-email" name="emailID" class="form-control" type="email" placeholder="admin@gmail.com" ruqt>
-                                                    </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Email ID (Personal)</label>
+                                                <div class="col-lg-6">
+                                                    <input id="val-email" name="emailID" class="form-control"
+                                                        type="email" placeholder="admin@gmail.com" ruqt>
                                                 </div>
-                                               <div class="form-group row">
-                                                    <label  class="col-lg-6 col-form-label">Email ID (PICT)</label>
-                                                    <div class="col-lg-6">
-                                                    <input id="example-email2" name="emailID2" class="form-control" type="email" placeholder="admin@pict.edu" pattern=".+@pict\.edu" title="enter valid email ID" ruqt>
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Email ID (PICT)</label>
+                                                <div class="col-lg-6">
+                                                    <input id="example-email2" name="emailID2" class="form-control"
+                                                        type="email" placeholder="admin@pict.edu" pattern=".+@pict\.edu"
+                                                        title="enter valid email ID" ruqt>
                                                 </div>
+                                            </div>
 
-                                                <script type="text/javascript">
-                                                    function ShowHideDiv() {
-                                                        var ddlPassport = document.getElementById("id_category");
-                                                        var dvPassport = document.getElementById("dvPassport");
-                                                        dvPassport.style.display = ddlPassport.value == "nonteaching" ? "block" : "none";
-                                                    }
-                                                </script>
+                                            <script type="text/javascript">
+                                                function ShowHideDiv() {
+                                                    var ddlPassport = document.getElementById("id_category");
+                                                    var dvPassport = document.getElementById("dvPassport");
+                                                    dvPassport.style.display = ddlPassport.value == "nonteaching" ? "block" : "none";
+                                                }
+                                            </script>
 
-                                               <div class="form-group row">
-                                                    
-                                                    <label  class="col-lg-6 col-form-label">Designation Category :</label>
-                                                    <div class="col-lg-6">
-                                                     <select name="designationcategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category'  ruqt>
-                                                    <option value="">---------</option>
-                                                    <option value="teaching" data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer">Teaching</option>
-                                                    <option value="nonteaching" data-designation-options="Registrar|#Librarian|#OffSup|#Technical Assistant|#Lab. Assistant|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Asstt. Programmer|#Director of Physical Education & Sports|#Electrician|#Accounts Assistant|#Network Administrator|#Workshop Instructor">Non- Teaching</option>
-                                                  </select><br><br>
-                                                  </div></div>
+                                            <div class="form-group row">
 
-                                                    
-                                                <div class="form-group row" id="dvPassport" style="display: none" >
-                                                    
-                                                        <label  class="col-lg-6 col-form-label">  Type 1: </label>
-                                                        <div class="col-lg-6">
+                                                <label class="col-lg-6 col-form-label">Designation Category :</label>
+                                                <div class="col-lg-6">
+                                                    <select name="designationcategory" id="id_category"
+                                                        onchange="ShowHideDiv()" data-designation-id='id_designation'
+                                                        class='dependent-selects__category' ruqt>
+                                                        <option value="">---------</option>
+                                                        <option value="teaching"
+                                                            data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer">
+                                                            Teaching</option>
+                                                        <option value="nonteaching"
+                                                            data-designation-options="Registrar|#Librarian|#OffSup|#Technical Assistant|#Lab. Assistant|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Asstt. Programmer|#Director of Physical Education & Sports|#Electrician|#Accounts Assistant|#Network Administrator|#Workshop Instructor">
+                                                            Non- Teaching</option>
+                                                    </select><br><br>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row" id="dvPassport" style="display: none">
+
+                                                <label class="col-lg-6 col-form-label"> Type 1: </label>
+                                                <div class="col-lg-6">
                                                     <select name="nonteach">
-                                                        <option  value="" hidden selected>-----</option>
+                                                        <option value="" hidden selected>-----</option>
 
                                                         <option value="Technical">Technical</option>
                                                         <option value="Non technical">Non Technical</option>
                                                     </select>
-                                                </div></div>
-                                                <div class="form-group row">
-                                                    
-                                                  <label class="col-lg-6 col-form-label">  Designation: </label>
-                                                  <div class="col-lg-6">
-                                                  <select name="designation" id="id_designation" class='dependent-selects__designation'  ruqt>
-                                                    <option value="">-----</option>
-                                                    <option value="Principal">Principal</option>
-                                                    <option value="professor">Professor</option>
-                                                    <option value="Associate Professor">Associate Professor</option>
-                                                    <option value="Assistant Professor">Assistant Professor</option>
-                                                    <option value="Workshop Superintendent">Workshop Superintendent</option>
-                                                    <option value="Lecturer (Sr. Scale)"> Lecturer (Sr. Scale)</option>
-                                                    <option value="Lecturer">Lecturer</option>
-                                                    <!-- teaching over -->
-                                                    <option value="Registrar">Registrar</option>
-                                                    <option value="Librarian">Librarian</option>
-                                                    <option value="OffSup">Office Superintendent</option>
-                                                    <option value="Technical Assistant">Technical Assistant</option>
-                                                    <option value="Lab. Assistant">Lab. Assistant</option>
-                                                    <option value="Jr. Library Assistant">Jr. Library Assistant</option>
-                                                    <option value="Library Attendant">Library Attendant</option>
-                                                    <option value="Senior Clerk">Senior Clerk</option>
-                                                    <option value="Junior Clerk">Junior Clerk</option>
-                                                    <option value="PurOff">Purchase Officer</option>
-                                                    
-                                                    <option value="BS">Black Smithy</option>
-                                                    <option value="Asstt. Programmer">Asstt. Programmer</option>
-                                                    <option value="Director of Physical Education & Sports">Director of Physical Education & Sports</option>
-                                                    <option value="Electrician">Electrician</option>
-                                                    <option value="Accounts Assistant">Accounts Assistant</option>
-                                                    <option value="Network Administrator">Network Administrator</option>
-                                                    <option value="Workshop Instructor">Workshop Instructor</option>
-                                                  </select>
-                                                
-                                                  <br>
-                                                  <br></div></div>
-                                                  <br>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-6 col-form-label"> Designation: </label>
+                                                <div class="col-lg-6">
+                                                    <select name="designation" id="id_designation"
+                                                        class='dependent-selects__designation' ruqt>
+                                                        <option value="">-----</option>
+                                                        <option value="Principal">Principal</option>
+                                                        <option value="professor">Professor</option>
+                                                        <option value="Associate Professor">Associate Professor</option>
+                                                        <option value="Assistant Professor">Assistant Professor</option>
+                                                        <option value="Workshop Superintendent">Workshop Superintendent
+                                                        </option>
+                                                        <option value="Lecturer (Sr. Scale)"> Lecturer (Sr. Scale)
+                                                        </option>
+                                                        <option value="Lecturer">Lecturer</option>
+                                                        <!-- teaching over -->
+                                                        <option value="Registrar">Registrar</option>
+                                                        <option value="Librarian">Librarian</option>
+                                                        <option value="OffSup">Office Superintendent</option>
+                                                        <option value="Technical Assistant">Technical Assistant</option>
+                                                        <option value="Lab. Assistant">Lab. Assistant</option>
+                                                        <option value="Jr. Library Assistant">Jr. Library Assistant
+                                                        </option>
+                                                        <option value="Library Attendant">Library Attendant</option>
+                                                        <option value="Senior Clerk">Senior Clerk</option>
+                                                        <option value="Junior Clerk">Junior Clerk</option>
+                                                        <option value="PurOff">Purchase Officer</option>
+
+                                                        <option value="BS">Black Smithy</option>
+                                                        <option value="Asstt. Programmer">Asstt. Programmer</option>
+                                                        <option value="Director of Physical Education & Sports">Director
+                                                            of Physical Education & Sports</option>
+                                                        <option value="Electrician">Electrician</option>
+                                                        <option value="Accounts Assistant">Accounts Assistant</option>
+                                                        <option value="Network Administrator">Network Administrator
+                                                        </option>
+                                                        <option value="Workshop Instructor">Workshop Instructor</option>
+                                                    </select>
+
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                            <br>
 
 
 
-                                               <div class="form-group row">
-                                                    <label  class="col-lg-6 col-form-label">UAN</label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" name="uan" class="form-control"  ruqt
-                                                            placeholder="UAN"  pattern=".{12,12}"     title="12 characters needed">
-                                                    </div>
-                                                </div><br>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">UAN</label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="uan" class="form-control" ruqt
+                                                        placeholder="UAN" pattern=".{12,12}"
+                                                        title="12 characters needed">
+                                                </div>
+                                            </div><br>
 
 
 
-                                                
 
 
-                                                <script type="text/javascript">
-                                                    function ShowHideDivi() {
-                                                        var ddlPassport1 = document.getElementById("id_category1");
-                                                        var dvPassport1 = document.getElementById("dvPassport1");
-                                                        dvPassport1.style.display = ddlPassport1.value == "FE" ? "block" : "none";
-                                                    }
-                                                </script>
-                                                
-                                               <div class="form-group row">
-                                                  
-                                                    <label  class="col-lg-6 col-form-label">    Departments</label>
-                                                    <div class="col-lg-6">
-                                                     <select name="dept" id="id_category1" onchange="ShowHideDivi()"  data-designation-id='id_designation'  class='dependent-selects__category' ruqt>
-                                                   
-                                                    <option value="Computer">Computer</option>
+
+                                            <script type="text/javascript">
+                                                function ShowHideDivi() {
+                                                    var ddlPassport1 = document.getElementById("id_category1");
+                                                    var dvPassport1 = document.getElementById("dvPassport1");
+                                                    dvPassport1.style.display = ddlPassport1.value == "FE" ? "block" : "none";
+                                                }
+                                            </script>
+
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-6 col-form-label"> Departments</label>
+                                                <div class="col-lg-6">
+                                                    <select name="dept" id="id_category1" onchange="ShowHideDivi()"
+                                                        data-designation-id='id_designation'
+                                                        class='dependent-selects__category' ruqt>
+
+                                                        <option value="Computer">Computer</option>
                                                         <option value="IT">IT</option>
                                                         <option value="E&TC">E&TC</option>
                                                         <option value="FE">FE</option>
@@ -228,1241 +251,811 @@
                                                         <option value="Accounts">Accounts</option>
                                                         <option value="Library">Library</option>
                                                         <option value="Sports">Sports</option>
-                                                  </select><br><br>
-                                                    </div>
+                                                    </select><br><br>
+                                                </div>
 
-                                                    
-                                                <div  id="dvPassport1" style="display: none" >
+
+                                                <div id="dvPassport1" style="display: none">
                                                     Type 1
                                                     <select name="Subject">
-                                                        <option  value="" hidden selected>-----</option>
+                                                        <option value="" hidden selected>-----</option>
                                                         <option value="Mechanical">Mechanical</option>
                                                         <option value="Civil">Civil</option>
-                                                        <option value="Physics">Physics</option> 
+                                                        <option value="Physics">Physics</option>
                                                         <option value="Chemistry">Chemistry</option>
                                                         <option value="Mathematics">Mathematics</option>
-                                                        <option value="Graphics">Graphics</option> 
+                                                        <option value="Graphics">Graphics</option>
                                                         <option value="Electrical">Electrical</option>
-                                                        
+
                                                     </select>
 
 
-                                              
 
-                                                </div> </div>
-       
-
-
-                                                <!-- salary cat -->
-                                               <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">Salary Category</label>
-                                                    <div class="col-lg-6">
-                                                        <select class="form-control" name="salaryCategory" ruqt>
-                                                            <!-- <option value="value" selected>Option Name</option> -->
-                                                            <option value="consolidated" id="consolidated" selected>
-                                                                Consolidated</option>
-                                                            <option value="payscale" id="payscale" selected>Pay
-                                                                Scale</option>
-
-                                                        </select>
-                                                    </div>
 
                                                 </div>
+                                            </div>
 
-                                               <div class="form-group row">
-                                                    <label  class="col-lg-6 col-form-label">Date of
-                                                        Joining</label>
-                                                    <div class="col-lg-6">
-                                                        <input type="date" class="form-control" id="doj"
-                                                            name="doj"    ruqt>
 
-                                                    </div>
-                                                </div>
-                                                
 
-                                               
-                                               <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">Date of Birth</label>
-                                                    <div class="col-lg-6">
-                                                        <input type="date" name="dob" class="form-control" ruqt>
-                                                    </div>
-                                                </div>
-                                               <div class="form-group row">
-                                                 
-                                                    <label class="col-lg-6 col-form-label" for="category">Category</label>
-                                                    <div class="col-lg-6">
-                                                    <select name="category"  id="category" ruqt>
-                                                    
-                                                    
-                                                    <option value="open">OPEN</option>
-                                                    <option value="sc">SC</option>
-                                                    <option value="st">ST</option>
-                                                    <option value="dta">DT-a</option>
-                                                    <option value="ntb">NT-b</option>
-                                                    <option value="ntc">NT-c</option>
-                                                    <option value="ntd">NT-d</option>
-                                                    <option value="obc">OBC</option>
-                                                    <option value="sbc">SBC</option>
+                                            <!-- salary cat -->
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Salary Category</label>
+                                                <div class="col-lg-6">
+                                                    <select class="form-control" name="salaryCategory" ruqt>
+                                                        <!-- <option value="value" selected>Option Name</option> -->
+                                                        <option value="consolidated" id="consolidated" selected>
+                                                            Consolidated</option>
+                                                        <option value="payscale" id="payscale" selected>Pay
+                                                            Scale</option>
+
                                                     </select>
                                                 </div>
+
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Date of
+                                                    Joining</label>
+                                                <div class="col-lg-6">
+                                                    <input type="date" class="form-control" id="doj" name="doj" ruqt>
+
                                                 </div>
-                                               <div class="form-group row">
-                                                   
-                                                    <label class="col-lg-6 col-form-label" for="gender">Gender</label>
-                                                    <div class="col-lg-6">
+                                            </div>
+
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Date of Birth</label>
+                                                <div class="col-lg-6">
+                                                    <input type="date" name="dob" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-6 col-form-label" for="category">Category</label>
+                                                <div class="col-lg-6">
+                                                    <select name="category" id="category" ruqt>
+
+
+                                                        <option value="open">OPEN</option>
+                                                        <option value="sc">SC</option>
+                                                        <option value="st">ST</option>
+                                                        <option value="dta">DT-a</option>
+                                                        <option value="ntb">NT-b</option>
+                                                        <option value="ntc">NT-c</option>
+                                                        <option value="ntd">NT-d</option>
+                                                        <option value="obc">OBC</option>
+                                                        <option value="sbc">SBC</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-6 col-form-label" for="gender">Gender</label>
+                                                <div class="col-lg-6">
                                                     <select name="gender" id="gender" ruqt>
-                                                      <option value="male">Male</option>
-                                                      <option value="female">Female</option>
-                                                      <option value="other">Other</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                        <option value="other">Other</option>
                                                     </select>
                                                 </div>
-                                                </div>
-                                               <div class="form-group row">
-                                                   
-                                                    <label class="col-lg-6 col-form-label" for="status">Maritial Status</label>
-                                                    <div class="col-lg-6">
+                                            </div>
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-6 col-form-label" for="status">Maritial
+                                                    Status</label>
+                                                <div class="col-lg-6">
                                                     <select name="status" id="status" ruqt>
-                                                      <option value="married">Married</option>
-                                                      <option value="single">Single</option>
-                                                      <option value="other">Other</option>
+                                                        <option value="married">Married</option>
+                                                        <option value="single">Single</option>
+                                                        <option value="other">Other</option>
                                                     </select>
-                                                    </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label  class="col-lg-6 col-form-label">Aadhar Number</label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" name="Aadhar" class="form-control" pattern=".{12,12}"     title="12 numbers needed" ruqt>
-                                                    </div>
-                                                </div>
-                                               <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">PAN No.</label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" name="Pan_No" class="form-control" pattern=".{10,10}"     title="10 alphanumeric characters needed" ruqt>
-                                                    </div>
-                                                </div>
-                                               <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">Employee on Roll</label>
-                                                    <div class="col-lg-6">
-                                                    <input id="yes" name="onrole"  value="yes" type="radio" >
-                                                   
-                                                   <label for="yes">Yes</label><br>
-                                                    <input type="radio" id="no" name="onrole" value="no">
-                                                    <label for="no">No</label><br>
-                                                    </div>
-                                                </div>
-                                               <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">Date of Promotion</label>
-                                                    <div class="col-lg-6">
-                                                        <input type="date" class="form-control" id="dop"
-                                                            name="dop"    ruqt>
-    
-                                                    </div>
-                                                </div>
-                                               <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">Date Confirmation of Service</label>
-                                                    <div class="col-lg-6">
-                                                        <input type="date" class="form-control" id="doc"
-                                                            name="doc"    ruqt>
-        
-                                                    </div>
-                                                </div>
-                                                
-                                               <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"for="appointment">Nature of Appointment</label>
-                                                <div class="col-lg-6">
-            
-                                                <select name="appointment" id="appointment" ruqt>
-                                                <option value="Permanent">Permanent</option>
-                                                <option value="Probation">Probation</option>
-                                                <option value="Adhoc">Adhoc</option>
-                                                  
-                                                            </select>
-                                                </div>
-                                                </div>
-                                             
                                             </div>
-                                            
-                                            <div class="col-lg-2"></div>
-                                            
-                                            <div class="col-lg-5">
-                                          
-                 
-                                      
-
-                                        
-                                    
-
-                                    <!-- Nature of Appointment -->
-                                 
-
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Mobile No.</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="mobile" class="form-control" pattern=".{10,10}"     title="10 characters needed" ruqt>
-                                        </div>
-                                    </div>
-
-                                   
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Address for Correspondence
-                                          </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="address_correspondence" class="form-control" ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        <label  class="col-lg-6 col-form-label">  Permanent Address</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="address_permanent" class="form-control" ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">  MIS Login ID</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="mis" class="form-control" placeholder="empXXX" pattern="+emp." title="enter valid mis ID"ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">  Biometric Attendance ID</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="biometric" class="form-control" ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        
-                                        <label class="col-lg-6 col-form-label" for="vacation">Vacation</label>
-                                        <div class="col-lg-6">
-
-                                        <select name="vacation" id="vacation" ruqt>
-                                          <option value="yes">Yes</option>
-                                          <option value="no">No</option>
-                                          
-                                        </select>
-                                        </div>
-                                    </div>
-
-
-                                    <!-- UG PG sorted -->
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label"  >NET/SET</label>
-                                        <div class="col-lg-6">
-                                            <input type="radio" id="qualified" name="netset" value="qualified" ruqt >
-                                       
-                                        <label for="qualified">qualified</label><br>
-                                        <input type="radio" id="no" name="netset" value="NA">
-                                        <label for="NA">No</label><br>
-                                        </div>
-                                    </div>
-
-                                    <!-- experiance and oth qual -->
-
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Other Qualification</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="othqual" class="form-control"
-                                                placeholder="Other Qualification" ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Teaching Experiance (Other than PICT)</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="exp" class="form-control" ruqt>
-                                        </div>
-                                    </div>
-                                  
-
-
-                                    <script>
-
-                                        function experiance(){ 
-                                         var date1 = document.getElementById("doj");
-                                         var date2 = new Date();
-                                       
-                                         var Difference_In_Time = date2.getTime() - date1.getTime();
-                                       
-                                         var Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
-                                             return Difference_In_Days;
-                                         }
-                                     
-                                     document.getElementById("demo").innerHTML = experiance();
-                                     </script>  
-
-                                    <!-- Shall be auto calculated from DoJ till date -->
-
-                                    
-                                    
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Industry Experience</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="industry_exp" class="form-control" ruqt>
-                                        </div>
-                                    </div> 
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">University Approval No.</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="uni_approval" class="form-control"ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">University Approval Date</label>
-                                        <div class="col-lg-6">
-                                            <input type="date" name="uni_app_date" class="form-control"ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">University Approval Period</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="uni_app_period" class="form-control"ruqt>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Work Experience (for NT Staff - Other than PICT)</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="workexNT" class="form-control"ruqt>
-                                        </div>
-                                    </div>
-                                    
-
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">  Overall Seniority No.</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="seniority" class="form-control"ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">  Dept Seniority No.</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="dept_seniority" class="form-control"ruqt>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Employee Tax Regime </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="emp_temp_regime" class="form-control"ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label"> Age </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="age" class="form-control" ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label"> Investment </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="investment" class="form-control" ruqt>
-                                        </div>
-                                    </div>
-                                   <div class="form-group row">
-                                        <label  class="col-lg-6 col-form-label"> Drive link for photo </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="photo" class="form-control" ruqt>
-                                        </div>
-                                    </div>
-                                            </div>
-                                    <!-- if no selected add Relieving Date -->
-                                                <!-- /# column -->
-                                                <!-- <div class="column"> -->
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Aadhar Number</label>
                                                 <div class="col-lg-6">
+                                                    <input type="text" name="Aadhar" class="form-control"
+                                                        pattern=".{12,12}" title="12 numbers needed" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">PAN No.</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="Pan_No" class="form-control"
+                                                        pattern=".{10,10}" title="10 alphanumeric characters needed"
+                                                        ruqt>
+                                                </div>
+                                            </div>
+
+                                            <script type="text/javascript">
+                                                function ShowHideDivi() {
+                                                    var ddlPassport1 = document.getElementById("id_category2");
+                                                    var dvPassport1 = document.getElementById("dvPassport2");
+                                                    dvPassport1.style.display = ddlPassport1.value == "yes" ? "block" : "none";
+                                                }
+                                            </script>
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-6 col-form-label">Employee on Roll
+                                                </label>
+                                                <div class="col-lg-6">
+                                                    <select name="onrole" id="id_category2"
+                                                        onchange="ShowHideDivi()"
+                                                        data-designation-id='id_designation'
+                                                        class='dependent-selects__category' ruqt>
+                                                        <option value="no">No</option>
+                                                        <option value="yes">Yes</option>
+
+
+                                                    </select><br><br>
+                                                </div>
+
+
+                                                <div id="dvPassport2" style="display: none">
+                                                    Relieving Date:
+                                                    <input type="date" class="form-control" id="doc"
+                                                        name="doc" ruqt>
+
+
+
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Date of Promotion</label>
+                                                <div class="col-lg-6">
+                                                    <input type="date" class="form-control" id="dop" name="dop" ruqt>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Date Confirmation of
+                                                    Service</label>
+                                                <div class="col-lg-6">
+                                                    <input type="date" class="form-control" id="doc" name="doc" ruqt>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label" for="appointment">Nature of
+                                                    Appointment</label>
+                                                <div class="col-lg-6">
+
+                                                    <select name="appointment" id="appointment" ruqt>
+                                                        <option value="Permanent">Permanent</option>
+                                                        <option value="Probation">Probation</option>
+                                                        <option value="Adhoc">Adhoc</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-lg-2"></div>
+
+                                        <div class="col-lg-5">
+
+                                            <!-- Nature of Appointment -->
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Mobile No.</label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="mobile" class="form-control"
+                                                        pattern=".{10,10}" title="10 characters needed" ruqt>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Address for Correspondence
+                                                </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="address_correspondence"
+                                                        class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label"> Permanent Address</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="address_permanent" class="form-control"
+                                                        ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label"> MIS Login ID
+                                                    (empXXX) <span class="text-danger">*</span></label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="mis" class="form-control"
+                                                        placeholder="XXX" pattern="+emp."
+                                                        title="enter valid mis ID" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label"> Biometric Attendance ID</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="biometric" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-6 col-form-label" for="vacation">Vacation</label>
+                                                <div class="col-lg-6">
+
+                                                    <select name="vacation" id="vacation" ruqt>
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- UG PG sorted -->
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">NET/SET</label>
+                                                <div class="col-lg-6">
+                                                    <input type="radio" id="qualified" name="netset" value="qualified"
+                                                        ruqt>
+
+                                                    <label for="qualified">qualified</label><br>
+                                                    <input type="radio" id="no" name="netset" value="NA">
+                                                    <label for="NA">No</label><br>
+                                                </div>
+                                            </div>
+
+                                            <!-- experiance and oth qual -->
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Other Qualification</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="othqual" class="form-control"
+                                                        placeholder="Other Qualification" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Teaching Experiance (Other than
+                                                    PICT)</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="exp" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+
+
+
+                                            <script>
+
+                                                function experiance() {
+                                                    var date1 = document.getElementById("doj");
+                                                    var date2 = new Date();
+
+                                                    var Difference_In_Time = date2.getTime() - date1.getTime();
+
+                                                    var Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
+                                                    return Difference_In_Days;
+                                                }
+
+                                                document.getElementById("demo").innerHTML = experiance();
+                                            </script>
+
+                                            <!-- Shall be auto calculated from DoJ till date -->
+
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Industry Experience</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="industry_exp" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">University Approval No.</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="uni_approval" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">University Approval Date</label>
+                                                <div class="col-lg-6">
+                                                    <input type="date" name="uni_app_date" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">University Approval
+                                                    Period</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="uni_app_period" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Work Experience (for NT Staff -
+                                                    Other than PICT)</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="workexNT" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label"> Overall Seniority No.</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="seniority" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label"> Dept Seniority No.</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="dept_seniority" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Employee Tax Regime </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="emp_temp_regime" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label"> Age </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="age" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label"> Investment </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="investment" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label"> Drive link for photo </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="photo" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- if no selected add Relieving Date -->
+                                        <!-- /# column -->
+                                        <!-- <div class="column"> -->
+                                        <div class="col-lg-6">
                                             <!-- /# column -->
                                             <!-- <div class="column"> -->
                                             <div class="col-lg-6">
 
-                                                    
 
-                                </div>  <!--card ka end -->
-                                                    
-                                                    <br />
-                                                   
-                                                </div></div>
+
+                                            </div>
+                                            <!--card ka end -->
+
+                                            <br />
 
                                         </div>
-                                   
-                                </div>
-                            <!-- </div> -->
+                                    </div>
 
-<!-- ---------------salary-------------------- -->
-<div class="card">
-    <div class="card-title">
-        <h4>Employee Salary Details</h4>
+                            </div>
 
-    </div>
-
-
-    <div class="card-body">
-        <div class="row">
-       <!-- <div class="form-group row"> -->
-           
-                <div class= "col-lg-6">
-
-                   <div class="form-group row">
-                        <label  class="col-lg-6 col-form-label">Basic Pay</label>
-                        <div class="col-lg-6">
-                            <input type="text" name="pay" class="form-control"
-                                placeholder="Basic Pay"    >
-                    
-                    
                         </div>
-                    </div>
-<div class="form-group row">
-    <label class="col-lg-6 col-form-label">  TA</label>
-    <div class="col-lg-6">
-        <input type="text" name="ta" class="form-control">
-    </div>
-</div>
+                        <!-- </div> -->
+
+                        <!-- ---------------salary-------------------- -->
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Employee Salary Details</h4>
+
+                            </div>
 
 
-</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <!-- <div class="form-group row"> -->
 
-<div class= "col-lg-6">
-<div class="form-group row">
-    <label class="col-lg-6 col-form-label">  CCA</label>
-    <div class="col-lg-6">
-        <input type="text" name="cca" class="form-control">
-    </div>
-</div>
+                                    <div class="col-lg-6">
 
-<div class="form-group row">
-    <label class="col-lg-6 col-form-label">Grade Pay</label>
-    <div class="col-lg-6">
-        <input type="text" name="gp" class="form-control"
-            placeholder="Grade Pay"    >
-    </div>
-</div>
-
-</div>
-
-<div class= "col-lg-6">
-<div class="form-group row">
-    <label class="col-lg-6 col-form-label">Provident Fund</label>
-    <div class="col-lg-6">
-        <input type="text" name="pf" class="form-control"
-            placeholder="Provident Fund"    ruqt>
-    </div>
-</div>
-
-<div class="form-group row">
-    <label class="col-lg-6 col-form-label">Group Insurance</label>
-    <div class="col-lg-6">
-        <input type="text" name="groupInsurance" class="form-control"
-            placeholder="Group Insurance"    ruqt>
-    </div>
-</div></div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">Basic Pay</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="pay" class="form-control"
+                                                    placeholder="Basic Pay">
 
 
-<div class= "col-lg-6">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label"> TA</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="ta" class="form-control">
+                                            </div>
+                                        </div>
 
 
-<div class="form-group row">
-    <label class="col-lg-6 col-form-label">Pay Band</label>
-    <div class="col-lg-6">
-        <select class="form-control" name="payBand" ruqt >
-            <!-- <option value="value" selected>Option Name</option> -->
-            <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
-            <option value="30k-40k" id="30k-40k" selected>30k-40k</option>
-            <option value="40k-50k" id="40k-50k" selected>40k-50k</option>
-            <option value="50k-60k" id="50k-60k" selected>50k-60k</option>
-            <option value="60k-70k" id="60k-70k" selected>60k-70k</option>
-            <option value="70k-80k" id="70k-80k" selected>70k-80k</option>
-            <option value="80k-90k" id="80k-90k" selected>80k-90k</option> 
-            <option value="90k-100k" id="90k-100k" selected>90k-100k</option>  
-            <option value="lakh" id="lakh" selected>1 lakh+</option>  
-        </select>
-    </div>
-</div></div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label"> CCA</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="cca" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">Grade Pay</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="gp" class="form-control"
+                                                    placeholder="Grade Pay">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">Provident Fund</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="pf" class="form-control"
+                                                    placeholder="Provident Fund" ruqt>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">Group Insurance</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="groupInsurance" class="form-control"
+                                                    placeholder="Group Insurance" ruqt>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-                </div></div> 
-            </div>
-                    
-           
+                                    <div class="col-lg-6">
 
 
-                            <!-- -------------------salary deets end----------------- -->
-                            <div class="card">
-                                <div class="card-title">
-                                    <h4>Employee Bank Details</h4>
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">Pay Band</label>
+                                            <div class="col-lg-6">
+                                                <select class="form-control" name="payBand" ruqt>
+                                                    <!-- <option value="value" selected>Option Name</option> -->
+                                                    <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
+                                                    <option value="30k-40k" id="30k-40k" selected>30k-40k</option>
+                                                    <option value="40k-50k" id="40k-50k" selected>40k-50k</option>
+                                                    <option value="50k-60k" id="50k-60k" selected>50k-60k</option>
+                                                    <option value="60k-70k" id="60k-70k" selected>60k-70k</option>
+                                                    <option value="70k-80k" id="70k-80k" selected>70k-80k</option>
+                                                    <option value="80k-90k" id="80k-90k" selected>80k-90k</option>
+                                                    <option value="90k-100k" id="90k-100k" selected>90k-100k</option>
+                                                    <option value="lakh" id="lakh" selected>1 lakh+</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                 </div>
+                            </div>
+                        </div>
 
 
-                                <div class="card-body">
-                                  
-                                        <div class="row">
-                                            <div class= "col-lg-6">
-                                                <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label">Bank Name</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="bankName" class="form-control"
-                                                placeholder="Bank Name"    ruqt>
-                                        </div></div>
-                                   
-                                
-                                   <div class="form-group row">
-                                            <label  class="col-lg-6 col-form-label">Branch Name</label>
+
+                        <!-- -------------------salary deets end----------------- -->
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Employee Bank Details</h4>
+
+                            </div>
+
+
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+
+                                            <label class="col-lg-6 col-form-label">Bank Name</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="bankName" class="form-control"
+                                                    placeholder="Bank Name" ruqt>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">Branch Name</label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="branchName" class="form-control"
-                                                    placeholder="Branch Name"    ruqt>
+                                                    placeholder="Branch Name" ruqt>
 
                                             </div>
-                                    </div> </div>
-                                 
-                        
-                                    <div class= "col-lg-6">
-                                                   <div class="form-group row">
-                                                        <label  class="col-lg-6 col-form-label">IFSC Code</label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" name="ifscCode" id= "ifsc"class="form-control"
-                                                                placeholder="IFSC Code"  pattern=".{11,11}"     title="11 characters needed" ruqt />
-            
-                                                        </div>
-                                                    </div>
-                                        
-                                        
-                                           <div class="form-group row">
-                                       
-                                                <label class="col-lg-6 col-form-label">Enter Bank Account
-                                                    No.</label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" name="bankAccNum"
-                                                        class="form-control" placeholder="Acc No."    ruqt>
-    
-                                                </div>
-                                            </div></div> </div>
                                         </div>
-                                                </div>
-                                        </div>
-                                       
-
-                                   
-
-                                   
-                                
                                     </div>
-                                                           
-                                                        </select>
-                                                    </div>
-                                                -->
-
-                                                    </div> 
-                                                    <!-- Designation Category 1: <select name="category" id="id_category"
-                                                        data-designation-id='id_designation'
-                                                        class='dependent-selects__category'>
-                                                        <option value="">---------</option>
-                                                        <option value="teaching"
-                                                            data-designation-options="prof|#asstprof|#hod">Teaching
-                                                        </option>
-                                                        <option value="nonteaching"
-                                                            data-designation-options="labasst|#caretaker">Non- Teaching
-                                                        </option>
-                                                    </select><br><br>
-
-                                                    Designation: <select name="designation" id="id_designation"
-                                                        class='dependent-selects__designation'>
-                                                    Designation Category 1: <select name="category" id="id_category" data-designation-id='id_designation' class='dependent-selects__category'>
-                                                        <option value="">---------</option>
-                                                        <option value="teaching" data-designation-options="prof|#asstprof|#hod">Teaching</option>
-                                                        <option value="nonteaching" data-designation-options="labsst|#caretaker">Non- Teaching</option>
-                                                      </select><br><br>
-                                                      
-                                                      Designation: <select name="designation" id="id_designation" class='dependent-selects__designation'>
-                                                        <option value="">-----</option>
-                                                        <option value="prof">prof</option>
-                                                        <option value="asstprof">Assistant Prof</option>
-                                                        <option value="hod">HOD</option>
-                                                        <option value="labasst">Lab Assistant</option>
-                                                        <option value="Caretaker">Caretaker</option>
-
-                                                      </select>
-                                                      
-                                                      <br>
-                                                      <br> -->
 
 
-                                                    <!-- salary cat -->
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Salary Category</label>
-                                                        <div class="col-sm-10">
-                                                            <select class="form-control" name="salaryCategory" ruqu>
-                                                                <!-- <option value="value" selected>Option Name</option> -->
-                                                                <option value="consolidated" id="consolidated" selected>
-                                                                    Consolidated</option>
-                                                                <option value="payscale" id="payscale" selected>Pay
-                                                                    Scale</option>
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">IFSC Code</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="ifscCode" id="ifsc" class="form-control"
+                                                    placeholder="IFSC Code" pattern=".{11,11}"
+                                                    title="11 characters needed" ruqt />
 
-                                                            </select>
-                                                        </div>
-
-                                                    </div></div> 
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Date of
-                                                            Joining</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="date" class="form-control" id="doj"
-                                                                name="doj"    ruqu>
-
-                                                        </div>
-                                                    </div>
-                                                    
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Basic Pay</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" name="pay" class="form-control"
-                                                                placeholder="Basic Pay"    ruqu>
-
-
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">  TA</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" name="ta" class="form-control"ruqu>
-                                                        </div>
-                                                    </div>  <div class="form-group">
-                                                        <label class="col-sm-6 control-label">  CCA</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" name="cca" class="form-control"ruqu>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Grade Pay</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" name="gp" class="form-control"
-                                                                placeholder="Grade Pay"    ruqu>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Provident Fund</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" name="pf" class="form-control"
-                                                                placeholder="Provident Fund"    ruqu>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Group Insurance</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" name="groupInsurance" class="form-control"
-                                                                placeholder="Group Insurance"    ruqu>
-                                                        </div>
-                                                    </div>
-
-                                                  
-                                                            
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Pay Band</label>
-                                                        <div class="col-sm-10">
-                                                            <select class="form-control" name="payBand" ruqu >
-                                                                <!-- <option value="value" selected>Option Name</option> -->
-                                                                <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
-                                                                <option value="30k-40k" id="30k-40k" selected>30k-40k</option>
-                                                                <option value="40k-50k" id="40k-50k" selected>40k-50k</option>
-                                                                <option value="50k-60k" id="50k-60k" selected>50k-60k</option>
-                                                                <option value="60k-70k" id="60k-70k" selected>60k-70k</option>
-                                                                <option value="70k-80k" id="70k-80k" selected>70k-80k</option>
-                                                                <option value="80k-90k" id="80k-90k" selected>80k-90k</option> 
-                                                                <option value="90k-100k" id="90k-100k" selected>90k-100k</option>  
-                                                                <option value="lakh" id="lakh" selected>1 lakh+</option>  
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Date of Birth</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="date" name="dob" class="form-control" ruqu>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-														<div class="col-sm-10">
-                                                        <label for="category">Category</label>
-            
-														<select name="category"  id="category" ruqu>
-														
-														
-														<option value="open">OPEN</option>
-														<option value="sc">SC</option>
-														<option value="st">ST</option>
-														<option value="dta">DT-a</option>
-														<option value="ntb">NT-b</option>
-														<option value="ntc">NT-c</option>
-														<option value="ntd">NT-d</option>
-														<option value="obc">OBC</option>
-														<option value="sbc">SBC</option>
-														</select>
-                                                    </div>
-													</div>
-                                                    <div class="form-group">
-														<div class="col-sm-10">
-                                                        <label for="gender">Gender</label>
-            
-                                                        <select name="gender" id="gender" ruqu>
-                                                          <option value="male">Male</option>
-                                                          <option value="female">Female</option>
-                                                          <option value="other">Other</option>
-                                                        </select>
-                                                    </div>
-													</div>
-                                                    <div class="form-group">
-														<div class="col-sm-10">
-                                                        <label for="status">Maritial Status</label>
-            
-                                                        <select name="status" id="status" ruqu>
-                                                          <option value="married">Married</option>
-                                                          <option value="single">Single</option>
-                                                          <option value="other">Other</option>
-                                                        </select>
-														</div>
-                                                    </div>
-                                                   
-                                                 
-                                                </div>
-                                                <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Date of Promotion</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="date" class="form-control" id="dop"
-                                                            name="dop"    ruqu>
-
-                                                    </div>
-                                                </div>
-                     
-                                          
-
-                                            <div class="form-group">
-                                                <label class="col-sm-6 control-label">Date Confirmation of Service</label>
-                                                <div class="col-sm-10">
-                                                    <input type="date" class="form-control" id="doc"
-                                                        name="doc"    ruqu>
-
-                                                </div>
-                                            </div>
-                                        
-
-                                        <!-- Nature of Appointment -->
-                                        <label for="appointment">Nature of Appointment</label>
-                                        <div class="col-sm-10">
-
-                                        <select name="appointment" id="appointment" ruqu>
-                                        <option value="Permanent">Permanent</option>
-                                        <option value="Probation">Probation</option>
-                                        <option value="Adhoc">Adhoc</option>
-                                          
-                                                        </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">Mobile No.</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="mobile" class="form-control" ruqu>
-                                            </div>
-                                        </div>
-
-                                       
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">Address for Correspondence
-                                              </label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="address_correspondence" class="form-control" ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">  Permanent Address</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="address_permanent" class="form-control" ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">  MIS Login ID</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="mis" class="form-control" ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">  Biometric Attendance ID</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="biometric" class="form-control" ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-10">
-                                            <label for="vacation">Vacation</label>
-
-                                            <select name="vacation" id="vacation" ruqu>
-                                              <option value="yes">Yes</option>
-                                              <option value="no">No</option>
-                                              
-                                            </select>
                                             </div>
                                         </div>
 
 
-                                        <!-- UG PG sorted -->
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label"  >NET/SET</label>
-                                            <div class="col-sm-10">
-                                                <input type="radio" id="qualified" name="netset" value="qualified" ruqu >
-                                           
-                                            <label for="qualified">qualified</label><br>
-                                            <input type="radio" id="no" name="netset" value="NA">
-                                            <label for="NA">No</label><br>
-                                            </div>
-                                        </div>
+                                        <div class="form-group row">
 
-                                        <!-- experiance and oth qual -->
-
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">Other Qualification</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="othqual" class="form-control"
-                                                    placeholder="Other Qualification" ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">Teaching Experiance (Other than PICT)</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="exp" class="form-control" ruqu>
-                                            </div>
-                                        </div>
-                                      
-
-
-                                        <script>
-
-                                            function experiance(){ 
-                                             var date1 = document.getElementById("doj");
-                                             var date2 = new Date();
-                                           
-                                             var Difference_In_Time = date2.getTime() - date1.getTime();
-                                           
-                                             var Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
-                                                 return Difference_In_Days;
-                                             }
-                                         
-                                         document.getElementById("demo").innerHTML = experiance();
-                                         </script>  
-
-                                        <!-- Shall be auto calculated from DoJ till date -->
-
-                                        
-                                        
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">Industry Experience</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="industry_exp" class="form-control" ruqu>
-                                            </div>
-                                        </div> 
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">University Approval No.</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="uni_approval" class="form-control"ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">University Approval Date</label>
-                                            <div class="col-sm-10">
-                                                <input type="date" name="uni_app_date" class="form-control"ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">University Approval Period</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="uni_app_period" class="form-control"ruqu>
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">Work Experience (for NT Staff - Other than PICT)</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="workexNT" class="form-control"ruqu>
-                                            </div>
-                                        </div>
-                                        
-    
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">  Overall Seniority No.</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="seniority" class="form-control"ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">  Dept Seniority No.</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="dept_seniority" class="form-control"ruqu>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">Aadhar Number</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="Aadhar" class="form-control" ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">PAN No.</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="Pan_No" class="form-control" ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">Employee on Roll</label>
-                                            <div class="col-sm-10">
-                                            <input id="yes" name="onrole"  value="yes" type="radio" >
-                                           
-                                           <label for="yes">Yes</label><br>
-                                            <input type="radio" id="no" name="onrole" value="no">
-                                            <label for="no">No</label><br>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label">Employee Tax Regime </label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="emp_temp_regime" class="form-control"ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label"> Age </label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="age" class="form-control" ruqu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-6 control-label"> Investment </label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="investment" class="form-control" ruqu>
-                                            </div>
-                                        </div>
-                                                </div>
-                                        <!-- if no selected add Relieving Date -->
-                                                    <!-- /# column -->
-                                                    <!-- <div class="column"> -->
-                                                    <div class="col-lg-6">
-                                                <!-- /# column -->
-                                                <!-- <div class="column"> -->
-                                                <div class="col-lg-6">
-
-                                                        
-    
-                                    </div>  <!--card ka end -->
-                                                        
-                                                        <br />
-                                                       
-                                                    </div></div>
+                                            <label class="col-lg-6 col-form-label">Enter Bank Account
+                                                No.</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="bankAccNum" class="form-control"
+                                                    placeholder="Acc No." ruqt>
 
                                             </div>
-                                       
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="card">
-                                    <div class="card-title">
-                                        <h4>Employee Bank Details</h4>
-    
-                                    </div>
-    
-    
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class= "col-lg-6">
-                                                    <label class="col-sm-6 control-label">Bank Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="bankName" class="form-control"
-                                                    placeholder="Bank Name"    ruqu>
-                                            </div>
-                                       
-                                    
-                                        <div class="form-group">
-                                                <label class="col-sm-6 control-label">Branch Name</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="branchName" class="form-control"
-                                                        placeholder="Branch Name"    ruqu>
-    
-                                                </div>
-                                        </div> </div> 
-                                     
-                            
-                                        <div class= "col-lg-6">
-                                                        <div class="form-group">
-                                                            <label class="col-sm-6 control-label">IFSC Code</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" name="ifscCode" id= "ifsc"class="form-control"
-                                                                    placeholder="IFSC Code"  pattern=".{11,11}"     title="11 characters needed" ruqu />
-                
-                                                            </div>
-                                                        </div>
-                                            
-                                            
-                                                <div class="form-group">
-                                           
-                                                    <label class="col-sm-6 control-label">Enter Bank Account
-                                                        No.</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" name="bankAccNum"
-                                                            class="form-control" placeholder="Acc No."    ruqu>
-        
-                                                    </div>
-                                                </div></div> 
-                                            </div>
-                                                    </div>
-                                            </div>
-                                           
-
-                                       
-
-                                       
-                                    
-                                        </div>
-
-<!-- -----------------------Phd------------------- -->
-
-<label for="chkPHD">
-<hr>
-<h5>Tick Employee is not Persuing PhD     <input type="checkbox" id="chkPHD" /></h5>
-</label>
-<hr />
-
-<script>
-$(function () {
-    $("#chkPHD").click(function () {
-        if ($(this).is(":checked")) {
-            $("#phd").hide();
-        } else {
-            $("#phd").show();
-        }
-    });
-});
-</script>
-
-<div id ="phd">
-<div class="card">
-<div class="card-title">
-    <h4>Employee PhD. Details</h4>
-
-</div>
-<div class="card-body">
-<div class="form-group">
-    <div class="row">
-        <div class= "col-lg-6">
-
-<div class="form-group row">
-<label class="col-lg-6 col-form-label">PhD.</label>
-<div class="col-lg-6">
-    <select name="phd">
-        <option  value="null" hidden selected>-----</option>
-
-        <option value="Awarded">Awarded</option>
-        <option value="Registered">Registered</option>
-    </select>
-
-</div>
-</div>
-
-
-<div class="form-group row">
-<label class="col-lg-6 col-form-label">PhD Subject</label>
-<div class="col-lg-6">
-<input type="text" name="phdSub" class="form-control"
-    placeholder="PhD Subject"  value="null"  ruqt>
-</div>
-</div> 
-
-</div>
-<div class= "col-lg-6">
-
-<div class="form-group row">
-<label class="col-lg-6 col-form-label">PhD Institute</label>
-<div class="col-lg-6">
-<input type="text" name="phdInsti" class="form-control"
-    placeholder="PhD Institute"  value="null"  ruqt>
-</div>
-</div>   
-<div class="form-group row">
-<label class="col-lg-6 col-form-label">PhD University</label>
-<div class="col-lg-6">
-<input type="text" name="phdUni" class="form-control"
-    placeholder="PhD University" value="null"   ruqt>
-</div></div>
-<div class="form-group row">
-<label class="col-sm-8 control-label">PhD Passing year</label>
-<div class="col-lg-6">
-    <input type="text" name="phdYr" class="form-control"
-        placeholder="PhD Passing year" value=0   ruqt>
-</div>
-</div>   </div>
-
-</div> 
-</div>
-</div>
-</div>
-</div>
-
-
-
-
-<!-- -----------------------phd ends------------ -->
-<!-- --------------------------------------------for PG--------- -->
-
-<div class="card">
-<div class="card-title">
-    <h4>Employee P.G. Details</h4>
-
-</div>
-<div class="card-body">
-<div class="form-group">
-    <div class="row">
-        <div class= "col-lg-6">
-          
-
-
-<div class="form-group">
-    <label class="col-lg-6 col-form-label">P.G. Subject</label>
-    <div class="col-lg-6">
-        <input type="text" name="pgSub" class="form-control"
-            placeholder="P.G. Subject"    >
-    </div>
-</div> 
-</div> 
-
-
-<div class= "col-lg-6">
-               <div class="form-group row">
-                    <label class="col-lg-6 col-form-label">P.G. University</label>
-<div class="col-lg-6">
-<input type="text" name="pgUni" class="form-control"
-    placeholder="P.G. University"    >
-</div>
-                </div>
-    
-    
-       <div class="form-group row">
-   
-            <label class="col-lg-6 col-form-label">P.G. Passing year</label>
-            <div class="col-lg-6">
-                <input type="text" name="pgYr" class="form-control"
-                    placeholder="P.G. Passing year"    >
-            </div>
-        </div>
-    
-    </div> 
-    </div>
-            </div>
-    </div>
-   
-</div>
-
-
-                                             
-<!-- ------pg end----- -->
-
-
-
-
-<!-- ----------UG deets------- -->
-<div class="card">
-<div class="card-title">
-    <h4>Employee U.G. Details</h4>
-
-</div>
-<div class="card-body">
-<div class="form-group">
-    <div class="row">
-        <div class= "col-lg-6">
-            <div class="form-group row">                                                
-
-    <label class="col-lg-6 col-form-label">U.G. Subject</label>
-    <div class="col-sm-6">
-        <input type="text" name="ugSub" class="form-control"
-            placeholder="U.G. Subject"    ruqt>
-    </div></div>
-
-<br>
-
-
-               <div class="form-group row">
-                    <label class="col-lg-6 col-form-label">U.G. University</label>
-<div class="col-lg-6">
-<input type="text" name="ugUni" class="form-control"
-    placeholder="U.G. University"    ruqt>
-</div>
-                </div></div> 
-    
-    
-                <!--<div class="form-group row">
-                    <label class="col-lg-6 col-form-label">U.G. Institute</label>
-                    <div class="col-lg-6">
-                        <input type="text" name="ugInsti" class="form-control"
-                            placeholder="U.G. Institute"    ruqt>
-                    </div>
-                    </div>  -->
-    
-    
-    <div class= "col-lg-6">
-       <div class="form-group row">
-            <label class="col-lg-6 col-form-label">U.G. Passing year</label>
-            <div class="col-lg-6">
-                <input type="text" name="ugYr" class="form-control"
-                    placeholder="U.G. Passing year"    ruqt>
-            </div>
-            </div> 
-           <div class="form-group row">
-            <label class="col-lg-6 col-form-label">U.G. Grade/Class</label>
-            <div class="col-lg-6">
-                <input type="text" name="grade" class="form-control"
-                    placeholder="U.G. Grade/Class"    ruqt>
-            </div>
-            </div></div> </div> 
-            <div class="row text-center" style='float: center;'>
-                
-                  <button class="button large round success">Submit</button> 
-                  add pop up like employee details are added
-            
-            </div>
-
-    </div>
-    </div>
-            </div>
-    </div>
-   
-</div>
-
-
-<!-- -----ug ends----- -->
-
-
-                            
                             </div>
                         </div>
                     </div>
-                </div> </form>
-                </section>
+
+                </div>
+
+                </select>
+            </div>
+            
+
+
+        <!-- -----------------------Phd------------------- -->
+
+        <label for="chkPHD">
+            <hr>
+            <h5>Tick Employee is not Persuing PhD <input type="checkbox" id="chkPHD" /></h5>
+        </label>
+        <hr />
+
+        <script>
+            $(function () {
+                $("#chkPHD").click(function () {
+                    if ($(this).is(":checked")) {
+                        $("#phd").hide();
+                    } else {
+                        $("#phd").show();
+                    }
+                });
+            });
+        </script>
+
+        <div id="phd">
+            <div class="card">
+                <div class="card-title">
+                    <h4>Employee PhD. Details</h4>
+
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">PhD.</label>
+                                    <div class="col-lg-6">
+                                        <select name="phd">
+                                            <option value="null" hidden selected>-----</option>
+
+                                            <option value="Awarded">Awarded</option>
+                                            <option value="Registered">Registered</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">PhD Subject</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="phdSub" class="form-control" placeholder="PhD Subject"
+                                            value="null" ruqt>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6">
+
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">PhD Institute</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="phdInsti" class="form-control"
+                                            placeholder="PhD Institute" value="null" ruqt>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">PhD University</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="phdUni" class="form-control"
+                                            placeholder="PhD University" value="null" ruqt>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-8 control-label">PhD Passing year</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="phdYr" class="form-control"
+                                            placeholder="PhD Passing year" value=0 ruqt>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+
+
+
+        <!-- -----------------------phd ends------------ -->
+        <!-- --------------------------------------------for PG--------- -->
+
+        <div class="card">
+            <div class="card-title">
+                <h4>Employee P.G. Details</h4>
+
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-6">
+
+
+
+                            <div class="form-group">
+                                <label class="col-lg-6 col-form-label">P.G. Subject</label>
+                                <div class="col-lg-6">
+                                    <input type="text" name="pgSub" class="form-control" placeholder="P.G. Subject">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <div class="form-group row">
+                                <label class="col-lg-6 col-form-label">P.G. University</label>
+                                <div class="col-lg-6">
+                                    <input type="text" name="pgUni" class="form-control" placeholder="P.G. University">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label class="col-lg-6 col-form-label">P.G. Passing year</label>
+                                <div class="col-lg-6">
+                                    <input type="text" name="pgYr" class="form-control" placeholder="P.G. Passing year">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- ------pg end----- -->
+
+
+
+
+        <!-- ----------UG deets------- -->
+  
+   
+
+
+        <!-- -----ug ends----- -->
+        <div class="card">
+            <div class="card-title">
+                <h4>Employee U.G. Details</h4>
+
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group row">
+
+                                <label class="col-lg-6 col-form-label">U.G. Subject <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="ugSub" class="form-control"
+                                        placeholder="U.G. Subject" ruqt>
+                                </div>
+                            </div>
+
+                            <br>
+
+
+                            <div class="form-group row">
+                                <label class="col-lg-6 col-form-label">U.G. University <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-lg-6">
+                                    <input type="text" name="ugUni" class="form-control"
+                                        placeholder="U.G. University" ruqt>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--<div class="form-group row">
+    <label class="col-lg-6 col-form-label">U.G. Institute</label>
+    <div class="col-lg-6">
+        <input type="text" name="ugInsti" class="form-control"
+            placeholder="U.G. Institute"    ruqt>
     </div>
-    <script src="../assets/focus2/vendor/global/global.min.js"></script>
-    <script src="../assets/focus2/js/quixnav-init.js"></script>
-    <script src="../assets/focus2/js/custom.min.js"></script>
-    
-    
-    
-    
-    <!-- Jquery Validation -->
-    <script src="../assets/focus2/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <!-- Form validate init -->
-    <script src="../assets/focus2/js/plugins-init/jquery.validate-init.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    </div>  -->
 
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
-    <script src="../assets/alert/script.js"></script>
 
-</body>
+                        <div class="col-lg-6">
+                            <div class="form-group row">
+                                <label class="col-lg-6 col-form-label">U.G. Passing year <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-lg-6">
+                                    <input type="text" name="ugYr" class="form-control"
+                                        placeholder="U.G. Passing year" ruqt>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-6 col-form-label">U.G. Grade/Class <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-lg-6">
+                                    <input type="text" name="grade" class="form-control"
+                                        placeholder="U.G. Grade/Class" ruqt>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center" style='float: center;'>
+
+                        <button class="button large round success">Submit</button>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </form>
+        </section>
+        </div>
+        </div>
+        </div>
+        <script src="../assets/focus2/vendor/global/global.min.js"></script>
+        <script src="../assets/focus2/js/quixnav-init.js"></script>
+        <script src="../assets/focus2/js/custom.min.js"></script>
+
+
+
+
+        <!-- Jquery Validation -->
+        <script src="../assets/focus2/vendor/jquery-validation/jquery.validate.min.js"></script>
+        <!-- Form validate init -->
+        <script src="../assets/focus2/js/plugins-init/jquery.validate-init.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
+        <script src="../assets/alert/script.js"></script>
+
+    </body>

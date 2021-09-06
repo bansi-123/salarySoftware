@@ -1,87 +1,58 @@
+
+
+
 jQuery(".form-valide").validate({
     rules: {
-        "val-username": {
-            required: !0,
-            minlength: 3
-        },
         "val-email": {
             required: !0,
             email: !0
         },
-        "val-password": {
+        "val-email2": {
             required: !0,
-            minlength: 5
+            email: !0
+           
         },
-        "val-confirm-password": {
+        "ifscCode": {
             required: !0,
-            equalTo: "#val-password"
+            email: !0,
+            minlength: 11,
+            maxlength: 11
         },
-        "val-select2": {
-            required: !0
-        },
-        "val-select2-multiple": {
+       
+        "uan": {
             required: !0,
-            minlength: 2
+            minlength: 12,
+            maxlength: 12
+
         },
-        "val-suggestions": {
+        "Aadhar": {
             required: !0,
-            minlength: 5
+            minlength: 12,
+            maxlength: 12
         },
-        "val-skill": {
-            required: !0
-        },
-        "val-currency": {
+        "Pan_No": {
             required: !0,
-            currency: ["$", !0]
+            minlength: 10,
+            maxlength: 10
         },
-        "val-website": {
+        "mis": {
             required: !0,
-            url: !0
+            minlength: 3,
+            maxlength: 3
         },
-        "val-phoneus": {
+     
+        "mobile": {
             required: !0,
             // phoneUS: !0,
             maxlength: 10,
             minlength: 10
             
-        },
-        "val-digits": {
-            required: !0,
-            digits: !0
-        },
-        "val-number": {
-            required: !0,
-            number: !0
-        },
-        "val-range": {
-            required: !0,
-            range: [1, 5]
-        },
-        "val-terms": {
-            required: !0
         }
     },
     messages: {
-        "val-username": {
-            required: "Please enter a username",
-            minlength: "Your username must consist of at least 3 characters"
-        },
+       
         "val-email": "Please enter a valid email address",
-        "val-password": {
-            required: "Please provide a password",
-            minlength: "Your password must be at least 5 characters long"
-        },
-        "val-confirm-password": {
-            required: "Please provide a password",
-            minlength: "Your password must be at least 5 characters long",
-            equalTo: "Please enter the same password as above"
-        },
-        "val-select2": "Please select a value!",
-        "val-select2-multiple": "Please select at least 2 values!",
-        "val-suggestions": "What can we do to become better?",
-        "val-skill": "Please select a skill!",
-        "val-currency": "Please enter a price!",
-        "val-website": "Please enter your website!",
+        
         "val-phoneus": "Please enter a US phone!",
         "val-digits": "Please enter only digits!",
         "val-number": "Please enter a number!",
