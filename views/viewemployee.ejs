@@ -358,7 +358,6 @@
                                                         <td>Industry Experience</td>
                                                         <td>Company Ltd.</td>
                                                       </tr>
-
                                                       <tr>
                                                         <td>Work Experience (for NT - Non PICT)</td>
                                                         <td>Company Ltd.</td>
@@ -409,10 +408,10 @@
                                 </div>
 
 
-                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                                <a href="<%= Employees[i].empID %>"><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
                                   data-target="#a<%= Employees[i].empID %>">
                                   Edit
-                                </button>
+                                </button></a>
                                 <div class="modal fade" id="a<%= Employees[i].empID %>" tabindex="-1" role="dialog"
                                   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered" role="document">

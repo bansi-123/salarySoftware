@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%- include('partials/header.ejs'); -%>
 <head>
     <style>
@@ -174,3 +175,180 @@
 </html>
 
 
+=======
+<%- include('partials/header.ejs'); -%>
+<head>
+    <style>
+        /* .dropbtn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    } */
+    
+        .dropbtn:hover,
+        .dropbtn:focus {
+          background-color: #3e8e41;
+        }
+    
+        /* #myInput {
+          box-sizing: border-box;
+          background-image: url('searchicon.png');
+          background-position: 14px 12px;
+          background-repeat: no-repeat;
+          font-size: 16px;
+          padding: 14px 20px 12px 45px;
+          border: none;
+          border-bottom: 1px solid #ddd;
+        } */
+    
+        #myInput:focus {
+          outline: 3px solid #ddd;
+        }
+    
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+    
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f6f6f6;
+          min-width: 230px;
+          overflow: auto;
+          border: 1px solid #ddd;
+          z-index: 1;
+        }
+    
+        .dropdown-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+    
+        .dropdown a:hover {
+          background-color: #ddd;
+        }
+    
+        .show {
+          display: block;
+        }
+      </style>
+
+</head>
+
+  <div class="content-wrap">
+        <div class="main">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-lg-8 p-r-0 title-margin-right">
+                      <div class="page-header">
+                          <div class="page-title">
+                              <h1>Hello, <span>Welcome Here</span></h1>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- /# column -->
+                  
+              </div>
+
+
+              <section id="main-content">
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <div class="card">
+                              <div class="bootstrap-data-table-panel">
+                                  <div class="table-responsive">
+                                      <form class="form-horizontal" action="\updatepay" method="post">
+                                     
+                                      <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
+
+                                      <input type="button"style="float: right;" onclick='selects()' value="Select All"/>   -->
+                                      
+                                      <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                          <thead>
+                                              <tr>
+                                                <th>Employee ID <p><i class="arrow down" style="float: right;"></i></p>
+                                                </th>
+                                                <th>Gross Total Income</th>
+                                                <th>Exemption</th>
+                                                <th>Total Investments</th>
+                                                <th>Net Taxable Income</th>
+                                                <th>Tax On Income</th>
+                                                <th>Rebate u/s 87A (Upto 12500 If Applicable)</th>
+                                                <th>Health and Edu. Cess</th>
+                                                <th>Total Tax</th>
+                                                <th>TDS Per Month</th>
+                                                <th>Balance Tax To Be Recovered</th>
+
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
+                                                  <tr>
+                                                      <td><%= Employees[i].empID %></td>
+                                                      <td><%= Employees[i].empName %></td>
+                                                      <td><%= Employees[i].dept %></td>
+                                                      <td><%= Employees[i].designation %></td>
+                                                      <td><input type="text" value="500"></td>
+                                                      <td><%= Employees[i].empName %></td>
+                                                      <td><%= Employees[i].empName %></td>
+                                                      <td><%= Employees[i].empName %></td>
+                                                      <td><%= Employees[i].empName %></td>
+                                                      <td><%= Employees[i].empName %></td>
+                                                      <td><%= Employees[i].empName %></td>
+                                                     
+                                                  </tr>
+                                              <% }%>
+                                          </tbody>
+
+
+                                      </table>
+
+
+                                        
+                                  </div>
+
+                              </div>
+                          </div>
+                          <!-- /# card -->
+                      </div>
+
+                  </div>
+                  <input type="submit" style="float: right;" value="Apply"> 
+
+                  </form>
+
+                  </div>
+                  <br>
+                  <br><br><br>
+
+              </section>
+          </div>
+      </div>
+  </div>
+  
+ 
+
+  <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
+  <!-- scripit init-->
+  <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
+  <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+  <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
+  <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
+  <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
+  <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
+  <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
+  <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
+  <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+
+
+</body>
+</html>
+
+
+>>>>>>> 55abadcbb2113b1b143afef1e11a048e3c5611f9
