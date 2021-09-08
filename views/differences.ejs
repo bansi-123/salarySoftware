@@ -32,20 +32,14 @@
                 checkedButtons[i].checked = false;
             }
         }  
-        
-        // $(document).ready(function() {
-        //  // on form submit
-        // $("#form").on('submit', function() {
-        //     // to each unchecked checkbox
-        //     $(this + 'input[type=checkbox]:not(:checked)').each(function () {
-        //         // set value 0 and check it
-        //         $(this).attr('checked', true).val(0);
-        //     });
-        // })
-        // var checkBoxValue = $('#checkBox').is(':checked')?$('#checkBox').val():false-->
+    
         
         var x = document.querySelector("#checks");
       //  console.log("x= ",x);
+
+
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
         
 </script>  
 </head>
@@ -113,6 +107,12 @@
                                                 <input type="button"style="float: right;" onclick='selects()' value="Select All"/>  
                                                 
                                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                                    <br><br><br><br>
+                                                    Start Month:
+                                                    <input type="month" id="month" name="month"><br><br><br><br>
+
+                                                    End Month:
+                                                    <input type="month" id="month" name="month"><br><br><br><br>
                                                     <thead>
                                                         <tr>
                                                             <th>Employee ID<p><i class="arrow down" style="float: right;"></i></th>

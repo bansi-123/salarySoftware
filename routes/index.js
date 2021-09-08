@@ -183,11 +183,31 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
             else
             {
                 console.log("inserted in donation for employee with emp id",list2[i])
+                
+                //
             }
         })
     }
+
+    res.redirect('viewdonations');
     
 })
+
+router.get('/viewdonations', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from donation`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('viewdonations',{
+                donation:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
 
 router.get('/ta', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>
@@ -238,6 +258,8 @@ router.post('/ta', ensureAuthenticated, (req, res) => {
             console.log("updated ta in employee")
         }
     })
+
+    res.redirect('ta');
     
 });
 
@@ -290,6 +312,8 @@ router.post('/cca', ensureAuthenticated, (req, res) => {
             console.log("updated cca in employee")
         }
     })
+
+    res.redirect('cca');
     
 });
 

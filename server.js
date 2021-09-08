@@ -24,32 +24,25 @@ require('./config/passport')(passport);
 
 //------------ MySQL Connection ------------//
 
-const mysqldb = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: 'sunandroot',
-    database: 'employees2'
-});
-
 // const mysqldb = mysql.createConnection ({
 //     host: 'localhost',
 //     user: 'root',
-//     password: 'Vineet@nexa1',
-//     database: 'employee' 
+//     password: 'sunandroot',
+//     database: 'employees2'
 // });
+
+const mysqldb = mysql.createConnection ({
+    host: 'localhost',
+    user: 'root',
+    password: 'Vineet@nexa1',
+    database: 'employee' 
+});
 
 // const mysqldb = mysql.createConnection ({
 //     host: 'localhost',
 //     user: 'kshitij',
 //     password: 'salary123',
 //     database: 'employee'
-// });
-
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'Vineet@nexa1',
-//     database: 'employee' 
 // });
 
 // const mysqldb = mysql.createConnection ({
@@ -171,7 +164,7 @@ let router = require('./routes/excel.router.js');
 app.use(express.static('resources'));
 app.use('/uploadcsv', router); 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, console.log(`Server running on PORT ${PORT}`)
 );
