@@ -234,7 +234,7 @@
 
 
                                             <script type="text/javascript">
-                                                function ShowHideDivi() {
+                                                function ShowHideDiv() {
                                                     var ddlPassport1 = document.getElementById("id_category1");
                                                     var dvPassport1 = document.getElementById("dvPassport1");
                                                     dvPassport1.style.display = ddlPassport1.value == "FE" ? "block" : "none";
@@ -246,7 +246,7 @@
                                                 <label class="col-lg-6 col-form-label"> Departments                            <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <select name="dept" id="id_category1" onchange="ShowHideDivi()"
+                                                    <select name="dept" id="id_category1" onchange="ShowHideDiv()"
                                                         data-designation-id='id_designation'
                                                         class='dependent-selects__category' ruqt>
 
@@ -365,7 +365,7 @@
                                                 <label class="col-lg-6 col-form-label">Aadhar Number                            <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="Aadhar" class="form-control"
+                                                    <input type="number" name="Aadhar" class="form-control"
                                                         pattern=".{12,12}" title="12 numbers needed" ruqt>
                                                 </div>
                                             </div>
@@ -383,7 +383,7 @@
                                                 function ShowHideDivi() {
                                                     var ddlPassport1 = document.getElementById("id_category2");
                                                     var dvPassport1 = document.getElementById("dvPassport2");
-                                                    dvPassport1.style.display = ddlPassport1.value == "yes" ? "block" : "none";
+                                                    dvPassport1.style.display = ddlPassport1.value == "no" ? "block" : "none";
                                                 }
                                             </script>
                                             <div class="form-group row">
@@ -395,8 +395,9 @@
                                                     <select name="onrole" id="id_category2" onchange="ShowHideDivi()"
                                                         data-designation-id='id_designation'
                                                         class='dependent-selects__category' ruqt>
-                                                        <option value="no">No</option>
                                                         <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                        
 
 
                                                     </select><br><br>
@@ -614,6 +615,18 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
+
+                                                <label class="col-lg-6 col-form-label" for="emp_temp_regime">Employee Tax Regime</label>
+                                                <div class="col-lg-6">
+
+                                                    <select name="emp_temp_regime" id="emp_temp_regime" ruqt>
+                                                        <option value="old_tax_reg">Old tax regime</option>
+                                                        <option value="new_tax_reg">New tax regime</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Age </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="age" class="form-control" ruqt>
@@ -625,6 +638,7 @@
                                                     <input type="text" name="investment" class="form-control" ruqt>
                                                 </div>
                                             </div>
+                                           
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Drive link for photo </label>
                                                 <div class="col-lg-6">
@@ -907,7 +921,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-8 control-label">PhD Passing year</label>
                                         <div class="col-lg-6">
-                                            <input type="number" name="phdYr" class="form-control"
+                                            <input type="text" name="phdYr" class="form-control"
                                                 placeholder="PhD Passing year" value=0 ruqt>
                                         </div>
                                     </div>
@@ -940,7 +954,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-6 col-form-label">P.G. Subject</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="pgSub" class="form-control" placeholder="P.G. Subject">
+                                        <input type="text" value="null"name="pgSub" class="form-control" placeholder="P.G. Subject">
                                     </div>
                                 </div>
                             </div>
@@ -950,7 +964,7 @@
                                 <div class="form-group row">
                                     <label class="col-lg-6 col-form-label">P.G. University</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="pgUni" class="form-control"
+                                        <input type="text"value="null" name="pgUni" class="form-control"
                                             placeholder="P.G. University">
                                     </div>
                                 </div>
@@ -960,7 +974,7 @@
 
                                     <label class="col-lg-6 col-form-label">P.G. Passing year</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="pgYr" class="form-control"
+                                        <input type="text" value="null"name="pgYr" class="form-control"
                                             placeholder="P.G. Passing year">
                                     </div>
                                 </div>
@@ -1017,12 +1031,21 @@
                             </div>
 
 
+                            <!--<div class="form-group row">
+    <label class="col-lg-6 col-form-label">U.G. Institute</label>
+    <div class="col-lg-6">
+        <input type="text" name="ugInsti" class="form-control"
+            placeholder="U.G. Institute"    ruqt>
+    </div>
+    </div>  -->
+
+
                             <div class="col-lg-6">
                                 <div class="form-group row">
                                     <label class="col-lg-6 col-form-label">U.G. Passing year <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="ugYr" class="form-control"
+                                        <input type="number" name="ugYr" class="form-control"
                                             placeholder="U.G. Passing year" ruqt>
                                     </div>
                                 </div>
