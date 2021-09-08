@@ -24,33 +24,27 @@ require('./config/passport')(passport);
 
 //------------ MySQL Connection ------------//
 
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'sunandroot',
+//     database: 'employees2'
+// });
+
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Vineet@nexa1',
+//     database: 'employee' 
+// });
+
 const mysqldb = mysql.createConnection ({
     host: 'localhost',
-    user: 'root',
-    password: 'sunandroot',
-    database: 'employees2'
+    user: 'kshitij',
+    password: 'salary123',
+    database: 'employee'
 });
 
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'Vineet@nexa1',
-//     database: 'employee' 
-// });
-
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
-//     user: 'kshitij',
-//     password: 'salary123',
-//     database: 'employee'
-// });
-
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'Vineet@nexa1',
-//     database: 'employee' 
-// });
 
 
 
@@ -121,12 +115,30 @@ var storage =   multer.diskStorage({
   var routes = require('./routes/uiRoutes2');  
   routes(app, uploadOptions);
 
-  
-
 //------------ Routes ------------//
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 // app.use('/pdfmail', require('./routes/pdfmail'))
+
+//---------mail genie----------//
+var storage =   multer.diskStorage({
+    destination: function (req, file, callback) {
+      callback(null, './uploads');
+    },
+    filename: function (req, file, callback) {
+        if(file.fieldname == "sheetSelected")
+          callback(null,  file.fieldname + ".csv");
+      else
+          callback(null, file.fieldname + ".html")
+    }
+  });
+  
+  var upload = multer({ storage: storage })
+  var uploadOptions = upload.fields([{ name: 'templateSelected', maxCount: 1 }, { name: 'sheetSelected', maxCount: 1 }])
+  
+  var routes = require('./routes/uiRoutes');
+  // var routes = require('./routes/uiRoutes2');  
+  routes(app, uploadOptions);
 
 
 //--------------upload csv part--------------//
