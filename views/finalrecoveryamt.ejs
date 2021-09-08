@@ -11,12 +11,12 @@
 
         <style>
             .center {
-              margin: auto;
-              width: 100%;
-              /* border: 3px solid #73AD21; */
-              padding: 10px;
+                margin: auto;
+                width: 100%;
+                /* border: 3px solid #73AD21; */
+                padding: 10px;
             }
-            </style>
+        </style>
     </head>
 
     <body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
@@ -25,8 +25,7 @@
             <div class="main">
                 <div class="container-fluid">
                     <!-- <div class="text-xl font-bold m-5 text-center">Check All The Added Advances, Added Late Attendance,
-                        Added Miscellaneous and Added LWP To Proceed With Salary Generation To Proceed With Salary
-                        Generation</div> -->
+                        Added Miscellaneous and Added LWP To Proceed With Salary Generation</div> -->
 
                         <div class="center">
                             <a class="btn btn-primary btn-lg" href="finaladvances" role="button">Advances</a>
@@ -39,18 +38,18 @@
                         <div class="top flex p-2 border-b select-none">
 
                             <div class="heading text-gray-800 w-full pl-3 font-semibold my-auto"></div>
-                          
+
                         </div>
                         <div class="content-area w-full h-full overflow-hidden">
                             <div class="platform shadow-xl h-full flex">
 
 
-                                <!-- <div class="each-frame border-box flex-none h-full" title="LWP"> -->
+                                <!-- <div class="each-frame border-box flex-none h-full" title="Miscellaneous"> -->
 
                                     <div class="main flex w-full p-8">
-                                      
+                                     
                                         <div class="sub w-full my-auto">
-                                            <div class="head text-3xl font-bold mb-4">Leave Without Pay</div>
+                                            <div class="head text-3xl font-bold mb-4">Recovery Amount</div>
                                             <div class="bootstrap-data-table-panel">
                                                 <div class="table-responsive">
 
@@ -66,28 +65,28 @@
                                                                     <th>Employee Name <p><i class="arrow down"
                                                                                 style="float: right;"></i></p>
                                                                     </th>
-                                                                    <th>LWP Days</th>
+                                                                    <th>Recovery Amount</th>
                                                                     <th>Month</th>
                                                                     <th>Year</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <% for(var i=lwp.length-1; i>= 0 ; i-- ) { %>
+                                                                <% for(var i=miscell.length-1; i>= 0 ; i-- ) { %>
                                                                     <tr>
                                                                         <td>
-                                                                            <%= lwp[i].empID %>
+                                                                            <%= miscell[i].empID %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= lwp[i].empName %>
+                                                                            <%= miscell[i].empName %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= lwp[i].lwp %>
+                                                                            <%= miscell[i].miscellaneous_amt %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= lwp[i].month %>
+                                                                            <%= miscell[i].month %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= lwp[i].year %>
+                                                                            <%= miscell[i].year %>
                                                                         </td>
 
                                                                         <% }%>
@@ -100,22 +99,23 @@
 
                                             <br><br><br><br>
                                             <!-- <div class="center">
-                                          
-                                            <a href="finalmiscellaneous">
-                                                <div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
-                                                    action="goto" goto="2">Miscellaneous</div>
-                                            </a>
-                                          
-                                            <a href="finaladvances">
-                                                <div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
-                                                    action="goto" goto="end">Advances</div>
-                                            </a>
-                                            <a href="finalattendance">
-                                                <div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
-                                                    action="goto" goto="2">Late Attendance</div>
-                                            </a>
-                                            </div> -->
+                                                
+                                               
+                                                <a href="finalcheck">
+                                                    <div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                        action="goto" goto="2">LWP</div>
+                                                </a>
+                                              
+                                                <a href="finaladvances">
+                                                    <div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                        action="goto" goto="end">Advances</div>
+                                                </a>
+                                                <a href="finalattendance">
+                                                    <div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                        action="goto" goto="2">Late Attendance</div>
+                                                </a>
 
+                                            </div> -->
                                             <br><br><br><br>
                                             <div class="row text-center">
                                                 <div class="center">
@@ -127,11 +127,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- frame end -->
-
-
-
 
                             </div>
                         </div>
@@ -189,10 +184,13 @@
 
             // run G.load() if new data loaded with ajax
 
+
+
         </script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
         <script src="../assets/alert/script.js"></script>
+
     </body>
 
     </html>

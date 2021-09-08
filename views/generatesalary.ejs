@@ -1,153 +1,196 @@
 <%- include('partials/header.ejs'); -%>
 
-<head>
+    <head>
 
-<style>
-    .wrapper {
-    text-align: center;
-}
+        <style>
+            .wrapper {
+                text-align: center;
+            }
 
-.button {
-    position: absolute;
-    top: 50%;
-}
-</style>
-<script> const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-</script>
-</head>
+            .button {
+                position: absolute;
+                top: 50%;
+            }
+        </style>
+        <style>
+            .center {
+                margin: auto;
+                width: auto;
+                /* border: 3px solid #73AD21; */
+                /* padding: 10px; */
+            }
+
+            .card {
+
+                /* align-items: center;
+                width: 300px; */
+                height: 200px;
+            }
+
+            .center {
+                margin: auto;
+                width: 100%;
+                /* border: 3px solid #73AD21; */
+                padding: 10px;
+            }
+        </style>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
+        <link rel="stylesheet" href="../assets/alert/style.css">
+        <script> const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        </script>
+    </head>
 
 
 
-<body>
+    <body>
 
-    <div class="content-wrap">
-        <div class="main">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-8 p-r-0 title-margin-right">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <h1>Hello, <span>Welcome Here</span></h1>
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-8 p-r-0 title-margin-right">
+                            <div class="page-header">
+                                <!-- <div class="page-title">
+                                    <h1>Hello, <span>Welcome Here</span></h1>
+                                </div> -->
                             </div>
                         </div>
                     </div>
-                </div>
-        
-                <section id="main-content">
-                    <div class="row">
-                        <div class="col-lg-3">
-                         
-                        </div>
 
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-calendar color-pink border-pink"></i>
-                                    </div>
-                                 
-                                    
-                                    <div class="stat-content dib">
-                                        <div class="stat-text"><b>Month</b></div>
-                                        
-                                        <div class="form-group">
-                                            <!-- <label class="col-sm-6 control-label">Select Month</label> -->
-                                            <div class="col-sm-20">
+                    <div class="center">
+                        <section id="main-content">
+                            <div class="row">
 
-                                        <form class="form-horizontal" action="\generatesalary" method="post">    
-                                                <select class="form-control" name="month">                                                    
-                                                    <option  id="demo" ></option>
-                                                     <option  id="demo1" ></option>
-                                              
-                                                </select>
-                                              
-<script>
-const d = new Date();
-document.getElementById("demo").innerHTML = months[d.getMonth()];
-document.getElementById("demo1").innerHTML = months[(d.getMonth()+1)%12];
-</script>
+
+                                <div class="col-lg-2"></div>
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="stat-widget-one">
+                                            <div class="stat-icon dib"><i
+                                                    class="ti-calendar color-pink border-pink"></i>
+                                            </div>
+
+
+                                            <div class="stat-content dib">
+                                                <div class="stat-text"><b>Month</b></div>
+
+                                                <div class="form-group">
+                                                    <!-- <label class="col-sm-6 control-label">Select Month</label> -->
+                                                    <div class="col-sm-20">
+
+                                                        <form class="form-horizontal" action="\generatesalary"
+                                                            method="post">
+                                                            <select class="form-control" name="month">
+                                                                <option id="demo"></option>
+                                                                <option id="demo1"></option>
+
+                                                            </select>
+
+                                                            <script>
+                                                                const d = new Date();
+                                                                document.getElementById("demo").innerHTML = months[d.getMonth()];
+                                                                document.getElementById("demo1").innerHTML = months[(d.getMonth() + 1) % 12];
+                                                            </script>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
-                                    
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-calendar color-pink border-pink"></i>
-                                        
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text"> <b>Year</b></div>
-                                        <div class="form-group">
-                                            
+                                <!-- <div class="col-lg-3"></div> -->
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="stat-widget-one">
+                                            <div class="stat-icon dib"><i
+                                                    class="ti-calendar color-pink border-pink"></i>
 
+                                            </div>
+                                            <div class="stat-content dib">
+                                                <div class="stat-text"> <b>Year</b></div>
+                                                <div class="form-group">
 
 
-                                                    
-                                                   
-                                            <!-- <label class="col-sm-6 control-label">Select Month</label> -->
-                                            <div class="col-sm-20">
-                                                <select class="form-control" name="year" >
-                                                    <!-- <option value="value" selected>Option Name</option> -->
-                                                     <option  id=yr1 ></option>
-                                                    <!-- <option  id=yr2 ></option>
+                                                    <!-- <label class="col-sm-6 control-label">Select Month</label> -->
+                                                    <div class="col-sm-20">
+                                                        <select class="form-control" name="year">
+                                                            <!-- <option value="value" selected>Option Name</option> -->
+                                                            <option id=yr1></option>
+                                                            <!-- <option  id=yr2 ></option>
                                                     <option  id=yr3 ></option> -->
-                                                   
-                                                    </select>
-                                                    <br>
-                                                    <!-- <p id="yr"> </p> -->
-                                                    
-                                                    <script>
-                                                    
-                                                      var p = new Date();
-                                                      var q = p.getFullYear(); 
-                                                      document.getElementById("yr1").innerHTML = q;
-                                                      document.getElementById("yr2").innerHTML = q+1;
-                                                      document.getElementById("yr3").innerHTML = q+2;
-                                                    
-                                                    </script>  
-                                                </div></div>
+
+                                                        </select>
+                                                        <br>
+                                                        <!-- <p id="yr"> </p> -->
+
+                                                        <script>
+
+                                                            var p = new Date();
+                                                            var q = p.getFullYear();
+                                                            document.getElementById("yr1").innerHTML = q;
+                                                            document.getElementById("yr2").innerHTML = q + 1;
+                                                            document.getElementById("yr3").innerHTML = q + 2;
+
+                                                        </script>
+                                                    </div>
+                                                </div>
 
                                             </div>
                                         </div>
-                                 
+
                                     </div>
                                 </div>
+                                <div class="col-lg-3"></div>
+
                             </div>
-                        </div>
+                        </section>
+                    </div>
 
-                    </div></div>
-                    
-
-                    <div class="wrapper">
-                        <br><br><br>
+                    <br><br><br>
+                    <div class="center">
                         <input type="submit" class="btn btn-success btn-lg" value="Calculate Salary">
                         <br>
                         <!-- <input type="submit" class="btn btn-success btn-lg" value="Submit"> -->
-                    </div>
-                   
-                </form>
 
+                        <br> <br> <br>
+                        <div>
+                            <a href="showsalary"><button class="button large round info"><a href="showsalary">Lock
+                                        Salary</a></button></a>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
         </div>
-    </div> 
 
 
-    <script src="../assets/assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
-    <script src="../assets/assets/js/lib/weather/weather-init.js"></script>
-    <script src="../assets/assets/js/lib/circle-progress/circle-progress.min.js"></script>
-    <script src="../assets/assets/js/lib/circle-progress/circle-progress-init.js"></script>
-    <script src="../assets/assets/js/lib/chartist/chartist.min.js"></script>
-    <script src="../assets/assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script>
-    <script src="../assets/assets/js/lib/sparklinechart/sparkline.init.js"></script>
-    <script src="../assets/assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
-    <script src="../assets/assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
-    <!-- scripit init-->
-    <script src="../assets/assets/js/dashboard2.js"></script>
-</body>
+        <div class="wrapper">
 
-</html>
+
+
+        </div>
+
+        </form>
+
+
+        </div>
+        </div>
+        </div>
+
+
+        <script src="../assets/assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
+        <script src="../assets/assets/js/lib/weather/weather-init.js"></script>
+        <script src="../assets/assets/js/lib/circle-progress/circle-progress.min.js"></script>
+        <script src="../assets/assets/js/lib/circle-progress/circle-progress-init.js"></script>
+        <script src="../assets/assets/js/lib/chartist/chartist.min.js"></script>
+        <script src="../assets/assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script>
+        <script src="../assets/assets/js/lib/sparklinechart/sparkline.init.js"></script>
+        <script src="../assets/assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+        <script src="../assets/assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+        <!-- scripit init-->
+        <script src="../assets/assets/js/dashboard2.js"></script>
+    </body>
+
+    </html>

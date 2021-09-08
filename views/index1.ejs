@@ -1,10 +1,10 @@
 <%- include('partials/header.ejs'); -%>
 
-<head>
-    <link href="../assets/focus/vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
-    <!-- <link href="../assets/focus/vendor/chartist/css/chartist.min.css" rel="stylesheet">
+    <head>
+        <link href="../assets/focus/vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+        <!-- <link href="../assets/focus/vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="../assets/focus/css/style.css" rel="stylesheet"> -->
-    <!-- <style>
+        <!-- <style>
         body {
         margin: 0;
         padding: 0;
@@ -20,7 +20,7 @@
 }
     </style> -->
 
-    <!-- <style>
+        <!-- <style>
         div {
   background-image: url("../assets/pictbg.jpg");
   background-repeat: no-repeat;
@@ -30,86 +30,265 @@
 }
     </style>     -->
 
-</head>
-<body>
+        <style>
+            a.custom-card,
+            a.custom-card:hover {
+                color: inherit;
+            }
+        </style>
+    </head>
 
-    <div class="content-wrap">
-    <!-- background-repeat: no-repeat;
+    <body>
+
+        <div class="content-wrap">
+            <!-- background-repeat: no-repeat;
     background-size: 100%;
     background-position: right;"> -->
-        <div class="main">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-8 p-r-0 title-margin-right">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <h1>Hello, <span>Welcome Back Administrator!</span></h1>
-                            </div>
-                        </div>
-                    </div>
-                    
-            
-                </div>
-        
-                <section id="main-content"> 
+            <div class="main">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><a href="form-basic"><i class="ti-user color-success border-success"></i></a>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text"><a href="form-basic">Add Employees</a></div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><a href="viewemployee"><i class="ti-view-list-alt color-primary border-primary"></i></a>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text"><a href="viewemployee">View Employees</a></div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><a href="generatesalary"><i class="ti-ticket color-pink border-pink"></i></a>
-                                    </div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text"><a href="generatesalary">Generate Salary</a></div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-notepad color-danger border-danger"></i></div>
-                                    <div class="stat-content dib">
-                                        <div class="stat-text">Salary Report</div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
-      
-                </section>
-                
-               
-            </div>
+                        <div class="col-lg-8 p-r-0 title-margin-right">
+                            <div class="page-header">
+                                <div class="page-title">
+                                    <p class="lead mb-2">Welcome <%= name %>
+                                    </p>
 
-             <div class="col-lg-4">
-                <!-- <div class="card">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <section id="main-content">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <a href="form-basic" class="custom-card">
+                                    <div class="card">
+                                        <div class="stat-widget-one">
+                                            <div class="stat-icon dib"><a href="form-basic"><i
+                                                        class="ti-user color-success border-success"></i></a>
+                                            </div>
+                                            <div class="stat-content dib">
+                                                <div class="stat-text"><a href="form-basic">Add Employees</a></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="viewemployee"><i
+                                                    class="ti-view-list-alt color-primary border-primary"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="uploadcsv">Upload CSV</a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="generatesalary"><i
+                                                    class="ti-ticket color-pink border-pink"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="generatesalary">Generate Salary</a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><i class="ti-notepad color-primary border-primary"></i>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text">Salary Report</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- --------------------------------------------------------- -->
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="form-basic"><i
+                                                    class="ti-arrow-up color-success border-success"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="allowances">View Allowances</a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="viewemployee"><i
+                                                    class="ti-arrow-down color-danger border-danger"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="deductions">Deductions</a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="generatesalary"><i
+                                                    class="ti-arrow-down color-danger border-danger"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="advances">Advances</a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><i class="ti-stats-up color-success border-success"></i>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="#"></a>Increment</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ------------------------------------------------------------------------ -->
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="form-basic"><i
+                                                    class="ti-check-box"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="groupinsurance">Group Insurance</a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="viewemployee"><i
+                                                    class="ti-arrow-down color-danger border-danger"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="lateattendance">Late Attendance </a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="generatesalary"><i
+                                                    class="ti-check color-pink border-pink"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="donations">Donations</a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><i class="ti-bar-chart-alt color-danger border-danger"></i>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="miscellaneous">Miscellaneous Ded.</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- --------------------------------------------------------- -->
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="form-basic"><i
+                                                    class="ti-info color-danger border-danger"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="table-export">Leave Without Pay</a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="viewemployee"><i
+                                                    class="ti-bar-chart color-primary border-primary"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="incrementdiff">Increment Diffrences</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><a href="generatesalary"><i
+                                                    class="ti-layers color-pink border-pink"></i></a>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text"><a href="#">HRA and DA</a></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="stat-widget-one">
+                                        <div class="stat-icon dib"><i class="ti-pencil-alt color-danger border-danger"></i>
+                                        </div>
+                                        <div class="stat-content dib">
+                                            <div class="stat-text">TA CCA</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- <div class="card">
                     <div class="card-body">
                        <div class="year-calendar"></div>
 
@@ -117,24 +296,24 @@
 
                     </div>
                 </div>  -->
-            </div> 
+                </div>
+            </div>
+
+
         </div>
 
-          
-    </div> 
+        <!-- <script src="../assets/assets/js/dashboard2.js"></script> -->
+        <script src="../assets/focus/vendor/global/global.min.js"></script>
+        <script src="../assets/focus/js/quixnav-init.js"></script>
+        <script src="../assets/focus/js/custom.min.js"></script>
 
-    <!-- <script src="../assets/assets/js/dashboard2.js"></script> -->
-    <script src="../assets/focus/vendor/global/global.min.js"></script>
-    <script src="../assets/focus/js/quixnav-init.js"></script>
-    <script src="../assets/focus/js/custom.min.js"></script>
+        <script src="../assets/focus/vendor/chartist/js/chartist.min.js"></script>
 
-    <script src="../assets/focus/vendor/chartist/js/chartist.min.js"></script>
-
-    <script src="../assets/focus/vendor/moment/moment.min.js"></script>
-    <script src="../assets/focus/vendor/pg-calendar/js/pignose.calendar.min.js"></script>
+        <script src="../assets/focus/vendor/moment/moment.min.js"></script>
+        <script src="../assets/focus/vendor/pg-calendar/js/pignose.calendar.min.js"></script>
 
 
-    <script src="../assets/focus/js/dashboard/dashboard-2.js"></script>
-</body>
+        <script src="../assets/focus/js/dashboard/dashboard-2.js"></script>
+    </body>
 
-</html>
+    </html>
