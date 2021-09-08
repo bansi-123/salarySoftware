@@ -15,7 +15,9 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => res.render('dash', {
 }));
 
 router.get('/index1', ensureAuthenticated, (req, res) => {
-    res.render('index1');
+    
+    res.render('index1',{
+    name: req.user.name})
 });
 
 router.get('/test', ensureAuthenticated, (req, res) => {
@@ -67,6 +69,22 @@ router.get('/table-export', ensureAuthenticated, (req, res) => {
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('table-export',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
+
+router.get('/edit', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('edit',{
                 Employees:JSON.parse(JSON.stringify(result))
             });
         }
@@ -614,6 +632,22 @@ router.get('/miscellaneous', ensureAuthenticated, (req, res) => {
     })
 });
 
+
+router.get('/recoveryamount', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('recamt_home',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
 router.get('/finalmiscellaneous', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees natural join miscellaneous`,(err,result)=>
     {
@@ -968,6 +1002,36 @@ router.get('/miscellaneous/:empID', ensureAuthenticated, (req, res) =>
         }
     })
 });
+
+router.get('/recoveryamount/:empID', ensureAuthenticated, (req, res) => 
+{
+    var requestedTitle = req.params.empID;
+    console.log(req.params.empID)
+    mysqldb.query(`select * from Employees `,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            mysqldb.query(`select * from Employees where empID=${req.params.empID}`,(err,result2)=>
+            {
+                if (err) {
+                    console.log(err);
+                }
+                else{
+                    // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                    // var set=new Set(JSON.parse(JSON.stringify(result)))
+                   console.log("result2 is",result2)
+                    res.render('recoveryamount',{
+                        Employees:JSON.parse(JSON.stringify(result)),
+                        name:JSON.parse(JSON.stringify(result2))
+                    });
+                }
+            })
+        }
+    })
+});
+
 
 router.get('/advances', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>

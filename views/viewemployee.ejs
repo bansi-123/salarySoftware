@@ -108,9 +108,9 @@
           <div class="row">
             <div class="col-lg-8 p-r-0 title-margin-right">
               <div class="page-header">
-                <div class="page-title">
+                <!-- <div class="page-title">
                   <h1>Hello, <span>Welcome Here</span></h1>
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- /# column -->
@@ -162,10 +162,86 @@
                               </td>
                               <td>
 
+                                <a href="<%= Employees[i].empID %>"><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                                  data-target="#a<%= Employees[i].empID %>">
+                                  Edit
+                                </button></a>
+                                <div class="modal fade" id="a<%= Employees[i].empID %>" tabindex="-1" role="dialog"
+                                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Details</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="form-group">
+                                          <label class="col-sm-6 control-label">Employee Name</label>
+                                          <div class="col-sm-10">
+                                            <input type="text" name="empName" class="form-control"
+                                              placeholder="Enter Name">
+                                          </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label class="col-sm-6 control-label">Email ID</label>
+                                          <div class="col-sm-10">
+                                            <input id="example-email" class="form-control" type="email"
+                                              placeholder="admin@pict.edu" name="example-email">
+                                          </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label class="col-sm-6 control-label">Designation</label>
+                                          <div class="col-sm-10">
+                                            <select class="form-control" name="designation">
+                                              <option value="value" selected>Option Name</option>
+                                              <option value="professor" id="professor" selected>Professor</option>
+                                              <option value="associateprof" id="associateprof" selected>Associate
+                                                Professor</option>
+                                              <option value="asstprof" id="asstprof" selected>Assistant Professor
+                                              </option>
+                                              <option value="techasst" id="techasst" selected>Technical Assistant
+                                              </option>
+                                              <option value="labasst" id="labasst" selected>Lab Assistant</option>
+                                              <option value="nonteaching" id="nonteaching" selected>Non Teaching
+                                              </option>
+                                            </select>
+                                          </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label class="col-sm-6 control-label">Salary Category</label>
+                                          <div class="col-sm-10">
+                                            <select class="form-control" name="SalaryCategory">
+                                              <option value="value" selected>Option Name</option>
+                                              <option value="consolidated" id="consolidated" selected>
+                                                Consolidated</option>
+                                              <option value="payscale" id="payscale" selected>Pay
+                                                Scale</option>
+
+                                            </select>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                          data-dismiss="modal">Close</button>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                
+
                                 <!-- <h1>Bootstrap Modal Example</h1> -->
                                 <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
                                   data-target="#<%= Employees[i].empID %>">
-                                  Details
+                                  Basic Details
                                 </button>
 
 
@@ -344,23 +420,23 @@
                                                       </tr>
                                                       <tr>
                                                         <td>NET/SET</td>
-                                                        <td>Company Ltd.</td>
+                                                        <td><%= Employees[i].netset %></td>
                                                       </tr>
                                                       <tr>
                                                         <td>Other Qualification</td>
-                                                        <td>Company Ltd.</td>
+                                                        <td><%= Employees[i].othqual %></td>
                                                       </tr>
                                                       <tr>
                                                         <td>Teaching Experiance (Other than PICT)</td>
-                                                        <td>Company Ltd.</td>
+                                                        <td><%= Employees[i].exp %></td>
                                                       </tr>
                                                       <tr>
                                                         <td>Industry Experience</td>
-                                                        <td>Company Ltd.</td>
+                                                        <td><%= Employees[i].industry_exp %></td>
                                                       </tr>
                                                       <tr>
                                                         <td>Work Experience (for NT - Non PICT)</td>
-                                                        <td>Company Ltd.</td>
+                                                        <td><%= Employees[i].workexNT %></td>
                                                       </tr>
                                                       <tr>
                                                         <td>Overall Seniority No.</td>
@@ -392,6 +468,10 @@
 
                                           </div>
 
+                                         
+
+                                          </div>
+
                                           <div class="modal-footer">
                                             <button class="btn btn-danger" data-dismiss="modal"
                                               aria-hidden="true">Close</button>
@@ -407,80 +487,36 @@
                                   </div>
                                 </div>
 
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                data-target="#b<%= Employees[i].empID %>">
+                                Delete
+                              </button>
 
-                                <a href="<%= Employees[i].empID %>"><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
-                                  data-target="#a<%= Employees[i].empID %>">
-                                  Edit
-                                </button></a>
-                                <div class="modal fade" id="a<%= Employees[i].empID %>" tabindex="-1" role="dialog"
-                                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                  <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Details</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <div class="form-group">
-                                          <label class="col-sm-6 control-label">Employee Name</label>
-                                          <div class="col-sm-10">
-                                            <input type="text" name="empName" class="form-control"
-                                              placeholder="Enter Name">
-                                          </div>
-                                        </div>
+                              <div class="modal fade" id="b<%= Employees[i].empID %>" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLongTitle">Confirm</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      ...
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Close</button>
+                                      <button" class="btn btn-danger" id="<%= Employees[i].empID %>"
+                                        onclick="deleteFunction(this.id,this)" data-dismiss="modal">
+                                        Delete</button>
 
-                                        <div class="form-group">
-                                          <label class="col-sm-6 control-label">Email ID</label>
-                                          <div class="col-sm-10">
-                                            <input id="example-email" class="form-control" type="email"
-                                              placeholder="admin@pict.edu" name="example-email">
-                                          </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                          <label class="col-sm-6 control-label">Designation</label>
-                                          <div class="col-sm-10">
-                                            <select class="form-control" name="designation">
-                                              <option value="value" selected>Option Name</option>
-                                              <option value="professor" id="professor" selected>Professor</option>
-                                              <option value="associateprof" id="associateprof" selected>Associate
-                                                Professor</option>
-                                              <option value="asstprof" id="asstprof" selected>Assistant Professor
-                                              </option>
-                                              <option value="techasst" id="techasst" selected>Technical Assistant
-                                              </option>
-                                              <option value="labasst" id="labasst" selected>Lab Assistant</option>
-                                              <option value="nonteaching" id="nonteaching" selected>Non Teaching
-                                              </option>
-                                            </select>
-                                          </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                          <label class="col-sm-6 control-label">Salary Category</label>
-                                          <div class="col-sm-10">
-                                            <select class="form-control" name="SalaryCategory">
-                                              <option value="value" selected>Option Name</option>
-                                              <option value="consolidated" id="consolidated" selected>
-                                                Consolidated</option>
-                                              <option value="payscale" id="payscale" selected>Pay
-                                                Scale</option>
-
-                                            </select>
-                                          </div>
-
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-secondary"
-                                          data-dismiss="modal">Close</button>
-
-                                      </div>
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+                                
 
                                 <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
                                   data-target="#abc<%= Employees[i].empID %>">
@@ -639,37 +675,6 @@
                                       </div>
                                     </div>
 
-                                  </div>
-                                </div>
-
-
-                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                                  data-target="#b<%= Employees[i].empID %>">
-                                  Delete
-                                </button>
-
-                                <div class="modal fade" id="b<%= Employees[i].empID %>" tabindex="-1" role="dialog"
-                                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                  <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        ...
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                          data-dismiss="modal">Close</button>
-                                        <button" class="btn btn-primary" id="<%= Employees[i].empID %>"
-                                          onclick="deleteFunction(this.id,this)" data-dismiss="modal">
-                                          Delete</button>
-
-                                      </div>
-                                    </div>
                                   </div>
                                 </div>
 

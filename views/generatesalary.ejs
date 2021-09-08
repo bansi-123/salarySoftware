@@ -22,11 +22,20 @@
 
             .card {
 
-                align-items: center;
-                width: 300px;
-                height: 250px;
+                /* align-items: center;
+                width: 300px; */
+                height: 200px;
+            }
+
+            .center {
+                margin: auto;
+                width: 100%;
+                /* border: 3px solid #73AD21; */
+                padding: 10px;
             }
         </style>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
+        <link rel="stylesheet" href="../assets/alert/style.css">
         <script> const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         </script>
     </head>
@@ -41,9 +50,9 @@
                     <div class="row">
                         <div class="col-lg-8 p-r-0 title-margin-right">
                             <div class="page-header">
-                                <div class="page-title">
+                                <!-- <div class="page-title">
                                     <h1>Hello, <span>Welcome Here</span></h1>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -53,7 +62,7 @@
                             <div class="row">
 
 
-
+                                <div class="col-lg-2"></div>
                                 <div class="col-lg-3">
                                     <div class="card">
                                         <div class="stat-widget-one">
@@ -90,6 +99,7 @@
                                     </div>
                                 </div>
 
+                                <!-- <div class="col-lg-3"></div> -->
                                 <div class="col-lg-3">
                                     <div class="card">
                                         <div class="stat-widget-one">
@@ -131,9 +141,24 @@
 
                                     </div>
                                 </div>
+                                <div class="col-lg-3"></div>
 
                             </div>
                         </section>
+                    </div>
+
+                    <br><br><br>
+                    <div class="center">
+                        <input type="submit" class="btn btn-success btn-lg" value="Calculate Salary">
+                        <br>
+                        <!-- <input type="submit" class="btn btn-success btn-lg" value="Submit"> -->
+
+                        <br> <br> <br>
+                        <div>
+                            <a href="showsalary"><button class="button large round info"><a href="showsalary">Lock
+                                        Salary</a></button></a>
+                        </div>
+
                     </div>
                 </div>
 
@@ -142,10 +167,9 @@
 
 
         <div class="wrapper">
-            <br><br><br>
-            <input type="submit" class="btn btn-success btn-lg" value="Calculate Salary">
-            <br>
-            <!-- <input type="submit" class="btn btn-success btn-lg" value="Submit"> -->
+
+
+
         </div>
 
         </form>

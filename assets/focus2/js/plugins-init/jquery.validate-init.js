@@ -47,6 +47,25 @@ jQuery(".form-valide").validate({
             maxlength: 10,
             minlength: 10
             
+        },
+
+        "phdYr":{
+            required: !0,
+            minlength: 4,
+            maxlength: 4
+
+        },
+        "pgYr":{
+            required: !0,
+            minlength: 4,
+            maxlength: 4
+
+        },
+        "ugYr":{
+            required: !0,
+            minlength: 4,
+            maxlength: 4
+
         }
     },
     messages: {
