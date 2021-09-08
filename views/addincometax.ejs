@@ -87,7 +87,7 @@
                           <div class="card">
                               <div class="bootstrap-data-table-panel">
                                   <div class="table-responsive">
-                                      <form class="form-horizontal" action="\updatepay" method="post">
+                                      <form class="form-horizontal" action="\updateIncomeTax" method="post">
                                      
                                       <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
 
@@ -115,17 +115,16 @@
                                               <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
                                                   <tr>
                                                       <td><%= Employees[i].empID %></td>
-                                                      <td><%= Employees[i].empName %></td>
-                                                      <td><%= Employees[i].dept %></td>
-                                                      <td><input type="text" value="500"></td>
-                                                      
-                                                      <td><%= Employees[i].empName %></td>
-                                                      <td><%= Employees[i].empName %></td>
-                                                      <td><%= Employees[i].empName %></td>
-                                                      <td><%= Employees[i].empName %></td>
-                                                      <td><%= Employees[i].empName %></td>
-                                                      <td><%= Employees[i].empName %></td>
-                                                      <td><%= Employees[i].empName %></td>
+                                                      <td><%= Employees[i].gross_sal*12 %></td>
+                                                      <td><%= Employees[i].exemption %></td>
+                                                      <td><input type="text" value=<%= Employees[i].total_investments %> name=<%= Employees[i].empID %>></td>
+                                                      <td><%= Employees[i].net_taxable_income %></td>
+                                                      <td><%= Employees[i].tax_on_income %></td>
+                                                      <td><%= Employees[i].rebate %></td>
+                                                      <td><%= Employees[i].health_and_edu_cess %></td>
+                                                      <td><%= Employees[i].total_tax %></td>
+                                                      <td><%= Employees[i].tds_per_month %></td>
+                                                      <td><%= Employees[i].balance %></td>
                                                      
                                                   </tr>
                                               <% }%>
