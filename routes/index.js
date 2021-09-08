@@ -167,6 +167,22 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
     
 })
 
+router.get('/viewdonations', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from donation`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('viewdonations',{
+                donation:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
+
 router.get('/ta', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>
     {
