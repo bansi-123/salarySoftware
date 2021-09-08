@@ -103,7 +103,8 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Name (As per Aadhar Card)</label>
+                                                <label class="col-lg-6 col-form-label">Name (As per Aadhar Card)                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="empName" class="form-control"
                                                         placeholder="Enter Name" ruqt>
@@ -111,14 +112,16 @@
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Email ID (Personal)</label>
+                                                <label class="col-lg-6 col-form-label">Email ID (Personal)                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <input id="val-email" name="emailID" class="form-control"
                                                         type="email" placeholder="admin@gmail.com" ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Email ID (PICT)</label>
+                                                <label class="col-lg-6 col-form-label">Email ID (PICT)                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <input id="example-email2" name="emailID2" class="form-control"
                                                         type="email" placeholder="admin@pict.edu" pattern=".+@pict\.edu"
@@ -136,7 +139,8 @@
 
                                             <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label">Designation Category :</label>
+                                                <label class="col-lg-6 col-form-label">Designation Category :                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <select name="designationcategory" id="id_category"
                                                         onchange="ShowHideDiv()" data-designation-id='id_designation'
@@ -155,7 +159,8 @@
 
                                             <div class="form-group row" id="dvPassport" style="display: none">
 
-                                                <label class="col-lg-6 col-form-label"> Type 1: </label>
+                                                <label class="col-lg-6 col-form-label"> Type 1:                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <select name="nonteach">
                                                         <option value="" hidden selected>-----</option>
@@ -214,7 +219,8 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">UAN</label>
+                                                <label class="col-lg-6 col-form-label">UAN <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <input type="number" name="uan" class="form-control" ruqt
                                                         placeholder="UAN" pattern=".{12,12}"
@@ -237,7 +243,8 @@
 
                                             <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label"> Departments</label>
+                                                <label class="col-lg-6 col-form-label"> Departments                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <select name="dept" id="id_category1" onchange="ShowHideDivi()"
                                                         data-designation-id='id_designation'
@@ -295,7 +302,8 @@
 
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Date of
-                                                    Joining</label>
+                                                    Joining                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <input type="date" class="form-control" id="doj" name="doj" ruqt>
 
@@ -305,7 +313,8 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Date of Birth</label>
+                                                <label class="col-lg-6 col-form-label">Date of Birth                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <input type="date" name="dob" class="form-control" ruqt>
                                                 </div>
@@ -353,14 +362,16 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Aadhar Number</label>
+                                                <label class="col-lg-6 col-form-label">Aadhar Number                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="Aadhar" class="form-control"
                                                         pattern=".{12,12}" title="12 numbers needed" ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">PAN No.</label>
+                                                <label class="col-lg-6 col-form-label">PAN No.                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="Pan_No" class="form-control"
                                                         pattern=".{10,10}" title="10 alphanumeric characters needed"
@@ -377,11 +388,11 @@
                                             </script>
                                             <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label">Employee on Roll
+                                                <label class="col-lg-6 col-form-label">Employee on Roll                            <span class="text-danger">*</span>
+
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <select name="onrole" id="id_category2"
-                                                        onchange="ShowHideDivi()"
+                                                    <select name="onrole" id="id_category2" onchange="ShowHideDivi()"
                                                         data-designation-id='id_designation'
                                                         class='dependent-selects__category' ruqt>
                                                         <option value="no">No</option>
@@ -394,8 +405,7 @@
 
                                                 <div id="dvPassport2" style="display: none">
                                                     Relieving Date:
-                                                    <input type="date" class="form-control" id="doc"
-                                                        name="doc" ruqt>
+                                                    <input type="date" class="form-control" id="doc" name="doc" ruqt>
 
 
 
@@ -442,7 +452,8 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Mobile No.</label>
+                                                <label class="col-lg-6 col-form-label">Mobile No.                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <input type="number" name="mobile" class="form-control"
                                                         pattern=".{10,10}" title="10 characters needed" ruqt>
@@ -470,12 +481,13 @@
                                                     (empXXX) <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="number" name="mis" class="form-control"
-                                                        placeholder="XXX" pattern="+emp."
-                                                        title="enter valid mis ID" ruqt>
+                                                        placeholder="XXX" pattern="+emp." title="enter valid mis ID"
+                                                        ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> Biometric Attendance ID</label>
+                                                <label class="col-lg-6 col-form-label"> Biometric Attendance ID                            <span class="text-danger">*</span>
+                                                </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="biometric" class="form-control" ruqt>
                                                 </div>
@@ -658,7 +670,8 @@
                                     <div class="col-lg-6">
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Basic Pay</label>
+                                            <label class="col-lg-6 col-form-label">Basic Pay                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="pay" class="form-control"
                                                     placeholder="Basic Pay">
@@ -667,7 +680,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label"> TA</label>
+                                            <label class="col-lg-6 col-form-label"> TA                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="ta" class="form-control">
                                             </div>
@@ -678,14 +692,16 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label"> CCA</label>
+                                            <label class="col-lg-6 col-form-label"> CCA                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="cca" class="form-control">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Grade Pay</label>
+                                            <label class="col-lg-6 col-form-label">Grade Pay                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="gp" class="form-control"
                                                     placeholder="Grade Pay">
@@ -696,7 +712,8 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Provident Fund</label>
+                                            <label class="col-lg-6 col-form-label">Provident Fund                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="pf" class="form-control"
                                                     placeholder="Provident Fund" ruqt>
@@ -704,7 +721,8 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Group Insurance</label>
+                                            <label class="col-lg-6 col-form-label">Group Insurance                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="groupInsurance" class="form-control"
                                                     placeholder="Group Insurance" ruqt>
@@ -717,7 +735,8 @@
 
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Pay Band</label>
+                                            <label class="col-lg-6 col-form-label">Pay Band                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <select class="form-control" name="payBand" ruqt>
                                                     <!-- <option value="value" selected>Option Name</option> -->
@@ -757,7 +776,8 @@
                                     <div class="col-lg-6">
                                         <div class="form-group row">
 
-                                            <label class="col-lg-6 col-form-label">Bank Name</label>
+                                            <label class="col-lg-6 col-form-label">Bank Name                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="bankName" class="form-control"
                                                     placeholder="Bank Name" ruqt>
@@ -766,7 +786,8 @@
 
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Branch Name</label>
+                                            <label class="col-lg-6 col-form-label">Branch Name                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="branchName" class="form-control"
                                                     placeholder="Branch Name" ruqt>
@@ -778,7 +799,8 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">IFSC Code</label>
+                                            <label class="col-lg-6 col-form-label">IFSC Code                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="ifscCode" id="ifsc" class="form-control"
                                                     placeholder="IFSC Code" pattern=".{11,11}"
@@ -791,7 +813,8 @@
                                         <div class="form-group row">
 
                                             <label class="col-lg-6 col-form-label">Enter Bank Account
-                                                No.</label>
+                                                No.                            <span class="text-danger">*</span>
+                                            </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="bankAccNum" class="form-control"
                                                     placeholder="Acc No." ruqt>
@@ -808,33 +831,103 @@
 
                 </select>
             </div>
-            
 
 
-        <!-- -----------------------Phd------------------- -->
 
-        <label for="chkPHD">
-            <hr>
-            <h5>Tick Employee is not Persuing PhD <input type="checkbox" id="chkPHD" /></h5>
-        </label>
-        <hr />
+            <!-- -----------------------Phd------------------- -->
 
-        <script>
-            $(function () {
-                $("#chkPHD").click(function () {
-                    if ($(this).is(":checked")) {
-                        $("#phd").hide();
-                    } else {
-                        $("#phd").show();
-                    }
+            <label for="chkPHD">
+                <hr>
+                <h5>Tick Employee is not Persuing PhD <input type="checkbox" id="chkPHD" /></h5>
+            </label>
+            <hr />
+
+            <script>
+                $(function () {
+                    $("#chkPHD").click(function () {
+                        if ($(this).is(":checked")) {
+                            $("#phd").hide();
+                        } else {
+                            $("#phd").show();
+                        }
+                    });
                 });
-            });
-        </script>
+            </script>
 
-        <div id="phd">
+            <div id="phd">
+                <div class="card">
+                    <div class="card-title">
+                        <h4>Employee PhD. Details</h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-6">
+
+                                    <div class="form-group row">
+                                        <label class="col-lg-6 col-form-label">PhD.</label>
+                                        <div class="col-lg-6">
+                                            <select name="phd">
+                                                <option value="null" hidden selected>-----</option>
+
+                                                <option value="Awarded">Awarded</option>
+                                                <option value="Registered">Registered</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-lg-6 col-form-label">PhD Subject</label>
+                                        <div class="col-lg-6">
+                                            <input type="text" name="phdSub" class="form-control"
+                                                placeholder="PhD Subject" value="null" ruqt>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-6">
+
+                                    <div class="form-group row">
+                                        <label class="col-lg-6 col-form-label">PhD Institute</label>
+                                        <div class="col-lg-6">
+                                            <input type="text" name="phdInsti" class="form-control"
+                                                placeholder="PhD Institute" value="null" ruqt>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-6 col-form-label">PhD University</label>
+                                        <div class="col-lg-6">
+                                            <input type="text" name="phdUni" class="form-control"
+                                                placeholder="PhD University" value="null" ruqt>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-8 control-label">PhD Passing year</label>
+                                        <div class="col-lg-6">
+                                            <input type="number" name="phdYr" class="form-control"
+                                                placeholder="PhD Passing year" value=0 ruqt>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- -----------------------phd ends------------ -->
+            <!-- --------------------------------------------for PG--------- -->
+
             <div class="card">
                 <div class="card-title">
-                    <h4>Employee PhD. Details</h4>
+                    <h4>Employee P.G. Details</h4>
 
                 </div>
                 <div class="card-body">
@@ -842,195 +935,117 @@
                         <div class="row">
                             <div class="col-lg-6">
 
-                                <div class="form-group row">
-                                    <label class="col-lg-6 col-form-label">PhD.</label>
+
+
+                                <div class="form-group">
+                                    <label class="col-lg-6 col-form-label">P.G. Subject</label>
                                     <div class="col-lg-6">
-                                        <select name="phd">
-                                            <option value="null" hidden selected>-----</option>
-
-                                            <option value="Awarded">Awarded</option>
-                                            <option value="Registered">Registered</option>
-                                        </select>
-
+                                        <input type="text" name="pgSub" class="form-control" placeholder="P.G. Subject">
                                     </div>
                                 </div>
-
-
-                                <div class="form-group row">
-                                    <label class="col-lg-6 col-form-label">PhD Subject</label>
-                                    <div class="col-lg-6">
-                                        <input type="text" name="phdSub" class="form-control" placeholder="PhD Subject"
-                                            value="null" ruqt>
-                                    </div>
-                                </div>
-
                             </div>
+
+
                             <div class="col-lg-6">
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">P.G. University</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="pgUni" class="form-control"
+                                            placeholder="P.G. University">
+                                    </div>
+                                </div>
+
 
                                 <div class="form-group row">
-                                    <label class="col-lg-6 col-form-label">PhD Institute</label>
+
+                                    <label class="col-lg-6 col-form-label">P.G. Passing year</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="phdInsti" class="form-control"
-                                            placeholder="PhD Institute" value="null" ruqt>
+                                        <input type="text" name="pgYr" class="form-control"
+                                            placeholder="P.G. Passing year">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-lg-6 col-form-label">PhD University</label>
-                                    <div class="col-lg-6">
-                                        <input type="text" name="phdUni" class="form-control"
-                                            placeholder="PhD University" value="null" ruqt>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-8 control-label">PhD Passing year</label>
-                                    <div class="col-lg-6">
-                                        <input type="text" name="phdYr" class="form-control"
-                                            placeholder="PhD Passing year" value=0 ruqt>
-                                    </div>
-                                </div>
+
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-
-
-
-        <!-- -----------------------phd ends------------ -->
-        <!-- --------------------------------------------for PG--------- -->
-
-        <div class="card">
-            <div class="card-title">
-                <h4>Employee P.G. Details</h4>
 
             </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-6">
 
 
 
-                            <div class="form-group">
-                                <label class="col-lg-6 col-form-label">P.G. Subject</label>
-                                <div class="col-lg-6">
-                                    <input type="text" name="pgSub" class="form-control" placeholder="P.G. Subject">
+            <!-- ------pg end----- -->
+
+
+
+
+            <!-- ----------UG deets------- -->
+
+
+
+
+            <!-- -----ug ends----- -->
+            <div class="card">
+                <div class="card-title">
+                    <h4>Employee U.G. Details</h4>
+
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group row">
+
+                                    <label class="col-lg-6 col-form-label">U.G. Subject <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="ugSub" class="form-control" placeholder="U.G. Subject"
+                                            ruqt>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">U.G. University <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="ugUni" class="form-control"
+                                            placeholder="U.G. University" ruqt>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">U.G. Passing year <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="ugYr" class="form-control"
+                                            placeholder="U.G. Passing year" ruqt>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">U.G. Grade/Class <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="grade" class="form-control"
+                                            placeholder="U.G. Grade/Class" ruqt>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="row text-center" style='float: center;'>
 
+                            <button class="button large round success">Submit</button>
 
-                        <div class="col-lg-6">
-                            <div class="form-group row">
-                                <label class="col-lg-6 col-form-label">P.G. University</label>
-                                <div class="col-lg-6">
-                                    <input type="text" name="pgUni" class="form-control" placeholder="P.G. University">
-                                </div>
-                            </div>
-
-
-                            <div class="form-group row">
-
-                                <label class="col-lg-6 col-form-label">P.G. Passing year</label>
-                                <div class="col-lg-6">
-                                    <input type="text" name="pgYr" class="form-control" placeholder="P.G. Passing year">
-                                </div>
-                            </div>
 
                         </div>
+
                     </div>
                 </div>
             </div>
-
-        </div>
-
-
-
-        <!-- ------pg end----- -->
-
-
-
-
-        <!-- ----------UG deets------- -->
-  
-   
-
-
-        <!-- -----ug ends----- -->
-        <div class="card">
-            <div class="card-title">
-                <h4>Employee U.G. Details</h4>
-
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group row">
-
-                                <label class="col-lg-6 col-form-label">U.G. Subject <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-sm-6">
-                                    <input type="text" name="ugSub" class="form-control"
-                                        placeholder="U.G. Subject" ruqt>
-                                </div>
-                            </div>
-
-                            <br>
-
-
-                            <div class="form-group row">
-                                <label class="col-lg-6 col-form-label">U.G. University <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-6">
-                                    <input type="text" name="ugUni" class="form-control"
-                                        placeholder="U.G. University" ruqt>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!--<div class="form-group row">
-    <label class="col-lg-6 col-form-label">U.G. Institute</label>
-    <div class="col-lg-6">
-        <input type="text" name="ugInsti" class="form-control"
-            placeholder="U.G. Institute"    ruqt>
-    </div>
-    </div>  -->
-
-
-                        <div class="col-lg-6">
-                            <div class="form-group row">
-                                <label class="col-lg-6 col-form-label">U.G. Passing year <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-6">
-                                    <input type="text" name="ugYr" class="form-control"
-                                        placeholder="U.G. Passing year" ruqt>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-6 col-form-label">U.G. Grade/Class <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-6">
-                                    <input type="text" name="grade" class="form-control"
-                                        placeholder="U.G. Grade/Class" ruqt>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row text-center" style='float: center;'>
-
-                        <button class="button large round success">Submit</button>
-
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
 
 
         </div>
