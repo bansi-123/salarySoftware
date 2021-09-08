@@ -1,4 +1,3 @@
-
 <%- include('partials/header.ejs'); -%>
 
 <head>
@@ -65,7 +64,6 @@
           display: block;
         }
 </style>
-<script> const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];</script>
 
 </head>
 
@@ -86,16 +84,16 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-title">
-                            <h4>Late Attendance</h4>
+                            <h4>Search</h4>
 
                         </div>
                         <div class="dropdown">
-                            <label><h3>Search </label></h3> <button  padding="40px" onclick="myFunction()" class="dropbtn">Add Late Attendance </button>
+                            <label><h3></label></h3> <button  padding="40px" onclick="myFunction()" class="dropbtn">Recovery Amount</button>
                             <div id="myDropdown" class="dropdown-content">
                               <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
 
                               <% for(var i=Employees.length-1; i>= 0; i-- ) { %>
-                                <a href="/lateattendance/<%=Employees[i].empID%>"><%= Employees[i].empName %></a>
+                                <a href="/recoveryamount/<%=Employees[i].empID%>"><%= Employees[i].empName %></a>
                               <% }%>
                             </div>
                           </div>
@@ -123,14 +121,14 @@
                       <div class="col-lg-12">
                           <div class="card">
                               <div class="card-title">
-                                  <h4>Late attendance</h4>
+                                  <h4>Recovery Amount</h4>
       
                               </div>
 
 
                         <div class="card-body">
                             <div class="horizontal-form-elements">
-                                <form class="form-horizontal" action="\lateattendance" method="post">
+                                <form class="form-horizontal" action="\miscellaneous" method="post">
                                     <div class="row">
                                         <div class="col-lg-6">
                                                
@@ -147,15 +145,15 @@
                                             <div class="form-group">
                                                 <label class="col-sm-6 control-label">Employee Name</label>
                                                 <div class="col-sm-10">
-                                                    <input name="empName" value=" <%= name[i].empName %>" type="text" id="<%= name[i].empName %>" class="form-control" readonly>
+                                                    <input name="empName" value="<%= name[i].empName %>" type="text" id="<%= name[i].empName %>" class="form-control" readonly>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="col-sm-6 control-label">Total Days of LWP due to Late Attendance</label>
+                                                <label class="col-sm-6 control-label">Recovery Amount</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="latedays" class="form-control"
-                                                        placeholder="Enter No. of Days" required>
+                                                    <input type="text" name="amt" class="form-control"
+                                                        placeholder="Enter Details" required>
                                                 </div>
                                             </div>
 
@@ -167,28 +165,20 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-6 control-label">Month</label>
                                                     <div class="col-sm-10">
-                                                      <form class="form-horizontal" action="\lateattendance" method="post"></form>
                                                         <select class="form-control" name="month">
-                                                            <!-- // <option value="january" name="1" id="january" selected>January</option>
-                                                            //                 <option value="february" id="february" selected>February</option>
-                                                            //                 <option value="march" id="march" selected>March</option>
-                                                            //                 <option value="april" id="april" selected>April</option>
-                                                            //                 <option value="may" id="may" selected>May</option>
-                                                            //                 <option value="june" id="june" selected>June</option>    
-                                                            //                 <option value="july" id="july" selected>July</option>  
-                                                            //                 <option value="aug" id="aug" selected>August</option>    
-                                                            //                 <option value="sept" id="sept" selected>September</option>    
-                                                            //                 <option value="october" id="october" selected>October</option>    
-                                                            //                 <option value="november" id="november" selected>November</option>    
-                                                            //                 <option value="december" id="december" selected>December</option> -->
-                                                            <option  id="demo" ></option>
-                                                     <option  id="demo1" ></option>   
+                                                            <option value="january" name="1" id="january" selected>January</option>
+                                                                            <option value="february" id="february" selected>February</option>
+                                                                            <option value="march" id="march" selected>March</option>
+                                                                            <option value="april" id="april" selected>April</option>
+                                                                            <option value="may" id="may" selected>May</option>
+                                                                            <option value="june" id="june" selected>June</option>    
+                                                                            <option value="july" id="july" selected>July</option>  
+                                                                            <option value="august" id="aug" selected>August</option>    
+                                                                            <option value="september" id="sept" selected>September</option>    
+                                                                            <option value="october" id="october" selected>October</option>    
+                                                                            <option value="november" id="november" selected>November</option>    
+                                                                            <option value="december" id="december" selected>December</option>   
                                                         </select>
-                                                        <script>
-const d = new Date();
-document.getElementById("demo").innerHTML = months[d.getMonth()];
-document.getElementById("demo1").innerHTML = months[(d.getMonth()+1)%12];
-</script>
                                                     </div>
                                                 </div>
 
@@ -196,28 +186,23 @@ document.getElementById("demo1").innerHTML = months[(d.getMonth()+1)%12];
                                                     <label class="col-sm-6 control-label">Year</label>
                                                     <div class="col-sm-10">
                                                         <select class="form-control" name="year">
-                                                          <option  id=yr1 ></option>
-                                                    <option  id=yr2 ></option>
-                                                    <option  id=yr3 ></option>
-                                                   
-                                                    </select>
-                                                    <br>
-                                                    <!-- <p id="yr"> </p> -->
-                                                    
-                                                    <script>
-                                                    
-                                                      var p = new Date();
-                                                      var q = p.getFullYear(); 
-                                                      document.getElementById("yr1").innerHTML = q;
-                                                      document.getElementById("yr2").innerHTML = q+1;
-                                                      document.getElementById("yr3").innerHTML = q+2;
-                                                    
-                                                    </script>  
+                                                            <option value="2021" id="2021" selected>2021</option>
+                                                                            <option value="2023" id="2022" selected>2022</option>
+                                                                            <option value="2023" id="2023" selected>2023</option>
                                                                             
-                                                      
+                                                        </select>
                                                     </div>
                                                 </div>
 
+
+                                                
+                                              <div class="form-group">
+                                                <label class="col-sm-6 control-label">Note for Recovery Amount</label>
+                                                <div class="col-sm-10">
+                                                    <input type="textbox" name="note" class="form-control"
+                                                        placeholder="Enter Note" required>
+                                                </div>
+                                            </div>       
                                      
 
                                                
