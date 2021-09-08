@@ -27,7 +27,7 @@
                                                     <th>Employee ID <p><i class="arrow down" style="float: right;"></i></p>
                                                     </th>
                                                     <!-- <th>Name <p><i class="arrow down" style="float: right;"></i></p></th> -->
-                                                    <th>Donation Amount</th>
+                                                    <th>Donation Days</th>
                                                     <th>Month</th>
                                                     <th>Year</th>
                                                 </tr>
@@ -36,8 +36,8 @@
                                                     <% for(var i = donation.length-1; i >= 0 ; i-- ) { %>
                                                         <tr>
                                                             <td><%= donation[i].empID %></td>
-                                                            <!-- <td><%= donation[i].empName %></td> -->
-                                                            <td> <%= donation[i].increment %></td>
+                                                            <td><%= donation[i].donationDays %></td>
+                                                           
                                                             <td> <%= donation[i].month %></td>
                                                             <td> <%= donation[i].year %></td>
                                                                 

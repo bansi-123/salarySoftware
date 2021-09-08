@@ -183,9 +183,13 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
             else
             {
                 console.log("inserted in donation for employee with emp id",list2[i])
+                
+                //
             }
         })
     }
+
+    res.redirect('viewdonations');
     
 })
 
@@ -254,6 +258,8 @@ router.post('/ta', ensureAuthenticated, (req, res) => {
             console.log("updated ta in employee")
         }
     })
+
+    res.redirect('ta');
     
 });
 
@@ -306,6 +312,8 @@ router.post('/cca', ensureAuthenticated, (req, res) => {
             console.log("updated cca in employee")
         }
     })
+
+    res.redirect('cca');
     
 });
 
