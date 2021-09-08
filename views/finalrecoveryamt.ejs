@@ -1,251 +1,196 @@
 <%- include('partials/header.ejs'); -%>
 
-<head>
-  <meta charset="UTF-8">
-  <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
-  <link rel="stylesheet" href="../assets/alert/style.css">
-<style>
-        /* .dropbtn {
-      background-color: #04AA6D;
-      color: white;
-      padding: 16px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-    } */
-    
-        .dropbtn:hover,
-        .dropbtn:focus {
-          background-color: #3e8e41;
-        }
-    
-        #myInput {
-          box-sizing: border-box;
-          background-image: url('searchicon.png');
-          background-position: 14px 12px;
-          background-repeat: no-repeat;
-          font-size: 16px;
-          padding: 14px 20px 12px 45px;
-          border: none;
-          border-bottom: 1px solid #ddd;
-        }
-    
-        #myInput:focus {
-          outline: 3px solid #ddd;
-        }
-    
-        .dropdown {
-          position: relative;
-          display: inline-block;
-        }
-    
-        .dropdown-content {
-          display: none;
-          position: absolute;
-          background-color: #f6f6f6;
-          min-width: 230px;
-          overflow: auto;
-          border: 1px solid #ddd;
-          z-index: 1;
-        }
-    
-        .dropdown-content a {
-          color: black;
-          padding: 12px 16px;
-          text-decoration: none;
-          display: block;
-        }
-    
-        .dropdown a:hover {
-          background-color: #ddd;
-        }
-    
-        .show {
-          display: block;
-        }
-</style>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://unpkg.com/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
 
-</head>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
+        <link rel="stylesheet" href="../assets/alert/style.css">
 
-<body>
+        <style>
+            .center {
+                margin: auto;
+                width: 100%;
+                /* border: 3px solid #73AD21; */
+                padding: 10px;
+            }
+        </style>
+    </head>
 
-<div class="content-wrap">
-    <div class="main">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-8 p-r-0 title-margin-right">
-                    <div class="page-header">
-                        <div class="page-title">
-                            <h1>Hello, <span>Welcome Here</span></h1>
+    <body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
+
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+                    <!-- <div class="text-xl font-bold m-5 text-center">Check All The Added Advances, Added Late Attendance,
+                        Added Miscellaneous and Added LWP To Proceed With Salary Generation</div> -->
+
+                        <div class="center">
+                            <a class="btn btn-primary btn-lg" href="finaladvances" role="button">Advances</a>
+                            <a class="btn btn-secondary btn-lg" href="finalcheck" role="button">LWP</a>
+                            <a class="btn btn-success btn-lg" href="finalattendance" role="button">Late Attendance</a>
+                            <a class="btn btn-info btn-lg" href="finalmiscellaneous" role="button">Miscellaneous</a>
+                            <a class="btn btn-warning btn-lg" href="finalrecoveryamt" role="button">Recovery Amount</a>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-title">
-                            <h4>Search</h4>
+                    <div class="gallery border-2 rounded mx-auto m-5 bg-white" style="width:750px;">
+                        <div class="top flex p-2 border-b select-none">
+
+                            <div class="heading text-gray-800 w-full pl-3 font-semibold my-auto"></div>
 
                         </div>
-                        <div class="dropdown">
-                            <label><h3></label></h3> <button  padding="40px" onclick="myFunction()" class="dropbtn">Miscellaneous Deductions</button>
-                            <div id="myDropdown" class="dropdown-content">
-                              <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-
-                              <% for(var i=Employees.length-1; i>= 0; i-- ) { %>
-                                <a href="/miscellaneous/<%=Employees[i].empID%>"><%= Employees[i].empName %></a>
-                              <% }%>
-                            </div>
-                          </div>
-                        <script>
-                        function myFunction() {
-                            document.getElementById("myDropdown").classList.toggle("show");
-                          }
-                      
-                          function filterFunction() {
-                            var input, filter, ul, li, a, i;
-                            input = document.getElementById("myInput");
-                            filter = input.value.toUpperCase();
-                            div = document.getElementById("myDropdown");
-                            a = div.getElementsByTagName("a");
-                            for (i = 0; i < a.length; i++) {
-                              txtValue = a[i].textContent || a[i].innerText;
-                              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                a[i].style.display = "";
-                              } else {
-                                a[i].style.display = "none";
-                              }
-                            }
-                          }
-                        </script>
-                      <div class="col-lg-12">
-                          <div class="card">
-                              <div class="card-title">
-                                  <h4>Miscellaneous Deductions</h4>
-      
-                              </div>
+                        <div class="content-area w-full h-full overflow-hidden">
+                            <div class="platform shadow-xl h-full flex">
 
 
-                        <div class="card-body">
-                            <div class="horizontal-form-elements">
-                                <form class="form-horizontal" action="\miscellaneous" method="post">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                               
-                              
-                        <% var i = 0 %>
-           
-                                              <div class="form-group">
-                                                <label class="col-sm-6 control-label">Employee ID</label>
-                                                <div class="col-sm-10">
-                                                    <input name="empID" value="<%= name[i].empID %>" type="text" id="<%= name[i].empID %>" class="form-control" readonly>
-                                                </div>
-                                            </div>
+                                <!-- <div class="each-frame border-box flex-none h-full" title="Miscellaneous"> -->
 
-                                            <div class="form-group">
-                                                <label class="col-sm-6 control-label">Employee Name</label>
-                                                <div class="col-sm-10">
-                                                    <input name="empName" value="<%= name[i].empName %>" type="text" id="<%= name[i].empName %>" class="form-control" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-6 control-label">Miscellaneous Amount</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="amt" class="form-control"
-                                                        placeholder="Enter Details" required>
-                                                </div>
-                                            </div>
-
-                                        
-                                        </div>
-                                            
-                                            <div class="col-lg-6">
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Month</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control" name="month">
-                                                            <option value="january" name="1" id="january" selected>January</option>
-                                                                            <option value="february" id="february" selected>February</option>
-                                                                            <option value="march" id="march" selected>March</option>
-                                                                            <option value="april" id="april" selected>April</option>
-                                                                            <option value="may" id="may" selected>May</option>
-                                                                            <option value="june" id="june" selected>June</option>    
-                                                                            <option value="july" id="july" selected>July</option>  
-                                                                            <option value="august" id="aug" selected>August</option>    
-                                                                            <option value="september" id="sept" selected>September</option>    
-                                                                            <option value="october" id="october" selected>October</option>    
-                                                                            <option value="november" id="november" selected>November</option>    
-                                                                            <option value="december" id="december" selected>December</option>   
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Year</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control" name="year">
-                                                            <option value="2021" id="2021" selected>2021</option>
-                                                                            <option value="2023" id="2022" selected>2022</option>
-                                                                            <option value="2023" id="2023" selected>2023</option>
-                                                                            
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-
-                                                
-                                              <div class="form-group">
-                                                <label class="col-sm-6 control-label">Note for Deductions</label>
-                                                <div class="col-sm-10">
-                                                    <input type="textbox" name="note" class="form-control"
-                                                        placeholder="Enter Note" required>
-                                                </div>
-                                            </div>       
+                                    <div class="main flex w-full p-8">
                                      
+                                        <div class="sub w-full my-auto">
+                                            <div class="head text-3xl font-bold mb-4">Recovery Amount</div>
+                                            <div class="bootstrap-data-table-panel">
+                                                <div class="table-responsive">
 
-                                               
-                                                <br />
-                                                <div class="row text-center">
-                                                  <div>
-                                                    <button class="button large round success">Submit</button>
-                                                  </div>
+
+                                                    <form class="form-horizontal" action="\form-basic" method="post">
+                                                        <table id="bootstrap-data-table-export"
+                                                            class="table table-striped table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Employee ID <p><i class="arrow down"
+                                                                                style="float: right;"></i></p>
+                                                                    </th>
+                                                                    <th>Employee Name <p><i class="arrow down"
+                                                                                style="float: right;"></i></p>
+                                                                    </th>
+                                                                    <th>Recovery Amount</th>
+                                                                    <th>Month</th>
+                                                                    <th>Year</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <% for(var i=miscell.length-1; i>= 0 ; i-- ) { %>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <%= miscell[i].empID %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= miscell[i].empName %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= miscell[i].miscellaneous_amt %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= miscell[i].month %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= miscell[i].year %>
+                                                                        </td>
+
+                                                                        <% }%>
+
+
+                                                            </tbody>
+                                                        </table>
+                                                </div>
+                                            </div>
+
+                                            <br><br><br><br>
+                                            <!-- <div class="center">
                                                 
+                                               
+                                                <a href="finalcheck">
+                                                    <div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                        action="goto" goto="2">LWP</div>
+                                                </a>
+                                              
+                                                <a href="finaladvances">
+                                                    <div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                        action="goto" goto="end">Advances</div>
+                                                </a>
+                                                <a href="finalattendance">
+                                                    <div class="goto border border-gray-400 text-sm font-semibold inline-block mt-2 p-1 px-2 rounded cursor-pointer"
+                                                        action="goto" goto="2">Late Attendance</div>
+                                                </a>
+
+                                            </div> -->
+                                            <br><br><br><br>
+                                            <div class="row text-center">
+                                                <div class="center">
+                                                    <a href="generatesalary"><button class="button large round info"><a
+                                                                href="generatesalary">Generate Salary</a></button></a>
                                                 </div>
 
                                             </div>
-
+                                        </div>
                                     </div>
-                                </form>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </section>
         </div>
-    </div>
-</div>
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script><script  src="../assets/alert/script.js"></script>
+        <style>
+            .platform {
+                position: relative;
+                transition: right 0.3s;
+            }
+
+            .body {
+                background-color: white !important;
+            }
+        </style>
+
+        <script>
+            function gallery() {
+                this.index = 0;
+                this.load = function () {
+                    this.rootEl = document.querySelector(".gallery");
+                    this.platform = this.rootEl.querySelector(".platform");
+                    this.frames = this.platform.querySelectorAll(".each-frame");
+                    this.contentArea = this.rootEl.querySelector(".content-area");
+                    this.width = parseInt(this.rootEl.style.width);
+                    this.limit = { start: 0, end: this.frames.length - 1 };
+                    this.frames.forEach(each => { each.style.width = this.width + "px"; });
+                    this.goto(this.index);
+                }
+                this.set_title = function () { this.rootEl.querySelector(".heading").innerText = this.frames[this.index].getAttribute("title"); }
+                this.next = function () { this.platform.style.right = this.width * ++this.index + "px"; this.set_title(); }
+                this.prev = function () { this.platform.style.right = this.width * --this.index + "px"; this.set_title(); }
+                this.goto = function (index) { this.platform.style.right = this.width * index + "px"; this.index = index; this.set_title(); }
+                this.load();
+            }
+            var G = new gallery();
+            G.rootEl.addEventListener("click", function (t) {
+                var val = t.target.getAttribute("action");
+                if (val == "next" && G.index != G.limit.end) { G.next(); }
+                if (val == "prev" && G.index != G.limit.start) { G.prev(); }
+                if (val == "goto") {
+                    let rv = t.target.getAttribute("goto");
+                    rv = rv == "end" ? G.limit.end : rv;
+                    G.goto(parseInt(rv));
+                }
+            });
+            document.addEventListener("keyup", function (t) {
+                var val = t.keyCode;
+                if (val == 39 && G.index != G.limit.end) { G.next(); }
+                if (val == 37 && G.index != G.limit.start) { G.prev(); }
+            });
+
+            // run G.load() if new data loaded with ajax
 
 
 
-    <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
-    <!-- scripit init-->
-    <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
-    <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
-    <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
-    <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
-    <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+        </script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
+        <script src="../assets/alert/script.js"></script>
 
+    </body>
 
-</body>
-
-</html>
+    </html>

@@ -602,6 +602,21 @@ router.get('/finalcheck', ensureAuthenticated, (req, res) => {
     })
 });
 
+router.get('/finalrecoveryamt', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees natural join miscellaneous`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('finalrecoveryamt',{
+                miscell:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
 router.get('/finaladvances', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees natural join advance_temp`,(err,result)=>
     {
