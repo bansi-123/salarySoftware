@@ -1824,41 +1824,75 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                             oth_spl+=amount
                                                                                                             console.log("donation amount is ",amount,"for empID ",empID)
                                                                                                         }
-                                                                                                        var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl); //+parseFloat(lwp_amt);
-                                                                                                        var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
-                                                                                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
-                                                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${in_tax}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+                                                                                                        mysqldb.query(`select * from recovery where empID=${empID} and month='${month}' and year=${year}`
                                                                                                         ,(err,result)=>{
                                                                                                             if (err) {
                                                                                                                 console.log(err)
-                                                                                                                console.log("error while inserting into salary table")
+                                                                                                                console.log("error while selecting from recovery table")
                                                                                                             }
                                                                                                             else{
-                                                                                                                // console.log(JSON.parse(JSON.stringify(result))[0])
-                                                                                                                // res.send("Done");
-                                                                                                                // req.flash(
-                                                                                                                //     'success_msg',
-                                                                                                                //     'Employee found!'
-                                                                                                                // );
-                                                                                                                console.log("YAYYYYY")
-                                                                                                                console.log("i,length is ",i,length)
-                                                                                                                // if(i===length)
-                                                                                                            // {
-                                                                                                            //     mysqldb.query('truncate table lwp_temp')
-                                                                                                            //     ,(err,result)=>{
-                                                                                                            //         if (err) {
-                                                                                                            //             //------------ Invalid registration Number ------------//
-                                                                                                            //             // req.flash('error_msg',
-                                                                                                            //             // 'Please enter valid Id.')
-                                                                                                            //             console.log(err)
-                                                                                                            //             console.log("invalid update salary 2")
-                                                                                                            //         }
-                                                                                                            //         else{
-                                                                                                            //             console.log("SUCCESS!")
-                                                                                                            //         }
-                                                                                                            //     }
-                                                                                                                    
-                                                                                                            // }
+                                                                                                                if(result.length===0)
+                                                                                                                {
+                                                                                                                    console.log("no recovery for employee with empID",empID)
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+                                                                                                                    var recovery=JSON.parse(JSON.stringify(result))[0].recoveryAmount;
+                                                                                                    
+                                                                                                                    oth_spl+=recovery
+                                                                                                                    console.log("recovery amount is ",amount,"for empID ",empID)
+                                                                                                                }
+                                                                                                                mysqldb.query(`select * from income_tax where empID=${empID} and month='${month}' and year=${year}`
+                                                                                                                ,(err,result)=>{
+                                                                                                                    if (err) {
+                                                                                                                        console.log(err)
+                                                                                                                        console.log("error while selecting from income_tax table")
+                                                                                                                    }
+                                                                                                                    else{
+                                                                                                                        if(result.length===0)
+                                                                                                                        {
+                                                                                                                            console.log("no income_tax for employee with empID",empID)
+                                                                                                                        }
+                                                                                                                        else
+                                                                                                                        {
+                                                                                                                            var tds=JSON.parse(JSON.stringify(result))[0].tds_per_month;
+                                                                                                            
+                                                                                                                            // oth_spl+=recovery
+                                                                                                                            console.log("tds is ",tds,"for empID ",empID)
+                                                                                                                            //independant query
+                                                                                                                            mysqldb.query(`update income_tax set balance=balance-tds_per_month where empID=${empID} and month='${month}' and year=${year}`
+                                                                                                                            ,(err,result)=>{
+                                                                                                                                if (err) {
+                                                                                                                                    console.log(err)
+                                                                                                                                    console.log("error while updating income_tax table")
+                                                                                                                                }
+                                                                                                                                else{
+                                                                                                                                    console.log("updated balance in income_tax table for empID",empID)
+                                                                                                                                }
+                                                                                                                            })
+                                                                                                                        }
+                                                                                                                        var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl); //+parseFloat(lwp_amt);
+                                                                                                                        var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
+                                                                                                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${tds}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
+                                                                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${tds}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+                                                                                                                        ,(err,result)=>{
+                                                                                                                            if (err) {
+                                                                                                                                console.log(err)
+                                                                                                                                console.log("error while inserting into salary table")
+                                                                                                                            }
+                                                                                                                            else{
+                                                                                                                                // console.log(JSON.parse(JSON.stringify(result))[0])
+                                                                                                                                // res.send("Done");
+                                                                                                                                // req.flash(
+                                                                                                                                //     'success_msg',
+                                                                                                                                //     'Employee found!'
+                                                                                                                                // );
+                                                                                                                                console.log("YAYYYYY")
+                                                                                                                                console.log("i,length is ",i,length)
+                                                                                                                            }
+                                                                                                                        })
+                                                                                                                    }
+                                                                                                                })
                                                                                                             }
                                                                                                         })
                                                                                                     }
@@ -2487,6 +2521,29 @@ router.post('/updateIncomeTax',ensureAuthenticated,(req,res)=>{
             
         }
     });
+    
+})
+
+//make authenticated
+router.post('/recovery',(req,res)=>{
+    const data=JSON.parse(JSON.stringify(req.body));
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    // var 
+    // var empID=r
+
+    // console.log(data["lwp"],data["month"],data["year"],days)
+    
+    
+    mysqldb.query(`INSERT INTO recovery (empID, month, year, recoveryAmount, note) VALUES (${data.empID}, '${data["month"]}', ${data["year"]}, ${data.recoveryAmount}, '${data.note}')`
+    ,(err,result)=>{
+        if (err) {
+            console.log(err);
+            console.log("error in insert query for recovery");
+        }
+        else{
+            res.redirect('index1');
+        }
+    })
     
 })
 
