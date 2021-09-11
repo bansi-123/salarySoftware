@@ -35,6 +35,27 @@ router.post('/form-basic', ensureAuthenticated, (req, res) => {
     // res.redirect('dashboard');
 });
 
+router.get('/edit/:empID', ensureAuthenticated, (req, res) =>  {
+    var requestedTitle = req.params.empID;
+    console.log(typeof(requestedTitle));
+    mysqldb.query(`select * from Employees where empID=${req.params.empID}`,(err,result2)=>
+            {
+                if (err) {
+                    console.log(err);
+                }
+                else{
+                    // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                    // var set=new Set(JSON.parse(JSON.stringify(result)))
+                   console.log("result2 is",result2)
+                    res.render('edit',{
+                        // Employees:JSON.parse(JSON.stringify(result)),
+                        Employees:JSON.parse(JSON.stringify(result2))
+                    });
+                }
+            }) 
+});
+
+
 router.get('/final', ensureAuthenticated, (req, res) => {
     res.render('final');
 });
@@ -162,11 +183,31 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
             else
             {
                 console.log("inserted in donation for employee with emp id",list2[i])
+                
+                //
             }
         })
     }
+
+    res.redirect('viewdonations');
     
 })
+
+router.get('/viewdonations', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from donation`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('viewdonations',{
+                donation:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
 
 router.get('/ta', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>
@@ -217,6 +258,8 @@ router.post('/ta', ensureAuthenticated, (req, res) => {
             console.log("updated ta in employee")
         }
     })
+
+    res.redirect('ta');
     
 });
 
@@ -269,6 +312,8 @@ router.post('/cca', ensureAuthenticated, (req, res) => {
             console.log("updated cca in employee")
         }
     })
+
+    res.redirect('cca');
     
 });
 
@@ -849,14 +894,14 @@ router.post('/table-export', ensureAuthenticated, (req, res) => {
 router.post('/addEmployee',(req,res)=>{
     
     const data=JSON.parse(JSON.stringify(req.body));
-    const {empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment   , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age}=data;
+    const {empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment   , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo}=data;
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("here")
     // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
  //  empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , Type  , Type1 ,  onroll  , dop  , doc   ,appointment ,  Relieving  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,(err,result)=>{
    
     // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
-    mysqldb.query(`INSERT INTO Employees (empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}','${appointment}','${category}','${gender}','${status}',${mobile},'${address_correspondence}','${address_permanent}','${mis}','${biometric}','${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}',${phdYr},'${pgSub}','${pgUni}',${pgYr},'${ugSub}','${ugUni}',${ugYr},'${grade}','${netset}','${othqual}',${exp},${industry_exp},${uni_approval},'${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}',${age})`
+    mysqldb.query(`INSERT INTO Employees (empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}','${appointment}','${category}','${gender}','${status}',${mobile},'${address_correspondence}','${address_permanent}','${mis}','${biometric}','${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}',${phdYr},'${pgSub}','${pgUni}',${pgYr},'${ugSub}','${ugUni}',${ugYr},'${grade}','${netset}','${othqual}',${exp},${industry_exp},${uni_approval},'${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}',${age},'${photo}')`
     ,(err,result)=>{
             if (err) {
             console.log(err);
