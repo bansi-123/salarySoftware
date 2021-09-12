@@ -28,7 +28,7 @@ const mysqldb = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
     password: 'sunandroot',
-    database: 'employees2'
+    database: 'employee3'
 });
 
 // const mysqldb = mysql.createConnection ({
