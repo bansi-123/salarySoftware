@@ -38,7 +38,7 @@ router.post('/form-basic', ensureAuthenticated, (req, res) => {
 router.get('/edit/:empID', ensureAuthenticated, (req, res) =>  {
     var requestedTitle = req.params.empID;
     console.log(typeof(requestedTitle));
-    mysqldb.query(`select * from Employees where empID=${req.params.empID}`,(err,result2)=>
+    mysqldb.query(`select * from Employees where empID="${req.params.empID}"`,(err,result2)=>
             {
                 if (err) {
                     console.log(err);
@@ -1006,7 +1006,7 @@ router.get('/lateattendance/:empID', ensureAuthenticated, (req, res) =>
             console.log(err);
         }
         else{
-            mysqldb.query(`select * from Employees where empID=${req.params.empID}`,(err,result2)=>
+            mysqldb.query(`select * from Employees where empID="${req.params.empID}"`,(err,result2)=>
             {
                 if (err) {
                     console.log(err);
@@ -1036,7 +1036,7 @@ router.get('/miscellaneous/:empID', ensureAuthenticated, (req, res) =>
             console.log(err);
         }
         else{
-            mysqldb.query(`select * from Employees where empID=${req.params.empID}`,(err,result2)=>
+            mysqldb.query(`select * from Employees where empID="${req.params.empID}"`,(err,result2)=>
             {
                 if (err) {
                     console.log(err);
@@ -1065,7 +1065,7 @@ router.get('/recoveryamount/:empID', ensureAuthenticated, (req, res) =>
             console.log(err);
         }
         else{
-            mysqldb.query(`select * from Employees where empID=${req.params.empID}`,(err,result2)=>
+            mysqldb.query(`select * from Employees where empID="${req.params.empID}"`,(err,result2)=>
             {
                 if (err) {
                     console.log(err);
@@ -1110,7 +1110,7 @@ router.get('/advances/:empID', ensureAuthenticated, (req, res) =>
             console.log(err);
         }
         else{
-            mysqldb.query(`select * from Employees where empID=${req.params.empID}`,(err,result2)=>
+            mysqldb.query(`select * from Employees where empID="${req.params.empID}"`,(err,result2)=>
             {
                 if (err) {
                     console.log(err);
@@ -1983,7 +1983,7 @@ router.get('/uploads/:empID',  (req, res) => {
     var requestedTitle = req.params.empID;
      //console.log("the param is", req.params.empID);
      const data=JSON.parse(JSON.stringify(req.params));
-     mysqldb.query(`select * from Employees where empID=${requestedTitle}`,(err,result)=>
+     mysqldb.query(`select * from Employees where empID="${requestedTitle}"`,(err,result)=>
      {
          if (err) {
              console.log(err);
