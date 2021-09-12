@@ -605,25 +605,16 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
-    // mysqldb.query(`select * from Employees`,(err,result)=>
-    // {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    //     else{
-    //         console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-    //         res.render('viewemployee',{
-    //             employees:JSON.parse(JSON.stringify(result))
-    //         });
-    //     }
-    // })
-
-    mysqldb.query(`select * from Employees`,(err,result)=>
+    
+    //var abc="update employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where empID<6;"
+    var abc="select * from Employees;"
+    mysqldb.query(abc,(err,result)=>
     {
         if (err) {
             console.log(err);
         }
         else{
+            
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('viewemployee',{
                 Employees:JSON.parse(JSON.stringify(result))
