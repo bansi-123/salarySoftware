@@ -1,21 +1,7 @@
-const env = {
-  database: 'employee3',
-  username: 'root',
-  password: 'sunandroot',
-  host: 'localhost',
-  dialect: 'mysql',
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
-};
-
 // const env = {
-//   database: 'employee',
+//   database: 'employee3',
 //   username: 'root',
-//   password: 'Vineet@nexa1',
+//   password: 'sunandroot',
 //   host: 'localhost',
 //   dialect: 'mysql',
 //   pool: {
@@ -39,6 +25,7 @@ const env = {
     idle: 10000
   }
 };
+
 
 // const env = {
 //   database: 'employee',

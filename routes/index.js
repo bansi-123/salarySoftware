@@ -130,6 +130,23 @@ router.get('/addincometax', ensureAuthenticated, (req, res) => {
     
 });
 
+
+router.get('/incometax', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('incometax',{
+                Employees:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    
+});
+
 router.get('/donations', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`,(err,result)=>
     {
@@ -607,18 +624,27 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
     
     //var abc="update employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where empID<6;"
-    var abc="select * from Employees;"
-    mysqldb.query(abc,(err,result)=>
+    //var abc="select * from Employees;"
+    mysqldb.query(`select * from Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
         }
         else{
-            
-            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-            res.render('viewemployee',{
-                Employees:JSON.parse(JSON.stringify(result))
-            });
+            mysqldb.query(`update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,(err,result2)=>
+            {
+                if (err) {
+                    console.log(err);
+                }
+                else
+                {
+                    console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+                    res.render('viewemployee',{
+                        Employees:JSON.parse(JSON.stringify(result))
+                    });
+                }
+            })
+           
         }
     })
 
@@ -2363,6 +2389,48 @@ router.post('/storeIncomeTax',(req,res)=>{
      })
 
 })
+
+router.get('/register/teaching',  (req, res) => {
+    //var requestedTitle = req.params.designationCategory;
+     //console.log("the param is", req.params.empID);
+     var teaching= "teaching";
+     mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'teaching'`,(err,result)=>
+     {
+         if (err) {
+             //console.log(err);
+         }
+         else{
+             //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+             res.render('salregister',{
+                 salary:JSON.parse(JSON.stringify(result)),
+                 //requestedTitle = req.params.empID
+                  //added the name field here to get the name wise reciept
+             });
+         }
+     })
+  // res.render("templateSelected2");
+ });
+
+ router.get('/register/nonteaching',  (req, res) => {
+    //var requestedTitle = req.params.designationCategory;
+     //console.log("the param is", req.params.empID);
+     var nonteaching= "nonteaching";
+     mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'Non-Teaching'`,(err,result)=>
+     {
+         if (err) {
+             //console.log(err);
+         }
+         else{
+             //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+             res.render('salregister',{
+                 salary:JSON.parse(JSON.stringify(result)),
+                 //requestedTitle = req.params.empID
+                  //added the name field here to get the name wise reciept
+             });
+         }
+     })
+  // res.render("templateSelected2");
+ });
 
 
 router.get('/updateIncomeTax',ensureAuthenticated,(req,res)=>{
