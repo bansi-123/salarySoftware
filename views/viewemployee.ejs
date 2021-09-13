@@ -97,8 +97,8 @@
     </style>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-   
-  
+
+
   </head>
 
   <body>
@@ -164,9 +164,10 @@
                               </td>
                               <td>
 
-                                <a href="edit/<%= Employees[i].empID %>"><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal">
-                                  Edit
-                                </button></a>
+                                <a href="edit/<%= Employees[i].empID %>"><button type="button"
+                                    class="btn btn-outline-primary btn-sm" data-toggle="modal">
+                                    Edit
+                                  </button></a>
                                 <div class="modal fade" id="a<%= Employees[i].empID %>" tabindex="-1" role="dialog"
                                   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -237,7 +238,7 @@
                                   </div>
                                 </div>
 
-                                
+
 
                                 <!-- <h1>Bootstrap Modal Example</h1> -->
                                 <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
@@ -317,11 +318,17 @@
                                                       </tr>
 
                                                       <tr>
-                                                        <div class="col-sm-6">
-                                                          <td>Date of Joining</td>
-                                                        </div>
+
+                                                        <td>Date of Joining</td>
+
                                                         <td>
                                                           <%= Employees[i].doj %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Years of Experience in PICT </td>
+                                                        <td>
+                                                          <%= Employees[i].workexpYr %>
                                                         </td>
                                                       </tr>
                                                       <tr>
@@ -376,6 +383,8 @@
                                                           <%= Employees[i].age %>
                                                         </td>
                                                       </tr>
+
+
                                                       <tr>
                                                         <td>Category</td>
                                                         <td>
@@ -389,26 +398,14 @@
                                                         </td>
                                                       </tr>
 
-                                                      <tr>
-                                                        <td>Age</td>
-                                                        <td>
-                                                          <%=  Employees[i].age %>
-                                                        </td>
-                                                      </tr>
+                                              
                                                       <tr>
                                                         <td>Marital Status</td>
                                                         <td>
                                                           <%= Employees[i].status %>
                                                         </td>
                                                       </tr>
-                                                      <tr>
-                                                        <td>Date of Promotion</td>
-                                                        <td><%= Employees[i].dop %></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>Date Confirmation of Service</td>
-                                                        <td><%= Employees[i].doc %></td>
-                                                      </tr>
+                                                      
                                                     </tbody>
                                                   </table>
                                                 </div>
@@ -417,69 +414,110 @@
                                                 <div class="col-lg-6">
                                                   <table class="table user-view-table">
                                                     <tbody>
-
+                                                      <tr>
+                                                        <td>Date of Promotion</td>
+                                                        <td>
+                                                          <%= Employees[i].dop %>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>Date Confirmation of Service</td>
+                                                        <td>
+                                                          <%= Employees[i].doc %>
+                                                        </td>
+                                                      </tr>
                                                       <tr>
                                                         <td>Nature of Appointment</td>
-                                                        <td><%= Employees[i].appointment %></td>
+                                                        <td>
+                                                          <%= Employees[i].appointment %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>Mobile No.</td>
-                                                        <td><%= Employees[i].mobile %></td>
+                                                        <td>
+                                                          <%= Employees[i].mobile %>
+                                                        </td>
                                                       </tr>
 
                                                       <tr>
                                                         <td>Address for Correspondence</td>
-                                                        <td><%= Employees[i].address_correspondence %></td>
+                                                        <td>
+                                                          <%= Employees[i].address_correspondence %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>Permanent Address</td>
-                                                        <td><%= Employees[i].address_permanent %></td>
+                                                        <td>
+                                                          <%= Employees[i].address_permanent %>
+                                                        </td>
                                                       </tr>
-                                                      
-                                                    
+
+
                                                       <tr>
                                                         <td>Vacation</td>
-                                                        <td><%= Employees[i].vacation %></td>
+                                                        <td>
+                                                          <%= Employees[i].vacation %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>NET/SET</td>
-                                                        <td><%= Employees[i].netset %></td>
+                                                        <td>
+                                                          <%= Employees[i].netset %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>Other Qualification</td>
-                                                        <td><%= Employees[i].othqual %></td>
+                                                        <td>
+                                                          <%= Employees[i].othqual %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>Teaching Experiance (Other than PICT)</td>
-                                                        <td><%= Employees[i].exp %></td>
+                                                        <td>
+                                                          <%= Employees[i].exp %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>Industry Experience</td>
-                                                        <td><%= Employees[i].industry_exp %></td>
+                                                        <td>
+                                                          <%= Employees[i].industry_exp %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>Work Experience (for NT - Non PICT)</td>
-                                                        <td><%= Employees[i].workexNT %></td>
+                                                        <td>
+                                                          <%= Employees[i].workexNT %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>Overall Seniority No.</td>
-                                                        <td><%= Employees[i].seniority %></td>
+                                                        <td>
+                                                          <%= Employees[i].seniority %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>Dept Seniority No.</td>
-                                                        <td><%= Employees[i].dept_seniority %></td>
+                                                        <td>
+                                                          <%= Employees[i].dept_seniority %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>Aadhar Number</td>
-                                                        <td><%= Employees[i].aadhar %></td>
+                                                        <td>
+                                                          <%= Employees[i].aadhar %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>PAN No.</td>
-                                                        <td><%= Employees[i].Pan_No %></td>
+                                                        <td>
+                                                          <%= Employees[i].Pan_No %>
+                                                        </td>
                                                       </tr>
                                                       <tr>
                                                         <td>Employee on Roll</td>
-                                                        <td><%= Employees[i].onrole %></td>
+                                                        <td>
+                                                          <%= Employees[i].onrole %>
+                                                        </td>
                                                       </tr>
 
                                                     </tbody>
@@ -491,297 +529,270 @@
 
                                           </div>
 
-                                         
 
-                                          </div>
-
-                                          <div class="modal-footer">
-                                            <button class="btn btn-danger" data-dismiss="modal"
-                                              aria-hidden="true">Close</button>
-                                            <button id="btn<%= Employees[i].empID %>" type="button"
-                                              class="btn btn-default">Print</button>
-                                          </div>
 
                                         </div>
 
-                                      </div>
-                                    </div>
+                                        <div class="modal-footer">
+                                          <button class="btn btn-danger" data-dismiss="modal"
+                                            aria-hidden="true">Close</button>
+                                          <button id="btn<%= Employees[i].empID %>" type="button"
+                                            class="btn btn-default">Print</button>
+                                        </div>
 
+                                      </div>
+
+                                    </div>
                                   </div>
 
                                 </div>
-                                <script>
-                                  var dob = new Date("<%= Employees[i].dob %>");
-                                  //calculate month difference from current date in time
-                                  var month_diff = Date.now() - dob.getTime();
-                                  
-                                  //convert the calculated difference in date format
-                                  var age_dt = new Date(month_diff); 
-                                  
-                                  //extract year from date    
-                                  var year = age_dt.getUTCFullYear();
-                                  
-                                  //now calculate the age of the user
-                                  var age = Math.abs(year - 1970);
-                                  
-                                  //display the calculated age
-                                  //document.write("Age of the date entered: " + age + " years");
-                              </script>
 
-                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                                data-target="#b<%= Employees[i].empID %>">
-                                Delete
+                    </div>
+                  
+
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                      data-target="#b<%= Employees[i].empID %>">
+                      Delete
+                    </button>
+
+                    <div class="modal fade" id="b<%= Employees[i].empID %>" tabindex="-1" role="dialog"
+                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Confirm</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            ...
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button" class="btn btn-danger" id="<%= Employees[i].empID %>"
+                              onclick="deleteFunction(this.id,this)" data-dismiss="modal">
+                              Delete</button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
+                      data-target="#abc<%= Employees[i].empID %>">
+                      Educational Details
+                    </button>
+
+                    <div id="print1<%= Employees[i].empID %>">
+
+                      <div class="modal fade" id="abc<%= Employees[i].empID %>" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" style="max-width: 200%" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">
+                                <%= Employees[i].empName %>
+                              </h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
                               </button>
+                            </div>
 
-                              <div class="modal fade" id="b<%= Employees[i].empID %>" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLongTitle">Confirm</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      ...
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Close</button>
-                                      <button" class="btn btn-danger" id="<%= Employees[i].empID %>"
-                                        onclick="deleteFunction(this.id,this)" data-dismiss="modal">
-                                        Delete</button>
+                            <div class="modal-body">
 
-                                    </div>
+
+                              <div class="media align-items-center py-3 mb-3">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
+                                  class="d-block ui-w-100 rounded-circle">
+                                <div class="media-body ml-4">
+                                  <h4 class="font-weight-bold mb-0">
+                                    <%= Employees[i].empName %>
+                                  </h4>
+                                  <div class="text-muted mb-2">ID: <%= Employees[i].empID %>
                                   </div>
+
                                 </div>
                               </div>
-                                
 
-                                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
-                                  data-target="#abc<%= Employees[i].empID %>">
-                                  Educational Details
-                                </button>
+                              <div class="card mb-6">
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col-lg-6">
+                                      <table class="table user-view-table">
+                                        <tbody>
+                                          <tr>
+                                            <td>PhD:</td>
+                                            <td>
+                                              <%= Employees[i].phd%>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>PhD Subject:</td>
+                                            <td>
+                                              <%= Employees[i].phdSub%>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>PhD Institute</td>
+                                            <td>
+                                              <%= Employees[i].phdInsti%>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>PhD University</td>
+                                            <td>
+                                              <%= Employees[i].phdUni %>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>PhD Passing Year</td>
+                                            <td>
+                                              <%= Employees[i].phdYr %>
+                                            </td>
+                                          </tr>
 
-                                <div id="print1<%= Employees[i].empID %>">
-
-                                  <div class="modal fade" id="abc<%= Employees[i].empID %>" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable" style="max-width: 200%"
-                                      role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title">
-                                            <%= Employees[i].empName %>
-                                          </h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
-                                        </div>
-
-                                        <div class="modal-body">
-
-
-                                          <div class="media align-items-center py-3 mb-3">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-                                              class="d-block ui-w-100 rounded-circle">
-                                            <div class="media-body ml-4">
-                                              <h4 class="font-weight-bold mb-0">
-                                                <%= Employees[i].empName %>
-                                              </h4>
-                                              <div class="text-muted mb-2">ID: <%= Employees[i].empID %>
-                                              </div>
-
+                                          <tr>
+                                            <div class="col-sm-6">
+                                              <td>P.G Subject</td>
                                             </div>
-                                          </div>
+                                            <td>
+                                              <%= Employees[i].pjSub %>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>P.G University</td>
+                                            <td>
+                                              <%= Employees[i].pgUni %>
+                                            </td>
+                                          </tr>
 
-                                          <div class="card mb-6">
-                                            <div class="card-body">
-                                              <div class="row">
-                                                <div class="col-lg-6">
-                                                  <table class="table user-view-table">
-                                                    <tbody>
-                                                      <tr>
-                                                        <td>PhD:</td>
-                                                        <td>
-                                                          <%= Employees[i].phd%>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>PhD Subject:</td>
-                                                        <td>
-                                                          <%= Employees[i].phdSub%>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>PhD Institute</td>
-                                                        <td>
-                                                          <%= Employees[i].phdInsti%>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>PhD University</td>
-                                                        <td>
-                                                          <%= Employees[i].phdUni %>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>PhD Passing Year</td>
-                                                        <td>
-                                                          <%= Employees[i].phdYr %>
-                                                        </td>
-                                                      </tr>
-
-                                                      <tr>
-                                                        <div class="col-sm-6">
-                                                          <td>P.G Subject</td>
-                                                        </div>
-                                                        <td>
-                                                          <%= Employees[i].pjSub %>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>P.G University</td>
-                                                        <td>
-                                                          <%= Employees[i].pgUni %>
-                                                        </td>
-                                                      </tr>
-
-                                                      <tr>
-                                                        <td>P.G Passing Year</td>
-                                                        <td>
-                                                          <%= Employees[i].pgYr %>
-                                                        </td>
-
-
-                                                    </tbody>
-                                                  </table>
-                                                </div>
-
-
-                                                <div class="col-lg-6">
-                                                  <table class="table user-view-table">
-                                                    <tbody>
-
-
-                                                      <tr>
-                                                        <td>U.G Subject</td>
-                                                        <td>
-                                                          <%= Employees[i].ugSub %>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>U.G University</td>
-                                                        <td>
-                                                          <%= Employees[i].ugUni %>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <!-- <td>U.G Institute</td>
-                                                        <td>
-                                                          <%= Employees[i].ugInsti %>
-                                                        </td> -->
-                                                      </tr>
-                                                      <tr>
-                                                        <td>U.G Passing Year</td>
-                                                        <td>
-                                                          <%= Employees[i].ugYr %>
-                                                        </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>U.G Grade/Class</td>
-                                                        <td>
-                                                          <%= Employees[i].grade %>
-                                                        </td>
-                                                      </tr>
-
-                                                    </tbody>
-                                                  </table>
-                                                </div>
-                                              </div>
-
-                                            </div>
-
-                                          </div>
-
-                                          <div class="modal-footer">
-                                            <button class="btn btn-danger" data-dismiss="modal"
-                                              aria-hidden="true">Close</button>
-                                            <button id="btn1<%= Employees[i].empID %>" type="button" class="btn btn-default">Print</button>
-                                          </div>
-
-                                        </div>
-
-                                      </div>
+                                          <tr>
+                                            <td>P.G Passing Year</td>
+                                            <td>
+                                              <%= Employees[i].pgYr %>
+                                            </td>
+                                        </tbody>
+                                      </table>
                                     </div>
 
+
+                                    <div class="col-lg-6">
+                                      <table class="table user-view-table">
+                                        <tbody>
+                                          <tr>
+                                            <td>U.G Subject</td>
+                                            <td>
+                                              <%= Employees[i].ugSub %>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>U.G University</td>
+                                            <td>
+                                              <%= Employees[i].ugUni %>
+                                            </td>
+                                          </tr>
+                                    
+                                          <tr>
+                                            <td>U.G Passing Year</td>
+                                            <td>
+                                              <%= Employees[i].ugYr %>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>U.G Grade/Class</td>
+                                            <td>
+                                              <%= Employees[i].grade %>
+                                            </td>
+                                          </tr>
+
+                                        </tbody>
+                                      </table>
+                                    </div>
                                   </div>
+
                                 </div>
 
-                              </td>
-                            </tr>
+                              </div>
 
-                            <script>
-                              document.getElementById("btn<%= Employees[i].empID %>").onclick = function () {
-                                printElement(document.getElementById("print<%= Employees[i].empID %>"));
-                              }
+                              <div class="modal-footer">
+                                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Close</button>
+                                <button id="btn1<%= Employees[i].empID %>" type="button"
+                                  class="btn btn-default">Print</button>
+                              </div>
 
-                              function printElement(elem) {
-                                var domClone = elem.cloneNode(true);
+                            </div>
 
-                                var $printSection = document.getElementById("printSection");
+                          </div>
+                        </div>
 
-                                if (!$printSection) {
-                                  var $printSection = document.createElement("div");
-                                  $printSection.id = "printSection";
-                                  document.body.appendChild($printSection);
-                                }
+                      </div>
+                    </div>
 
-                                $printSection.innerHTML = "";
-                                $printSection.appendChild(domClone);
-                                window.print();
-                              }
-                            </script>
+                    </td>
+                    </tr>
 
-                            <script>
-                              document.getElementById("btn1<%= Employees[i].empID %>").onclick = function () {
-                                printElement(document.getElementById("print1<%= Employees[i].empID %>"));
-                              }
+                    <script>
+                      document.getElementById("btn<%= Employees[i].empID %>").onclick = function () {
+                        printElement(document.getElementById("print<%= Employees[i].empID %>"));
+                      }
 
-                              function printElement(elem) {
-                                var domClone = elem.cloneNode(true);
+                      function printElement(elem) {
+                        var domClone = elem.cloneNode(true);
 
-                                var $printSection = document.getElementById("printSection");
+                        var $printSection = document.getElementById("printSection");
 
-                                if (!$printSection) {
-                                  var $printSection = document.createElement("div");
-                                  $printSection.id = "printSection";
-                                  document.body.appendChild($printSection);
-                                }
+                        if (!$printSection) {
+                          var $printSection = document.createElement("div");
+                          $printSection.id = "printSection";
+                          document.body.appendChild($printSection);
+                        }
 
-                                $printSection.innerHTML = "";
-                                $printSection.appendChild(domClone);
-                                window.print();
-                              }
-                            </script>
+                        $printSection.innerHTML = "";
+                        $printSection.appendChild(domClone);
+                        window.print();
+                      }
+                    </script>
 
-                            <% }%>
-                        </tbody>
+                    <script>
+                      document.getElementById("btn1<%= Employees[i].empID %>").onclick = function () {
+                        printElement(document.getElementById("print1<%= Employees[i].empID %>"));
+                      }
+
+                      function printElement(elem) {
+                        var domClone = elem.cloneNode(true);
+
+                        var $printSection = document.getElementById("printSection");
+
+                        if (!$printSection) {
+                          var $printSection = document.createElement("div");
+                          $printSection.id = "printSection";
+                          document.body.appendChild($printSection);
+                        }
+
+                        $printSection.innerHTML = "";
+                        $printSection.appendChild(domClone);
+                        window.print();
+                      }
+                    </script>
+
+                    <% }%>
+                      </tbody>
 
 
                       </table>
-                    </div>
                   </div>
                 </div>
-                <!-- /# card -->
               </div>
+              <!-- /# card -->
             </div>
-            <!-- <input type="submit" style="float: right;" value="Submit"> -->
         </div>
-        <!-- /# row -->
-        </section>
+        <!-- <input type="submit" style="float: right;" value="Submit"> -->
       </div>
+      <!-- /# row -->
+      </section>
+    </div>
     </div>
     </div>
     <!-- bootstrap -->
