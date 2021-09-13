@@ -165,7 +165,7 @@ router.get('/donations', ensureAuthenticated, (req, res) => {
 
 router.post('/donations',ensureAuthenticated,(req,res)=>{
     mlist = [ "January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December" ];
-    var cur_month=mlist[new Date().getMonth()]
+    var cur_month=mlist[new Date().getMonth()].toLowerCase()
     var cur_year=new Date().getFullYear()
     console.log(JSON.parse(JSON.stringify(req.body)))
 
@@ -175,7 +175,7 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
     for(var i in data)
     {
 
-        if(Number.isInteger(parseInt(i)))
+        if(i.includes("EMP"))
         {
             console.log(i)
             console.log(data[i])
@@ -191,6 +191,7 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
     console.log("list is",list2)
     for(var i in list2)
     {
+        console.log(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`)
         mysqldb.query(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`,(err,result)=>{
             if(err)
             {
@@ -252,11 +253,11 @@ router.post('/ta', ensureAuthenticated, (req, res) => {
     for(var i in data)
     {
 
-        if(Number.isInteger(parseInt(i)))
+        if(i.includes("EMP"))
         {
             console.log(i)
             console.log(data[i])
-            list+=i.toString()+","
+            list+="'"+i.toString()+"'"+","
             list2.push(i)
         }
 
@@ -265,6 +266,7 @@ router.post('/ta', ensureAuthenticated, (req, res) => {
     list=list.substring(0,list.length - 1);
     list+=")";
     console.log("list is",list2)
+    console.log(`update Employees set ta=${newValue} where empID in ${list}`)
     mysqldb.query(`update Employees set ta=${newValue} where empID in ${list}`,(err,result)=>{
         if(err)
         {
@@ -306,11 +308,11 @@ router.post('/cca', ensureAuthenticated, (req, res) => {
     for(var i in data)
     {
 
-        if(Number.isInteger(parseInt(i)))
+        if(i.includes("EMP"))
         {
             console.log(i)
             console.log(data[i])
-            list+=i.toString()+","
+            list+="'"+i.toString()+"'"+","
             list2.push(i)
         }
 
@@ -840,8 +842,8 @@ router.get('/allowances',  (req, res) => {
 
 router.post('/allowances',  (req, res) => {
     console.log(JSON.parse(JSON.stringify(req.body)))
-    const {ta,cca,hra_MultFactor,da_MultFactor}=JSON.parse(JSON.stringify(req.body));
-    mysqldb.query(`update config set ta=${ta},cca=${cca},hra_MultFactor=${hra_MultFactor},da_MultFactor=${da_MultFactor} where ID=1`,(err,result)=>
+    const {hra_MultFactor,da_MultFactor}=JSON.parse(JSON.stringify(req.body));
+    mysqldb.query(`update config set hra_MultFactor=${hra_MultFactor},da_MultFactor=${da_MultFactor} where ID=1`,(err,result)=>
     {
         if (err) {
             console.log(err);
@@ -1275,7 +1277,7 @@ router.post('/updatepay',(req,res)=>{
         {
             console.log(i)
             console.log(data[i])
-            list+=i.toString()+","
+            list+="'"+i.toString()+"'"+","
             list2.push(i)
         }
 
@@ -1315,15 +1317,15 @@ router.post('/updatepay',(req,res)=>{
                     increment=Math.ceil(increment/10)*10
                 }
                 var finalpay=increment-queryData[i].gp;
-                console.log(`update Employees set pay=${finalpay} where empID='${parseInt(list2[i])}')`)
+                console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
                 
-                mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${parseInt(list2[i])}', '${month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
+                mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
                 {
                     if (err) {
                         console.log(err);
                     }
                     else{
-                        mysqldb.query(`update Employees set pay=${finalpay} where empID='${parseInt(list2[i])}'`,(err,result)=>
+                        mysqldb.query(`update Employees set pay=${finalpay} where empID='${list2[i]}'`,(err,result)=>
                         {
                             if (err) {
                                 console.log(err);
@@ -1724,6 +1726,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                 //hra difference ,da change in percent x (pay+gp) on current only.
                                                                 var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca_temp)+parseFloat(diff)+parseFloat(ta_temp);
                                                                 console.log("gross salary,days of month,lwp are",gross_sal,daysOfMonth,lwp,"for empID",empID)
+                                                                
                                                                 if(gross_sal>10000)
                                                                 {
                                                                     prof_tax=200;
@@ -1750,13 +1753,13 @@ router.post('/generateSalary',(req,res)=>{
                                                                 {
                                                                     rev_stmp=rev_stamp_max
                                                                 }
-                                                                oth_spl+=adv_deduction;
-                                                                oth_spl+=groupInsurance;
-                                                                oth_spl+=hra_final_difference;
+                                                                oth_spl+=parseInt(adv_deduction);
+                                                                oth_spl+=parseInt(groupInsurance);
+                                                                oth_spl+=parseInt(hra_final_difference);
                                                                 console.log("pay,gp,da,hra,ta_temp,cca_temp 2",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
 
                                                                 console.log("hra difference is",hra_final_difference,"for empID",empID)
-                                                                oth_spl+=da_final_difference;
+                                                                oth_spl+=parseInt(da_final_difference);
                                                                 console.log("da difference is",da_final_difference,"for empID",empID)
                                                                 
                                                                 console.log("logging")
@@ -1802,7 +1805,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                             late_attendance_deduction=gross_sal/prevdays*latedays
 
                                                                         }
-                                                                        oth_spl+=late_attendance_deduction
+                                                                        oth_spl+=parseInt(late_attendance_deduction)
                                                                         console.log("late attendance deductions is",late_attendance_deduction,"for empid",empID)
                                                                         console.log("pay,gp,da,hra,ta_temp,cca_temp 3",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
                                                                         mysqldb.query(`select * from miscellaneous where empID='${empID}' and month='${month}' and year=${year}`
@@ -1823,7 +1826,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                     miscellaneous_deduction=data.miscellaneous_amt
 
                                                                                 }
-                                                                                oth_spl+=miscellaneous_deduction
+                                                                                oth_spl+=parseInt(miscellaneous_deduction)
                                                                                 console.log("pay,gp,da,hra,ta_temp,cca_temp 4",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
 
                                                                                 console.log("miscellaneous deductions is",miscellaneous_deduction,"for empID",empID)
@@ -1867,7 +1870,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                         }
                                                                                                         var toAddValue=(hra_MultFactor+da_MultFactor)*incrementvalue
                                                                                                         finalIncrement=Math.ceil((toAddValue+incrementvalue)*durationIncrement)
-                                                                                                        oth_spl+=finalIncrement
+                                                                                                        oth_spl+=parseInt(finalIncrement)
                                                                                                         console.log("increment difference is ",finalIncrement,"for empID",empID)
                                                                                                         console.log("pay,gp,da,hra,ta_temp,cca_temp 5",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
 
@@ -1890,7 +1893,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                 {
                                                                                                     var donationDays=JSON.parse(JSON.stringify(result))[0].donationDays;
                                                                                                     var amount=gross_sal/daysOfMonth*donationDays
-                                                                                                    oth_spl+=amount
+                                                                                                    oth_spl+=parseInt(amount)
                                                                                                     console.log("donation amount is ",amount,"for empID ",empID)
                                                                                                 }
                                                                                                 mysqldb.query(`select * from recovery where empID='${empID}' and month='${month}' and year=${year}`
@@ -1908,7 +1911,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                         {
                                                                                                             var recovery=JSON.parse(JSON.stringify(result))[0].recoveryAmount;
                                                                                             
-                                                                                                            oth_spl+=recovery
+                                                                                                            oth_spl+=parseInt(recovery)
                                                                                                             console.log("recovery amount is ",amount,"for empID ",empID)
                                                                                                             console.log("pay,gp,da,hra,ta_temp,cca_temp 6",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
 
@@ -1930,7 +1933,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                                 {
                                                                                                                     var tds=JSON.parse(JSON.stringify(result))[0].tds_per_month;
                                                                                                     
-                                                                                                                    // oth_spl+=tds
+                                                                                                                    // oth_spl+=tds 
                                                                                                                     console.log("tds is ",tds,"for empID ",empID)
                                                                                                                     //independant query
                                                                                                                     mysqldb.query(`update income_tax set balance=balance-tds_per_month where empID='${empID}' and month='${month}' and year=${year}`
