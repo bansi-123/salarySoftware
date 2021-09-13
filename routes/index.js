@@ -64,7 +64,7 @@ router.get('/final', ensureAuthenticated, (req, res) => {
 router.post('/searchEmployee',(req,res)=>{
     const id=req.body.id;
     console.log(req.body)
-    mysqldb.query(`select * from Employees where empID=${id}`,(err,result)=>{
+    mysqldb.query(`select * from Employees where empID='${id}'`,(err,result)=>{
         if (result.length===0) {
             //------------ Invalid registration Number ------------//
             // req.flash('error_msg',
@@ -174,7 +174,7 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
     console.log("list is",list2)
     for(var i in list2)
     {
-        mysqldb.query(`insert into donation(empID,donationDays,month,year,cause) VALUES(${list2[i]},${donateDays},'${cur_month}',${cur_year},'${cause}')`,(err,result)=>{
+        mysqldb.query(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`,(err,result)=>{
             if(err)
             {
                 console.log(err)
@@ -357,7 +357,7 @@ router.post('/differences',ensureAuthenticated,(req,res)=>{
     for(let i = 0; i < list2.length; i++)
     {
         console.log("i is",list2[i])
-        mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES (${list2[i]},'${month}',${duration},${year})`,(err,result)=>
+        mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`,(err,result)=>
         {
             if (err) {
                 console.log(err);
@@ -420,7 +420,7 @@ router.post('/otherdifferences',ensureAuthenticated,(req,res)=>{
     for(let i = 0; i < list2.length; i++)
     {
         console.log("i is",list2[i])
-        mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES (${list2[i]},${da_difference},'${month}',${da_duration},${year})`,(err,result)=>
+        mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month}',${da_duration},${year})`,(err,result)=>
         {
             if (err) {
                 console.log(err);
@@ -429,7 +429,7 @@ router.post('/otherdifferences',ensureAuthenticated,(req,res)=>{
                 
             }
         })
-        mysqldb.query(`insert into hra_difference(empID,difference,month,duration,year) VALUES (${list2[i]},${hra_difference},'${month}',${hra_duration},${year})`,(err,result)=>
+        mysqldb.query(`insert into hra_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${hra_difference},'${month}',${hra_duration},${year})`,(err,result)=>
         {
             if (err) {
                 console.log(err);
@@ -583,7 +583,7 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
         //     }
         //     else{
         // var empID=JSON.parse(JSON.stringify(result))[0].empID;
-        mysqldb.query(`INSERT INTO lwp (empID, month, year, days, lwp) VALUES (${data.empID}, '${data["month"]}', ${data["year"]}, ${days}, ${data["lwp"]}) ON DUPLICATE KEY UPDATE
+        mysqldb.query(`INSERT INTO lwp (empID, month, year, days, lwp) VALUES ('${data.empID}', '${data["month"]}', ${data["year"]}, ${days}, ${data["lwp"]}) ON DUPLICATE KEY UPDATE
         lwp=lwp+${data["lwp"]}`
         ,(err,result)=>{
             if (err) {
@@ -857,7 +857,7 @@ router.post('/salsheet',  (req, res) => {
 router.post('/searchEmployee',(req,res)=>{
     const id=req.body.id;
     console.log(req.body)
-    db.query(`select * from Employees where empID=${id}`,(err,result)=>{
+    db.query(`select * from Employees where empID='${id}'`,(err,result)=>{
         if (result.length===0) {
             //------------ Invalid registration Number ------------//
             // req.flash('error_msg',
@@ -892,7 +892,7 @@ router.post('/addEmployee',(req,res)=>{
  //  empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , Type  , Type1 ,  onroll  , dop  , doc   ,appointment ,  Relieving  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,(err,result)=>{
    
     // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
-    mysqldb.query(`INSERT INTO Employees (empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}','${appointment}','${category}','${gender}','${status}',${mobile},'${address_correspondence}','${address_permanent}','${mis}','${biometric}','${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}',${phdYr},'${pgSub}','${pgUni}',${pgYr},'${ugSub}','${ugUni}',${ugYr},'${grade}','${netset}','${othqual}',${exp},${industry_exp},${uni_approval},'${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}',${age},'${photo}')`
+    mysqldb.query(`INSERT INTO Employees (empID,empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo) VALUES ('${mis}','${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}','${appointment}','${category}','${gender}','${status}',${mobile},'${address_correspondence}','${address_permanent}','${mis}','${biometric}','${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}',${phdYr},'${pgSub}','${pgUni}',${pgYr},'${ugSub}','${ugUni}',${ugYr},'${grade}','${netset}','${othqual}',${exp},${industry_exp},${uni_approval},'${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}',${age},'${photo}')`
     ,(err,result)=>{
             if (err) {
             console.log(err);
@@ -963,8 +963,8 @@ router.post('/groupinsurance',ensureAuthenticated,(req,res)=>{
     // for(var i in indexList)
     for (let i = 0; i < indexList.length; i++)
     {
-        console.log(`insert into group_insurance (empID,month,year) VALUES (${IDlist[i]},${data.month[indexList[i]]},${data.year[indexList[i]]})`)
-        mysqldb.query(`insert into group_insurance (empID,month,year) VALUES (${IDlist[i]},'${data.month[indexList[i]]}','${data.year[indexList[i]]}')`,(err,result)=>{
+        console.log(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}',${data.month[indexList[i]]},${data.year[indexList[i]]})`)
+        mysqldb.query(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}','${data.month[indexList[i]]}','${data.year[indexList[i]]}')`,(err,result)=>{
             if(err)
             {
                 console.log(err)
@@ -1194,8 +1194,8 @@ router.post('/advances', ensureAuthenticated, (req, res) =>
             else{
                 console.log(result)
                 var empID=JSON.parse(JSON.stringify(result))[0].empID;
-                console.log(`INSERT INTO advance_temp (empID, ,amount, month, year, duration, outstanding) VALUES (${empID}, ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`)
-                mysqldb.query(`INSERT INTO advance_temp (empID, amount, month, year, duration, outstanding) VALUES (${empID}, ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`
+                console.log(`INSERT INTO advance_temp (empID, ,amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`)
+                mysqldb.query(`INSERT INTO advance_temp (empID, amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`
                 ,(err,result)=>{
                     if (err) {
                         console.log(err);
@@ -1289,15 +1289,15 @@ router.post('/updatepay',(req,res)=>{
                     increment=Math.ceil(increment/10)*10
                 }
                 var finalpay=increment-queryData[i].gp;
-                console.log(`update Employees set pay=${finalpay} where empID=${parseInt(list2[i])})`)
+                console.log(`update Employees set pay=${finalpay} where empID='${parseInt(list2[i])}')`)
                 
-                mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES (${parseInt(list2[i])}, ${month}, ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
+                mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${parseInt(list2[i])}', ${month}, ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
                 {
                     if (err) {
                         console.log(err);
                     }
                     else{
-                        mysqldb.query(`update Employees set pay=${finalpay} where empID=${parseInt(list2[i])}`,(err,result)=>
+                        mysqldb.query(`update Employees set pay=${finalpay} where empID='${parseInt(list2[i])}'`,(err,result)=>
                         {
                             if (err) {
                                 console.log(err);
@@ -1379,8 +1379,7 @@ router.post('/generateSalary',(req,res)=>{
                     length=JSON.parse(JSON.stringify(result))[0]['count(*)'];
                     for (let i = 1; i < length+1; i++) {
                         ta_temp=ta;
-                        cca_temp=cca
-                        console.log("ta temp is ",ta_temp)
+                        cca_temp=cca;
                         //to get employee specific properties for calculation
                         mysqldb.query(`select pay,gp,pf,empID from Employees ORDER BY empID LIMIT ${i-1},1`,(err,result)=>{
                             if (err) {
@@ -1390,12 +1389,12 @@ router.post('/generateSalary',(req,res)=>{
                             }
                             else{
                                 console.log(result)
-                                var empID=parseInt(JSON.parse(JSON.stringify(result))[0].empID);
+                                var empID=(JSON.parse(JSON.stringify(result))[0].empID);
                                 var gp=parseInt(JSON.parse(JSON.stringify(result))[0].gp);
                                 var pf=parseInt(JSON.parse(JSON.stringify(result))[0].pf);
                                 var pay=parseInt(JSON.parse(JSON.stringify(result))[0].pay);
                                 console.log(JSON.parse(JSON.stringify(result))[0]);
-                                console.log("gp,pf,bp selected",gp,pf,pay);
+                                console.log("gp,pf,bp selected for empid",gp,pf,pay,empID);
                                 // req.flash(
                                 //     'success_msg',
                                 //     'Employee found!'
@@ -1416,7 +1415,7 @@ router.post('/generateSalary',(req,res)=>{
                                 var year=parseInt(JSON.parse(JSON.stringify(req.body)).year)
 
                                 //to calculate hra_dda_differences
-                                mysqldb.query(`select * from hra_difference where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
+                                mysqldb.query(`select * from hra_difference where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                     if (err) {
                                         
                                         console.log(err)
@@ -1435,7 +1434,7 @@ router.post('/generateSalary',(req,res)=>{
                                             var hra_duration=data.duration;
                                             hra_final_difference=(pay+gp)*hra_difference*hra_duration/100
                                         }
-                                        mysqldb.query(`select * from da_difference where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
+                                        mysqldb.query(`select * from da_difference where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                             if (err) {
                                                 
                                                 console.log(err)
@@ -1455,7 +1454,7 @@ router.post('/generateSalary',(req,res)=>{
                                                 }
                                                
                                                 //variable to calc advances
-                                                mysqldb.query(`select * from advance_temp where empID=${empID}`,(err,result)=>{
+                                                mysqldb.query(`select * from advance_temp where empID='${empID}'`,(err,result)=>{
                                                     if (err) {
                                                         
                                                         console.log(err)
@@ -1575,7 +1574,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                         }
                                                                     }
                                                                     //independant query
-                                                                    mysqldb.query(`update advance_temp set outstanding=outstanding-${adv_deduction} where empID=${empID}`,(err,result)=>{
+                                                                    mysqldb.query(`update advance_temp set outstanding=outstanding-${adv_deduction} where empID='${empID}'`,(err,result)=>{
                                                                         if(err)
                                                                         {
                                                                             console.log(err)
@@ -1587,7 +1586,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                         }
                                                                         if(parseInt(adv_outstanding-adv_deduction)===0)
                                                                         {
-                                                                            mysqldb.query(`insert into advance (empID,amount,month,year,duration,outstanding) values (${empID},${adv_amount},${adv_month},${adv_year},${adv_duration},${adv_outstanding-adv_deduction})`,(err,result)=>{
+                                                                            mysqldb.query(`insert into advance (empID,amount,month,year,duration,outstanding) values ('${empID}',${adv_amount},${adv_month},${adv_year},${adv_duration},${adv_outstanding-adv_deduction})`,(err,result)=>{
                                                                                 if(err)
                                                                                 {
                                                                                     console.log(err)
@@ -1595,7 +1594,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                    mysqldb.query(`delete from advance_temp where empID=${empID}`,(err,result)=>{
+                                                                                    mysqldb.query(`delete from advance_temp where empID='${empID}'`,(err,result)=>{
                                                                                         if(err)
                                                                                         {
                                                                                             console.log(err)
@@ -1618,7 +1617,7 @@ router.post('/generateSalary',(req,res)=>{
                                                         
 
                                                         var groupInsurance=0;
-                                                        mysqldb.query(`select groupInsurance from group_insurance natural join Employees where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
+                                                        mysqldb.query(`select groupInsurance from group_insurance natural join Employees where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                                             if(err)
                                                             {
                                                                 console.log(err)
@@ -1636,11 +1635,11 @@ router.post('/generateSalary',(req,res)=>{
                                                                 {
                                                                     groupInsurance+=JSON.parse(JSON.stringify(result))[0].groupInsurance
                                                                 }
-                                                                console.log("group insurance is",groupInsurance)
+                                                                console.log("group insurance is",groupInsurance,"for empID",empID)
                                                                 //to get lwp data for calculating part of deduction value
-                                                                // console.log(`select days,lwp from lwp where empID=${empID} and month=${month} and year=${year}`);
+                                                                // console.log(`select days,lwp from lwp where empID='${empID}' and month=${month} and year=${year}`);
 
-                                                                mysqldb.query(`select days,lwp from lwp where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
+                                                                mysqldb.query(`select days,lwp from lwp where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                                                     if (err) {
                                                                         
                                                                         console.log(err)
@@ -1671,6 +1670,8 @@ router.post('/generateSalary',(req,res)=>{
                                                                         cca_temp=cca;
                                                                         ta_temp*=workedDays/daysOfMonth;
                                                                         cca_temp*=workedDays/daysOfMonth;
+                                                                        console.log("TA,cca ISSS",ta,cca,ta_temp,cca_temp)
+
                                                                         var pfcheck=prov_fund_Percent/100*(pay+gp+da)
                                                                         if(pf>pfcheck)
                                                                         {
@@ -1696,7 +1697,7 @@ router.post('/generateSalary',(req,res)=>{
 
                                                                         //hra difference ,da change in percent x (pay+gp) on current only.
                                                                         var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca_temp)+parseFloat(diff)+parseFloat(ta_temp);
-                                                                        console.log("gross salary,days of month,lwp",gross_sal,daysOfMonth,lwp)
+                                                                        console.log("gross salary,days of month,lwp are",gross_sal,daysOfMonth,lwp,"for empID",empID)
                                                                         if(gross_sal>10000)
                                                                         {
                                                                             prof_tax=200;
@@ -1726,14 +1727,14 @@ router.post('/generateSalary',(req,res)=>{
                                                                         oth_spl+=adv_deduction;
                                                                         oth_spl+=groupInsurance;
                                                                         oth_spl+=hra_final_difference;
-                                                                        console.log("hra difference is",hra_final_difference)
+                                                                        console.log("hra difference is",hra_final_difference,"for empID",empID)
                                                                         oth_spl+=da_final_difference;
-                                                                        console.log("da difference is",hra_final_difference)
+                                                                        console.log("da difference is",da_final_difference,"for empID",empID)
                                                                         
                                                                         console.log("logging")
 
                                                                         //independant query
-                                                                        // mysqldb.query(`insert into lwp (empID,month,year,days,lwp) values (${empID},'${month}',${year},${daysOfMonth},${lwp})`,(err,result)=>{
+                                                                        // mysqldb.query(`insert into lwp (empID,month,year,days,lwp) values ('${empID}','${month}',${year},${daysOfMonth},${lwp})`,(err,result)=>{
                                                                         //     if(err)
                                                                         //     {
                                                                         //         console.log(err)
@@ -1741,7 +1742,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                         //     }
                                                                         //     else
                                                                         //     {
-                                                                        //         mysqldb.query(`delete from lwp_temp where empID=${empID}`,(err,result)=>{
+                                                                        //         mysqldb.query(`delete from lwp_temp where empID='${empID}'`,(err,result)=>{
                                                                         //             if(err)
                                                                         //             {
                                                                         //                 console.log(err)
@@ -1753,7 +1754,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                         //         })
                                                                         //     }
                                                                         // })
-                                                                        mysqldb.query(`select * from late_attendance where empID=${empID} and month='${month}' and year=${year}`
+                                                                        mysqldb.query(`select * from late_attendance where empID='${empID}' and month='${month}' and year=${year}`
                                                                         ,(err,result)=>{
                                                                             if (err) {
                                                                                 console.log(err)
@@ -1774,9 +1775,9 @@ router.post('/generateSalary',(req,res)=>{
 
                                                                                 }
                                                                                 oth_spl+=late_attendance_deduction
-                                                                                console.log("late attendance deductions is",late_attendance_deduction)
+                                                                                console.log("late attendance deductions is",late_attendance_deduction,"for empid",empID)
 
-                                                                                mysqldb.query(`select * from miscellaneous where empID=${empID} and month='${month}' and year=${year}`
+                                                                                mysqldb.query(`select * from miscellaneous where empID='${empID}' and month='${month}' and year=${year}`
                                                                                 ,(err,result)=>{
                                                                                     if (err) {
                                                                                         console.log(err)
@@ -1795,8 +1796,8 @@ router.post('/generateSalary',(req,res)=>{
 
                                                                                         }
                                                                                         oth_spl+=miscellaneous_deduction
-                                                                                        console.log("miscellaneous deductions is",miscellaneous_deduction)
-                                                                                        mysqldb.query(`select * from increment_difference where empID=${empID} and month='${month}' and year=${year}`,(err,result)=>{
+                                                                                        console.log("miscellaneous deductions is",miscellaneous_deduction,"for empID",empID)
+                                                                                        mysqldb.query(`select * from increment_difference where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                                                                             if (err) {
                                                                                                 console.log(err)
                                                                                                 console.log("error while calculating from increment difference table,select query")
@@ -1810,7 +1811,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                 {
                                                                                                     var durationIncrement=JSON.parse(JSON.stringify(result))[0].duration
                                                                                                      //take latest increment value
-                                                                                                    mysqldb.query(`select * from increment where empID=${empID} order by year desc,month desc limit 1`,(err,result)=>{
+                                                                                                    mysqldb.query(`select * from increment where empID='${empID}' order by year desc,month desc limit 1`,(err,result)=>{
                                                                                                         if (err) {
                                                                                                             console.log(err)
                                                                                                             console.log("error while calculating from increment table,select query")
@@ -1842,7 +1843,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                         }
                                                                                                     })
                                                                                                 }
-                                                                                                mysqldb.query(`select * from donation where empID=${empID}`
+                                                                                                mysqldb.query(`select * from donation where empID='${empID}'`
                                                                                                 ,(err,result)=>{
                                                                                                     if (err) {
                                                                                                         console.log(err)
@@ -1860,7 +1861,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                             oth_spl+=amount
                                                                                                             console.log("donation amount is ",amount,"for empID ",empID)
                                                                                                         }
-                                                                                                        mysqldb.query(`select * from recovery where empID=${empID} and month='${month}' and year=${year}`
+                                                                                                        mysqldb.query(`select * from recovery where empID='${empID}' and month='${month}' and year=${year}`
                                                                                                         ,(err,result)=>{
                                                                                                             if (err) {
                                                                                                                 console.log(err)
@@ -1878,7 +1879,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                                     oth_spl+=recovery
                                                                                                                     console.log("recovery amount is ",amount,"for empID ",empID)
                                                                                                                 }
-                                                                                                                mysqldb.query(`select * from income_tax where empID=${empID} and month='${month}' and year=${year}`
+                                                                                                                mysqldb.query(`select * from income_tax where empID='${empID}' and month='${month}' and year=${year}`
                                                                                                                 ,(err,result)=>{
                                                                                                                     if (err) {
                                                                                                                         console.log(err)
@@ -1893,10 +1894,10 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                                         {
                                                                                                                             var tds=JSON.parse(JSON.stringify(result))[0].tds_per_month;
                                                                                                             
-                                                                                                                            // oth_spl+=recovery
+                                                                                                                            // oth_spl+=tds
                                                                                                                             console.log("tds is ",tds,"for empID ",empID)
                                                                                                                             //independant query
-                                                                                                                            mysqldb.query(`update income_tax set balance=balance-tds_per_month where empID=${empID} and month='${month}' and year=${year}`
+                                                                                                                            mysqldb.query(`update income_tax set balance=balance-tds_per_month where empID='${empID}' and month='${month}' and year=${year}`
                                                                                                                             ,(err,result)=>{
                                                                                                                                 if (err) {
                                                                                                                                     console.log(err)
@@ -1907,10 +1908,10 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                                                 }
                                                                                                                             })
                                                                                                                         }
-                                                                                                                        var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(in_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl); //+parseFloat(lwp_amt);
+                                                                                                                        var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl)+3000; //+parseFloat(lwp_amt);
                                                                                                                         var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
-                                                                                                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, ${tds}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
-                                                                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES (${empID}, '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${tds}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
+                                                                                                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES ('${empID}', '${month}', ${year}, ${da}, ${hra}, ${cca}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta}, ${prof_tax}, 3000, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`)
+                                                                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal) VALUES ('${empID}', '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, 3000, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal})`
                                                                                                                         ,(err,result)=>{
                                                                                                                             if (err) {
                                                                                                                                 console.log(err)
@@ -2086,7 +2087,7 @@ router.get('/viewdeductions', ensureAuthenticated, (req, res) =>
  router.post('/deleteEmployee',(req,res)=>{
      console.log("in route")
      console.log(req.body.id)
-     mysqldb.query(`delete from Employees where empID=${req.body.id}`,(err,result)=>{
+     mysqldb.query(`delete from Employees where empID='${req.body.id}'`,(err,result)=>{
         if (err) {
             //------------ Invalid registration Number ------------//
             // req.flash('error_msg',
@@ -2112,7 +2113,7 @@ router.get('/viewdeductions', ensureAuthenticated, (req, res) =>
 
  router.post('/lateattendance', ensureAuthenticated, (req, res) => {
     const data=JSON.parse(JSON.stringify(req.body));
-    const empID=req.params.empID;   
+    // const empID=req.params.empID;   
     console.log(JSON.parse(JSON.stringify(req.body)))
     // const length=data["lwp"].length
     var monthNames = [ "january", "february", "march", "april", "may", "june",
@@ -2174,7 +2175,7 @@ router.get('/viewdeductions', ensureAuthenticated, (req, res) =>
 
         // console.log(data["lwp"],data["month"],data["year"],days)
         // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
-        mysqldb.query(`INSERT INTO late_attendance (empID, empName, latedays,month, year, prevdays) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${prevdays})`,(err,result)=>{
+        mysqldb.query(`INSERT INTO late_attendance (empID, empName, latedays,month, year, prevdays) VALUES ('${data.empID}', '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${prevdays})`,(err,result)=>{
             if (err) {
                 console.log(err);
                 console.log("invalid details");
@@ -2205,7 +2206,7 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
 
         // console.log(data["lwp"],data["month"],data["year"],days)
         // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
-        mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES (${data.empID}, '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}')`,(err,result)=>{
+        mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES ('${data.empID}', '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}')`,(err,result)=>{
             if (err) {
                 console.log(err);
                 console.log("invalid details");
@@ -2343,8 +2344,8 @@ router.post('/storeIncomeTax',(req,res)=>{
                         var total_tax=tax_on_income+health_and_edu_cess;
                         var tds_per_month=total_tax/12;
                         var balance=total_tax;
-                        console.log(`insert into income_tax (empID,exemption,prev_investment,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES (${empID},${exemption},${investment},${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year})`)
-                        mysqldb.query(`insert into income_tax (empID,exemption,prev_investment,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year,type) VALUES (${empID},${exemption},${investment},${investment},${net_taxable_income},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year},"initial")`,(err,result)=>{
+                        console.log(`insert into income_tax (empID,exemption,prev_investment,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES ('${empID}',${exemption},${investment},${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year})`)
+                        mysqldb.query(`insert into income_tax (empID,exemption,prev_investment,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year,type) VALUES ('${empID}',${exemption},${investment},${investment},${net_taxable_income},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year},"initial")`,(err,result)=>{
                             if (err) {
         
                                 console.log(err)
@@ -2406,7 +2407,7 @@ router.post('/updateIncomeTax',ensureAuthenticated,(req,res)=>{
     function updateIncomeTax(item,i,callback)
     {
 
-        mysqldb.query(`update Employees set investment=${valueList[i]} where empID=${indexList[i]}`,(err,result)=>{
+        mysqldb.query(`update Employees set investment=${valueList[i]} where empID='${indexList[i]}'`,(err,result)=>{
             if (err) {
                 console.log(err)
                 console.log("error in update query of Employee")
@@ -2418,9 +2419,9 @@ router.post('/updateIncomeTax',ensureAuthenticated,(req,res)=>{
                     var cur_month=mlist[new Date().getMonth()]
                     var cur_year=new Date().getFullYear()
                     console.log(valueList,indexList,i,"in query")
-                    console.log(`select * from Employees natural join Salary where month='${cur_month}' and year=${cur_year} and empID=${indexList[i]}`)
+                    console.log(`select * from Employees natural join Salary where month='${cur_month}' and year=${cur_year} and empID='${indexList[i]}'`)
                     //to get employee specific properties for calculation
-                    mysqldb.query(`select * from Employees natural join Salary where month='${cur_month}' and year=${cur_year} and empID=${indexList[i]}`,(err,result)=>{
+                    mysqldb.query(`select * from Employees natural join Salary where month='${cur_month}' and year=${cur_year} and empID='${indexList[i]}'`,(err,result)=>{
                         if (err) {
                             console.log(err)
                             console.log("error in select query of Employee")
@@ -2507,7 +2508,7 @@ router.post('/updateIncomeTax',ensureAuthenticated,(req,res)=>{
                             var total_tax=tax_on_income+health_and_edu_cess;
                             var tds_per_month=total_tax/12;
                             // var balance=total_tax;
-                            mysqldb.query(`select * from income_tax where empID=${indexList[i]} and type="initial"`
+                            mysqldb.query(`select * from income_tax where empID='${indexList[i]}' and type="initial"`
                             ,(err,result)=>{
                                 if (err) {
                                     console.log(err);
@@ -2529,8 +2530,8 @@ router.post('/updateIncomeTax',ensureAuthenticated,(req,res)=>{
                                     tds_per_month=balance_new/monthsRemaining;
                                     console.log("months passed,tax_payed,monthsRemaining,balance_new,tds_per_month",monthsPassed,tax_payed,monthsRemaining,balance_new,tds_per_month_prev)
 
-                                    console.log(`insert into income_tax (empID,exemption,prev_investment,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES (${empID},${exemption},${investment},${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance_new},'${cur_month}',${cur_year})`)
-                                    mysqldb.query(`insert into income_tax (empID,exemption,prev_investment,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year,type) VALUES (${empID},${exemption},${investment},${investment},${net_taxable_income},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance_new},'${cur_month}',${cur_year},"update")`,(err,result)=>{
+                                    console.log(`insert into income_tax (empID,exemption,prev_investment,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES ('${empID}',${exemption},${investment},${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance_new},'${cur_month}',${cur_year})`)
+                                    mysqldb.query(`insert into income_tax (empID,exemption,prev_investment,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year,type) VALUES ('${empID}',${exemption},${investment},${investment},${net_taxable_income},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance_new},'${cur_month}',${cur_year},"update")`,(err,result)=>{
                                         if (err) {
                                                 
                                             console.log(err)
@@ -2570,7 +2571,7 @@ router.post('/recovery',(req,res)=>{
     // console.log(data["lwp"],data["month"],data["year"],days)
     
     
-    mysqldb.query(`INSERT INTO recovery (empID, month, year, recoveryAmount, note) VALUES (${data.empID}, '${data["month"]}', ${data["year"]}, ${data.recoveryAmount}, '${data.note}')`
+    mysqldb.query(`INSERT INTO recovery (empID, month, year, recoveryAmount, note) VALUES ('${data.empID}', '${data["month"]}', ${data["year"]}, ${data.recoveryAmount}, '${data.note}')`
     ,(err,result)=>{
         if (err) {
             console.log(err);
