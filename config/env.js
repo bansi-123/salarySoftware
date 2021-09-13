@@ -13,9 +13,9 @@ const env = {
 };
 
 // const env = {
-//   database: 'employee',
+//   database: 'employee3',
 //   username: 'root',
-//   password: 'Vineet@nexa1',
+//   password: 'sunandroot',
 //   host: 'localhost',
 //   dialect: 'mysql',
 //   pool: {
