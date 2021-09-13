@@ -621,6 +621,7 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
     res.redirect('showlwp');
 });
 
+
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
     
     //var abc="update employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where empID<6;"
@@ -638,10 +639,22 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
                 }
                 else
                 {
-                    console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-                    res.render('viewemployee',{
-                        Employees:JSON.parse(JSON.stringify(result))
-                    });
+                    mysqldb.query(`update Employees set workexpYr=(floor(DATEDIFF(now(), doj)/ 365.2425)) where pay>0`,(err,result2)=>
+                    {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else
+                        {
+                                console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+                                res.render('viewemployee',{
+                                    Employees:JSON.parse(JSON.stringify(result))
+                            });
+                    
+                        }
+                   
+                    })
+
                 }
             })
            
@@ -1362,6 +1375,24 @@ router.get('/showsalary', ensureAuthenticated, (req, res) => {
         else{
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('showsalary',{
+                salary:JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/showfinaldeductions', ensureAuthenticated, (req, res) => {
+    mlist = [ "January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December" ];
+    var cur_month=mlist[new Date().getMonth()]
+    var cur_year=new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('showfinaldeductions',{
                 salary:JSON.parse(JSON.stringify(result))
             });
         }
