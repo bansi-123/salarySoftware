@@ -97,6 +97,8 @@
     </style>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+   
+  
   </head>
 
   <body>
@@ -347,10 +349,31 @@
                                                           <%= Employees[i].groupInsurance %>
                                                         </td>
                                                       </tr>
+
+                                                      <tr>
+                                                        <td>Pay Band</td>
+                                                        <td>
+                                                          <%= Employees[i].payBand %>
+                                                        </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                        <td>Pay Commission</td>
+                                                        <td>
+                                                          From DB
+                                                        </td>
+                                                      </tr>
                                                       <tr>
                                                         <td>Date of Birth</td>
                                                         <td>
                                                           <%= Employees[i].dob %>
+                                                        </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                        <td>Age</td>
+                                                        <td>
+                                                          <%= Employees[i].age %>
                                                         </td>
                                                       </tr>
                                                       <tr>
@@ -363,6 +386,13 @@
                                                         <td>Gender</td>
                                                         <td>
                                                           <%= Employees[i].gender %>
+                                                        </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                        <td>Age</td>
+                                                        <td>
+                                                          <%=  Employees[i].age %>
                                                         </td>
                                                       </tr>
                                                       <tr>
@@ -405,14 +435,8 @@
                                                         <td>Permanent Address</td>
                                                         <td><%= Employees[i].address_permanent %></td>
                                                       </tr>
-                                                      <tr>
-                                                        <td>MIS Login ID</td>
-                                                        <td><%= Employees[i].mis %></td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td>Biometric Attendance ID</td>
-                                                        <td><%= Employees[i].biometric %></td>
-                                                      </tr>
+                                                      
+                                                    
                                                       <tr>
                                                         <td>Vacation</td>
                                                         <td><%= Employees[i].vacation %></td>
@@ -484,7 +508,25 @@
                                     </div>
 
                                   </div>
+
                                 </div>
+                                <script>
+                                  var dob = new Date("<%= Employees[i].dob %>");
+                                  //calculate month difference from current date in time
+                                  var month_diff = Date.now() - dob.getTime();
+                                  
+                                  //convert the calculated difference in date format
+                                  var age_dt = new Date(month_diff); 
+                                  
+                                  //extract year from date    
+                                  var year = age_dt.getUTCFullYear();
+                                  
+                                  //now calculate the age of the user
+                                  var age = Math.abs(year - 1970);
+                                  
+                                  //display the calculated age
+                                  //document.write("Age of the date entered: " + age + " years");
+                              </script>
 
                                 <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                 data-target="#b<%= Employees[i].empID %>">

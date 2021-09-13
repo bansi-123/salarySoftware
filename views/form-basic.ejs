@@ -14,6 +14,23 @@
             }
         </style>
         <script>
+            function calculateAge(date) {
+                const now = new Date();
+                const diff = Math.abs(now - date);
+                const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+                return age
+            }
+
+            var picker = new Pikaday({
+                field: document.getElementById('birth_date'),
+                yearRange: [1900, 2020],
+                onSelect: function (date) {
+                    let age = calculateAge(date);
+                    document.getElementById('age').innerHTML = "age: " + age;
+                }
+            });
+        </script>
+        <script>
 
             var handle_dependent_selects = function ($category) {
                 var $designation = document.getElementById($category.getAttribute('data-designation-id')),
@@ -112,7 +129,8 @@
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Name (As per Aadhar Card)                            <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label">Name (As per Aadhar Card) <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="empName" class="form-control"
@@ -121,7 +139,8 @@
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Email ID (Personal)                            <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label">Email ID (Personal) <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input id="val-email" name="emailID" class="form-control"
@@ -129,7 +148,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Email ID (PICT)                            <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label">Email ID (PICT) <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input id="example-email2" name="emailID2" class="form-control"
@@ -148,7 +168,8 @@
 
                                             <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label">Designation Category :                            <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label">Designation Category : <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <select name="designationcategory" id="id_category"
@@ -168,7 +189,8 @@
 
                                             <div class="form-group row" id="dvPassport" style="display: none">
 
-                                                <label class="col-lg-6 col-form-label"> Type 1:                            <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label"> Type 1: <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <select name="nonteach">
@@ -228,7 +250,8 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">UAN <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label">UAN <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="number" name="uan" class="form-control" ruqt
@@ -252,7 +275,8 @@
 
                                             <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label"> Departments                            <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label"> Departments <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <select name="dept" id="id_category1" onchange="ShowHideDiv()"
@@ -311,7 +335,7 @@
 
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Date of
-                                                    Joining                            <span class="text-danger">*</span>
+                                                    Joining <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="date" class="form-control" id="doj" name="doj" ruqt>
@@ -319,15 +343,28 @@
                                                 </div>
                                             </div>
 
-
-
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Date of Birth                            <span class="text-danger">*</span>
+                                                <div><label class="col-lg-6 col-form-label" for="birth_date">Birth Date
+                                                        <span class="text-danger">*</span></label>
+                                                    <input type="text" id="birth_date" />
+                                                </div>
+                                                <div id="age" style="padding-top:2em;"></div>
+
+                                                <!-- <div class="col-lg-6">
+                                                    <input type="date" name="dob" class="form-control" ruqt>
+                                                </div> -->
+
+                                            </div>
+
+                                            <!-- <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Date of Birth <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="date" name="dob" class="form-control" ruqt>
                                                 </div>
-                                            </div>
+                                                <div id="age" style="padding-top:2em;"></div>
+                                            </div> -->
                                             <div class="form-group row">
 
                                                 <label class="col-lg-6 col-form-label" for="category">Category</label>
@@ -371,7 +408,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Aadhar Number                            <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label">Aadhar Number <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="Aadhar" class="form-control"
@@ -379,7 +417,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">PAN No.                            <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label">PAN No. <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="Pan_No" class="form-control"
@@ -397,7 +436,8 @@
                                             </script>
                                             <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label">Employee on Roll                            <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label">Employee on Roll <span
+                                                        class="text-danger">*</span>
 
                                                 </label>
                                                 <div class="col-lg-6">
@@ -406,19 +446,17 @@
                                                         class='dependent-selects__category' ruqt>
                                                         <option value="yes">Yes</option>
                                                         <option value="no">No</option>
-                                                        
+
 
 
                                                     </select><br><br>
                                                 </div>
 
 
+
                                                 <div id="dvPassport2" style="display: none">
                                                     Relieving Date:
                                                     <input type="date" class="form-control" id="doc" name="doc" ruqt>
-
-
-
 
                                                 </div>
                                             </div>
@@ -462,7 +500,8 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Mobile No.                            <span class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label">Mobile No. <span
+                                                        class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="number" name="mobile" class="form-control"
@@ -486,14 +525,14 @@
                                                         ruqt>
                                                 </div>
                                             </div>
-                                            
-                                            <div class="form-group row">
+
+                                            <!-- <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Biometric Attendance ID                            <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="biometric" class="form-control" ruqt>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group row">
 
                                                 <label class="col-lg-6 col-form-label" for="vacation">Vacation</label>
@@ -617,7 +656,8 @@
                                             </div>
                                             <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label" for="emp_temp_regime">Employee Tax Regime</label>
+                                                <label class="col-lg-6 col-form-label" for="emp_temp_regime">Employee
+                                                    Tax Regime</label>
                                                 <div class="col-lg-6">
 
                                                     <select name="emp_temp_regime" id="emp_temp_regime" ruqt>
@@ -639,7 +679,7 @@
                                                     <input type="text" name="investment" class="form-control" ruqt>
                                                 </div>
                                             </div>
-                                           
+
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Drive link for photo </label>
                                                 <div class="col-lg-6">
@@ -685,7 +725,8 @@
                                     <div class="col-lg-6">
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Basic Pay                            <span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">Basic Pay <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="pay" class="form-control"
@@ -695,7 +736,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label"> TA                            <span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label"> TA <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="ta" class="form-control">
@@ -707,7 +749,8 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label"> CCA                            <span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label"> CCA <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="cca" class="form-control">
@@ -715,7 +758,8 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Grade Pay                            <span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">Grade Pay <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="gp" class="form-control"
@@ -727,7 +771,8 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Provident Fund                            <span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">Provident Fund <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="pf" class="form-control"
@@ -736,7 +781,8 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Group Insurance                            <span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">Group Insurance <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="groupInsurance" class="form-control"
@@ -750,20 +796,38 @@
 
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Pay Band                            <span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">Pay Band <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <select class="form-control" name="payBand" ruqt>
                                                     <!-- <option value="value" selected>Option Name</option> -->
-                                                    <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
-                                                    <option value="30k-40k" id="30k-40k" selected>30k-40k</option>
-                                                    <option value="40k-50k" id="40k-50k" selected>40k-50k</option>
-                                                    <option value="50k-60k" id="50k-60k" selected>50k-60k</option>
-                                                    <option value="60k-70k" id="60k-70k" selected>60k-70k</option>
-                                                    <option value="70k-80k" id="70k-80k" selected>70k-80k</option>
-                                                    <option value="80k-90k" id="80k-90k" selected>80k-90k</option>
-                                                    <option value="90k-100k" id="90k-100k" selected>90k-100k</option>
-                                                    <option value="lakh" id="lakh" selected>1 lakh+</option>
+                                                    <option>---------</option>
+                                                    <option value="20k-30k" id="20k-30k">20k-30k</option>
+                                                    <option value="30k-40k" id="30k-40k">30k-40k</option>
+                                                    <option value="40k-50k" id="40k-50k">40k-50k</option>
+                                                    <option value="50k-60k" id="50k-60k">50k-60k</option>
+                                                    <option value="60k-70k" id="60k-70k">60k-70k</option>
+                                                    <option value="70k-80k" id="70k-80k">70k-80k</option>
+                                                    <option value="80k-90k" id="80k-90k">80k-90k</option>
+                                                    <option value="90k-100k" id="90k-100k">90k-100k</option>
+                                                    <option value="lakh" id="lakh">1 lakh+</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">Pay Commission<span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <select class="form-control" name="payCommission" ruqt>
+                                                    <option>---------</option>
+                                                    <option value="5" id="5th">5th Type</option>
+                                                    <option value="6" id="6th">6th Type</option>
+                                                    <option value="7" id="7th">7th Type</option>
+
                                                 </select>
                                             </div>
                                         </div>
@@ -791,7 +855,8 @@
                                     <div class="col-lg-6">
                                         <div class="form-group row">
 
-                                            <label class="col-lg-6 col-form-label">Bank Name                            <span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">Bank Name <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="bankName" class="form-control"
@@ -801,7 +866,8 @@
 
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Branch Name                            <span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">Branch Name <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="branchName" class="form-control"
@@ -814,7 +880,8 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">IFSC Code                            <span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">IFSC Code <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="ifscCode" id="ifsc" class="form-control"
@@ -828,7 +895,7 @@
                                         <div class="form-group row">
 
                                             <label class="col-lg-6 col-form-label">Enter Bank Account
-                                                No.                            <span class="text-danger">*</span>
+                                                No. <span class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="bankAccNum" class="form-control"
@@ -955,7 +1022,8 @@
                                 <div class="form-group">
                                     <label class="col-lg-6 col-form-label">P.G. Subject</label>
                                     <div class="col-lg-6">
-                                        <input type="text" value="null"name="pgSub" class="form-control" placeholder="P.G. Subject">
+                                        <input type="text" value="null" name="pgSub" class="form-control"
+                                            placeholder="P.G. Subject">
                                     </div>
                                 </div>
                             </div>
@@ -965,7 +1033,7 @@
                                 <div class="form-group row">
                                     <label class="col-lg-6 col-form-label">P.G. University</label>
                                     <div class="col-lg-6">
-                                        <input type="text"value="null" name="pgUni" class="form-control"
+                                        <input type="text" value="null" name="pgUni" class="form-control"
                                             placeholder="P.G. University">
                                     </div>
                                 </div>
@@ -975,7 +1043,7 @@
 
                                     <label class="col-lg-6 col-form-label">P.G. Passing year</label>
                                     <div class="col-lg-6">
-                                        <input type="text" value="null"name="pgYr" class="form-control"
+                                        <input type="text" value="null" name="pgYr" class="form-control"
                                             placeholder="P.G. Passing year">
                                     </div>
                                 </div>
@@ -1060,7 +1128,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row text-center" style='float: center;'>
+                        <div class="row text-center" text-align: center;>
 
                             <button class="button large round success">Submit</button>
 

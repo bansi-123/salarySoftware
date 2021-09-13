@@ -1,5 +1,7 @@
 <%- include('partials/header.ejs'); -%>
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
     <style>
         .arrow {
           border: solid black;
@@ -73,6 +75,27 @@
                 </div>
                 <!-- /# row -->
 
+                <div class="row">
+                    <div class="col-lg-6">
+
+                        <div class="form-group">
+                            <label class="col-sm-10 control-label">No. of Days' Amount To Donate</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="donateDays" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="form-group">
+                            <label class="col-sm-10 control-label">Cause</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="cause" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <section id="main-content">
                     <div class="row">
                         <div class="col-lg-12">
@@ -81,9 +104,11 @@
                                     <div class="table-responsive">
                                         <form class="form-horizontal" action="\donations" method="post">
                                        
-                                        <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
+                                            <input type="button" class="btn btn-danger" style="float: right;" onclick='deSelect()'
+                                            value="Deselect All" />
 
-                                        <input type="button"style="float: right;" onclick='selects()' value="Select All"/>  
+                                        <input type="button" class="btn btn-success" style="float: right;" onclick='selects()'
+                                            value="Select All" />
                                         
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
@@ -124,28 +149,9 @@
 
                     </div>
 
-                        <div class="row">
-                            <div class="col-lg-6">
+                        
 
-                                <div class="form-group">
-                                    <label class="col-sm-10 control-label">No. of days' amount to donate</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="donateDays" class="form-control" value=3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-
-                                <div class="form-group">
-                                    <label class="col-sm-10 control-label">Cause</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="cause" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    <input type="submit" style="float: right;" value="Submit" > 
+                        <input class="btn btn-primary" style="float: right;" type="submit" value="Submit">
 
                     </form>
 

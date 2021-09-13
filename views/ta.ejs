@@ -84,7 +84,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-5 control-label">Enter TA Amount</label>
                                     <div class="col-sm-3">
-                                        <input type="text" name="newValue" class="form-control" value=3>
+                                        <input type="text" name="newValue" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -99,10 +99,10 @@
                                         <div class="bootstrap-data-table-panel">
                                             <div class="table-responsive">
 
-                                                <input type="button" style="float: right;" onclick='deSelect()'
+                                                <input type="button" class="btn btn-danger" style="float: right;" onclick='deSelect()'
                                                     value="Deselect All" />
 
-                                                <input type="button" style="float: right;" onclick='selects()'
+                                                <input type="button" class="btn btn-success" style="float: right;" onclick='selects()'
                                                     value="Select All" />
 
                                                 <table id="bootstrap-data-table-export"
@@ -172,7 +172,8 @@
 
                             
 
-                            <input type="submit" style="float: right;" value="Submit">
+                            <!-- <input type="submit" style="float: right;" value="Submit"> -->
+                            <input class="btn btn-primary" style="float: right;" type="submit" value="Submit">
 
                     </form>
 

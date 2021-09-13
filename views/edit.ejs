@@ -405,15 +405,13 @@
                                                         </select><br><br>
                                                     </div>
 
+                                                    
+
 
                                                     <div id="dvPassport2" style="display: none">
                                                         Relieving Date:
                                                         <input type="date" class="form-control" id="doc" name="doc" value="<%= Employees[i].Relieving %>"
                                                             ruqt>
-
-
-
-
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -482,12 +480,12 @@
                                                 </div>
                                             </div>
                                            
-                                            <div class="form-group row">
+                                            <!-- <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Biometric Attendance ID</label>
                                                 <div class="col-lg-6">
                                                     <input type="text" value="<%= Employees[i].biometric %>" name="biometric" class="form-control" ruqt>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group row">
 
                                                 <label class="col-lg-6 col-form-label" for="vacation">Vacation</label>
@@ -729,6 +727,7 @@
                                             <div class="col-lg-6">
                                                 <select class="form-control" name="payBand" value="<%= Employees[i].payBand %>" ruqt>
                                                     <!-- <option value="value" selected>Option Name</option> -->
+                                                    <option>---------</option>
                                                     <option value="20k-30k" id="20k-30k" selected>20k-30k</option>
                                                     <option value="30k-40k" id="30k-40k" selected>30k-40k</option>
                                                     <option value="40k-50k" id="40k-50k" selected>40k-50k</option>
@@ -738,6 +737,20 @@
                                                     <option value="80k-90k" id="80k-90k" selected>80k-90k</option>
                                                     <option value="90k-100k" id="90k-100k" selected>90k-100k</option>
                                                     <option value="lakh" id="lakh" selected>1 lakh+</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">Pay Commission<span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <select class="form-control" name="payCommission" ruqt>
+                                                    <option>---------</option>
+                                                    <option value="5" id="5th">5th Type</option>
+                                                    <option value="6" id="6th">6th Type</option>
+                                                    <option value="7" id="7th">7th Type</option>
+                                                    
                                                 </select>
                                             </div>
                                         </div>
