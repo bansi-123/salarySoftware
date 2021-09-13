@@ -648,7 +648,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
                         {
                                 console.log("Employees Details",JSON.parse(JSON.stringify(result)));
                                 res.render('viewemployee',{
-                                    Employees:JSON.parse(JSON.stringify(result))
+                                Employees:JSON.parse(JSON.stringify(result))
                             });
                     
                         }

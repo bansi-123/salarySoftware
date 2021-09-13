@@ -630,10 +630,10 @@ $(document).foundation();
 
 $('button.success').click(function() {
   alertify.set({ delay: 1700 });
-  							alertify.success("Success notification");  
+  							alertify.success("Success!");  
 });
 
 $('button.alert').click(function() {
     alertify.set({ delay: 1700 });
-	    							alertify.error("Error notification");  
+	    							alertify.error("Error!");  
 });
