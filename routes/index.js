@@ -603,27 +603,17 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
         // })
     res.redirect('showlwp');
 });
-
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
-    // mysqldb.query(`select * from Employees`,(err,result)=>
-    // {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    //     else{
-    //         console.log("Employees Details",JSON.parse(JSON.stringify(result)));
-    //         res.render('viewemployee',{
-    //             employees:JSON.parse(JSON.stringify(result))
-    //         });
-    //     }
-    // })
-
+    
+    // var abc="update employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0;"
+    // abc += "select * from Employees"
     mysqldb.query(`select * from Employees`,(err,result)=>
     {
         if (err) {
             console.log(err);
         }
         else{
+            
             console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('viewemployee',{
                 Employees:JSON.parse(JSON.stringify(result))
