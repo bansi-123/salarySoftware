@@ -28,7 +28,7 @@
                         <div class="col-lg-8 p-r-0 title-margin-right">
                             <div class="page-header">
                                 <div class="page-title">
-                                <h1>Gross Salary Earnings</span></h1>
+                                <h1>Masterview</h1>
                             </div>
                             </div>
                         </div>
@@ -87,6 +87,22 @@
                                                             <th>Other Special</th>
                                                             <th>TA</th>
                                                             <th>Gross Total</th>
+
+                                                            <th>Provident Fund</th>
+                                                            <th>Prof Tax</th>
+                                                            <th>Income Tax</th>
+                                                            <th>Group Insurance</th>
+                                                            <th>LWP Due To Late Attendance</th>
+                                                            <th>Donations</th>
+                                                            <th>Advance</th>
+                                                            <th>Recovery</th>
+                                                            <th>Miscellaneous</th>
+                                                            <th>Other Deductions</th>
+                                                            <th>Rev Stmp</th>
+                                                            
+
+                                                            <th>Total Ded</th>
+                                                            <th>Net Salary</th>
 
                                                         </tr>
                                                     </thead>
@@ -164,6 +180,50 @@
                                                                 <td>
                                                                     <%= salary[i].gross_sal %>
                                                                 </td>
+
+                                                                <td>
+                                                                    <%= salary[i].pf %>
+                                                                </td>
+
+                                                                <td>
+                                                                    <%= salary[i].prof_tax %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].in_tax %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].group_insurance %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].late_days %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].donationDays %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].advance %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].recovery%>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].miscellaneous_amt %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].other_deductions %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].rev_stmp %>
+                                                                </td>
+                                                            
+
+                                                                <td>
+                                                                    <%= salary[i].total_ded %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].net_sal %>
+                                                                </td>
+
                                                             </tr>
                                                             <% }%>
 
