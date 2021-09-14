@@ -74,10 +74,13 @@
                         </div>
                         <!-- /# column -->
                     </div>
-                    <!-- /# row -->
-                    <form class="form-horizontal" action="\form-basic" method="post">
-                    <div class="row">
-                        <div class="col-lg-6">
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
+                <form class="form-horizontal" action="\donations" method="post">
+
+                <div class="row">
+                    <div class="col-lg-6">
 
                             <div class="form-group">
                                 <label class="col-sm-10 control-label">No. of Days' Amount To Donate</label>
@@ -97,66 +100,50 @@
                         </div>
                     </div>
 
-                    <section id="main-content">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="bootstrap-data-table-panel">
-                                        <div class="table-responsive">
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="bootstrap-data-table-panel">
+                                    <div class="table-responsive">
+                                       
+                                            <input type="button" class="btn btn-danger" style="float: right;" onclick='deSelect()'
+                                            value="Deselect All" />
 
-                                                <input type="button" class="btn btn-danger" style="float: right;"
-                                                    onclick='deSelect()' value="Deselect All" />
+                                        <input type="button" class="btn btn-success" style="float: right;" onclick='selects()'
+                                            value="Select All" />
+                                        
+                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Employee ID<p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Name <p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Department <p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Position <p><i class="arrow down" style="float: right;"></i></th>
+                                                    <th>Apply Donations To<p><i class="arrow down" style="float: right;"></i></th>
+                                                    
 
-                                                <input type="button" class="btn btn-success" style="float: right;"
-                                                    onclick='selects()' value="Select All" />
-
-                                                <table id="bootstrap-data-table-export"
-                                                    class="table table-striped table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Employee ID<p><i class="arrow down"
-                                                                        style="float: right;"></i></th>
-                                                            <th>Name <p><i class="arrow down" style="float: right;"></i>
-                                                            </th>
-                                                            <th>Department <p><i class="arrow down"
-                                                                        style="float: right;"></i></th>
-                                                            <th>Position <p><i class="arrow down"
-                                                                        style="float: right;"></i></th>
-                                                            <th>Apply Donations To<p><i class="arrow down"
-                                                                        style="float: right;"></i></th>
-
-
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <% for(var i=Employees.length-1; i>= 0 ; i-- ) { %>
-                                                            <tr>
-                                                                <td>
-                                                                    <%= Employees[i].empID %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= Employees[i].empName %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= Employees[i].dept %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= Employees[i].designation %>
-                                                                </td>
-                                                                <td> <input class="checkedButtons" type="checkbox"
-                                                                        name=<%=Employees[i].empID %> id="check"
-                                                                    value="1"><br> </td>
-                                                            </tr>
-                                                            <% }%>
-                                                    </tbody>
+                                                
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
+                                                    <tr>
+                                                        <td><%= Employees[i].empID %></td>
+                                                        <td><%= Employees[i].empName %></td>
+                                                        <td><%= Employees[i].dept %></td>
+                                                        <td><%= Employees[i].designation %></td>
+                                                        <td> <input class="checkedButtons" type="checkbox" name=<%= Employees[i].empID %> id="check" value="1"><br> </td>
+                                                    </tr>
+                                                <% }%>
+                                            </tbody>
 
 
-                                                </table>
+                                        </table>
 
 
-
-                                        </div>
+                                          
+                                    </div>
 
                                     </div>
                                 </div>
