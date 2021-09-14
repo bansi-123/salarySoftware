@@ -436,18 +436,50 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
     var list2 = []
     for (var i in data) {
 
-        if (Number.isInteger(parseInt(i))) {
+        if (i.includes("EMP")) {
             console.log(i)
             console.log(data[i])
-            list2.push(parseInt(i))
+            list2.push(i)
         }
 
     }
-    console.log("list is", list2)
+    console.log("list is", list2);
+    var duration=0;
+    first_date=data.month[0];
+    second_date=data.month[1];
+    first_month=parseInt(first_date.split("-")[1]);
+    second_month=parseInt(second_date.split("-")[1]);
+    first_year=parseInt(first_date.split("-")[0]);
+    second_year=parseInt(second_date.split("-")[0]);
+    console.log(first_month,first_year)
+    if( second_year>=first_year)
+    {
+            if(first_month>second_month)
+            {
+                if(second_year===first_year+1)
+                {
+                    duration=second_month+12-first_month+1;
+                }
+            }
+            else
+            {
+                    if(second_year===first_year)
+                    {
+                        
+                        duration=second_month-first_month+1;
+                    }
+                    
+               
+            }
+    }
+    else
+    {
+        //alert
+    }
     mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var month = mlist[new Date().getMonth()]
+    var month = mlist[new Date().getMonth()].toLowerCase();
     var year = new Date().getFullYear()
-    var duration = data.months
+    // var duration = data.months
     for (let i = 0; i < list2.length; i++) {
         console.log("i is", list2[i])
         mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`, (err, result) => {
@@ -490,10 +522,10 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
     var list2 = []
     for (var i in data) {
 
-        if (Number.isInteger(parseInt(i))) {
+        if (i.includes("EMP")) {
             console.log(i)
             console.log(data[i])
-            list2.push(parseInt(i))
+            list2.push(i)
         }
 
     }
@@ -501,10 +533,77 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
     var da_difference = parseFloat(data.newdda) - parseFloat(data.presentdda)
     var hra_difference = parseFloat(data.newhra) - parseFloat(data.presenthra)
     mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var month = mlist[new Date().getMonth()]
-    var year = new Date().getFullYear()
-    var da_duration = data.monthdda;
-    var hra_duration = data.monthhra;
+    var month = mlist[new Date().getMonth()];
+    var year = new Date().getFullYear();
+    var da_duration=0;
+    var hra_duration=0;
+
+    first_date_da=data.month2[0];
+    second_date_da=data.month2[1];
+    first_month_da=parseInt(first_date_da.split("-")[1]);
+    second_month_da=parseInt(second_date_da.split("-")[1]);
+    first_year_da=parseInt(first_date_da.split("-")[0]);
+    second_year_da=parseInt(second_date_da.split("-")[0]);
+    console.log(first_month_da,first_year_da)
+    if( second_year_da>=first_year_da)
+    {
+            if(first_month_da>second_month_da)
+            {
+                if(second_year_da===first_year_da+1)
+                {
+                    da_duration=second_month_da+12-first_month_da+1;
+                }
+            }
+            else
+            {
+                    if(second_year_da===first_year_da)
+                    {
+                        
+                        da_duration=second_month_da-first_month_da+1;
+                    }
+                    
+               
+            }
+    }
+    else
+    {
+        //alert
+    }
+
+    first_date_hra=data.month1[0];
+    second_date_hra=data.month1[1];
+    first_month_hra=parseInt(first_date_hra.split("-")[1]);
+    second_month_hra=parseInt(second_date_hra.split("-")[1]);
+    first_year_hra=parseInt(first_date_hra.split("-")[0]);
+    second_year_hra=parseInt(second_date_hra.split("-")[0]);
+    console.log(first_month_hra,first_year_hra)
+    if( second_year_hra>=first_year_hra)
+    {
+            if(first_month_hra>second_month_hra)
+            {
+                if(second_year_hra===first_year_hra+1)
+                {
+                    hra_duration=second_month_hra+12-first_month_hra+1;
+                }
+            }
+            else
+            {
+                    if(second_year_hra===first_year_hra)
+                    {
+                        
+                        hra_duration=second_month_hra-first_month_hra+1;
+                    }
+                    
+               
+            }
+    }
+    else
+    {
+        //alert
+    }
+
+
+    
     for (let i = 0; i < list2.length; i++) {
         console.log("i is", list2[i])
         mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month}',${da_duration},${year})`, (err, result) => {
@@ -1519,7 +1618,8 @@ router.post('/generateSalary',(req,res)=>{
                                     console.log("Data is",data)
                                     var hra_difference=data.difference;
                                     var hra_duration=data.duration;
-                                    hra_final_difference=(pay+gp)*hra_difference*hra_duration/100
+                                    // hra_final_difference=(pay+gp)*hra_difference*hra_duration/100
+                                    hra_final_difference=(pay+gp)*hra_difference*hra_duration
                                 }
                                 mysqldb.query(`select * from da_difference where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                     if (err) {
@@ -1537,7 +1637,8 @@ router.post('/generateSalary',(req,res)=>{
                                             var data=JSON.parse(JSON.stringify(result))[0];
                                             var da_difference=data.difference;
                                             var da_duration=data.duration;
-                                            da_final_difference=(pay+gp)*da_difference*da_duration/100
+                                            // da_final_difference=(pay+gp)*da_difference*da_duration/100
+                                            da_final_difference=(pay+gp)*da_difference*da_duration
                                         }
                                     
                                         //variable to calc advances
@@ -1789,6 +1890,17 @@ router.post('/generateSalary',(req,res)=>{
                                                                 //get new basic pay, diff calculated on old basic pay.
 
                                                                 //hra difference ,da change in percent x (pay+gp) on current only.
+                                                                
+                                                                oth_spl+=parseInt(adv_deduction);
+                                                                oth_spl+=parseInt(groupInsurance);
+                                                                diff+=parseInt(hra_final_difference);
+                                                                console.log("pay,gp,da,hra,ta_temp,cca_temp 2",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
+
+                                                                console.log("hra difference is",hra_final_difference,"for empID",empID)
+                                                                diff+=parseInt(da_final_difference);
+                                                                console.log("da difference is",da_final_difference,"for empID",empID)
+                                                                
+                                                                console.log("logging")
                                                                 var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca_temp)+parseFloat(diff)+parseFloat(ta_temp);
                                                                 console.log("gross salary,days of month,lwp are",gross_sal,daysOfMonth,lwp,"for empID",empID)
                                                                 
@@ -1818,17 +1930,6 @@ router.post('/generateSalary',(req,res)=>{
                                                                 {
                                                                     rev_stmp=rev_stamp_max
                                                                 }
-                                                                oth_spl+=parseInt(adv_deduction);
-                                                                oth_spl+=parseInt(groupInsurance);
-                                                                oth_spl+=parseInt(hra_final_difference);
-                                                                console.log("pay,gp,da,hra,ta_temp,cca_temp 2",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
-
-                                                                console.log("hra difference is",hra_final_difference,"for empID",empID)
-                                                                oth_spl+=parseInt(da_final_difference);
-                                                                console.log("da difference is",da_final_difference,"for empID",empID)
-                                                                
-                                                                console.log("logging")
-
                                                                 //independant query
                                                                 // mysqldb.query(`insert into lwp (empID,month,year,days,lwp) values ('${empID}','${month}',${year},${daysOfMonth},${lwp})`,(err,result)=>{
                                                                 //     if(err)
@@ -1925,7 +2026,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                         var prevPay=JSON.parse(JSON.stringify(result))[0].prevPay;
                                                                                                         var increment=JSON.parse(JSON.stringify(result))[0].increment;
                                                                                                         // var durationIncrement=JSON.parse(JSON.stringify())
-                                                                                                        var incrementvalue=(prevPay+gp)*(increment/100)
+                                                                                                        var incrementvalue=(prevPay+gp*daysOfMonth/workedDays)*(increment/100)
                                                                                                         if((Math.floor(incrementvalue)%10)===0)
                                                                                                         {
 
@@ -1935,7 +2036,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                         }
                                                                                                         var toAddValue=(hra_MultFactor+da_MultFactor)*incrementvalue
                                                                                                         finalIncrement=Math.ceil((toAddValue+incrementvalue)*durationIncrement)
-                                                                                                        oth_spl+=parseInt(finalIncrement)
+                                                                                                        diff+=parseInt(finalIncrement)
                                                                                                         console.log("increment difference is ",finalIncrement,"for empID",empID)
                                                                                                         console.log("pay,gp,da,hra,ta_temp,cca_temp 5",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
 
