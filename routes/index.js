@@ -512,18 +512,11 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
     const empID = req.params.empID;
     console.log(JSON.parse(JSON.stringify(req.body)))
     // const length=data["lwp"].length
-<<<<<<< HEAD
     var monthNames = [ "january", "february", "march", "april", "may", "june",
 "july", "august", "september", "october", "november", "december" ];
     if(data["beforeafter25"]==="after")
     {
         data.month=monthNames[monthNames.indexOf(data.month.toLowerCase())+1].toLowerCase();
-=======
-    var monthNames = ["january", "february", "march", "april", "may", "june",
-        "july", "august", "september", "october", "november", "december"];
-    if (data["beforeafter25"] === "after") {
-        data.month = monthNames[monthNames.indexOf(data.month.toLowerCase()) + 1]
->>>>>>> 7d063622fb53be7fc02f9f7551c5ccad554967b1
     }
     // console.log(length)
     // for (let i = 0; i < length; i++) {
@@ -648,7 +641,7 @@ router.get('/finalcheck', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/finalrecoveryamt', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees natural join miscellaneous`, (err, result) => {
+    mysqldb.query(`select * from Employees natural join recovery`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1174,37 +1167,25 @@ router.get('/showadvances', ensureAuthenticated, (req, res) => {
 router.post('/advances', ensureAuthenticated, (req, res) => {
     console.log(JSON.parse(JSON.stringify(req.body)))
     var data = JSON.parse(JSON.stringify(req.body));
-    var length = data['duration'].length;
-    for (let i = 0; i < length; i++) {
-        mysqldb.query(`select empID from Employees ORDER BY empID LIMIT ${i},1`, (err, result) => {
+    var empID = data.empID;
+    console.log(`INSERT INTO advance_temp (empID, ,amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amt"]}, '${data["month"]}', ${data["year"]}, ${data["duration"]}, ${data["amt"]})`)
+    mysqldb.query(`INSERT INTO advance_temp (empID, amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amt"]}, '${data["month"]}', ${data["year"]}, ${data["duration"]}, ${data["amt"]})`
+        , (err, result) => {
             if (err) {
-                //------------ Invalid registration Number ------------//
-                // req.flash('error_msg',
-                // 'Please enter valid Id.')
-                console.log(err)
+                console.log(err);
+                console.log("invalid details");
             }
             else {
-                console.log(result)
-                var empID = JSON.parse(JSON.stringify(result))[0].empID;
-                console.log(`INSERT INTO advance_temp (empID, ,amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`)
-                mysqldb.query(`INSERT INTO advance_temp (empID, amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`
-                    , (err, result) => {
-                        if (err) {
-                            console.log(err);
-                            console.log("invalid details");
-                        }
-                        else {
-                            // console.log(JSON.parse(JSON.stringify(result))[0])
+                // console.log(JSON.parse(JSON.stringify(result))[0])
 
-                            // req.flash(
-                            //     'success_msg',
-                            //     'Employee found!'
-                            // );
-                        }
-                    })
+                // req.flash(
+                //     'success_msg',
+                //     'Employee found!'
+                // );
             }
-        })
-    }
+
+    })
+
     res.redirect('/index1')
 });
 
@@ -1540,7 +1521,11 @@ router.post('/generateSalary',(req,res)=>{
                                                     var results=JSON.parse(JSON.stringify(result))[0]
                                                     console.log("in else of advance, results is",results)
                                                     var adv_amount=results.amount
-                                                    var adv_month=results.month
+                                                    
+                                                    var monthNames = ["january", "february", "march", "april", "may", "june",
+                                                    "july", "august", "september", "october", "november", "december"];
+                                                    
+                                                    var adv_month = monthNames.indexOf(results.month.toLowerCase());
                                                     var adv_year=results.year
                                                     var adv_duration=results.duration
                                                     var adv_outstanding=results.outstanding
@@ -1553,28 +1538,29 @@ router.post('/generateSalary',(req,res)=>{
                                                         // if(month_num>=adv_month)
                                                         // {
                                                             //if duration isn't over yet
-                                                            if(adv_month>month_num)
+                                                            if(adv_month>month_num-1)
                                                             {
                                                                 if(year===adv_year+1)
                                                                 {
-                                                                    if((adv_month+adv_duration)%12>month_num)
+                                                                    if((adv_month+adv_duration)%12>month_num-1)
                                                                     {
                                                                         
                                                                         adv_deduction=adv_amount/adv_duration;
-                                                                        console.log("advance deducted!",adv_deduction)
+                                                                        console.log("advance deducted!",adv_deduction,"for empID",empID)
                                                                         
                                                                     }
                                                                 }
                                                             }
                                                             else
                                                             {
-                                                                if((adv_month+adv_duration)>month_num)
+                                                                if((adv_month+adv_duration)>month_num-1)
                                                                 {
                                                                     if(year===adv_year)
                                                                     {
-                                                                        console.log("advance deducted!",adv_deduction)
+                                                                        
                                                                         adv_deduction=adv_amount/adv_duration;
-                                                                        console.log(adv_deduction)
+                                                                        console.log("advance deducted!",adv_deduction,"for empID",empID)
+                                                                        
                                                                     }
                                                                     
                                                                 }
@@ -1891,7 +1877,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                             var recovery=JSON.parse(JSON.stringify(result))[0].recoveryAmount;
                                                                                             
                                                                                                             oth_spl+=parseInt(recovery)
-                                                                                                            console.log("recovery amount is ",amount,"for empID ",empID)
+                                                                                                            console.log("recovery amount is ",recovery,"for empID ",empID)
                                                                                                             console.log("pay,gp,da,hra,ta_temp,cca_temp 6",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
 
                                                                                                         }
