@@ -21,8 +21,6 @@
     </head>
 
     <body>
-
-
         <div class="content-wrap">
             <div class="main">
                 <div class="container-fluid">
@@ -30,7 +28,7 @@
                         <div class="col-lg-8 p-r-0 title-margin-right">
                             <div class="page-header">
                                 <div class="page-title">
-                                <h1>Deductions and Net Salary</h1>
+                                <h1>Masterview</h1>
                             </div>
                             </div>
                         </div>
@@ -76,6 +74,19 @@
                                                             <th>Month</th>
                                                             <th>Year</th>
                                                             <th>Total Days in Month</th>
+                                                            <th>LWP</th>
+                                                            <th>Total Working Days</th>
+                                                            <th>Original Basic Pay</th>
+                                                            <th>Original Grade Pay</th>
+                                                            <th>Basic Pay</th>
+                                                            <th>Grade Pay</th>
+                                                            <th>DA</th>
+                                                            <th>HRA</th>
+                                                            <th>CCA</th>
+                                                            <th>Difference</th>
+                                                            <th>Other Special</th>
+                                                            <th>TA</th>
+                                                            <th>Gross Total</th>
 
                                                             <th>Provident Fund</th>
                                                             <th>Prof Tax</th>
@@ -127,6 +138,50 @@
                                                                     <%= salary[i].daysOfMonth %>
                                                                 </td>
                                                                 <td>
+                                                                    <%= salary[i].lwp %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].workedDays %>
+                                                                </td>
+
+                                                                <td>
+                                                                    <%= salary[i].original_pay %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].original_gp %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].bp %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].gp %>
+                                                                </td>
+
+                                                                <td>
+                                                                    <%= salary[i].da %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].hra %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].cca %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].diff %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].oth_spl %>
+                                                                </td>
+
+
+                                                                <td>
+                                                                    <%= salary[i].ta %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].gross_sal %>
+                                                                </td>
+
+                                                                <td>
                                                                     <%= salary[i].pf %>
                                                                 </td>
 
@@ -168,7 +223,6 @@
                                                                 <td>
                                                                     <%= salary[i].net_sal %>
                                                                 </td>
-
 
                                                             </tr>
                                                             <% }%>

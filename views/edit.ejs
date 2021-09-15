@@ -87,7 +87,7 @@
                             <!-- <div class="card-body"> -->
                             <div class="horizontal-form-elements" class="form-validation">
 
-                                <form class="form-valide" action="\form-basic" method="post">
+                                <form class="form-valide" action="\editEmployee" method="post">
 
 
                                     <div class="row">
@@ -95,12 +95,11 @@
 
                                             <% var i=0 %>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> MIS Login ID
+                                                <label class="col-lg-6 col-form-label"> EMP ID
                                                     (empXXX) <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="number" value="<%= Employees[i].mis %>" name="mis" class="form-control"
-                                                        placeholder="XXX" pattern="+emp." title="enter valid mis ID" readonly   
-                                                        ruqt>
+                                                    <input type="text" value="<%= Employees[i].empID %>" name="empID" class="form-control" readonly
+                                                         >
                                                 </div>
                                             </div>
                                                 <div class="form-group row">
@@ -142,7 +141,7 @@
                                                     <label class="col-lg-6 col-form-label">Designation Category
                                                         :</label>
                                                     <div class="col-lg-6">
-                                                        <select name="designationcategory" id="id_category"
+                                                        <select name="designationCategory" id="id_category" value="<%= Employees[i].designationCategory %>"
                                                             onchange="ShowHideDiv()"
                                                             data-designation-id='id_designation'
                                                             class='dependent-selects__category' ruqt>

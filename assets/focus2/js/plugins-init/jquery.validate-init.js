@@ -35,10 +35,10 @@ jQuery(".form-valide").validate({
             minlength: 10,
             maxlength: 10
         },
-        "mis": {
+        "empID": {
             required: !0,
-            minlength: 3,
-            maxlength: 3
+            minlength: 6,
+            maxlength: 7
         },
      
         "mobile": {
