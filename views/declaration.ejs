@@ -198,10 +198,10 @@
                                                 
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">NATIONAL PENTION SCHEME 
+                                                <label class="col-lg-6 col-form-label">NATIONAL PENTION SCHEME (%)
                                                      </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="nps" name="nps" ruqt>
+                                                    <input type="text" class="form-control" id="nps" name="nps" pattern=".{8,10}" title="8-10 % avg. value req." ruqt>
 
                                                 </div>
                                             </div>
@@ -259,11 +259,11 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">PPF:
+                                                <label class="col-lg-6 col-form-label">PPF (%):
                                                     
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="ppf"
+                                                    <input type="decimal" name="ppf"
                                                         class="form-control" ruqt>
                                                 </div>
                                             </div>
@@ -285,11 +285,13 @@
                                             </div> -->
                                             <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label" for="vacation">ULIP/ MUTUAL FUND:
+                                                <label class="col-lg-6 col-form-label" for="vacation">ULIP/ MUTUAL FUND (in %):
                                                    </label>
                                                    <div class="col-lg-6">
-                                                   <input type="text" name="ulip" class="form-control"
-                                                   ruqt></div>
+                                                    <input type="number" name="ulip" class="form-control"
+                                                        pattern=".{8,10}" title="8-10 alphanumeric characters needed"
+                                                        ruqt>
+                                                </div>
                                                
                                             </div>
 

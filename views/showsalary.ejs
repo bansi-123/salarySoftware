@@ -27,9 +27,9 @@
                     <div class="row">
                         <div class="col-lg-8 p-r-0 title-margin-right">
                             <div class="page-header">
-                                <!-- <div class="page-title">
-                                <h1>Hello, <span>Welcome Here</span></h1>
-                            </div> -->
+                                <div class="page-title">
+                                <h1>Gross Salary Earnings</span></h1>
+                            </div>
                             </div>
                         </div>
                         <!-- /# column -->
@@ -71,12 +71,22 @@
                                                             <th>UAN</th>
                                                             <th>Bank Name</th>
                                                             <th>Bank Account No.</th>
-                                                            <th>Pay</th>
+                                                            <th>Month</th>
+                                                            <th>Year</th>
+                                                            <th>Total Days in Month</th>
+                                                            <th>LWP</th>
+                                                            <th>Total Working Days</th>
+                                                            <th>Original Basic Pay</th>
+                                                            <th>Original Grade Pay</th>
+                                                            <th>Basic Pay</th>
                                                             <th>Grade Pay</th>
                                                             <th>DA</th>
                                                             <th>HRA</th>
                                                             <th>CCA</th>
+                                                            <th>Difference</th>
+                                                            <th>Other Special</th>
                                                             <th>TA</th>
+                                                            <th>Gross Total</th>
 
                                                         </tr>
                                                     </thead>
@@ -102,9 +112,30 @@
                                                                 <td>
                                                                     <%= salary[i].bankAccNum %>
                                                                 </td>
+                                                                <td>
+                                                                    <%= salary[i].month %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].year %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].daysOfMonth %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].lwp %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].workedDays %>
+                                                                </td>
 
                                                                 <td>
-                                                                    <%= salary[i].pay %>
+                                                                    <%= salary[i].original_pay %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].original_gp %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].bp %>
                                                                 </td>
                                                                 <td>
                                                                     <%= salary[i].gp %>
@@ -119,10 +150,19 @@
                                                                 <td>
                                                                     <%= salary[i].cca %>
                                                                 </td>
+                                                                <td>
+                                                                    <%= salary[i].diff %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].oth_spl %>
+                                                                </td>
 
 
                                                                 <td>
                                                                     <%= salary[i].ta %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= salary[i].gross_sal %>
                                                                 </td>
                                                             </tr>
                                                             <% }%>
