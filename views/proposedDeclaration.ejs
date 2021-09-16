@@ -1,0 +1,300 @@
+
+
+
+<!-- Employee ID:</p> <input type="text" id="empID">
+&nbsp;</p>
+<p>Employee Name:</p> <input type="text" id="empName">
+<p>&nbsp;</p>
+<p>PAN:</p> <input type="text" id="Pan_No">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>ANNUAL RENT (ONLY OF RESIDENTIAL UNIT NOT OWNED BY EMPLOYER) AND PAN NO. OF LANDLORD AND NAME OF LANDLORD&nbsp;:</p><input type="number" id="rent">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>MEDICLAIM (U/S.80D OF I.T.ACT)&nbsp;:</p><input type="text" id="empID"> upload file
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>INTREST PAID FOR HOME LOAN AND PAN NO. OF BANK&nbsp;:</p><input type="text" id="home_loan">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>NATIONAL PENSION SCHEME&nbsp;:</p><input type="text" id="empID"> idk
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>PHYSICALLY HANDICAP ABOVE 70%:</p><input type="text" id="empID"> radio taka
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>EDUCATION LOAN INTEREST:</p><input type="text" id="edu_loan_int">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>INVESTMENT U/S . 80 C OF I.T. ACT LIMIT = RS. 1,50,000/-</p><input type="text" id="empID"> he pan
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>CPF (EMPLOYEE):</p><input type="text" id="cpf">
+<p>&nbsp;</p>
+<p>PPF:</p><input type="text" id="ppf">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>NSC:</p><input type="text" id="nsc">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>ULIP/ MUTUAL FUND:</p><input type="text" id="ulip">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>ANNUAL INSURANCE PREMIUM:</p><input type="text" id="ann_ins_prem">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>HOUSING LOAN PRINCIPAL AMOUNT:</p><input type="text" id="hou_amt">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>TUITION FEE OF THE CHILDREN:</p><input type="text" id="tuition">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>BANK DEPOSIT:</p><input type="text" id="bank_dep">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>REGISTRATION FEE:</p><input type="text" id="reg_fee">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>PLEASE SUBMIT INVESTMENT PROOF BEFORE JAN 31 2022</p><input type="text" id="empID">   ikde bagha
+<p>&nbsp;</p> -->
+
+
+<%- include('partials/header.ejs'); -%>
+
+    <head>
+
+        <meta charset="UTF-8">
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
+        <link rel="stylesheet" href="../assets/alert/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <style>
+            .required:after {
+                content: " *";
+                color: red;
+            }
+        </style>
+
+        
+    </head>
+
+    <body>
+       
+
+        <div style="position:absolute;left:50%;margin-left:-297px;top:0px;width:595px;height:842px;border-style:outset;overflow:hidden">
+            <div style="position:absolute;left:0px;top:0px">
+            <img src="c918f9da-112c-11ec-a980-0cc47a792c0a_id_c918f9da-112c-11ec-a980-0cc47a792c0a_files/background1.jpg" width=595 height=842></div>
+            <div style="position:absolute;left:193.82px;top:11.96px" class="cls_002"><span class="cls_002">Comprehensive Pension Management System (CPMS)</span></div>
+            <div style="position:absolute;left:18.36px;top:61.40px" class="cls_004"><span class="cls_004">PROPOSED DECLARATION OF INVESTMENT AND OTHER INFORMATION FOR AVAILING INCOME TAX REBATE BY PENSIONERS</span></div>
+            <div style="position:absolute;left:233.54px;top:75.00px" class="cls_005"><span class="cls_005">(to be submitted by 15th April every year)</span></div>
+            <div style="position:absolute;left:62.76px;top:106.66px" class="cls_002"><span class="cls_002">Name of the pensioner :</span></div>
+            <div style="position:absolute;left:62.76px;top:125.74px" class="cls_002"><span class="cls_002">P.P.O No :</span></div>
+            <div style="position:absolute;left:62.76px;top:144.94px" class="cls_002"><span class="cls_002">PAN :</span></div>
+            <div style="position:absolute;left:63.24px;top:164.14px" class="cls_002"><span class="cls_002">Assessment Year :</span></div>
+            <div style="position:absolute;left:62.76px;top:183.22px" class="cls_002"><span class="cls_002">Name of the circle :</span></div>
+            <div style="position:absolute;left:62.76px;top:201.82px" class="cls_002"><span class="cls_002">Mobile No. :</span></div>
+            <div style="position:absolute;left:62.04px;top:244.09px" class="cls_010"><span class="cls_010">Income Amount (Rs.)</span></div>
+            <div style="position:absolute;left:82.46px;top:264.37px" class="cls_010"><span class="cls_010">(i) Income from Previous/Other</span></div>
+            <div style="position:absolute;left:91.58px;top:278.17px" class="cls_010"><span class="cls_010">Employer(s) :</span></div>
+            <div style="position:absolute;left:82.46px;top:298.45px" class="cls_010"><span class="cls_010">(ii)Tax Deducted by Previous/Other</span></div>
+            <div style="position:absolute;left:91.58px;top:312.25px" class="cls_010"><span class="cls_010">Employer(s) :</span></div>
+            <div style="position:absolute;left:82.58px;top:336.13px" class="cls_010"><span class="cls_010">(iii) Income from Other Sources :</span></div>
+            <div style="position:absolute;left:82.46px;top:354.97px" class="cls_010"><span class="cls_010">(iv) Income from House Property</span></div>
+            <div style="position:absolute;left:96.14px;top:368.89px" class="cls_010"><span class="cls_010">(Income / Loss):</span></div>
+            <div style="position:absolute;left:62.52px;top:393.97px" class="cls_012"><span class="cls_012">Total :</span></div>
+            <div style="position:absolute;left:61.80px;top:443.67px" class="cls_010"><span class="cls_010">B. INVESTMENT UNDER SEC 80C</span></div>
+            <div style="position:absolute;left:82.58px;top:470.31px" class="cls_010"><span class="cls_010">Children Education Tuition Fee :</span></div>
+            <div style="position:absolute;left:82.58px;top:495.87px" class="cls_010"><span class="cls_010">Infrastructure Bond(U/S 80CCF) :</span></div>
+            <div style="position:absolute;left:82.58px;top:521.55px" class="cls_010"><span class="cls_010">Public Provident Fund (PPF) :</span></div>
+            <div style="position:absolute;left:82.58px;top:540.51px" class="cls_010"><span class="cls_010">Mutual Fund/ ELSS approved under</span></div>
+            <div style="position:absolute;left:82.58px;top:553.35px" class="cls_010"><span class="cls_010">The Act :</span></div>
+            <div style="position:absolute;left:82.58px;top:580.74px" class="cls_010"><span class="cls_010">National Savings Scheme (NSS) :</span></div>
+            <div style="position:absolute;left:82.58px;top:606.06px" class="cls_010"><span class="cls_010">National Savings Certificate (NSC) :</span></div>
+            <div style="position:absolute;left:82.58px;top:624.78px" class="cls_010"><span class="cls_010">FD under Tax Savings Scheme with</span></div>
+            <div style="position:absolute;left:82.58px;top:638.70px" class="cls_010"><span class="cls_010">Scheduled Bank (=>5 years) :</span></div>
+            <div style="position:absolute;left:82.58px;top:663.90px" class="cls_010"><span class="cls_010">NSC interest reinvested :</span></div>
+            <div style="position:absolute;left:82.58px;top:689.46px" class="cls_010"><span class="cls_010">Housing Loan principal repaid :</span></div>
+            <div style="position:absolute;left:82.58px;top:714.66px" class="cls_010"><span class="cls_010">Life Insurance premium paid :</span></div>
+            <div style="position:absolute;left:82.58px;top:733.64px" class="cls_010"><span class="cls_010">ULIP investment approved for tax</span></div>
+            <div style="position:absolute;left:82.58px;top:747.56px" class="cls_010"><span class="cls_010">rebate :</span></div>
+            <div style="position:absolute;left:216.53px;top:828.30px" class="cls_016"><span class="cls_016">© 2019 -Comprehensive Pension Management System (CPMS)</span></div>
+            </div>
+            <div style="position:absolute;left:50%;margin-left:-297px;top:852px;width:595px;height:842px;border-style:outset;overflow:hidden">
+            <div style="position:absolute;left:0px;top:0px">
+            <img src="c918f9da-112c-11ec-a980-0cc47a792c0a_id_c918f9da-112c-11ec-a980-0cc47a792c0a_files/background2.jpg" width=595 height=842></div>
+            <div style="position:absolute;left:193.82px;top:11.96px" class="cls_002"><span class="cls_002">Comprehensive Pension Management System (CPMS)</span></div>
+            <div style="position:absolute;left:78.14px;top:65.12px" class="cls_002"><span class="cls_002">Other deduction U/S 80C :</span></div>
+            <div style="position:absolute;left:78.14px;top:91.30px" class="cls_002"><span class="cls_002">Others :</span></div>
+            <div style="position:absolute;left:78.14px;top:109.66px" class="cls_002"><span class="cls_002">U/S 80CCC -- Investment in any</span></div>
+            <div style="position:absolute;left:78.14px;top:123.34px" class="cls_002"><span class="cls_002">approved Pension scheme :</span></div>
+            <div style="position:absolute;left:78.14px;top:147.94px" class="cls_002"><span class="cls_002">NPS under Section 80CCD(1) :</span></div>
+            <div style="position:absolute;left:78.14px;top:174.22px" class="cls_002"><span class="cls_002">Section 80CCD(1B) :</span></div>
+            <div style="position:absolute;left:78.14px;top:200.02px" class="cls_002"><span class="cls_002">Section 80CCD(2) :</span></div>
+            <div style="position:absolute;left:84.50px;top:245.65px" class="cls_002"><span class="cls_002">A. OTHER DEDUCTIONS UNDER CHAPTER - VI A</span></div>
+            <div style="position:absolute;left:378.79px;top:245.65px" class="cls_002"><span class="cls_002">Amount of deduction claimed (Rs.)</span></div>
+            <div style="position:absolute;left:83.54px;top:273.85px" class="cls_005"><span class="cls_005">U/S 80D Medical Insurance</span></div>
+            <div style="position:absolute;left:83.54px;top:305.05px" class="cls_005"><span class="cls_005">U/S 80D Medical insurance for Senior Citizen</span></div>
+            <div style="position:absolute;left:83.54px;top:336.25px" class="cls_005"><span class="cls_005">U/S 80DD maintenance of Handicap Dependent</span></div>
+            <div style="position:absolute;left:83.54px;top:360.85px" class="cls_005"><span class="cls_005">U/S 80DDB Medical treatment on specified disease for super senior</span></div>
+            <div style="position:absolute;left:83.54px;top:374.89px" class="cls_005"><span class="cls_005">citizen</span></div>
+            <div style="position:absolute;left:83.54px;top:397.57px" class="cls_005"><span class="cls_005">U/S 80DDB Medical treatment on specified disease for senior citizen</span></div>
+            <div style="position:absolute;left:83.54px;top:428.91px" class="cls_005"><span class="cls_005">U/S 80DDB Medical treatment on specified disease</span></div>
+            <div style="position:absolute;left:83.54px;top:460.11px" class="cls_005"><span class="cls_005">U/S 80E Higher education</span></div>
+            <div style="position:absolute;left:83.54px;top:491.31px" class="cls_005"><span class="cls_005">U/S 80EE Interest on housing loan</span></div>
+            <div style="position:absolute;left:83.54px;top:515.91px" class="cls_005"><span class="cls_005">Donation U/S 80G - 100% scheme (Only for donation to PM/CM/LG</span></div>
+            <div style="position:absolute;left:83.54px;top:529.95px" class="cls_005"><span class="cls_005">Relief Fund)</span></div>
+            <div style="position:absolute;left:83.54px;top:554.55px" class="cls_005"><span class="cls_005">Donation U/S 80G - 50% scheme</span></div>
+            <div style="position:absolute;left:83.54px;top:585.90px" class="cls_005"><span class="cls_005">U/S 80CCG- deduction in r/o investment in ESS</span></div>
+            <div style="position:absolute;left:83.54px;top:617.10px" class="cls_005"><span class="cls_005">U/S 80GG- deduction in respect of rent</span></div>
+            <div style="position:absolute;left:83.54px;top:648.30px" class="cls_005"><span class="cls_005">U/S 80QQB-deduction in respect of royalty income</span></div>
+            <div style="position:absolute;left:83.54px;top:710.70px" class="cls_005"><span class="cls_005">U/S 80 TTA - Interest on deposit in Savings account</span></div>
+            <div style="position:absolute;left:216.53px;top:828.30px" class="cls_016"><span class="cls_016">© 2019 -Comprehensive Pension Management System (CPMS)</span></div>
+            </div>
+            <div style="position:absolute;left:50%;margin-left:-297px;top:1704px;width:595px;height:842px;border-style:outset;overflow:hidden">
+            <div style="position:absolute;left:0px;top:0px">
+            <img src="c918f9da-112c-11ec-a980-0cc47a792c0a_id_c918f9da-112c-11ec-a980-0cc47a792c0a_files/background3.jpg" width=595 height=842></div>
+            <div style="position:absolute;left:193.82px;top:11.96px" class="cls_002"><span class="cls_002">Comprehensive Pension Management System (CPMS)</span></div>
+            <div style="position:absolute;left:84.50px;top:67.52px" class="cls_002"><span class="cls_002">A. OTHER DEDUCTIONS UNDER CHAPTER - VI A</span></div>
+            <div style="position:absolute;left:377.83px;top:67.52px" class="cls_002"><span class="cls_002">Amount of deduction claimed (Rs.)</span></div>
+            <div style="position:absolute;left:83.54px;top:95.74px" class="cls_005"><span class="cls_005">U/S 80 TTB- Interest on deposit senior citizen</span></div>
+            <div style="position:absolute;left:83.54px;top:126.94px" class="cls_005"><span class="cls_005">U/S 80U Self Handicap (severe disability and other disability)</span></div>
+            <div style="position:absolute;left:81.50px;top:171.81px" class="cls_020"><span class="cls_020">I hereby declare that I shall submit the ACTUAL DECLARATION OF INVESTMENT AND OTHER INFORMATION FOR AVAILING INCOME TAX REBATE</span></div>
+            <div style="position:absolute;left:81.50px;top:185.73px" class="cls_020"><span class="cls_020">along with proof of investment by 10th October of FY [</span></div>
+            <div style="position:absolute;left:271.61px;top:185.73px" class="cls_020"><span class="cls_020">] . In case I don’t ensure submission of the same, I am aware that applicable tax will be</span></div>
+            <div style="position:absolute;left:81.50px;top:199.65px" class="cls_020"><span class="cls_020">deducted on the pension paid.</span></div>
+            <div style="position:absolute;left:78.62px;top:217.30px" class="cls_002"><span class="cls_002">Date :</span></div>
+            <div style="position:absolute;left:334.63px;top:217.30px" class="cls_002"><span class="cls_002">Signature of Pensioner :</span></div>
+            <div style="position:absolute;left:216.53px;top:828.30px" class="cls_016"><span class="cls_016">© 2019 -Comprehensive Pension Management System (CPMS)</span></div>
+            </div>
+
+
+                            </div></div></div></div></div></div>
+        <script src="../assets/focus2/vendor/global/global.min.js"></script>
+        <script src="../assets/focus2/js/quixnav-init.js"></script>
+        <script src="../assets/focus2/js/custom.min.js"></script>
+
+
+
+
+        <!-- Jquery Validation -->
+        <script src="../assets/focus2/vendor/jquery-validation/jquery.validate.min.js"></script>
+        <!-- Form validate init -->
+        <script src="../assets/focus2/js/plugins-init/jquery.validate-init.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
+        <script src="../assets/alert/script.js"></script>
+
+    </body>
+
+<html>
+<head><meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+span.cls_002{font-family:Arial,serif;font-size:8.6px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_002{font-family:Arial,serif;font-size:8.6px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_004{font-family:Arial,serif;font-size:9.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_004{font-family:Arial,serif;font-size:9.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_005{font-family:Arial,serif;font-size:9.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_005{font-family:Arial,serif;font-size:9.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_010{font-family:Arial,serif;font-size:8.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_010{font-family:Arial,serif;font-size:8.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_012{font-family:Arial,serif;font-size:8.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_012{font-family:Arial,serif;font-size:8.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_016{font-family:Arial,serif;font-size:5.7px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_016{font-family:Arial,serif;font-size:5.7px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_020{font-family:Arial,serif;font-size:6.7px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_020{font-family:Arial,serif;font-size:6.7px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+-->
+</style>
+<script type="text/javascript" src="c918f9da-112c-11ec-a980-0cc47a792c0a_id_c918f9da-112c-11ec-a980-0cc47a792c0a_files/wz_jsgraphics.js"></script>
+</head>
+<body>
+/* <div style="position:absolute;left:50%;margin-left:-297px;top:0px;width:595px;height:842px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="c918f9da-112c-11ec-a980-0cc47a792c0a_id_c918f9da-112c-11ec-a980-0cc47a792c0a_files/background1.jpg" width=595 height=842></div>
+<div style="position:absolute;left:193.82px;top:11.96px" class="cls_002"><span class="cls_002">Comprehensive Pension Management System (CPMS)</span></div>
+<div style="position:absolute;left:18.36px;top:61.40px" class="cls_004"><span class="cls_004">PROPOSED DECLARATION OF INVESTMENT AND OTHER INFORMATION FOR AVAILING INCOME TAX REBATE BY PENSIONERS</span></div>
+<div style="position:absolute;left:233.54px;top:75.00px" class="cls_005"><span class="cls_005">(to be submitted by 15th April every year)</span></div>
+<div style="position:absolute;left:62.76px;top:106.66px" class="cls_002"><span class="cls_002">Name of the pensioner :</span></div>
+<div style="position:absolute;left:62.76px;top:125.74px" class="cls_002"><span class="cls_002">P.P.O No :</span></div>
+<div style="position:absolute;left:62.76px;top:144.94px" class="cls_002"><span class="cls_002">PAN :</span></div>
+<div style="position:absolute;left:63.24px;top:164.14px" class="cls_002"><span class="cls_002">Assessment Year :</span></div>
+<div style="position:absolute;left:62.76px;top:183.22px" class="cls_002"><span class="cls_002">Name of the circle :</span></div>
+<div style="position:absolute;left:62.76px;top:201.82px" class="cls_002"><span class="cls_002">Mobile No. :</span></div>
+<div style="position:absolute;left:62.04px;top:244.09px" class="cls_010"><span class="cls_010">Income Amount (Rs.)</span></div>
+<div style="position:absolute;left:82.46px;top:264.37px" class="cls_010"><span class="cls_010">(i) Income from Previous/Other</span></div>
+<div style="position:absolute;left:91.58px;top:278.17px" class="cls_010"><span class="cls_010">Employer(s) :</span></div>
+<div style="position:absolute;left:82.46px;top:298.45px" class="cls_010"><span class="cls_010">(ii)Tax Deducted by Previous/Other</span></div>
+<div style="position:absolute;left:91.58px;top:312.25px" class="cls_010"><span class="cls_010">Employer(s) :</span></div>
+<div style="position:absolute;left:82.58px;top:336.13px" class="cls_010"><span class="cls_010">(iii) Income from Other Sources :</span></div>
+<div style="position:absolute;left:82.46px;top:354.97px" class="cls_010"><span class="cls_010">(iv) Income from House Property</span></div>
+<div style="position:absolute;left:96.14px;top:368.89px" class="cls_010"><span class="cls_010">(Income / Loss):</span></div>
+<div style="position:absolute;left:62.52px;top:393.97px" class="cls_012"><span class="cls_012">Total :</span></div>
+<div style="position:absolute;left:61.80px;top:443.67px" class="cls_010"><span class="cls_010">B. INVESTMENT UNDER SEC 80C</span></div>
+<div style="position:absolute;left:82.58px;top:470.31px" class="cls_010"><span class="cls_010">Children Education Tuition Fee :</span></div>
+<div style="position:absolute;left:82.58px;top:495.87px" class="cls_010"><span class="cls_010">Infrastructure Bond(U/S 80CCF) :</span></div>
+<div style="position:absolute;left:82.58px;top:521.55px" class="cls_010"><span class="cls_010">Public Provident Fund (PPF) :</span></div>
+<div style="position:absolute;left:82.58px;top:540.51px" class="cls_010"><span class="cls_010">Mutual Fund/ ELSS approved under</span></div>
+<div style="position:absolute;left:82.58px;top:553.35px" class="cls_010"><span class="cls_010">The Act :</span></div>
+<div style="position:absolute;left:82.58px;top:580.74px" class="cls_010"><span class="cls_010">National Savings Scheme (NSS) :</span></div>
+<div style="position:absolute;left:82.58px;top:606.06px" class="cls_010"><span class="cls_010">National Savings Certificate (NSC) :</span></div>
+<div style="position:absolute;left:82.58px;top:624.78px" class="cls_010"><span class="cls_010">FD under Tax Savings Scheme with</span></div>
+<div style="position:absolute;left:82.58px;top:638.70px" class="cls_010"><span class="cls_010">Scheduled Bank (=>5 years) :</span></div>
+<div style="position:absolute;left:82.58px;top:663.90px" class="cls_010"><span class="cls_010">NSC interest reinvested :</span></div>
+<div style="position:absolute;left:82.58px;top:689.46px" class="cls_010"><span class="cls_010">Housing Loan principal repaid :</span></div>
+<div style="position:absolute;left:82.58px;top:714.66px" class="cls_010"><span class="cls_010">Life Insurance premium paid :</span></div>
+<div style="position:absolute;left:82.58px;top:733.64px" class="cls_010"><span class="cls_010">ULIP investment approved for tax</span></div>
+<div style="position:absolute;left:82.58px;top:747.56px" class="cls_010"><span class="cls_010">rebate :</span></div>
+<div style="position:absolute;left:216.53px;top:828.30px" class="cls_016"><span class="cls_016">© 2019 -Comprehensive Pension Management System (CPMS)</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-297px;top:852px;width:595px;height:842px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="c918f9da-112c-11ec-a980-0cc47a792c0a_id_c918f9da-112c-11ec-a980-0cc47a792c0a_files/background2.jpg" width=595 height=842></div>
+<div style="position:absolute;left:193.82px;top:11.96px" class="cls_002"><span class="cls_002">Comprehensive Pension Management System (CPMS)</span></div>
+<div style="position:absolute;left:78.14px;top:65.12px" class="cls_002"><span class="cls_002">Other deduction U/S 80C :</span></div>
+<div style="position:absolute;left:78.14px;top:91.30px" class="cls_002"><span class="cls_002">Others :</span></div>
+<div style="position:absolute;left:78.14px;top:109.66px" class="cls_002"><span class="cls_002">U/S 80CCC -- Investment in any</span></div>
+<div style="position:absolute;left:78.14px;top:123.34px" class="cls_002"><span class="cls_002">approved Pension scheme :</span></div>
+<div style="position:absolute;left:78.14px;top:147.94px" class="cls_002"><span class="cls_002">NPS under Section 80CCD(1) :</span></div>
+<div style="position:absolute;left:78.14px;top:174.22px" class="cls_002"><span class="cls_002">Section 80CCD(1B) :</span></div>
+<div style="position:absolute;left:78.14px;top:200.02px" class="cls_002"><span class="cls_002">Section 80CCD(2) :</span></div>
+<div style="position:absolute;left:84.50px;top:245.65px" class="cls_002"><span class="cls_002">A. OTHER DEDUCTIONS UNDER CHAPTER - VI A</span></div>
+<div style="position:absolute;left:378.79px;top:245.65px" class="cls_002"><span class="cls_002">Amount of deduction claimed (Rs.)</span></div>
+<div style="position:absolute;left:83.54px;top:273.85px" class="cls_005"><span class="cls_005">U/S 80D Medical Insurance</span></div>
+<div style="position:absolute;left:83.54px;top:305.05px" class="cls_005"><span class="cls_005">U/S 80D Medical insurance for Senior Citizen</span></div>
+<div style="position:absolute;left:83.54px;top:336.25px" class="cls_005"><span class="cls_005">U/S 80DD maintenance of Handicap Dependent</span></div>
+<div style="position:absolute;left:83.54px;top:360.85px" class="cls_005"><span class="cls_005">U/S 80DDB Medical treatment on specified disease for super senior</span></div>
+<div style="position:absolute;left:83.54px;top:374.89px" class="cls_005"><span class="cls_005">citizen</span></div>
+<div style="position:absolute;left:83.54px;top:397.57px" class="cls_005"><span class="cls_005">U/S 80DDB Medical treatment on specified disease for senior citizen</span></div>
+<div style="position:absolute;left:83.54px;top:428.91px" class="cls_005"><span class="cls_005">U/S 80DDB Medical treatment on specified disease</span></div>
+<div style="position:absolute;left:83.54px;top:460.11px" class="cls_005"><span class="cls_005">U/S 80E Higher education</span></div>
+<div style="position:absolute;left:83.54px;top:491.31px" class="cls_005"><span class="cls_005">U/S 80EE Interest on housing loan</span></div>
+<div style="position:absolute;left:83.54px;top:515.91px" class="cls_005"><span class="cls_005">Donation U/S 80G - 100% scheme (Only for donation to PM/CM/LG</span></div>
+<div style="position:absolute;left:83.54px;top:529.95px" class="cls_005"><span class="cls_005">Relief Fund)</span></div>
+<div style="position:absolute;left:83.54px;top:554.55px" class="cls_005"><span class="cls_005">Donation U/S 80G - 50% scheme</span></div>
+<div style="position:absolute;left:83.54px;top:585.90px" class="cls_005"><span class="cls_005">U/S 80CCG- deduction in r/o investment in ESS</span></div>
+<div style="position:absolute;left:83.54px;top:617.10px" class="cls_005"><span class="cls_005">U/S 80GG- deduction in respect of rent</span></div>
+<div style="position:absolute;left:83.54px;top:648.30px" class="cls_005"><span class="cls_005">U/S 80QQB-deduction in respect of royalty income</span></div>
+<div style="position:absolute;left:83.54px;top:710.70px" class="cls_005"><span class="cls_005">U/S 80 TTA - Interest on deposit in Savings account</span></div>
+<div style="position:absolute;left:216.53px;top:828.30px" class="cls_016"><span class="cls_016">© 2019 -Comprehensive Pension Management System (CPMS)</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-297px;top:1704px;width:595px;height:842px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:0px;top:0px">
+<img src="c918f9da-112c-11ec-a980-0cc47a792c0a_id_c918f9da-112c-11ec-a980-0cc47a792c0a_files/background3.jpg" width=595 height=842></div>
+<div style="position:absolute;left:193.82px;top:11.96px" class="cls_002"><span class="cls_002">Comprehensive Pension Management System (CPMS)</span></div>
+<div style="position:absolute;left:84.50px;top:67.52px" class="cls_002"><span class="cls_002">A. OTHER DEDUCTIONS UNDER CHAPTER - VI A</span></div>
+<div style="position:absolute;left:377.83px;top:67.52px" class="cls_002"><span class="cls_002">Amount of deduction claimed (Rs.)</span></div>
+<div style="position:absolute;left:83.54px;top:95.74px" class="cls_005"><span class="cls_005">U/S 80 TTB- Interest on deposit senior citizen</span></div>
+<div style="position:absolute;left:83.54px;top:126.94px" class="cls_005"><span class="cls_005">U/S 80U Self Handicap (severe disability and other disability)</span></div>
+<div style="position:absolute;left:81.50px;top:171.81px" class="cls_020"><span class="cls_020">I hereby declare that I shall submit the ACTUAL DECLARATION OF INVESTMENT AND OTHER INFORMATION FOR AVAILING INCOME TAX REBATE</span></div>
+<div style="position:absolute;left:81.50px;top:185.73px" class="cls_020"><span class="cls_020">along with proof of investment by 10th October of FY [</span></div>
+<div style="position:absolute;left:271.61px;top:185.73px" class="cls_020"><span class="cls_020">] . In case I don’t ensure submission of the same, I am aware that applicable tax will be</span></div>
+<div style="position:absolute;left:81.50px;top:199.65px" class="cls_020"><span class="cls_020">deducted on the pension paid.</span></div>
+<div style="position:absolute;left:78.62px;top:217.30px" class="cls_002"><span class="cls_002">Date :</span></div>
+<div style="position:absolute;left:334.63px;top:217.30px" class="cls_002"><span class="cls_002">Signature of Pensioner :</span></div>
+<div style="position:absolute;left:216.53px;top:828.30px" class="cls_016"><span class="cls_016">© 2019 -Comprehensive Pension Management System (CPMS)</span></div>
+</div> */
+
+</body>
+</html>

@@ -25,6 +25,98 @@ router.get('/index1', ensureAuthenticated, (req, res) => {
 router.get('/test', ensureAuthenticated, (req, res) => {
     res.render('test');
 });
+router.get('/declaration', ensureAuthenticated, (req, res) => {
+    res.render('declaration');
+});
+
+router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salcert', {
+                salary: JSON.parse(JSON.stringify(result)),
+                requestedTitle: req.params.empID,
+                cur_month: mlist[new Date().getMonth()]
+
+            });
+        }
+    })
+});
+
+router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salcert1', {
+                salary: JSON.parse(JSON.stringify(result)),
+                requestedTitle: req.params.empID,
+                cur_month: mlist[new Date().getMonth()]
+
+            });
+        }
+    })
+});
+
+router.get('/salcert2/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salcert2', {
+                salary: JSON.parse(JSON.stringify(result)),
+                requestedTitle: req.params.empID,
+                cur_month: mlist[new Date().getMonth()]
+
+            });
+        }
+    })
+});
+
+router.get('/proposedDeclaration', ensureAuthenticated, (req, res) => {
+    res.render('proposedDeclaration');
+});
+
+router.get('/salsheet',  (req, res) => {
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}',empID="${req.params.empID}" and year=${cur_year}`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salsheet', {
+                salary: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    // res.render("templateSelected2");
+});
+
 
 router.get('/form-basic', ensureAuthenticated, (req, res) => res.render('form-basic', {
     name: req.user.name
@@ -492,18 +584,50 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
     var list2 = []
     for (var i in data) {
 
-        if (Number.isInteger(parseInt(i))) {
+        if (i.includes("EMP")) {
             console.log(i)
             console.log(data[i])
-            list2.push(parseInt(i))
+            list2.push(i)
         }
 
     }
-    console.log("list is", list2)
+    console.log("list is", list2);
+    var duration=0;
+    first_date=data.month[0];
+    second_date=data.month[1];
+    first_month=parseInt(first_date.split("-")[1]);
+    second_month=parseInt(second_date.split("-")[1]);
+    first_year=parseInt(first_date.split("-")[0]);
+    second_year=parseInt(second_date.split("-")[0]);
+    console.log(first_month,first_year)
+    if( second_year>=first_year)
+    {
+            if(first_month>second_month)
+            {
+                if(second_year===first_year+1)
+                {
+                    duration=second_month+12-first_month+1;
+                }
+            }
+            else
+            {
+                    if(second_year===first_year)
+                    {
+                        
+                        duration=second_month-first_month+1;
+                    }
+                    
+               
+            }
+    }
+    else
+    {
+        //alert
+    }
     mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var month = mlist[new Date().getMonth()]
+    var month = mlist[new Date().getMonth()].toLowerCase();
     var year = new Date().getFullYear()
-    var duration = data.months
+    // var duration = data.months
     for (let i = 0; i < list2.length; i++) {
         console.log("i is", list2[i])
         mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`, (err, result) => {
@@ -546,10 +670,10 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
     var list2 = []
     for (var i in data) {
 
-        if (Number.isInteger(parseInt(i))) {
+        if (i.includes("EMP")) {
             console.log(i)
             console.log(data[i])
-            list2.push(parseInt(i))
+            list2.push(i)
         }
 
     }
@@ -557,10 +681,77 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
     var da_difference = parseFloat(data.newdda) - parseFloat(data.presentdda)
     var hra_difference = parseFloat(data.newhra) - parseFloat(data.presenthra)
     mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var month = mlist[new Date().getMonth()]
-    var year = new Date().getFullYear()
-    var da_duration = data.monthdda;
-    var hra_duration = data.monthhra;
+    var month = mlist[new Date().getMonth()];
+    var year = new Date().getFullYear();
+    var da_duration=0;
+    var hra_duration=0;
+
+    first_date_da=data.month2[0];
+    second_date_da=data.month2[1];
+    first_month_da=parseInt(first_date_da.split("-")[1]);
+    second_month_da=parseInt(second_date_da.split("-")[1]);
+    first_year_da=parseInt(first_date_da.split("-")[0]);
+    second_year_da=parseInt(second_date_da.split("-")[0]);
+    console.log(first_month_da,first_year_da)
+    if( second_year_da>=first_year_da)
+    {
+            if(first_month_da>second_month_da)
+            {
+                if(second_year_da===first_year_da+1)
+                {
+                    da_duration=second_month_da+12-first_month_da+1;
+                }
+            }
+            else
+            {
+                    if(second_year_da===first_year_da)
+                    {
+                        
+                        da_duration=second_month_da-first_month_da+1;
+                    }
+                    
+               
+            }
+    }
+    else
+    {
+        //alert
+    }
+
+    first_date_hra=data.month1[0];
+    second_date_hra=data.month1[1];
+    first_month_hra=parseInt(first_date_hra.split("-")[1]);
+    second_month_hra=parseInt(second_date_hra.split("-")[1]);
+    first_year_hra=parseInt(first_date_hra.split("-")[0]);
+    second_year_hra=parseInt(second_date_hra.split("-")[0]);
+    console.log(first_month_hra,first_year_hra)
+    if( second_year_hra>=first_year_hra)
+    {
+            if(first_month_hra>second_month_hra)
+            {
+                if(second_year_hra===first_year_hra+1)
+                {
+                    hra_duration=second_month_hra+12-first_month_hra+1;
+                }
+            }
+            else
+            {
+                    if(second_year_hra===first_year_hra)
+                    {
+                        
+                        hra_duration=second_month_hra-first_month_hra+1;
+                    }
+                    
+               
+            }
+    }
+    else
+    {
+        //alert
+    }
+
+
+    
     for (let i = 0; i < list2.length; i++) {
         console.log("i is", list2[i])
         mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month}',${da_duration},${year})`, (err, result) => {
@@ -651,10 +842,18 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
     const empID = req.params.empID;
     console.log(JSON.parse(JSON.stringify(req.body)))
     // const length=data["lwp"].length
+<<<<<<< HEAD
     var monthNames = ["january", "february", "march", "april", "may", "june",
         "july", "august", "september", "october", "november", "december"];
     if (data["beforeafter25"] === "after") {
         data.month = monthNames[monthNames.indexOf(data.month.toLowerCase()) + 1]
+=======
+    var monthNames = [ "january", "february", "march", "april", "may", "june",
+"july", "august", "september", "october", "november", "december" ];
+    if(data["beforeafter25"]==="after")
+    {
+        data.month=monthNames[monthNames.indexOf(data.month.toLowerCase())+1].toLowerCase();
+>>>>>>> 65d8db4624587d26f8b7ad46526585d933db9e9b
     }
     // console.log(length)
     // for (let i = 0; i < length; i++) {
@@ -779,7 +978,7 @@ router.get('/finalcheck', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/finalrecoveryamt', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees natural join miscellaneous`, (err, result) => {
+    mysqldb.query(`select * from Employees natural join recovery`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1305,37 +1504,25 @@ router.get('/showadvances', ensureAuthenticated, (req, res) => {
 router.post('/advances', ensureAuthenticated, (req, res) => {
     console.log(JSON.parse(JSON.stringify(req.body)))
     var data = JSON.parse(JSON.stringify(req.body));
-    var length = data['duration'].length;
-    for (let i = 0; i < length; i++) {
-        mysqldb.query(`select empID from Employees ORDER BY empID LIMIT ${i},1`, (err, result) => {
+    var empID = data.empID;
+    console.log(`INSERT INTO advance_temp (empID, ,amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amt"]}, '${data["month"]}', ${data["year"]}, ${data["duration"]}, ${data["amt"]})`)
+    mysqldb.query(`INSERT INTO advance_temp (empID, amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amt"]}, '${data["month"]}', ${data["year"]}, ${data["duration"]}, ${data["amt"]})`
+        , (err, result) => {
             if (err) {
-                //------------ Invalid registration Number ------------//
-                // req.flash('error_msg',
-                // 'Please enter valid Id.')
-                console.log(err)
+                console.log(err);
+                console.log("invalid details");
             }
             else {
-                console.log(result)
-                var empID = JSON.parse(JSON.stringify(result))[0].empID;
-                console.log(`INSERT INTO advance_temp (empID, ,amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`)
-                mysqldb.query(`INSERT INTO advance_temp (empID, amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amount"][i]}, ${data["month"][i]}, ${data["year"][i]}, ${data["duration"][i]}, ${data["amount"][i]})`
-                    , (err, result) => {
-                        if (err) {
-                            console.log(err);
-                            console.log("invalid details");
-                        }
-                        else {
-                            // console.log(JSON.parse(JSON.stringify(result))[0])
+                // console.log(JSON.parse(JSON.stringify(result))[0])
 
-                            // req.flash(
-                            //     'success_msg',
-                            //     'Employee found!'
-                            // );
-                        }
-                    })
+                // req.flash(
+                //     'success_msg',
+                //     'Employee found!'
+                // );
             }
-        })
-    }
+
+    })
+
     res.redirect('/index1')
 });
 
@@ -1586,7 +1773,8 @@ router.post('/generateSalary',(req,res)=>{
                                     console.log("Data is",data)
                                     var hra_difference=data.difference;
                                     var hra_duration=data.duration;
-                                    hra_final_difference=(pay+gp)*hra_difference*hra_duration/100
+                                    // hra_final_difference=(pay+gp)*hra_difference*hra_duration/100
+                                    hra_final_difference=(pay+gp)*hra_difference*hra_duration
                                 }
                                 mysqldb.query(`select * from da_difference where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                     if (err) {
@@ -1604,7 +1792,8 @@ router.post('/generateSalary',(req,res)=>{
                                             var data=JSON.parse(JSON.stringify(result))[0];
                                             var da_difference=data.difference;
                                             var da_duration=data.duration;
-                                            da_final_difference=(pay+gp)*da_difference*da_duration/100
+                                            // da_final_difference=(pay+gp)*da_difference*da_duration/100
+                                            da_final_difference=(pay+gp)*da_difference*da_duration
                                         }
                                     
                                         //variable to calc advances
@@ -1688,7 +1877,11 @@ router.post('/generateSalary',(req,res)=>{
                                                     var results=JSON.parse(JSON.stringify(result))[0]
                                                     console.log("in else of advance, results is",results)
                                                     var adv_amount=results.amount
-                                                    var adv_month=results.month
+                                                    
+                                                    var monthNames = ["january", "february", "march", "april", "may", "june",
+                                                    "july", "august", "september", "october", "november", "december"];
+                                                    
+                                                    var adv_month = monthNames.indexOf(results.month.toLowerCase());
                                                     var adv_year=results.year
                                                     var adv_duration=results.duration
                                                     var adv_outstanding=results.outstanding
@@ -1701,28 +1894,29 @@ router.post('/generateSalary',(req,res)=>{
                                                         // if(month_num>=adv_month)
                                                         // {
                                                             //if duration isn't over yet
-                                                            if(adv_month>month_num)
+                                                            if(adv_month>month_num-1)
                                                             {
                                                                 if(year===adv_year+1)
                                                                 {
-                                                                    if((adv_month+adv_duration)%12>month_num)
+                                                                    if((adv_month+adv_duration)%12>month_num-1)
                                                                     {
                                                                         
                                                                         adv_deduction=adv_amount/adv_duration;
-                                                                        console.log("advance deducted!",adv_deduction)
+                                                                        console.log("advance deducted!",adv_deduction,"for empID",empID)
                                                                         
                                                                     }
                                                                 }
                                                             }
                                                             else
                                                             {
-                                                                if((adv_month+adv_duration)>month_num)
+                                                                if((adv_month+adv_duration)>month_num-1)
                                                                 {
                                                                     if(year===adv_year)
                                                                     {
-                                                                        console.log("advance deducted!",adv_deduction)
+                                                                        
                                                                         adv_deduction=adv_amount/adv_duration;
-                                                                        console.log(adv_deduction)
+                                                                        console.log("advance deducted!",adv_deduction,"for empID",empID)
+                                                                        
                                                                     }
                                                                     
                                                                 }
@@ -1851,6 +2045,17 @@ router.post('/generateSalary',(req,res)=>{
                                                                 //get new basic pay, diff calculated on old basic pay.
 
                                                                 //hra difference ,da change in percent x (pay+gp) on current only.
+                                                                
+                                                                oth_spl+=parseInt(adv_deduction);
+                                                                oth_spl+=parseInt(groupInsurance);
+                                                                diff+=parseInt(hra_final_difference);
+                                                                console.log("pay,gp,da,hra,ta_temp,cca_temp 2",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
+
+                                                                console.log("hra difference is",hra_final_difference,"for empID",empID)
+                                                                diff+=parseInt(da_final_difference);
+                                                                console.log("da difference is",da_final_difference,"for empID",empID)
+                                                                
+                                                                console.log("logging")
                                                                 var gross_sal=pay+parseFloat(gp)+parseFloat(da)+parseFloat(hra)+parseFloat(cca_temp)+parseFloat(diff)+parseFloat(ta_temp);
                                                                 console.log("gross salary,days of month,lwp are",gross_sal,daysOfMonth,lwp,"for empID",empID)
                                                                 
@@ -1880,17 +2085,6 @@ router.post('/generateSalary',(req,res)=>{
                                                                 {
                                                                     rev_stmp=rev_stamp_max
                                                                 }
-                                                                oth_spl+=parseInt(adv_deduction);
-                                                                oth_spl+=parseInt(groupInsurance);
-                                                                oth_spl+=parseInt(hra_final_difference);
-                                                                console.log("pay,gp,da,hra,ta_temp,cca_temp 2",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
-
-                                                                console.log("hra difference is",hra_final_difference,"for empID",empID)
-                                                                oth_spl+=parseInt(da_final_difference);
-                                                                console.log("da difference is",da_final_difference,"for empID",empID)
-                                                                
-                                                                console.log("logging")
-
                                                                 //independant query
                                                                 // mysqldb.query(`insert into lwp (empID,month,year,days,lwp) values ('${empID}','${month}',${year},${daysOfMonth},${lwp})`,(err,result)=>{
                                                                 //     if(err)
@@ -1987,7 +2181,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                         var prevPay=JSON.parse(JSON.stringify(result))[0].prevPay;
                                                                                                         var increment=JSON.parse(JSON.stringify(result))[0].increment;
                                                                                                         // var durationIncrement=JSON.parse(JSON.stringify())
-                                                                                                        var incrementvalue=(prevPay+gp)*(increment/100)
+                                                                                                        var incrementvalue=(prevPay+gp*daysOfMonth/workedDays)*(increment/100)
                                                                                                         if((Math.floor(incrementvalue)%10)===0)
                                                                                                         {
 
@@ -1997,7 +2191,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                         }
                                                                                                         var toAddValue=(hra_MultFactor+da_MultFactor)*incrementvalue
                                                                                                         finalIncrement=Math.ceil((toAddValue+incrementvalue)*durationIncrement)
-                                                                                                        oth_spl+=parseInt(finalIncrement)
+                                                                                                        diff+=parseInt(finalIncrement)
                                                                                                         console.log("increment difference is ",finalIncrement,"for empID",empID)
                                                                                                         console.log("pay,gp,da,hra,ta_temp,cca_temp 5",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
 
@@ -2039,7 +2233,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                             var recovery=JSON.parse(JSON.stringify(result))[0].recoveryAmount;
                                                                                             
                                                                                                             oth_spl+=parseInt(recovery)
-                                                                                                            console.log("recovery amount is ",amount,"for empID ",empID)
+                                                                                                            console.log("recovery amount is ",recovery,"for empID ",empID)
                                                                                                             console.log("pay,gp,da,hra,ta_temp,cca_temp 6",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
 
                                                                                                         }
@@ -2532,7 +2726,35 @@ router.post('/storeIncomeTax', (req, res) => {
 
 })
 
-router.get('/register/teaching', (req, res) => {
+// router.post('/declaration',(req,res)=>{
+    
+//     const data=JSON.parse(JSON.stringify(req.body));
+//     const {empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment   , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo}=data;
+//     console.log(JSON.parse(JSON.stringify(req.body)))
+//     console.log("here")
+//     // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
+//  //  empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , Type  , Type1 ,  onroll  , dop  , doc   ,appointment ,  Relieving  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,(err,result)=>{
+   
+//     // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
+//     mysqldb.query(`INSERT INTO Employees (empID,empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo) VALUES ('${mis}','${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}','${appointment}','${category}','${gender}','${status}',${mobile},'${address_correspondence}','${address_permanent}','${mis}','${biometric}','${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}',${phdYr},'${pgSub}','${pgUni}',${pgYr},'${ugSub}','${ugUni}',${ugYr},'${grade}','${netset}','${othqual}',${exp},${industry_exp},${uni_approval},'${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}',${age},'${photo}')`
+//     ,(err,result)=>{
+//             if (err) {
+//             console.log(err);
+//             console.log("invalid details");
+//         }
+//         else{
+//             // console.log(JSON.parse(JSON.stringify(result))[0])
+//             console.log(result);
+//             res.redirect('/declaration')
+//             // req.flash(
+//             //     'success_msg',
+//             //     'Employee found!'
+//             // );
+//         }
+//     })
+// })
+
+router.get('/register/teaching',  (req, res) => {
     //var requestedTitle = req.params.designationCategory;
     //console.log("the param is", req.params.empID);
     var teaching = "teaching";
