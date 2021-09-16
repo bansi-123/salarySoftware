@@ -1,0 +1,180 @@
+
+<head>
+
+    <style>
+        .arrow {
+          border: solid black;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+          
+        }
+        
+        .down {
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+    }
+    </style>
+    
+    </head>
+    
+    <body>
+    
+    
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-8 p-r-0 title-margin-right">
+                            <div class="page-header">
+                                <div class="page-title">
+                                    <h3 style="text-align: center">PUNE INSTITUTE OF COMPUTER TECHNOLOGY</h3>
+                                    <span><center>TRIMURTI CHOWK, DHANKAWADI<br><b>SALARY SHEET FOR THE MONTH OF AUGUST 2021</b></center></span>
+    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /# column -->
+                        <div class="col-lg-4 p-l-0 title-margin-left">
+                            <div class="page-header">
+                                <div class="page-title">
+                                    <ol class="breadcrumb">
+                                        <!-- <li class="breadcrumb-item"><a href="#">Dashboard</a></li> -->
+                                        <!-- <li class="breadcrumb-item active">Table-Export</li> -->
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /# column -->
+                    </div>
+                    <!-- /# row -->
+    
+                    <section id="main-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="bootstrap-data-table-panel">
+                                        <div class="table-responsive" style="font-size: 10px;" >
+                                            <form class="form-horizontal" action="\table-export" method="post">
+    
+
+
+<table style="border-collapse: collapse;" border="1">
+   
+    <tr> 
+        
+        <th class="rotate"><div><span>S.NO</span></div></th> 
+        <th class="rotate"><div><span>T/NT</span></div></th> 
+        <th class="rotate"><div><span>EMP_CODE</span></div></th> 
+        <th class="rotate"><div><span>BASIC PAY</span></div></th> 
+        <th class="rotate"><div><span>DP/AGP</span></div></th> 
+        <th class="rotate"><div><span>DA</span></div></th> 
+        <th class="rotate"><div><span>HRA</span></div></th> 
+        <th class="rotate"><div><span>CCA</span></div></th> 
+        <th class="rotate"><div><span>DIFF</span></div></th> 
+        <th class="rotate"><div><span>OTH SPL</span></div></th> 
+         <th class="rotate"><div><span>CONVEY</span></div></th> 
+         <th class="rotate"><div><span>Gross Total</span></div></th> 
+         <th class="rotate"><div><span>PF</span></div></th> 
+         <th class="rotate"><div><span>PROF TAX</span></div></th> 
+         <th class="rotate"><div><span>Income Tax</span></div></th> 
+         <th class="rotate"><div><span>Others</span></div></th> 
+         <th class="rotate"><div><span>REV Stamp</span></div></th> 
+         <th class="rotate"><div><span>Total Ded</span></div></th> 
+         <th class="rotate"><div><span>NET PAY</span></div></th> 
+         <th class="rotate"><div><span>UAN</span></div></th> 
+         <th class="rotate"><div><span>BANK_ACNO</span></div></th> 
+         <th class="rotate"><div><span>BANK NAME</span></div></th> 
+
+        
+        <th class="rotate"><div><span>REMARK</span></div></th> 
+    </tr>
+    <% for(var i = salary.length-1; i >= 0 ; i-- ) { %>
+
+        <tr>
+            <td><%= i %></td>
+            <td><%= salary[i].designationCategory %></td>
+            <td><%= salary[i].empID %></td>
+            <td><%= salary[i].pay %></td>
+            <td><%= salary[i].gp %></td>
+            <td><%= salary[i].da %></td>
+            
+            <td><%= salary[i].hra %></td>
+            <td><%= salary[i].cca %></td>
+         
+            <td><%= salary[i].diff %></td>
+            
+            <td><%= salary[i].oth_spl %></td>
+            <td><%= salary[i].oth_spl %></td>
+            <td><%= salary[i].gross_sal %></td>
+            <td><%= salary[i].pf %></td>
+            <td><%= salary[i].prof_tax %></td>
+            <td><%= salary[i].in_tax %></td>
+
+            <td><%= salary[i].oth_ded %></td>
+
+
+            <td><%= salary[i].rev_stmp %></td>
+            <td><%= salary[i].total_ded %></td>
+            <td><%= salary[i].net_sal %></td>
+            <td><%= salary[i].uan %></td>
+            <td><%= salary[i].bankAccNum %></td>
+            <td><%= salary[i].bankName %></td>
+            
+            <td></td>
+            
+            
+          
+        </tr>
+        <% }%>
+  
+   
+</table>
+<button onclick="window.print();" class="main">
+    Print 
+    </button>
+  
+</div>
+
+</div>
+</div>
+<!-- /# card -->
+</div>
+
+</div></section>
+
+
+
+</form>
+
+<!-- <input type="submit" style="float: right;" value="Submit"> -->
+
+</div>
+
+
+<!-- /# row -->
+
+
+
+</div>
+</div>
+
+
+
+<!-- bootstrap -->
+
+<script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
+<!-- scripit init-->
+<script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
+<script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+<script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
+<script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
+<script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
+<script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
+<script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
+<script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
+<script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+
+</body>
+
+</html>

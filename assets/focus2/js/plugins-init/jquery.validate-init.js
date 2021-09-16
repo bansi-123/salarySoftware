@@ -66,6 +66,18 @@ jQuery(".form-valide").validate({
             minlength: 4,
             maxlength: 4
 
+        },
+        "ulip":{
+            required: !0,
+            minlength: 8,
+            maxlength: 10
+
+        },
+        "nps":{
+            required: !0,
+            minlength: 8,
+            maxlength: 10
+
         }
     },
     messages: {

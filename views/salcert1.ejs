@@ -171,7 +171,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TABLE>
 <P class="p7 ft5">TO WHOMSOEVER IT MAY CONCERN</P>
 <P class="p8 ft7">This is to certify that <%= salary[i].empName %> is working in our institute as detailed below.</P>
-<TABLE cellpadding=0 cellspacing=0 class="t1">
+<!-- <TABLE cellpadding=0 cellspacing=0 class="t1">
 <TR>
 	<TD class="tr1 td3"><P class="p6 ft8">&nbsp;</P></TD>
 	<TD class="tr2 td4"><P class="p9 ft4">S. No.</P></TD>
@@ -604,7 +604,304 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr9 td49"><P class="p6 ft14">&nbsp;</P></TD>
 	<TD class="tr9 td47"><P class="p6 ft14">&nbsp;</P></TD>
 </TR>
-</TABLE>
+<TR>
+	<TD colspan=2 class="tr13 td36"><P class="p17 ft13">Basic Pay /</P></TD>
+	<TD class="tr13 td37"><%= salary[i].pay %></TD>
+	<TD class="tr13 td38">h</TD>
+	<TD class="tr13 td39">h</TD>
+	<TD class="tr13 td40">h</TD>
+	<TD class="tr13 td31"></TD>
+	<TD rowspan=2 class="tr12 td21"><P class="p23 ft4">P.F.</P></TD>
+	<TD class="tr13 td42"><%= salary[i].pf%></TD>
+	<TD class="tr13 td37"></TD>
+	<TD class="tr13 td33"></TD>
+	<TD class="tr13 td50"></TD>
+</TR>
+<TR>
+	<TD class="tr4 td51"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD rowspan=2 class="tr13 td12"><P class="p24 ft4">Pay</P></TD>
+	<TD class="tr4 td37"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td38"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td39"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td40"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td31"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td42"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td37"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td33"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td50"><P class="p6 ft10">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr7 td48"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td43"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td35"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td44"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td45"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td34"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td12"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td46"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td43"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td49"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td47"><P class="p6 ft11">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD colspan=2 rowspan=2 class="tr5 td36"><P class="p20 ft4">D.P. / AGP</P></TD>
+	<TD class="tr14 td37"><%= salary[i].gp %></TD>
+	<TD class="tr14 td38"></TD>
+	<TD class="tr14 td39"></TD>
+	<TD class="tr14 td40"></TD>
+	<TD colspan=2 class="tr14 td41"><P class="p17 ft13">Professional</P></TD>
+	<TD class="tr14 td42"><%= salary[i].prof_tax %></TD>
+	<TD class="tr14 td37"><P class="p6 ft15">&nbsp;</P></TD>
+	<TD class="tr14 td33"><P class="p6 ft15">&nbsp;</P></TD>
+	<TD class="tr14 td50"><P class="p6 ft15">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td37"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td38"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td39"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td40"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td31"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD rowspan=2 class="tr13 td12"><P class="p24 ft13">Tax</P></TD>
+	<TD class="tr3 td42"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td37"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td33"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td50"><P class="p6 ft9">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td48"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td12"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td43"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td35"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td44"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td45"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td34"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td46"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td43"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td49"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td47"><P class="p6 ft9">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr0 td51"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD rowspan=2 class="tr12 td21"><P class="p24 ft4">D.A.</P></TD>
+	<TD class="tr0 td37"><%= salary[i].da %></TD>
+	<TD class="tr0 td38"></TD>
+	<TD class="tr0 td39"></TD>
+	<TD class="tr0 td40"></TD>
+	<TD class="tr0 td31"></TD>
+	<TD class="tr0 td21"><P class="p24 ft4">Income</P></TD>
+	<TD class="tr0 td42"><%= salary[i].in_tax %></TD>
+	<TD class="tr0 td37"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td33"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td50"><P class="p6 ft8">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td51"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td37"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td38"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td39"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td40"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td31"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD rowspan=2 class="tr13 td12"><P class="p24 ft13">Tax</P></TD>
+	<TD class="tr3 td42"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td37"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td33"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td50"><P class="p6 ft9">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td48"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td12"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td43"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td35"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td44"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td45"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td34"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td46"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td43"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td49"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td47"><P class="p6 ft9">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr0 td51"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD rowspan=2 class="tr5 td21"><P class="p25 ft4">H.R.A.</P></TD>
+	<TD class="tr0 td37"><%= salary[i].hra %></TD>
+	<TD class="tr0 td38"></TD>
+	<TD class="tr0 td39"></TD>
+	<TD class="tr0 td40"></TD>
+	<TD colspan=2 class="tr0 td41"><P class="p17 ft13">Revenue</P></TD>
+	<TD class="tr0 td42"><%= salary[i].rev_stmp %></TD>
+	<TD class="tr0 td37"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td33"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td50"><P class="p6 ft8">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr4 td51"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td37"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td38"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td39"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td40"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td31"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD rowspan=2 class="tr0 td12"><P class="p24 ft4">Stamp</P></TD>
+	<TD class="tr4 td42"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td37"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td33"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td50"><P class="p6 ft10">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td48"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td12"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td43"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td35"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td44"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td45"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td34"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td46"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td43"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td49"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td47"><P class="p6 ft9">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr0 td51"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD rowspan=2 class="tr5 td21"><P class="p24 ft4">C.C.A.</P></TD>
+	<TD class="tr0 td37"><%= salary[i].cca %>
+        </TD>
+	<TD class="tr0 td38"></TD>
+	<TD class="tr0 td39"></TD>
+	<TD class="tr0 td40"></TD>
+	<TD class="tr0 td31"></TD>
+	<TD class="tr0 td21"><P class="p24 ft4">Other</P></TD>
+	<TD class="tr0 td42"><%= salary[i].oth_ded %></TD>
+	<TD class="tr0 td37"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td33"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td50"><P class="p6 ft8">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr4 td51"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td37"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td38"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td39"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td40"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD colspan=2 rowspan=2 class="tr0 td52"><P class="p17 ft13">Deductions</P></TD>
+	<TD class="tr4 td42"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td37"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td33"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td50"><P class="p6 ft10">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td48"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td12"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td43"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td35"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td44"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td45"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td46"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td43"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td49"><P class="p6 ft9">&nbsp;</P></TD>
+	<TD class="tr3 td47"><P class="p6 ft9">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr0 td51"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD rowspan=2 class="tr5 td21"><P class="p24 ft4">T. A.</P></TD>
+	<TD class="tr0 td37"><%= salary[i].ta %></TD>
+	<TD class="tr0 td38"></TD>
+	<TD class="tr0 td39"></TD>
+	<TD class="tr0 td40"></TD>
+	<TD class="tr0 td31"></TD>
+	<TD class="tr0 td21"><P class="p24 ft13">Total</P></TD>
+	<TD class="tr0 td42"><%= salary[i].total_ded %></TD>
+	<TD class="tr0 td37"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td33"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td50"><P class="p6 ft8">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr4 td51"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td37"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td38"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td39"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td40"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD colspan=2 rowspan=2 class="tr13 td52"><P class="p17 ft13">Deductions</P></TD>
+	<TD class="tr4 td42"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td37"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td33"><P class="p6 ft10">&nbsp;</P></TD>
+	<TD class="tr4 td50"><P class="p6 ft10">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr7 td48"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td12"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td43"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td35"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td44"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td45"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td46"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td43"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td49"><P class="p6 ft11">&nbsp;</P></TD>
+	<TD class="tr7 td47"><P class="p6 ft11">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD colspan=2 class="tr15 td36"><P class="p20 ft13">Difference</P></TD>
+	<TD class="tr15 td37"><%= salary[i].diff %></TD>
+	<TD class="tr15 td38"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr15 td39"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr15 td40"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD colspan=2 class="tr15 td41"><P class="p17 ft2"><NOBR>----</NOBR></P></TD>
+	<TD class="tr15 td42"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr15 td37"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr15 td33"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr15 td50"><P class="p6 ft8">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr16 td48"><P class="p6 ft16">&nbsp;</P></TD>
+	<TD class="tr16 td12"><P class="p6 ft16">&nbsp;</P></TD>
+	<TD class="tr16 td43"><P class="p6 ft16">&nbsp;</P></TD>
+	<TD class="tr16 td35"><P class="p6 ft16">&nbsp;</P></TD>
+	<TD class="tr16 td44"><P class="p6 ft16">&nbsp;</P></TD>
+	<TD class="tr16 td45"><P class="p6 ft16">&nbsp;</P></TD>
+	<TD colspan=2 class="tr16 td52"><P class="p6 ft16">&nbsp;</P></TD>
+	<TD class="tr16 td46"><P class="p6 ft16">&nbsp;</P></TD>
+	<TD class="tr16 td43"><P class="p6 ft16">&nbsp;</P></TD>
+	<TD class="tr16 td49"><P class="p6 ft16">&nbsp;</P></TD>
+	<TD class="tr16 td47"><P class="p6 ft16">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr1 td51"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr1 td21"><P class="p25 ft13">Gross</P></TD>
+	<TD class="tr1 td37"><%= salary[i].gross_sal %></TD>
+	<TD class="tr1 td38"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr1 td39"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr1 td40"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD colspan=2 class="tr1 td41"><P class="p17 ft13">Net Salary</P></TD>
+	<TD class="tr1 td42"><%= salary[i].net_sal %></TD>
+	<TD class="tr1 td37"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr1 td33"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr1 td50"><P class="p6 ft8">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD colspan=2 class="tr0 td36"><P class="p20 ft13">Salary (Rs.)</P></TD>
+	<TD class="tr0 td37"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td38"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td39"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td40"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td31"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td21"><P class="p23 ft4">(Rs.)</P></TD>
+	<TD class="tr0 td42"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td37"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td33"><P class="p6 ft8">&nbsp;</P></TD>
+	<TD class="tr0 td50"><P class="p6 ft8">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr9 td48"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td12"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td43"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td35"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td44"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td45"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td34"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td12"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td46"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td43"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td49"><P class="p6 ft14">&nbsp;</P></TD>
+	<TD class="tr9 td47"><P class="p6 ft14">&nbsp;</P></TD>
+</TR>
+</TABLE> -->
 <P class="p26 ft18">This certificate is issued on request of <%= salary[i].empName %> for apply to bank loan (Home Loan), without any financial obligation / liability on the part of institution; neither this certificate should be treated as any commitment from the institution in whatsoever matter.</P>
 <TABLE cellpadding=0 cellspacing=0 class="t2">
 <TR>

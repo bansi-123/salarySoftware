@@ -25,6 +25,98 @@ router.get('/index1', ensureAuthenticated, (req, res) => {
 router.get('/test', ensureAuthenticated, (req, res) => {
     res.render('test');
 });
+router.get('/declaration', ensureAuthenticated, (req, res) => {
+    res.render('declaration');
+});
+
+router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salcert', {
+                salary: JSON.parse(JSON.stringify(result)),
+                requestedTitle: req.params.empID,
+                cur_month: mlist[new Date().getMonth()]
+
+            });
+        }
+    })
+});
+
+router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salcert1', {
+                salary: JSON.parse(JSON.stringify(result)),
+                requestedTitle: req.params.empID,
+                cur_month: mlist[new Date().getMonth()]
+
+            });
+        }
+    })
+});
+
+router.get('/salcert2/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salcert2', {
+                salary: JSON.parse(JSON.stringify(result)),
+                requestedTitle: req.params.empID,
+                cur_month: mlist[new Date().getMonth()]
+
+            });
+        }
+    })
+});
+
+router.get('/proposedDeclaration', ensureAuthenticated, (req, res) => {
+    res.render('proposedDeclaration');
+});
+
+router.get('/salsheet',  (req, res) => {
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}',empID="${req.params.empID}" and year=${cur_year}`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salsheet', {
+                salary: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+    // res.render("templateSelected2");
+});
+
 
 router.get('/form-basic', ensureAuthenticated, (req, res) => res.render('form-basic', {
     name: req.user.name
@@ -694,11 +786,18 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
     const empID = req.params.empID;
     console.log(JSON.parse(JSON.stringify(req.body)))
     // const length=data["lwp"].length
+<<<<<<< HEAD
+    var monthNames = ["january", "february", "march", "april", "may", "june",
+        "july", "august", "september", "october", "november", "december"];
+    if (data["beforeafter25"] === "after") {
+        data.month = monthNames[monthNames.indexOf(data.month.toLowerCase()) + 1]
+=======
     var monthNames = [ "january", "february", "march", "april", "may", "june",
 "july", "august", "september", "october", "november", "december" ];
     if(data["beforeafter25"]==="after")
     {
         data.month=monthNames[monthNames.indexOf(data.month.toLowerCase())+1].toLowerCase();
+>>>>>>> 65d8db4624587d26f8b7ad46526585d933db9e9b
     }
     // console.log(length)
     // for (let i = 0; i < length; i++) {
@@ -2571,7 +2670,35 @@ router.post('/storeIncomeTax', (req, res) => {
 
 })
 
-router.get('/register/teaching', (req, res) => {
+// router.post('/declaration',(req,res)=>{
+    
+//     const data=JSON.parse(JSON.stringify(req.body));
+//     const {empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment   , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo}=data;
+//     console.log(JSON.parse(JSON.stringify(req.body)))
+//     console.log("here")
+//     // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
+//  //  empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , Type  , Type1 ,  onroll  , dop  , doc   ,appointment ,  Relieving  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,(err,result)=>{
+   
+//     // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
+//     mysqldb.query(`INSERT INTO Employees (empID,empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo) VALUES ('${mis}','${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}','${appointment}','${category}','${gender}','${status}',${mobile},'${address_correspondence}','${address_permanent}','${mis}','${biometric}','${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}',${phdYr},'${pgSub}','${pgUni}',${pgYr},'${ugSub}','${ugUni}',${ugYr},'${grade}','${netset}','${othqual}',${exp},${industry_exp},${uni_approval},'${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}',${age},'${photo}')`
+//     ,(err,result)=>{
+//             if (err) {
+//             console.log(err);
+//             console.log("invalid details");
+//         }
+//         else{
+//             // console.log(JSON.parse(JSON.stringify(result))[0])
+//             console.log(result);
+//             res.redirect('/declaration')
+//             // req.flash(
+//             //     'success_msg',
+//             //     'Employee found!'
+//             // );
+//         }
+//     })
+// })
+
+router.get('/register/teaching',  (req, res) => {
     //var requestedTitle = req.params.designationCategory;
     //console.log("the param is", req.params.empID);
     var teaching = "teaching";
