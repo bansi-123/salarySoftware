@@ -92,6 +92,62 @@ router.post('/addEmployee', (req, res) => {
         })
 })
 
+router.post('/dates', (req, res) => {
+
+    const data = JSON.parse(JSON.stringify(req.body));
+    const { empID, doj, dob  } = data;
+    // console.log(JSON.parse(JSON.stringify(req.body)))
+    console.log("here")
+    mysqldb.query(`UPDATE Employees 
+    SET 
+    doj='${doj}', 
+    dob='${dob}'
+    WHERE 
+    empID='${empID}'` 
+        , (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("invalid details");
+            }
+            else {
+                // console.log(JSON.parse(JSON.stringify(result))[0])
+                console.log(result);
+                res.redirect('/viewemployee')
+                // req.flash(
+                //     'success_msg',
+                //     'Employee found!'
+                // );
+            }
+        })
+})
+router.post('/dropdowns', (req, res) => {
+
+    const data = JSON.parse(JSON.stringify(req.body));
+    const { empID, status, salaryCategory  } = data;
+    // console.log(JSON.parse(JSON.stringify(req.body)))
+    console.log("here")
+    mysqldb.query(`UPDATE Employees 
+    SET 
+    status='${status}', 
+    salaryCategory='${salaryCategory}'
+    WHERE 
+    empID='${empID}'` 
+        , (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("invalid details");
+            }
+            else {
+                // console.log(JSON.parse(JSON.stringify(result))[0])
+                console.log(result);
+                res.redirect('edit/${empID}')
+                // req.flash(
+                //     'success_msg',
+                //     'Employee found!'
+                // );
+            }
+        })
+})
 router.post('/editEmployee', (req, res) => {
 
     const data = JSON.parse(JSON.stringify(req.body));
@@ -103,7 +159,8 @@ router.post('/editEmployee', (req, res) => {
 
     // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
     mysqldb.query(`UPDATE Employees 
-    SET empName='${empName}', 
+    SET 
+    empName='${empName}', 
     uan='${uan}', 
     dept='${dept}', 
     designation='${designation}', 
@@ -112,7 +169,6 @@ router.post('/editEmployee', (req, res) => {
     pf='${pf}', 
     bankAccNum='${bankAccNum}', 
     bankName='${bankName}', 
-    doj='${doj}', 
     salaryCategory='${salaryCategory}', 
     emailID='${emailID}', 
     groupInsurance='${groupInsurance}', 
@@ -127,8 +183,8 @@ router.post('/editEmployee', (req, res) => {
     ugSub='${ugSub}', ugUni='${ugUni}', ugYr='${ugYr}', 
     grade='${grade}', netset='${netset}', othqual='${othqual}', exp='${exp}', industry_exp='${industry_exp}', 
     uni_approval='${uni_approval}', uni_app_date='${uni_app_date}', uni_app_period='${uni_app_period}', workexNT='${workexNT}',
-    dob='${dob}', investment='${investment}', emp_temp_regime='${emp_temp_regime}', 
-    age='${age}', workexpYr='${workexpYr}', photo='${photo}'
+    investment='${investment}', emp_temp_regime='${emp_temp_regime}', 
+    photo='${photo}'
     WHERE 
     empID='${empID}';` 
         , (err, result) => {
@@ -139,7 +195,7 @@ router.post('/editEmployee', (req, res) => {
             else {
                 // console.log(JSON.parse(JSON.stringify(result))[0])
                 console.log(result);
-                res.redirect('/index1')
+                res.redirect('/viewemployee')
                 // req.flash(
                 //     'success_msg',
                 //     'Employee found!'
