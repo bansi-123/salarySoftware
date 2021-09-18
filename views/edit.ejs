@@ -76,6 +76,62 @@
             <div class="main">
                 <div class="container-fluid">
 
+                    <div class="card">
+                    <form class="form-valide" action="\dates" method="post">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <!-- <div class="form-group row"> -->
+                                <% var i=0 %>
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group row">
+                                            <label hidden class="col-lg-6 col-form-label"> EMP ID
+                                                (empXXX) <span class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <input hidden type="text" value="<%= Employees[i].empID %>"
+                                                    name="empID" class="form-control" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">DOB</label>
+                                            <div class="col-lg-6">
+                                                <input type="date" name="dob" class="form-control">
+
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">DOJ</label>
+                                            <div class="col-lg-6">
+                                                <input type="date" name="doj" class="form-control">
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+                            </div>
+                        </div>
+                        <button class="button large round success">Update</button>
+
+                    </form>
+                </div>
+
+
+
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-title">
@@ -289,20 +345,22 @@
 
 
                                                 <!-- salary cat -->
-                                                <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">Salary Category</label>
-                                                    <div class="col-lg-6">
-                                                        <select class="form-control" value="<%= Employees[i].salaryCategory %>" name="salaryCategory" ruqt>
-                                                            <!-- <option value="value" selected>Option Name</option> -->
-                                                            <option value="consolidated" id="consolidated" selected>
-                                                                Consolidated</option>
-                                                            <option value="payscale" id="payscale" selected>Pay
-                                                                Scale</option>
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-6 col-form-label">Salary Category</label>
+                                                        <div class="col-lg-6">
+                                                            <select class="form-control" value="<%= Employees[i].salaryCategory %>" name="salaryCategory" ruqt>
+                                                                <!-- <option value="value" selected>Option Name</option> -->
+                                                                <option value=id selected>No change(<%=
+                                                                    Employees[i].salaryCategory %>)
+                                                                <option value="consolidated" id="consolidated" >
+                                                                    Consolidated</option>
+                                                                <option value="payscale" id="payscale" >Pay
+                                                                    Scale</option>
 
-                                                        </select>
+                                                            </select>
+                                                        </div>
+
                                                     </div>
-
-                                                </div>
 
                                                 <div class="form-group row">
                                                     <label class="col-lg-6 col-form-label">Date of
