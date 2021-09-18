@@ -195,11 +195,21 @@
                                                 <div class="form-group row">
 
                                                     <label class="col-lg-6 col-form-label">Designation Category
-                                                        </label>
-                                                            <div class="col-lg-6">
-                                                                <input type="text" name="designationcategory" value="<%= Employees[i].designationCategory %>" class="form-control" ruqt>
-                                                            </div>
-                                                        
+                                                        :</label>
+                                                    <div class="col-lg-6">
+                                                        <select name="designationCategory" id="id_category" value="<%= Employees[i].designationCategory %>"
+                                                            onchange="ShowHideDiv()"
+                                                            data-designation-id='id_designation'
+                                                            class='dependent-selects__category' ruqt>
+                                                            <option value="">---------</option>
+                                                            <option value="teaching"
+                                                                data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer">
+                                                                Teaching</option>
+                                                            <option value="nonteaching"
+                                                                data-designation-options="Registrar|#Librarian|#OffSup|#Technical Assistant|#Lab. Assistant|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Asstt. Programmer|#Director of Physical Education & Sports|#Electrician|#Accounts Assistant|#Network Administrator|#Workshop Instructor">
+                                                                Non- Teaching</option>
+                                                        </select><br><br>
+                                                    </div>
                                                 </div>
 
 
@@ -207,14 +217,63 @@
 
                                                     <label class="col-lg-6 col-form-label"> Type 1: </label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="designation" value="<%= Employees[i].designation %>" class="form-control" ruqt>
+                                                        <select name="nonteach" value="<%= Employees[i].emailID %>">
+                                                            <option value="" hidden selected>-----</option>
+
+                                                            <option value="Technical">Technical</option>
+                                                            <option value="Non technical">Non Technical</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
 
                                                     <label class="col-lg-6 col-form-label"> Designation: </label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="designation" value="<%= Employees[i].designation %>" class="form-control" ruqt>
+                                                        <select name="designation" id="id_designation" value="<%= Employees[i].designation %>"
+                                                            class='dependent-selects__designation' ruqt>
+                                                            <option value="">-----</option>
+                                                            <option value="Principal">Principal</option>
+                                                            <option value="professor">Professor</option>
+                                                            <option value="Associate Professor">Associate Professor
+                                                            </option>
+                                                            <option value="Assistant Professor">Assistant Professor
+                                                            </option>
+                                                            <option value="Workshop Superintendent">Workshop
+                                                                Superintendent
+                                                            </option>
+                                                            <option value="Lecturer (Sr. Scale)"> Lecturer (Sr. Scale)
+                                                            </option>
+                                                            <option value="Lecturer">Lecturer</option>
+                                                            <!-- teaching over -->
+                                                            <option value="Registrar">Registrar</option>
+                                                            <option value="Librarian">Librarian</option>
+                                                            <option value="OffSup">Office Superintendent</option>
+                                                            <option value="Technical Assistant">Technical Assistant
+                                                            </option>
+                                                            <option value="Lab. Assistant">Lab. Assistant</option>
+                                                            <option value="Jr. Library Assistant">Jr. Library Assistant
+                                                            </option>
+                                                            <option value="Library Attendant">Library Attendant</option>
+                                                            <option value="Senior Clerk">Senior Clerk</option>
+                                                            <option value="Junior Clerk">Junior Clerk</option>
+                                                            <option value="PurOff">Purchase Officer</option>
+
+                                                            <option value="BS">Black Smithy</option>
+                                                            <option value="Asstt. Programmer">Asstt. Programmer</option>
+                                                            <option value="Director of Physical Education & Sports">
+                                                                Director
+                                                                of Physical Education & Sports</option>
+                                                            <option value="Electrician">Electrician</option>
+                                                            <option value="Accounts Assistant">Accounts Assistant
+                                                            </option>
+                                                            <option value="Network Administrator">Network Administrator
+                                                            </option>
+                                                            <option value="Workshop Instructor">Workshop Instructor
+                                                            </option>
+                                                        </select>
+
+                                                        <br>
+                                                        <br>
                                                     </div>
                                                 </div>
                                                 <br>
@@ -247,7 +306,19 @@
 
                                                     <label class="col-lg-6 col-form-label"> Departments</label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="dept" value="<%= Employees[i].dept %>" class="form-control" ruqt>
+                                                        <select name="dept" id="id_category1" onchange="ShowHideDivi()"
+                                                            data-designation-id='id_designation' value="<%= Employees[i].dept %>"
+                                                            class='dependent-selects__category' ruqt>
+
+                                                            <option value="Computer">Computer</option>
+                                                            <option value="IT">IT</option>
+                                                            <option value="E&TC">E&TC</option>
+                                                            <option value="FE">FE</option>
+                                                            <option value="Administration">Administration</option>
+                                                            <option value="Accounts">Accounts</option>
+                                                            <option value="Library">Library</option>
+                                                            <option value="Sports">Sports</option>
+                                                        </select><br><br>
                                                     </div>
 
 
@@ -277,31 +348,65 @@
                                                     <div class="form-group row">
                                                         <label class="col-lg-6 col-form-label">Salary Category</label>
                                                         <div class="col-lg-6">
-                                                            <input type="text" name="salaryCategory" value="<%= Employees[i].salaryCategory %>" class="form-control" ruqt>
+                                                            <select class="form-control" value="<%= Employees[i].salaryCategory %>" name="salaryCategory" ruqt>
+                                                                <!-- <option value="value" selected>Option Name</option> -->
+                                                                <option value=id selected>No change(<%=
+                                                                    Employees[i].salaryCategory %>)
+                                                                <option value="consolidated" id="consolidated" >
+                                                                    Consolidated</option>
+                                                                <option value="payscale" id="payscale" >Pay
+                                                                    Scale</option>
+
+                                                            </select>
                                                         </div>
 
                                                     </div>
+
 
                                                 <div class="form-group row">
 
                                                     <label class="col-lg-6 col-form-label"
                                                         for="category">Category</label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" name="category" value="<%= Employees[i].category %>" class="form-control" ruqt>
-                                                        </div>
+                                                    <div class="col-lg-6">
+                                                        <select name="category" value="<%= Employees[i].category %>" id="category" ruqt>
+
+                                                            <option value="<%= Employees[i].category %>">No change (<%= Employees[i].category %>)</option>
+                                                            <option value="open">OPEN</option>
+                                                            <option value="sc">SC</option>
+                                                            <option value="st">ST</option>
+                                                            <option value="dta">DT-a</option>
+                                                            <option value="ntb">NT-b</option>
+                                                            <option value="ntc">NT-c</option>
+                                                            <option value="ntd">NT-d</option>
+                                                            <option value="obc">OBC</option>
+                                                            <option value="sbc">SBC</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group row">
 
                                                     <label class="col-lg-6 col-form-label" for="gender">Gender</label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="gender" value="<%= Employees[i].gender %>" class="form-control" ruqt>
+                                                        <select name="gender" value="<%= Employees[i].gender %>" id="gender" ruqt>
+                                                            <option value="<%= Employees[i].gender %>">No change (<%= Employees[i].gender %>)</option>
+                                                            <option value="male">Male</option>
+                                                            <option value="female">Female</option>
+                                                            <option value="other">Other</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
 
                                                     <label class="col-lg-6 col-form-label" for="status">Maritial
                                                         Status</label>
-                                                    
+                                                    <div class="col-lg-6">
+                                                        <select name="status" value="<%= Employees[i].status %>" id="status" ruqt>
+                                                            <option value="<%= Employees[i].status %>">No change (<%= Employees[i].status %>)</option>
+                                                            <option value="married">Married</option>
+                                                            <option value="single">Single</option>
+                                                            <option value="other">Other</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-lg-6 col-form-label">Aadhar Number</label>
@@ -331,12 +436,17 @@
                                                     <label class="col-lg-6 col-form-label">Employee on Roll
                                                     </label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="onrole" value="<%= Employees[i].onrole %>" class="form-control" ruqt>
+                                                        <select name="onrole" id="id_category2" value="<%= Employees[i].onrole %>"
+                                                            onchange="ShowHideDivi()"
+                                                            data-designation-id='id_designation'
+                                                            class='dependent-selects__category' ruqt>
+                                                            <option value="<%= Employees[i].onrole %>">No change (<%= Employees[i].onrole %>) </option>
+                                                            <option value="no">No</option>
+                                                            <option value="yes">Yes</option>
+
+
+                                                        </select><br><br>
                                                     </div>
-
-                                                    <br><br>
-
-                                                    
 
                                                     
 
@@ -368,9 +478,16 @@
                                                 <div class="form-group row">
                                                     <label class="col-lg-6 col-form-label" for="appointment">Nature of
                                                         Appointment</label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" name="appointment" value="<%= Employees[i].appointment %>" class="form-control" ruqt>
-                                                        </div>
+                                                    <div class="col-lg-6">
+
+                                                        <select name="appointment" value="<%= Employees[i].appointment %>" id="appointment" ruqt>
+                                                            <option value="<%= Employees[i].appointment %>">No change(<%= Employees[i].appointment %>)</option>
+                                                            <option value="Permanent">Permanent</option>
+                                                            <option value="Probation">Probation</option>
+                                                            <option value="Adhoc">Adhoc</option>
+
+                                                        </select>
+                                                    </div>
                                                 </div>
 
                                         </div>
@@ -418,9 +535,12 @@
                                                 <label class="col-lg-6 col-form-label" for="vacation">Vacation</label>
                                                 <div class="col-lg-6">
 
-                                                    <div class="col-lg-6">
-                                                        <input type="text" name="vacation" value="<%= Employees[i].vacation %>" class="form-control" ruqt>
-                                                    </div>
+                                                    <select name="vacation" value="<%= Employees[i].vacation %>" id="vacation" ruqt>
+                                                        <option value="<%= Employees[i].vacation %>">No change (<%= Employees[i].vacation %>)</option>
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -521,9 +641,15 @@
 
                                                 <label class="col-lg-6 col-form-label" for="emp_temp_regime">Employee
                                                     Tax Regime</label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" name="emp_temp_regime" value="<%= Employees[i].emp_temp_regime %>" class="form-control" ruqt>
-                                                    </div>
+                                                <div class="col-lg-6">
+
+                                                    <select name="emp_temp_regime" id="emp_temp_regime" ruqt>
+                                                        <option value="<%= Employees[i].emp_temp_regime %>">No change (<%= Employees[i].emp_temp_regime %>)</option>
+                                                        <option value="old_tax_reg">Old tax regime</option>
+                                                        <option value="new_tax_reg">New tax regime</option>
+
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Investment </label>
@@ -639,16 +765,31 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="payBand" value="<%= Employees[i].payBand %>" class="form-control" ruqt>
+                                                <select class="form-control" name="payBand" ruqt>
+                                                    <!-- <option value="value" selected>Option Name</option> -->
+                                                    <option value="<%= Employees[i].payBand %>">No change (<%= Employees[i].payBand %>)</option>
+                                                    <option value="4440-7440" id="4440-7440">4440-7440</option>
+                                                    <option value="5200-20200" id="5200-20200">5200-20200</option>
+                                                    <option value="9300-34800" id="9300-34800">9300-34800</option>
+                                                    <option value="15600-39100" id="15600-39100">15600-39100</option>
+                                                    <option value="37400-67000" id="37400-67000">37400-67000</option>
+                                                    
+
+                                                </select>
                                             </div>
-                                            
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">Pay Commission<span class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="paycommission" value="<%= Employees[i].paycommission %>" class="form-control" ruqt>
+                                                <select class="form-control" name="payCommission" ruqt>
+                                                    <option value="<%= Employees[i].paycommission %>">No change (<%= Employees[i].paycommission %>)</option>
+                                                    <option value="5" id="5th">5th Type</option>
+                                                    <option value="6" id="6th">6th Type</option>
+                                                    <option value="7" id="7th">7th Type</option>
+                                                    
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -763,7 +904,13 @@
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">PhD.</label>
                                         <div class="col-lg-6">
-                                            <input type="text" name="phd" value="<%= Employees[i].phd %>" class="form-control" ruqt>
+                                            <select name="phd" value="<%= Employees[i].phd %>">
+                                                <!-- <option value="null" hidden selected>-----</option> -->
+                                                <option value="<%= Employees[i].phd %>">No change (<%= Employees[i].phd %>)</option>
+                                                <option value="Awarded">Awarded</option>
+                                                <option value="Registered">Registered</option>
+                                            </select>
+
                                         </div>
                                     </div>
 
@@ -794,7 +941,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-6 control-label">PhD Passing year</label>
+                                        <label class="col-sm-8 control-label">PhD Passing year</label>
                                         <div class="col-lg-6">
                                             <input type="text" name="phdYr" value="<%= Employees[i].phdYr %>" class="form-control"
                                                 placeholder="PhD Passing year" value=0 ruqt>

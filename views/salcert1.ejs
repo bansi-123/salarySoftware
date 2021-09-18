@@ -153,10 +153,10 @@ body {margin-top: 0px;margin-left: 0px;}
 
 <BODY>
 	
-	
+	<% for(var i = salary.length-sunand+1; i>0; i-=3){ %>
 		
-		<% var i=salary.length-sunand-4 %>
-		
+		<% var j= i-1 %>
+		<% var k= Math.max(i-2,0) %>
 	
 		
 		
@@ -217,7 +217,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD colspan=2 class="tr5 td22"><%= salary[i].designation %></TD>
 	<TD colspan=2 rowspan=2 class="tr6 td23"><P class="p14 ft4"><%= salary[i].dept %></P></TD>
 	<TD class="tr5 td3"> </TD>
-	<TD colspan=2 class="tr5 td24"><P class="p15 ft3">From <SPAN class="ft4"><%= salary[i].month %> </SPAN>till <%= salary[i+2].month %></P></TD>
+	<TD colspan=2 class="tr5 td24"><P class="p15 ft3">From <SPAN class="ft4"><%= salary[i].month %> </SPAN>till <%= salary[k].month %></P></TD>
 	<TD class="tr5 td25"> </TD>
 	<TD class="tr5 td26"> </TD>
 	<TD class="tr5 td11"> </TD>
@@ -296,22 +296,22 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD colspan=2 rowspan=2 class="tr12 td36"><P class="p17 ft13">Earnings</P></TD>
 		<TD class="tr0 td37"><P class="p13 ft4"><%= salary[i].month %></P></TD>
 		<TD class="tr0 td38"> </TD>
-		<TD class="tr0 td39"><P class="p15 ft4"><%= salary[i+1].month %></P></TD>
-		<TD class="tr0 td40"><P class="p17 ft13"><%= salary[i+2].month %></P></TD>
+		<TD class="tr0 td39"><P class="p15 ft4"><%= salary[j].month %></P></TD>
+		<TD class="tr0 td40"><P class="p17 ft13"><%= salary[k].month %></P></TD>
 		<TD colspan=2 rowspan=2 class="tr12 td41"><P class="p17 ft13">Deductions</P></TD>
 		<TD class="tr0 td42"><P class="p17 ft13"><%= salary[i].month %></P></TD>
-		<TD class="tr0 td37"><P class="p17 ft13"><%= salary[i+1].month %></P></TD>
-		<TD colspan=2 class="tr0 td40"><P class="p17 ft13"><%= salary[i+2].month %></P></TD>
+		<TD class="tr0 td37"><P class="p17 ft13"><%= salary[j].month %></P></TD>
+		<TD colspan=2 class="tr0 td40"><P class="p17 ft13"><%= salary[k].month %></P></TD>
 </TR>
 <TR>
-	<TD rowspan=2 class="tr13 td43"><P class="p18 ft4"><%= salary[i+1].year %></P></TD>
+	<TD rowspan=2 class="tr13 td43"><P class="p18 ft4"><%= salary[j].year %></P></TD>
 	<TD class="tr3 td38"><P class="p6 ft9">&nbsp;</P></TD>
-	<TD rowspan=2 class="tr13 td44"><P class="p19 ft4"><%= salary[i+1].year %></P></TD>
-	<TD rowspan=2 class="tr13 td45"><P class="p20 ft13"><%= salary[i+1].year %></P></TD>
-	<TD rowspan=2 class="tr13 td46"><P class="p18 ft4"><%= salary[i+1].year %></TD>
-	<TD rowspan=2 class="tr13 td43"><P class="p21 ft13"><%= salary[i+1].year %></P></TD>
+	<TD rowspan=2 class="tr13 td44"><P class="p19 ft4"><%= salary[j].year %></P></TD>
+	<TD rowspan=2 class="tr13 td45"><P class="p20 ft13"><%= salary[j].year %></P></TD>
+	<TD rowspan=2 class="tr13 td46"><P class="p18 ft4"><%= salary[j].year %></TD>
+	<TD rowspan=2 class="tr13 td43"><P class="p21 ft13"><%= salary[j].year %></P></TD>
 	<TD class="tr3 td33"><P class="p6 ft9">&nbsp;</P></TD>
-	<TD rowspan=2 class="tr13 td47"><P class="p22 ft13"><%= salary[i+1].year %></P></TD>
+	<TD rowspan=2 class="tr13 td47"><P class="p22 ft13"><%= salary[j].year %></P></TD>
 </TR>
 <TR>
 	<TD class="tr3 td48"><P class="p6 ft9">&nbsp;</P></TD>
@@ -324,15 +324,15 @@ body {margin-top: 0px;margin-left: 0px;}
 <TR>
 	<TD colspan=2 class="tr13 td36"><P class="p17 ft13">Basic Pay /</P></TD>
 	<TD class="tr13 td37"><%= salary[i].pay %></TD>
-	<TD class="tr13 td38"><%= salary[i+1].pay %></TD>
+	<TD class="tr13 td38"><%= salary[j].pay %></TD>
 	<TD class="tr13 td39"></TD>
-	<TD class="tr13 td40"><%= salary[i+2].pay %></TD>
+	<TD class="tr13 td40"><%= salary[k].pay %></TD>
 	<TD class="tr13 td31"></TD>
 	<TD rowspan=2 class="tr12 td21"><P class="p23 ft4">P.F.</P></TD>
 	<TD class="tr13 td42"><%= salary[i].pf%></TD>
-	<TD class="tr13 td37"><%= salary[i+1].pf%></TD>
+	<TD class="tr13 td37"><%= salary[j].pf%></TD>
 	<TD class="tr13 td33"></TD>
-	<TD class="tr13 td50"><%= salary[i+2].pf%></TD>
+	<TD class="tr13 td50"><%= salary[k].pf%></TD>
 </TR>
 <TR>
 	<TD class="tr4 td51"><P class="p6 ft10">&nbsp;</P></TD>
@@ -363,14 +363,14 @@ body {margin-top: 0px;margin-left: 0px;}
 <TR>
 	<TD colspan=2 rowspan=2 class="tr5 td36"><P class="p20 ft4">D.P. / AGP</P></TD>
 	<TD class="tr14 td37"><%= salary[i].gp %></TD>
-	<TD class="tr14 td38"><%= salary[i+1].gp %></TD>
+	<TD class="tr14 td38"><%= salary[j].gp %></TD>
 	<TD class="tr14 td39"></TD>
-	<TD class="tr14 td40"><%= salary[i+2].gp %></TD>
+	<TD class="tr14 td40"><%= salary[k].gp %></TD>
 	<TD colspan=2 class="tr14 td41"><P class="p17 ft13">Professional</P></TD>
 	<TD class="tr13 td42"><%= salary[i].prof_tax%></TD>
-	<TD class="tr13 td37"><%= salary[i+1].prof_tax%></TD>
+	<TD class="tr13 td37"><%= salary[j].prof_tax%></TD>
 	<TD class="tr13 td33"></TD>
-	<TD class="tr13 td50"><%= salary[i+2].prof_tax%></TD>
+	<TD class="tr13 td50"><%= salary[k].prof_tax%></TD>
 </TR>
 <TR>
 	<TD class="tr3 td37"><P class="p6 ft9">&nbsp;</P></TD>
@@ -401,15 +401,15 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr0 td51"> </TD>
 	<TD rowspan=2 class="tr12 td21"><P class="p24 ft4">D.A.</P></TD>
 	<TD class="tr0 td37"><%= salary[i].da %></TD>
-	<TD class="tr0 td38"><%= salary[i+1].da %></TD>
+	<TD class="tr0 td38"><%= salary[j].da %></TD>
 	<TD class="tr0 td39"></TD>
-	<TD class="tr0 td40"><%= salary[i+2].da %></TD>
+	<TD class="tr0 td40"><%= salary[k].da %></TD>
 	<TD class="tr0 td31"></TD>
 	<TD class="tr0 td21"><P class="p24 ft4">Income</P></TD>
 	<TD class="tr13 td42"><%= salary[i].in_tax%></TD>
-	<TD class="tr13 td37"><%= salary[i+1].in_tax%></TD>
+	<TD class="tr13 td37"><%= salary[j].in_tax%></TD>
 	<TD class="tr13 td33"></TD>
-	<TD class="tr13 td50"><%= salary[i+2].in_tax%></TD>
+	<TD class="tr13 td50"><%= salary[k].in_tax%></TD>
 </TR>
 <TR>
 	<TD class="tr3 td51"><P class="p6 ft9">&nbsp;</P></TD>
@@ -441,15 +441,15 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr0 td51"> </TD>
 	<TD rowspan=2 class="tr5 td21"><P class="p25 ft4">H.R.A.</P></TD>
 	<TD class="tr0 td37"><%= salary[i].hra %></TD>
-	<TD class="tr0 td38"><%= salary[i+1].hra %></TD>
+	<TD class="tr0 td38"><%= salary[j].hra %></TD>
 	<TD class="tr0 td39"></TD>
-	<TD class="tr0 td40"><%= salary[i+2].hra %></TD>
+	<TD class="tr0 td40"><%= salary[k].hra %></TD>
 	<TD colspan=2 class="tr0 td41"><P class="p17 ft13">Revenue</P></TD>
 	
 	<TD class="tr13 td42"><%= salary[i].rev_stmp%></TD>
-	<TD class="tr13 td37"><%= salary[i+1].rev_stmp%></TD>
+	<TD class="tr13 td37"><%= salary[j].rev_stmp%></TD>
 	<TD class="tr13 td33"></TD>
-	<TD class="tr13 td50"><%= salary[i+2].rev_stmp%></TD>
+	<TD class="tr13 td50"><%= salary[k].rev_stmp%></TD>
 </TR>
 <TR>
 	<TD class="tr4 td51"><P class="p6 ft10">&nbsp;</P></TD>
@@ -482,15 +482,15 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD rowspan=2 class="tr5 td21"><P class="p24 ft4">C.C.A.</P></TD>
 	<TD class="tr0 td37"><%= salary[i].cca %>
         </TD>
-	<TD class="tr0 td38"><%= salary[i+1].cca %></TD>
+	<TD class="tr0 td38"><%= salary[j].cca %></TD>
 	<TD class="tr0 td39"></TD>
-	<TD class="tr0 td40"><%= salary[i+2].cca %></TD>
+	<TD class="tr0 td40"><%= salary[k].cca %></TD>
 	<TD class="tr0 td31"></TD>
 	<TD class="tr0 td21"><P class="p24 ft4">Other</P></TD>
 	<TD class="tr13 td42"><%= salary[i].other_deductions%></TD>
-	<TD class="tr13 td37"><%= salary[i+1].other_deductions%></TD>
+	<TD class="tr13 td37"><%= salary[j].other_deductions%></TD>
 	<TD class="tr13 td33"></TD>
-	<TD class="tr13 td50"><%= salary[i+2].other_deductions%></TD>
+	<TD class="tr13 td50"><%= salary[k].other_deductions%></TD>
 </TR>
 <TR>
 	<TD class="tr4 td51"><P class="p6 ft10">&nbsp;</P></TD>
@@ -526,9 +526,9 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr0 td31"></TD>
 	<TD class="tr0 td21"><P class="p24 ft13">Total</P></TD>
 	<TD class="tr13 td42"><%= salary[i].total_ded%></TD>
-	<TD class="tr13 td37"><%= salary[i+1].total_ded%></TD>
+	<TD class="tr13 td37"><%= salary[j].total_ded%></TD>
 	<TD class="tr13 td33"></TD>
-	<TD class="tr13 td50"><%= salary[i+2].total_ded%></TD>
+	<TD class="tr13 td50"><%= salary[k].total_ded%></TD>
 </TR>
 <TR>
 	<TD class="tr4 td51"><P class="p6 ft10">&nbsp;</P></TD>
@@ -588,8 +588,8 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr1 td40"> <%= salary[i].gross_sal %></TD>
 	<TD colspan=2 class="tr1 td41"><P class="p17 ft13">Net Salary</P></TD>
 	<TD class="tr1 td42"><%= salary[i].net_sal %></TD>
-	<TD class="tr1 td37"><%= salary[i+1].net_sal %></TD>
-	<TD class="tr1 td33"><%= salary[i+2].net_sal %></TD>
+	<TD class="tr1 td37"><%= salary[j].net_sal %></TD>
+	<TD class="tr1 td33"><%= salary[k].net_sal %></TD>
 	<TD class="tr1 td50"> </TD>
 </TR>
 <TR>
@@ -631,7 +631,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 </DIV>
 <div style="break-after:page"></div>
-
+<% } %>
 <button onclick="window.print();" class="main">
     Print 
     </button>
