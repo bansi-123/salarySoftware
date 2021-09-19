@@ -47,6 +47,14 @@ const mysqldb = mysql.createConnection ({
 // });
 
 
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'kshitij',
+//     password: 'salary123',
+//     database: 'employee'
+// });
+
+
 
 
 // connect to database
