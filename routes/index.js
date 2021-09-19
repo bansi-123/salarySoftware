@@ -44,6 +44,8 @@ router.get('/declaration2', ensureAuthenticated, (req, res) => {
     res.render('declaration2');
 });
 
+
+
 router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
     
@@ -188,7 +190,7 @@ router.post('/form-basic', (req, res) => {
     //    res.redirect('salcert/5');
     const dec = JSON.parse(JSON.stringify(req.body));
     const { g, empID, c, d, e, ccd, ccc, dd, age } = dec;
-    var agebased;
+    // var agebased;
     var gg = parseInt(dec.g);
     var ded_c = parseInt(dec.c);
     var ded_d = parseInt(dec.d);
@@ -199,50 +201,59 @@ router.post('/form-basic', (req, res) => {
     var dec_age=parseInt(dec.age);
 
     // console.log("g=" + gg, Math.min(g, 60000), "c=" + ded_c, Math.min(c, 150000), d, e, ccd, ccc, dd)
-    var total = Math.min(gg, 60000) + Math.min(ded_c, 150000) + ded_e + Math.min(ded_ccc, 50000) + Math.min(ded_ccd, 50000) + Math.min(ded_dd, 50000);
-    console.log(total);
 
     mysqldb.query(`select * from Employees`, (err, result) => {
         if (err) {
             console.log(err);
         }
         else {
-            mysqldb.query(`update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`, (err, result1) => {
+            mysqldb.query(`select * from edit_limits`, (err, upper) => {
+
+                console.log(upper)
+                var climit=JSON.parse(JSON.stringify(upper))[0].climit
+                var glimit=JSON.parse(JSON.stringify(upper))[0].glimit
+                var dlimit1=JSON.parse(JSON.stringify(upper))[0].dlimit1
+                var dlimit2=JSON.parse(JSON.stringify(upper))[0].dlimit2
+                var ccclimit=JSON.parse(JSON.stringify(upper))[0].ccclimit
+                var ccdlimit=JSON.parse(JSON.stringify(upper))[0].ccdlimit
+                var ddlimit=JSON.parse(JSON.stringify(upper))[0].ddlimit
+               
+
+                var total = Math.min(gg, glimit) + Math.min(ded_c, climit) + ded_e + Math.min(ded_ccc, ccclimit) + Math.min(ded_ccd, ccdlimit) + Math.min(ded_dd, ddlimit);
+                console.log(total);
+
                 if (err) {
                     console.log(err);
                 }
-                else {
-                    console.log(dec_age)
-                    var limit_d = 25000
-                    if (dec_age > 60) {
-                        limit_d = 50000;
-                    }
-                    total+=Math.min(ded_d, limit_d) 
-                    
-                    mysqldb.query(`insert into form (empID,c,d,dd,total) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${total})`,(err,result2)=>{
-                        if(err)
-                        {
-                            console.log(err)
-                            console.log("error while inserting into donation table")
+
+                else{
+                    mysqldb.query(`update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`, (err, result1) => {
+                        if (err) {
+                            console.log(err);
                         }
-                        else{
-                                
-                            res.render('incometax', {
-                                    Employees: JSON.parse(JSON.stringify(result2))
-                                });
+                        else {
+                            console.log(dec_age)
+                            var limit_d = dlimit1
+                            if (dec_age > 60) {
+                                limit_d = dlimit2;
+                            }
+                            total+=Math.min(ded_d, limit_d) 
+                            
+                            mysqldb.query(`insert into form (empID,c,d,dd,total) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${total})`,(err,result2)=>{
+                                if(err)
+                                {
+                                    console.log(err)
+                                }
+                                else{
+                                    res.render('incometax', {
+                                            Employees: JSON.parse(JSON.stringify(result2))
+                                        });
+                                }
+                            })
                         }
-                    })
-
-                    
-
-                    
-                    // // console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-                    // res.render('viewemployee', {
-                    //     Employees: JSON.parse(JSON.stringify(result))
-                    // });
-
+                  })
                 }
-            })
+        })
 
         }
     })
