@@ -14,61 +14,54 @@
             }
         </style>
 
-        <script>
-
-            var handle_dependent_selects = function ($category) {
-                var $designation = document.getElementById($category.getAttribute('data-designation-id')),
-                    $selected = $category.options[$category.selectedIndex],
-                    category_val = $selected.value;
-
-                for (var i = 0; i < $designation.options.length; i++) {
-                    var $option = $designation.options[i];
-                    if ($option.value != '') {
-                        $option.setAttribute('hidden', true);
-                    }
-                };
-
-                if (category_val) {
-                    var designation_options = $selected.getAttribute('data-designation-options'),
-                        designation_options_array = designation_options.split('|#');
-
-                    for (i = 0; i < $designation.options.length; i++) {
-                        var $option = $designation.options[i];
-                        if ($option.value == "") {
-                            $option.innerText = "--------";
-                            continue;
-                        }
-                        if (designation_options_array.indexOf($option.value) != -1) {
-                            $option.removeAttribute('hidden');
-                        }
-                    };
-
-                } else {
-                    var show_text = $designation.getAttribute('data-text-if-category-empty');
-                    if (!show_text) {
-                        show_text = 'Select ' + $category.name;
-                    }
-                    for (i = 0; i < $designation.options.length; i++) {
-                        var $option = $designation.options[$designation.selectedIndex];
-                        if ($option.value == "") {
-                            $option.innerText = '- ' + show_text + ' -';
-                            break;
-                        }
-                    };
-                }
+<script>
+    var handle_dependent_selects = function ($category) {
+        var $designation = document.getElementById($category.getAttribute('data-designation-id')),
+            $selected = $category.options[$category.selectedIndex],
+            category_val = $selected.value;
+        for (var i = 0; i < $designation.options.length; i++) {
+            var $option = $designation.options[i];
+            if ($option.value != '') {
+                $option.setAttribute('hidden', true);
             }
-
-            document.addEventListener('DOMContentLoaded', function () {
-                var $categorys = document.getElementsByClassName('dependent-selects__category');
-                for (var i = 0; i < $categorys.length; i++) {
-                    handle_dependent_selects($categorys[i]);
-                    $categorys[i].addEventListener('change', function () {
-                        handle_dependent_selects(this)
-                    })
+        };
+        if (category_val) {
+            var designation_options = $selected.getAttribute('data-designation-options'),
+                designation_options_array = designation_options.split('|#');
+            for (i = 0; i < $designation.options.length; i++) {
+                var $option = $designation.options[i];
+                if ($option.value == "") {
+                    $option.innerText = "--------";
+                    continue;
                 }
-            }, false);
-
-        </script>
+                if (designation_options_array.indexOf($option.value) != -1) {
+                    $option.removeAttribute('hidden');
+                }
+            };
+        } else {
+            var show_text = $designation.getAttribute('data-text-if-category-empty');
+            if (!show_text) {
+                show_text = 'Select ' + $category.name;
+            }
+            for (i = 0; i < $designation.options.length; i++) {
+                var $option = $designation.options[$designation.selectedIndex];
+                if ($option.value == "") {
+                    $option.innerText = '- ' + show_text + ' -';
+                    break;
+                }
+            };
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        var $categorys = document.getElementsByClassName('dependent-selects__category');
+        for (var i = 0; i < $categorys.length; i++) {
+            handle_dependent_selects($categorys[i]);
+            $categorys[i].addEventListener('change', function () {
+                handle_dependent_selects(this)
+            })
+        }
+    }, false);
+</script>
     </head>
 
     <body>
@@ -150,11 +143,9 @@
                                                 }
                                             </script>
 
-                                            <div class="form-group row">
-
-                                                <label class="col-lg-6 col-form-label">Designation Category : <span
-                                                        class="text-danger">*</span>
-                                                </label>
+                                           <div class="form-group row">
+                                                
+                                                <label  class="col-lg-6 col-form-label">Designation Category :</label>
                                                 <div class="col-lg-6">
                                                     <select name="designationcategory" id="id_category"
                                                         onchange="ShowHideDiv()" data-designation-id='id_designation'
@@ -168,7 +159,7 @@
                                                             Non- Teaching</option>
                                                     </select><br><br>
                                                 </div>
-                                            </div>
+                                            
 
 
                                             <div class="form-group row" id="dvPassport" style="display: none">
@@ -186,118 +177,102 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
+                                                
+                                              <label class="col-lg-6 col-form-label">  Designation: </label>
+                                              <div class="col-lg-6">
+                                              <select name="designation" id="id_designation" class='dependent-selects__designation'  ruqt>
+                                                <option value="">-----</option>
+                                                <option value="Principal">Principal</option>
+                                                <option value="professor">Professor</option>
+                                                <option value="Associate Professor">Associate Professor</option>
+                                                <option value="Assistant Professor">Assistant Professor</option>
+                                                <option value="Workshop Superintendent">Workshop Superintendent</option>
+                                                <option value="Lecturer (Sr. Scale)"> Lecturer (Sr. Scale)</option>
+                                                <option value="Lecturer">Lecturer</option>
+                                                <!-- teaching over -->
+                                                <option value="Registrar">Registrar</option>
+                                                <option value="Librarian">Librarian</option>
+                                                <option value="OffSup">Office Superintendent</option>
+                                                <option value="Technical Assistant">Technical Assistant</option>
+                                                <option value="Lab. Assistant">Lab. Assistant</option>
+                                                <option value="Jr. Library Assistant">Jr. Library Assistant</option>
+                                                <option value="Library Attendant">Library Attendant</option>
+                                                <option value="Senior Clerk">Senior Clerk</option>
+                                                <option value="Junior Clerk">Junior Clerk</option>
+                                                <option value="PurOff">Purchase Officer</option>
+                                                
+                                                <option value="BS">Black Smithy</option>
+                                                <option value="Asstt. Programmer">Asstt. Programmer</option>
+                                                <option value="Director of Physical Education & Sports">Director of Physical Education & Sports</option>
+                                                <option value="Electrician">Electrician</option>
+                                                <option value="Accounts Assistant">Accounts Assistant</option>
+                                                <option value="Network Administrator">Network Administrator</option>
+                                                <option value="Workshop Instructor">Workshop Instructor</option>
+                                              </select>
+                                            
+                                              <br>
+                                              <br></div></div>
+                                              <br>
 
-                                                <label class="col-lg-6 col-form-label"> Designation: </label>
+
+
+                                           <div class="form-group row">
+                                                <label  class="col-lg-6 col-form-label">UAN</label>
                                                 <div class="col-lg-6">
-                                                    <select name="designation" id="id_designation"
-                                                        class='dependent-selects__designation' ruqt>
-                                                        <option value="">-----</option>
-                                                        <option value="Principal">Principal</option>
-                                                        <option value="professor">Professor</option>
-                                                        <option value="Associate Professor">Associate Professor</option>
-                                                        <option value="Assistant Professor">Assistant Professor</option>
-                                                        <option value="Workshop Superintendent">Workshop Superintendent
-                                                        </option>
-                                                        <option value="Lecturer (Sr. Scale)"> Lecturer (Sr. Scale)
-                                                        </option>
-                                                        <option value="Lecturer">Lecturer</option>
-                                                        <!-- teaching over -->
-                                                        <option value="Registrar">Registrar</option>
-                                                        <option value="Librarian">Librarian</option>
-                                                        <option value="OffSup">Office Superintendent</option>
-                                                        <option value="Technical Assistant">Technical Assistant</option>
-                                                        <option value="Lab. Assistant">Lab. Assistant</option>
-                                                        <option value="Jr. Library Assistant">Jr. Library Assistant
-                                                        </option>
-                                                        <option value="Library Attendant">Library Attendant</option>
-                                                        <option value="Senior Clerk">Senior Clerk</option>
-                                                        <option value="Junior Clerk">Junior Clerk</option>
-                                                        <option value="PurOff">Purchase Officer</option>
-
-                                                        <option value="BS">Black Smithy</option>
-                                                        <option value="Asstt. Programmer">Asstt. Programmer</option>
-                                                        <option value="Director of Physical Education & Sports">Director
-                                                            of Physical Education & Sports</option>
-                                                        <option value="Electrician">Electrician</option>
-                                                        <option value="Accounts Assistant">Accounts Assistant</option>
-                                                        <option value="Network Administrator">Network Administrator
-                                                        </option>
-                                                        <option value="Workshop Instructor">Workshop Instructor</option>
-                                                    </select>
-
-                                                    <br>
-                                                    <br>
-                                                </div>
-                                            </div>
-                                            <br>
-
-
-
-                                            <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">UAN <span
-                                                        class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input type="number" name="uan" class="form-control" ruqt
-                                                        placeholder="UAN" pattern=".{12,12}"
-                                                        title="12 characters needed">
+                                                    <input type="text" name="uan" class="form-control"  ruqt
+                                                        placeholder="UAN"  pattern=".{12,12}"     title="12 characters needed">
                                                 </div>
                                             </div><br>
 
 
 
-
+                                            
 
 
                                             <script type="text/javascript">
-                                                function ShowHideDiv() {
+                                                function ShowHideDivi() {
                                                     var ddlPassport1 = document.getElementById("id_category1");
                                                     var dvPassport1 = document.getElementById("dvPassport1");
                                                     dvPassport1.style.display = ddlPassport1.value == "FE" ? "block" : "none";
                                                 }
                                             </script>
-
-                                            <div class="form-group row">
-
-                                                <label class="col-lg-6 col-form-label"> Departments <span
-                                                        class="text-danger">*</span>
-                                                </label>
+                                            
+                                           <div class="form-group row">
+                                              
+                                                <label  class="col-lg-6 col-form-label">    Departments</label>
                                                 <div class="col-lg-6">
-                                                    <select name="dept" id="id_category1" onchange="ShowHideDiv()"
-                                                        data-designation-id='id_designation'
-                                                        class='dependent-selects__category' ruqt>
-
-                                                        <option value="Computer">Computer</option>
-                                                        <option value="IT">IT</option>
-                                                        <option value="E&TC">E&TC</option>
-                                                        <option value="FE">FE</option>
-                                                        <option value="Administration">Administration</option>
-                                                        <option value="Accounts">Accounts</option>
-                                                        <option value="Library">Library</option>
-                                                        <option value="Sports">Sports</option>
-                                                    </select><br><br>
+                                                 <select name="dept" id="id_category1" onchange="ShowHideDivi()"  data-designation-id='id_designation'  class='dependent-selects__category' ruqt>
+                                               
+                                                <option value="Computer">Computer</option>
+                                                    <option value="IT">IT</option>
+                                                    <option value="E&TC">E&TC</option>
+                                                    <option value="FE">FE</option>
+                                                    <option value="Administration">Administration</option>
+                                                    <option value="Accounts">Accounts</option>
+                                                    <option value="Library">Library</option>
+                                                    <option value="Sports">Sports</option>
+                                              </select><br><br>
                                                 </div>
 
-
-                                                <div id="dvPassport1" style="display: none">
-                                                    Type 1
-                                                    <select name="Subject">
-                                                        <option value="" hidden selected>-----</option>
-                                                        <option value="Mechanical">Mechanical</option>
-                                                        <option value="Civil">Civil</option>
-                                                        <option value="Physics">Physics</option>
-                                                        <option value="Chemistry">Chemistry</option>
-                                                        <option value="Mathematics">Mathematics</option>
-                                                        <option value="Graphics">Graphics</option>
-                                                        <option value="Electrical">Electrical</option>
-
-                                                    </select>
-
-
+                                                
+                                            <div  id="dvPassport1" style="display: none" >
+                                                Type 1
+                                                <select name="Subject">
+                                                    <option  value="" hidden selected>-----</option>
+                                                    <option value="Mechanical">Mechanical</option>
+                                                    <option value="Civil">Civil</option>
+                                                    <option value="Physics">Physics</option> 
+                                                    <option value="Chemistry">Chemistry</option>
+                                                    <option value="Mathematics">Mathematics</option>
+                                                    <option value="Graphics">Graphics</option> 
+                                                    <option value="Electrical">Electrical</option>
+                                                    
+                                                </select>
 
 
-                                                </div>
-                                            </div>
+                                          
+
+                                            </div> </div>
 
 
 
@@ -621,12 +596,12 @@
                                             </div>
 
 
-                                            <div class="form-group row">
+                                            <!-- <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Employee Tax Regime </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="emp_temp_regime" class="form-control" ruqt>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group row">
 
                                                 <label class="col-lg-6 col-form-label" for="emp_temp_regime">Employee
@@ -640,12 +615,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> Age </label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" name="age" class="form-control" ruqt>
-                                                </div>
-                                            </div>
+                                           
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Investment </label>
                                                 <div class="col-lg-6">
@@ -708,14 +678,18 @@
 
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label"> TA <span
+                                            <label class="col-lg-6 col-form-label">Grade Pay <span
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="ta" class="form-control">
+                                                <input type="text" name="gp" class="form-control"
+                                                    placeholder="Grade Pay">
                                             </div>
                                         </div>
+
+                                        
 
 
                                     </div>
@@ -731,15 +705,15 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Grade Pay <span
+                                            <label class="col-lg-6 col-form-label"> TA <span
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="gp" class="form-control"
-                                                    placeholder="Grade Pay">
+                                                <input type="text" name="ta" class="form-control">
                                             </div>
                                         </div>
 
+                                        
                                     </div>
 
                                     <div class="col-lg-6">

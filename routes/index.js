@@ -11,8 +11,7 @@ router.get('/', (req, res) => {
 });
 
 //------------ Dashboard Route ------------//
-router.get('/dashboard', ensureAuthenticated, (req, res) => res.render('dash', {
-    name: req.user.name
+router.get('/dashboard', (req, res) => res.render('dash', {
 }));
 
 router.get('/index1', ensureAuthenticated, (req, res) => {
@@ -31,20 +30,38 @@ router.get('/declaration', ensureAuthenticated, (req, res) => {
 
 router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
-
-    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()]
+    
+    
+    mlist = ["January", "February", "March", "April", "may", "june", "july", "august", "september", "october", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()];
+    var cur_month_2 = mlist[new Date().getMonth()+1];
+    var cur_month_3 = mlist[new Date().getMonth()-1];
+    var cur_month_4 = mlist[new Date().getMonth()-2];   
+    var cur_month_5 = mlist[new Date().getMonth()-3];
+    var cur_month_1 = mlist[new Date().getMonth()-4];
+    
+    
+    //var prev_month=mlist[prev_month.indexOf(cur_month.toLowerCase())-1].toLowerCase();
+    //console.log(prev_month);
+    
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
-        if (err) {
+   // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
+    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    `, (err, result) => {
+ 
+   if (err) {
             console.log(err);
         }
         else {
             //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('salcert', {
                 salary: JSON.parse(JSON.stringify(result)),
+                salary1: JSON.parse(JSON.stringify(result)),
+
                 requestedTitle: req.params.empID,
-                cur_month: mlist[new Date().getMonth()]
+                cur_month: mlist[new Date().getMonth()],
+                sunand:parseInt(sunand),
+                date:new Date()
 
             });
         }
@@ -53,20 +70,38 @@ router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
 
 router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
-
-    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()]
+    
+    
+    mlist = ["January", "February", "March", "April", "may", "june", "july", "august", "september", "october", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()];
+    var cur_month_2 = mlist[new Date().getMonth()+1];
+    var cur_month_3 = mlist[new Date().getMonth()-1];
+    var cur_month_4 = mlist[new Date().getMonth()-2];   
+    var cur_month_5 = mlist[new Date().getMonth()-3];
+    var cur_month_1 = mlist[new Date().getMonth()-4];
+    
+    
+    //var prev_month=mlist[prev_month.indexOf(cur_month.toLowerCase())-1].toLowerCase();
+    //console.log(prev_month);
+    
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
-        if (err) {
+   // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
+    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    `, (err, result) => {
+ 
+   if (err) {
             console.log(err);
         }
         else {
             //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('salcert1', {
                 salary: JSON.parse(JSON.stringify(result)),
+                salary1: JSON.parse(JSON.stringify(result)),
+
                 requestedTitle: req.params.empID,
-                cur_month: mlist[new Date().getMonth()]
+                cur_month: mlist[new Date().getMonth()],
+                sunand:parseInt(sunand),
+                date:new Date()
 
             });
         }
@@ -117,15 +152,21 @@ router.get('/salsheet',  (req, res) => {
     // res.render("templateSelected2");
 });
 
-
+var sunand;
 router.get('/form-basic', ensureAuthenticated, (req, res) => res.render('form-basic', {
     name: req.user.name
 }));
 
-router.post('/form-basic', ensureAuthenticated, (req, res) => {
+router.post('/form-basic',  (req, res) => {
 
-    console.log(req.body)
-    // res.redirect('dashboard');
+    //console.log(req.body)
+    var cur_month=new Date().getMonth()+1;
+    const trip =JSON.parse(JSON.stringify(req.body));
+    month= trip.trip.slice(5,7);
+    sunand= cur_month-month;
+   res.redirect('salcert/5');
+       
+
 });
 
 router.get('/edit/:empID', ensureAuthenticated, (req, res) => {
@@ -184,6 +225,62 @@ router.post('/addEmployee', (req, res) => {
         })
 })
 
+router.post('/dates', (req, res) => {
+
+    const data = JSON.parse(JSON.stringify(req.body));
+    const { empID, doj, dob  } = data;
+    // console.log(JSON.parse(JSON.stringify(req.body)))
+    console.log("here")
+    mysqldb.query(`UPDATE Employees 
+    SET 
+    doj='${doj}', 
+    dob='${dob}'
+    WHERE 
+    empID='${empID}'` 
+        , (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("invalid details");
+            }
+            else {
+                // console.log(JSON.parse(JSON.stringify(result))[0])
+                console.log(result);
+                res.redirect('/viewemployee')
+                // req.flash(
+                //     'success_msg',
+                //     'Employee found!'
+                // );
+            }
+        })
+})
+router.post('/dropdowns', (req, res) => {
+
+    const data = JSON.parse(JSON.stringify(req.body));
+    const { empID, status, salaryCategory  } = data;
+    // console.log(JSON.parse(JSON.stringify(req.body)))
+    console.log("here")
+    mysqldb.query(`UPDATE Employees 
+    SET 
+    status='${status}', 
+    salaryCategory='${salaryCategory}'
+    WHERE 
+    empID='${empID}'` 
+        , (err, result) => {
+            if (err) {
+                console.log(err);
+                console.log("invalid details");
+            }
+            else {
+                // console.log(JSON.parse(JSON.stringify(result))[0])
+                console.log(result);
+                res.redirect('edit/${empID}')
+                // req.flash(
+                //     'success_msg',
+                //     'Employee found!'
+                // );
+            }
+        })
+})
 router.post('/editEmployee', (req, res) => {
 
     const data = JSON.parse(JSON.stringify(req.body));
@@ -195,7 +292,8 @@ router.post('/editEmployee', (req, res) => {
 
     // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
     mysqldb.query(`UPDATE Employees 
-    SET empName='${empName}', 
+    SET 
+    empName='${empName}', 
     uan='${uan}', 
     dept='${dept}', 
     designation='${designation}', 
@@ -204,7 +302,6 @@ router.post('/editEmployee', (req, res) => {
     pf='${pf}', 
     bankAccNum='${bankAccNum}', 
     bankName='${bankName}', 
-    doj='${doj}', 
     salaryCategory='${salaryCategory}', 
     emailID='${emailID}', 
     groupInsurance='${groupInsurance}', 
@@ -219,8 +316,8 @@ router.post('/editEmployee', (req, res) => {
     ugSub='${ugSub}', ugUni='${ugUni}', ugYr='${ugYr}', 
     grade='${grade}', netset='${netset}', othqual='${othqual}', exp='${exp}', industry_exp='${industry_exp}', 
     uni_approval='${uni_approval}', uni_app_date='${uni_app_date}', uni_app_period='${uni_app_period}', workexNT='${workexNT}',
-    dob='${dob}', investment='${investment}', emp_temp_regime='${emp_temp_regime}', 
-    age='${age}', workexpYr='${workexpYr}', photo='${photo}'
+    investment='${investment}', emp_temp_regime='${emp_temp_regime}', 
+    photo='${photo}'
     WHERE 
     empID='${empID}';` 
         , (err, result) => {
@@ -231,7 +328,7 @@ router.post('/editEmployee', (req, res) => {
             else {
                 // console.log(JSON.parse(JSON.stringify(result))[0])
                 console.log(result);
-                res.redirect('/index1')
+                res.redirect('/viewemployee')
                 // req.flash(
                 //     'success_msg',
                 //     'Employee found!'
@@ -1368,6 +1465,20 @@ router.get('/advances', ensureAuthenticated, (req, res) => {
     })
 });
 
+router.get('/salarycert', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salarycert', {
+                Employees: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
 router.get('/advances/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
     console.log(req.params.empID)
@@ -1399,6 +1510,8 @@ router.get('/advances/:empID', ensureAuthenticated, (req, res) => {
         res.redirect(requestedTitle)
     }
 });
+
+
 
 
 // router.get('/advances', ensureAuthenticated, (req, res) => 
