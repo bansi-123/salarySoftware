@@ -28,6 +28,10 @@ router.get('/declaration', ensureAuthenticated, (req, res) => {
     res.render('declaration');
 });
 
+router.get('/declaration2', ensureAuthenticated, (req, res) => {
+    res.render('declaration2');
+});
+
 router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
     
