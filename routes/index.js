@@ -24,8 +24,20 @@ router.get('/index1', ensureAuthenticated, (req, res) => {
 router.get('/test', ensureAuthenticated, (req, res) => {
     res.render('test');
 });
-router.get('/declaration', ensureAuthenticated, (req, res) => {
-    res.render('declaration');
+
+
+router.get('/newdeclaration', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('newdeclaration', {
+                Employees: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
 });
 
 router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
@@ -156,6 +168,11 @@ var sunand;
 router.get('/form-basic', ensureAuthenticated, (req, res) => res.render('form-basic', {
     name: req.user.name
 }));
+
+router.get('/editlimits', ensureAuthenticated, (req, res) => res.render('editlimits', {
+    name: req.user.name
+}));
+
 
 router.post('/form-basic',  (req, res) => {
 
