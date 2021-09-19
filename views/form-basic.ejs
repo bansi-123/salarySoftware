@@ -89,7 +89,7 @@
                             <!-- <div class="card-body"> -->
                             <div class="horizontal-form-elements" class="form-validation">
 
-                                <form class="form-valide" action="\form-basic" method="post">
+                                <form class="form-valide" action="\addEmployee" method="post">
 
 
                                     <div class="row">
@@ -99,7 +99,7 @@
                                                 <label class="col-lg-6 col-form-label"> MIS Login ID
                                                     (empXXX) <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="number" name="mis" class="form-control"
+                                                    <input type="text" name="empID" class="form-control"
                                                         placeholder="XXX" pattern="+emp." title="enter valid mis ID"
                                                         ruqt>
                                                 </div>
@@ -147,7 +147,7 @@
                                                 
                                                 <label  class="col-lg-6 col-form-label">Designation Category :</label>
                                                 <div class="col-lg-6">
-                                                 <select name="designationcategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category'  ruqt>
+                                                 <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category'  ruqt>
                                                 <option value="">---------</option>
                                                 <option value="teaching" data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer">Teaching</option>
                                                 <option value="nonteaching" data-designation-options="Registrar|#Librarian|#OffSup|#Technical Assistant|#Lab. Assistant|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Asstt. Programmer|#Director of Physical Education & Sports|#Electrician|#Accounts Assistant|#Network Administrator|#Workshop Instructor">Non- Teaching</option>
@@ -226,43 +226,46 @@
                                                     dvPassport1.style.display = ddlPassport1.value == "FE" ? "block" : "none";
                                                 }
                                             </script>
-                                            
-                                           <div class="form-group row">
-                                              
-                                                <label  class="col-lg-6 col-form-label">    Departments</label>
+
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-6 col-form-label"> Departments</label>
                                                 <div class="col-lg-6">
-                                                 <select name="dept" id="id_category1" onchange="ShowHideDivi()"  data-designation-id='id_designation'  class='dependent-selects__category' ruqt>
-                                               
-                                                <option value="Computer">Computer</option>
-                                                    <option value="IT">IT</option>
-                                                    <option value="E&TC">E&TC</option>
-                                                    <option value="FE">FE</option>
-                                                    <option value="Administration">Administration</option>
-                                                    <option value="Accounts">Accounts</option>
-                                                    <option value="Library">Library</option>
-                                                    <option value="Sports">Sports</option>
-                                              </select><br><br>
+                                                    <select name="dept" id="id_category1" onchange="ShowHideDivi()"
+                                                        data-designation-id='id_designation'
+                                                        class='dependent-selects__category' ruqt>
+
+                                                        <option value="Computer">Computer</option>
+                                                        <option value="IT">IT</option>
+                                                        <option value="E&TC">E&TC</option>
+                                                        <option value="FE">FE</option>
+                                                        <option value="Administration">Administration</option>
+                                                        <option value="Accounts">Accounts</option>
+                                                        <option value="Library">Library</option>
+                                                        <option value="Sports">Sports</option>
+                                                    </select><br><br>
                                                 </div>
 
-                                                
-                                            <div  id="dvPassport1" style="display: none" >
-                                                Type 1
-                                                <select name="Subject">
-                                                    <option  value="" hidden selected>-----</option>
-                                                    <option value="Mechanical">Mechanical</option>
-                                                    <option value="Civil">Civil</option>
-                                                    <option value="Physics">Physics</option> 
-                                                    <option value="Chemistry">Chemistry</option>
-                                                    <option value="Mathematics">Mathematics</option>
-                                                    <option value="Graphics">Graphics</option> 
-                                                    <option value="Electrical">Electrical</option>
-                                                    
-                                                </select>
+
+                                                <div id="dvPassport1" style="display: none">
+                                                    Type 1
+                                                    <select name="Subject">
+                                                        <option value="" hidden selected>-----</option>
+                                                        <option value="Mechanical">Mechanical</option>
+                                                        <option value="Civil">Civil</option>
+                                                        <option value="Physics">Physics</option>
+                                                        <option value="Chemistry">Chemistry</option>
+                                                        <option value="Mathematics">Mathematics</option>
+                                                        <option value="Graphics">Graphics</option>
+                                                        <option value="Electrical">Electrical</option>
+
+                                                    </select>
 
 
-                                          
 
-                                            </div> </div>
+
+                                                </div>
+                                            </div>
 
 
 
@@ -394,7 +397,7 @@
 
                                                 <div id="dvPassport2" style="display: none">
                                                     Relieving Date:
-                                                    <input type="date" class="form-control" id="doc" name="doc" ruqt>
+                                                    <input type="date" class="form-control" id="Relieving" name="Relieving" ruqt>
 
                                                 </div>
                                             </div>
@@ -658,7 +661,7 @@
                                     <div class="col-lg-6">
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Basic Pay <span
+                                            <label class="col-lg-6 col-form-label">Pay <span
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
@@ -738,17 +741,13 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <select class="form-control" name="payBand" ruqt>
-                                                    <!-- <option value="value" selected>Option Name</option> -->
-                                                    <option>---------</option>
-                                                    <option value="20k-30k" id="20k-30k">20k-30k</option>
-                                                    <option value="30k-40k" id="30k-40k">30k-40k</option>
-                                                    <option value="40k-50k" id="40k-50k">40k-50k</option>
-                                                    <option value="50k-60k" id="50k-60k">50k-60k</option>
-                                                    <option value="60k-70k" id="60k-70k">60k-70k</option>
-                                                    <option value="70k-80k" id="70k-80k">70k-80k</option>
-                                                    <option value="80k-90k" id="80k-90k">80k-90k</option>
-                                                    <option value="90k-100k" id="90k-100k">90k-100k</option>
-                                                    <option value="lakh" id="lakh">1 lakh+</option>
+                                                    
+                                                    <option value="4440-7440" id="4440-7440">4440-7440</option>
+                                                    <option value="5200-20200" id="5200-20200">5200-20200</option>
+                                                    <option value="9300-34800" id="9300-34800">9300-34800</option>
+                                                    <option value="15600-39100" id="15600-39100">15600-39100</option>
+                                                    <option value="37400-67000" id="37400-67000">37400-67000</option>
+                                                    
 
                                                 </select>
                                             </div>
@@ -759,11 +758,11 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <select class="form-control" name="payCommission" ruqt>
+                                                <select class="form-control" name="paycommission" ruqt>
                                                     <option>---------</option>
-                                                    <option value="5" id="5th">5th Type</option>
-                                                    <option value="6" id="6th">6th Type</option>
-                                                    <option value="7" id="7th">7th Type</option>
+                                                    <option value=5 id="5th">5th Type</option>
+                                                    <option value=6 id="6th">6th Type</option>
+                                                    <option value=7 id="7th">7th Type</option>
 
                                                 </select>
                                             </div>
@@ -1067,7 +1066,8 @@
                         </div>
                         <div class="row text-center" text-align: center;>
 
-                            <button class="button large round success">Submit</button>
+                            <!-- <button class="button large round success">Submit</button> -->
+                            <button class="btn btn-primary" type="submit">Button</button>
 
 
                         </div>
