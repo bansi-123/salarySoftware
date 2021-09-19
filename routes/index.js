@@ -178,16 +178,74 @@ router.get('/editlimits', ensureAuthenticated, (req, res) => res.render('editlim
 }));
 
 
-router.post('/form-basic',  (req, res) => {
+router.post('/form-basic', (req, res) => {
 
-    //console.log(req.body)
-    var cur_month=new Date().getMonth()+1;
-    const trip =JSON.parse(JSON.stringify(req.body));
-    month= trip.trip.slice(5,7);
-    sunand= cur_month-month;
-   res.redirect('salcert/5');
-       
+    console.log(req.body)
+    //     var cur_month=new Date().getMonth()+1;
+    //     const trip =JSON.parse(JSON.stringify(req.body));
+    //     month= trip.trip.slice(5,7);
+    //     sunand= cur_month-month;
+    //    res.redirect('salcert/5');
+    const dec = JSON.parse(JSON.stringify(req.body));
+    const { g, empID, c, d, e, ccd, ccc, dd, age } = dec;
+    var agebased;
+    var gg = parseInt(dec.g);
+    var ded_c = parseInt(dec.c);
+    var ded_d = parseInt(dec.d);
+    var ded_e = parseInt(dec.e);
+    var ded_ccd = parseInt(dec.ccd);
+    var ded_ccc = parseInt(dec.ccc);
+    var ded_dd = parseInt(dec.dd);
+    var dec_age=parseInt(dec.age);
 
+    // console.log("g=" + gg, Math.min(g, 60000), "c=" + ded_c, Math.min(c, 150000), d, e, ccd, ccc, dd)
+    var total = Math.min(gg, 60000) + Math.min(ded_c, 150000) + ded_e + Math.min(ded_ccc, 50000) + Math.min(ded_ccd, 50000) + Math.min(ded_dd, 50000);
+    console.log(total);
+
+    mysqldb.query(`select * from Employees`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            mysqldb.query(`update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`, (err, result1) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(dec_age)
+                    var limit_d = 25000
+                    if (dec_age > 60) {
+                        limit_d = 50000;
+                    }
+                    total+=Math.min(ded_d, limit_d) 
+                    
+                    mysqldb.query(`insert into form (empID,c,d,dd,total) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${total})`,(err,result2)=>{
+                        if(err)
+                        {
+                            console.log(err)
+                            console.log("error while inserting into donation table")
+                        }
+                        else{
+                                
+                            res.render('incometax', {
+                                    Employees: JSON.parse(JSON.stringify(result2))
+                                });
+                        }
+                    })
+
+                    
+
+                    
+                    // // console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+                    // res.render('viewemployee', {
+                    //     Employees: JSON.parse(JSON.stringify(result))
+                    // });
+
+                }
+            })
+
+        }
+    })
 });
 
 router.get('/edit/:empID', ensureAuthenticated, (req, res) => {
