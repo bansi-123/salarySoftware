@@ -11,8 +11,7 @@ router.get('/', (req, res) => {
 });
 
 //------------ Dashboard Route ------------//
-router.get('/dashboard', ensureAuthenticated, (req, res) => res.render('dash', {
-    name: req.user.name
+router.get('/dashboard', (req, res) => res.render('dash', {
 }));
 
 router.get('/index1', ensureAuthenticated, (req, res) => {
@@ -31,20 +30,38 @@ router.get('/declaration', ensureAuthenticated, (req, res) => {
 
 router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
-
-    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()]
+    
+    
+    mlist = ["January", "February", "March", "April", "may", "june", "july", "august", "september", "october", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()];
+    var cur_month_2 = mlist[new Date().getMonth()+1];
+    var cur_month_3 = mlist[new Date().getMonth()-1];
+    var cur_month_4 = mlist[new Date().getMonth()-2];   
+    var cur_month_5 = mlist[new Date().getMonth()-3];
+    var cur_month_1 = mlist[new Date().getMonth()-4];
+    
+    
+    //var prev_month=mlist[prev_month.indexOf(cur_month.toLowerCase())-1].toLowerCase();
+    //console.log(prev_month);
+    
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
-        if (err) {
+   // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
+    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    `, (err, result) => {
+ 
+   if (err) {
             console.log(err);
         }
         else {
             //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('salcert', {
                 salary: JSON.parse(JSON.stringify(result)),
+                salary1: JSON.parse(JSON.stringify(result)),
+
                 requestedTitle: req.params.empID,
-                cur_month: mlist[new Date().getMonth()]
+                cur_month: mlist[new Date().getMonth()],
+                sunand:parseInt(sunand),
+                date:new Date()
 
             });
         }
@@ -53,20 +70,38 @@ router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
 
 router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
-
-    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()]
+    
+    
+    mlist = ["January", "February", "March", "April", "may", "june", "july", "august", "september", "october", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()];
+    var cur_month_2 = mlist[new Date().getMonth()+1];
+    var cur_month_3 = mlist[new Date().getMonth()-1];
+    var cur_month_4 = mlist[new Date().getMonth()-2];   
+    var cur_month_5 = mlist[new Date().getMonth()-3];
+    var cur_month_1 = mlist[new Date().getMonth()-4];
+    
+    
+    //var prev_month=mlist[prev_month.indexOf(cur_month.toLowerCase())-1].toLowerCase();
+    //console.log(prev_month);
+    
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
-        if (err) {
+   // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
+    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    `, (err, result) => {
+ 
+   if (err) {
             console.log(err);
         }
         else {
             //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('salcert1', {
                 salary: JSON.parse(JSON.stringify(result)),
+                salary1: JSON.parse(JSON.stringify(result)),
+
                 requestedTitle: req.params.empID,
-                cur_month: mlist[new Date().getMonth()]
+                cur_month: mlist[new Date().getMonth()],
+                sunand:parseInt(sunand),
+                date:new Date()
 
             });
         }
@@ -117,19 +152,21 @@ router.get('/salsheet',  (req, res) => {
     // res.render("templateSelected2");
 });
 
-
+var sunand;
 router.get('/form-basic', ensureAuthenticated, (req, res) => res.render('form-basic', {
     name: req.user.name
 }));
 
-router.get('/nidhi', ensureAuthenticated, (req, res) => res.render('nidhi', {
-    name: req.user.name
-}));
+router.post('/form-basic',  (req, res) => {
 
-router.post('/form-basic', ensureAuthenticated, (req, res) => {
+    //console.log(req.body)
+    var cur_month=new Date().getMonth()+1;
+    const trip =JSON.parse(JSON.stringify(req.body));
+    month= trip.trip.slice(5,7);
+    sunand= cur_month-month;
+   res.redirect('salcert/5');
+       
 
-    console.log(req.body)
-    // res.redirect('dashboard');
 });
 
 router.get('/edit/:empID', ensureAuthenticated, (req, res) => {
@@ -866,11 +903,12 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
     const empID = req.params.empID;
     console.log(JSON.parse(JSON.stringify(req.body)))
     // const length=data["lwp"].length
-    var monthNames = ["january", "february", "march", "april", "may", "june",
-        "july", "august", "september", "october", "november", "december"];
-    if (data["beforeafter25"] === "after") {
-        data.month = monthNames[monthNames.indexOf(data.month.toLowerCase()) + 1]
-    }
+    var monthNames = [ "january", "february", "march", "april", "may", "june",
+"july", "august", "september", "october", "november", "december" ];
+    // if(data["beforeafter25"]==="after")
+    // {
+    //     data.month=monthNames[monthNames.indexOf(data.month.toLowerCase())+1].toLowerCase();
+    // }
     // console.log(length)
     // for (let i = 0; i < length; i++) {
     var days;
@@ -878,7 +916,14 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
         days = 31;
     }
     else if (data["month"].toLowerCase() === "february") {
-        days = 28;
+        if( (0 == data.year % 4) && (0 != data.year % 100) || (0 == data.year % 400) )
+        {
+            days=29
+        }
+        else
+        {
+            days=28
+        }
     }
     else if (data["month"].toLowerCase() === "march") {
         days = 31;
@@ -1440,6 +1485,20 @@ router.get('/advances', ensureAuthenticated, (req, res) => {
     })
 });
 
+router.get('/salarycert', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salarycert', {
+                Employees: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
 router.get('/advances/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
     console.log(req.params.empID)
@@ -1471,6 +1530,8 @@ router.get('/advances/:empID', ensureAuthenticated, (req, res) => {
         res.redirect(requestedTitle)
     }
 });
+
+
 
 
 // router.get('/advances', ensureAuthenticated, (req, res) => 
@@ -1653,7 +1714,7 @@ router.get('/showsalary', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select S.empID,E.empName,E.salaryCategory,E.uan,E.bankName,E.bankAccNum,S.month,S.year,S.daysOfMonth,IFNULL(l.lwp,0) as lwp,S.workedDays,E.pay as original_pay,E.gp as original_gp,S.bp,S.gp,S.da,S.hra,S.cca,S.diff,S.oth_spl,S.ta,S.gross_sal,S.pf,S.prof_tax,S.in_tax,case when g.empID is NOT NULL then "applicable" else "not-applicable" end as group_insurance,IFNULL(la.latedays,0) as latedays,IFNULL(d.donationDays,0) as donationDays,IFNULL(a.amount,0) as advance,IFNULL(r.recoveryAmount,0) as recovery,IFNULL(m.miscellaneous_amt,0) as miscellaneous,S.other_deductions,S.rev_stmp,S.total_ded,S.net_sal from Salary S left outer join Employees E on (S.empID=E.empID) left outer join lwp l on (S.empID=l.empID AND S.month=l.month and S.year=l.year) left outer join group_insurance g on (S.empId=g.empID and S.month=g.month and S.year=g.year) left outer join late_attendance la on (S.empId=la.empID and S.month=la.month and S.year=la.year) left outer join donation d on (S.empId=d.empID and S.month=d.month and S.year=d.year) left outer join advance a on (S.empId=a.empID and S.month=a.month and S.year=a.year) left outer join recovery r on (S.empId=r.empID and S.month=r.month and S.year=r.year) left outer join miscellaneous m on (S.empId=m.empID and S.month=m.month and S.year=m.year)`, (err, result) => {
+    mysqldb.query(`select S.empID,E.empName,E.salaryCategory,E.uan,E.bankName,E.bankAccNum,S.month,S.year,S.daysOfMonth,IFNULL(l.lwp,0) as lwp,S.workedDays,S.original_pay as original_pay,S.original_gp as original_gp,S.bp,S.gp,S.da,S.hra,S.cca,S.diff,S.oth_spl,S.ta,S.gross_sal,S.pf,S.prof_tax,S.in_tax,case when g.empID is NOT NULL then E.groupInsurance else 0 end as group_insurance,IFNULL(la.latedays,0) as latedays,IFNULL(d.donationDays,0) as donationDays,IFNULL(a.amount,0) as advance,IFNULL(r.recoveryAmount,0) as recovery,IFNULL(m.miscellaneous_amt,0) as miscellaneous,S.other_deductions,S.rev_stmp,S.total_ded,S.net_sal from Salary S left outer join Employees E on (S.empID=E.empID) left outer join lwp l on (S.empID=l.empID AND S.month=l.month and S.year=l.year) left outer join group_insurance g on (S.empId=g.empID and S.month=g.month and S.year=g.year) left outer join late_attendance la on (S.empId=la.empID and S.month=la.month and S.year=la.year) left outer join donation d on (S.empId=d.empID and S.month=d.month and S.year=d.year) left outer join advance a on (S.empId=a.empID and S.month=a.month and S.year=a.year) left outer join recovery r on (S.empId=r.empID and S.month=r.month and S.year=r.year) left outer join miscellaneous m on (S.empId=m.empID and S.month=m.month and S.year=m.year)`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1670,7 +1731,7 @@ router.get('/showfinaldeductions', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select S.empID,E.empName,E.salaryCategory,E.uan,E.bankName,E.bankAccNum,S.month,S.year,S.daysOfMonth,IFNULL(l.lwp,0) as lwp,S.workedDays,E.pay as original_pay,E.gp as original_gp,S.bp,S.gp,S.da,S.hra,S.cca,S.diff,S.oth_spl,S.ta,S.gross_sal,S.pf,S.prof_tax,S.in_tax,case when g.empID is NOT NULL then "applicable" else "not-applicable" end as group_insurance,IFNULL(la.latedays,0) as latedays,IFNULL(d.donationDays,0) as donationDays,IFNULL(a.amount,0) as advance,IFNULL(r.recoveryAmount,0) as recovery,IFNULL(m.miscellaneous_amt,0) as miscellaneous,S.other_deductions,S.rev_stmp,S.total_ded,S.net_sal from Salary S left outer join Employees E on (S.empID=E.empID) left outer join lwp l on (S.empID=l.empID AND S.month=l.month and S.year=l.year) left outer join group_insurance g on (S.empId=g.empID and S.month=g.month and S.year=g.year) left outer join late_attendance la on (S.empId=la.empID and S.month=la.month and S.year=la.year) left outer join donation d on (S.empId=d.empID and S.month=d.month and S.year=d.year) left outer join advance a on (S.empId=a.empID and S.month=a.month and S.year=a.year) left outer join recovery r on (S.empId=r.empID and S.month=r.month and S.year=r.year) left outer join miscellaneous m on (S.empId=m.empID and S.month=m.month and S.year=m.year)`, (err, result) => {
+    mysqldb.query(`select S.empID,E.empName,E.salaryCategory,E.uan,E.bankName,E.bankAccNum,S.month,S.year,S.daysOfMonth,IFNULL(l.lwp,0) as lwp,S.workedDays,S.original_pay as original_pay,S.original_gp as original_gp,S.bp,S.gp,S.da,S.hra,S.cca,S.diff,S.oth_spl,S.ta,S.gross_sal,S.pf,S.prof_tax,S.in_tax,case when g.empID is NOT NULL then E.groupInsurance else 0 end as group_insurance,IFNULL(la.latedays,0) as latedays,IFNULL(d.donationDays,0) as donationDays,IFNULL(a.amount,0) as advance,IFNULL(r.recoveryAmount,0) as recovery,IFNULL(m.miscellaneous_amt,0) as miscellaneous,S.other_deductions,S.rev_stmp,S.total_ded,S.net_sal from Salary S left outer join Employees E on (S.empID=E.empID) left outer join lwp l on (S.empID=l.empID AND S.month=l.month and S.year=l.year) left outer join group_insurance g on (S.empId=g.empID and S.month=g.month and S.year=g.year) left outer join late_attendance la on (S.empId=la.empID and S.month=la.month and S.year=la.year) left outer join donation d on (S.empId=d.empID and S.month=d.month and S.year=d.year) left outer join advance a on (S.empId=a.empID and S.month=a.month and S.year=a.year) left outer join recovery r on (S.empId=r.empID and S.month=r.month and S.year=r.year) left outer join miscellaneous m on (S.empId=m.empID and S.month=m.month and S.year=m.year)`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1687,7 +1748,7 @@ router.get('/showmasterview', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select S.empID,E.empName,E.salaryCategory,E.uan,E.bankName,E.bankAccNum,S.month,S.year,S.daysOfMonth,IFNULL(l.lwp,0) as lwp,S.workedDays,E.pay as original_pay,E.gp as original_gp,S.bp,S.gp,S.da,S.hra,S.cca,S.diff,S.oth_spl,S.ta,S.gross_sal,S.pf,S.prof_tax,S.in_tax,case when g.empID is NOT NULL then "applicable" else "not-applicable" end as group_insurance,IFNULL(la.latedays,0) as latedays,IFNULL(d.donationDays,0) as donationDays,IFNULL(a.amount,0) as advance,IFNULL(r.recoveryAmount,0) as recovery,IFNULL(m.miscellaneous_amt,0) as miscellaneous,S.other_deductions,S.rev_stmp,S.total_ded,S.net_sal from Salary S left outer join Employees E on (S.empID=E.empID) left outer join lwp l on (S.empID=l.empID AND S.month=l.month and S.year=l.year) left outer join group_insurance g on (S.empId=g.empID and S.month=g.month and S.year=g.year) left outer join late_attendance la on (S.empId=la.empID and S.month=la.month and S.year=la.year) left outer join donation d on (S.empId=d.empID and S.month=d.month and S.year=d.year) left outer join advance a on (S.empId=a.empID and S.month=a.month and S.year=a.year) left outer join recovery r on (S.empId=r.empID and S.month=r.month and S.year=r.year) left outer join miscellaneous m on (S.empId=m.empID and S.month=m.month and S.year=m.year)`, (err, result) => {
+    mysqldb.query(`select S.empID,E.empName,E.salaryCategory,E.uan,E.bankName,E.bankAccNum,S.month,S.year,S.daysOfMonth,IFNULL(l.lwp,0) as lwp,S.workedDays,S.original_pay as original_pay,S.original_gp as original_gp,S.bp,S.gp,S.da,S.hra,S.cca,S.diff,S.oth_spl,S.ta,S.gross_sal,S.pf,S.prof_tax,S.in_tax,case when g.empID is NOT NULL then E.groupInsurance else 0 end as group_insurance,IFNULL(la.latedays,0) as latedays,IFNULL(d.donationDays,0) as donationDays,IFNULL(a.amount,0) as advance,IFNULL(r.recoveryAmount,0) as recovery,IFNULL(m.miscellaneous_amt,0) as miscellaneous,S.other_deductions,S.rev_stmp,S.total_ded,S.net_sal from Salary S left outer join Employees E on (S.empID=E.empID) left outer join lwp l on (S.empID=l.empID AND S.month=l.month and S.year=l.year) left outer join group_insurance g on (S.empId=g.empID and S.month=g.month and S.year=g.year) left outer join late_attendance la on (S.empId=la.empID and S.month=la.month and S.year=la.year) left outer join donation d on (S.empId=d.empID and S.month=d.month and S.year=d.year) left outer join advance a on (S.empId=a.empID and S.month=a.month and S.year=a.year) left outer join recovery r on (S.empId=r.empID and S.month=r.month and S.year=r.year) left outer join miscellaneous m on (S.empId=m.empID and S.month=m.month and S.year=m.year)`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1788,9 +1849,46 @@ router.post('/generateSalary',(req,res)=>{
                                     var data=JSON.parse(JSON.stringify(result))[0];
                                     console.log("Data is",data)
                                     var hra_difference=data.difference;
-                                    var hra_duration=data.duration;
+                                    var hra_duration=data.duration;                              
+                                    var monthNames = [ "january", "february", "march", "april", "may", "june",
+                                        "july", "august", "september", "october", "november", "december" ];
+                                    // for(let j=1;j<duration+1;j++)
+                                    function hraLoop(item,j,callback)
+                                    {
+                                        var temp_month=monthNames[monthNames.indexOf(data.month.toLowerCase())-j].toLowerCase();
+
+                                        mysqldb.query(`select bp,gp from Salary where empID='${empID}' and month='${temp_month}' and year=${year}`,(err,result)=>{
+                                            if (err) {
+                                                
+                                                console.log(err)
+                                                console.log("for loop error for hra difference")
+                                            }
+                                            else{
+                                                if(result.length===0)
+                                                {
+
+                                                }
+                                                else
+                                                {
+                                                    var data=JSON.parse(JSON.stringify(result))[0];
+                                                    hra_final_difference+=(data.bp+data.gp)*hra_difference
+                                                }
+                                               
+                                            }
+                                        })
+                                    }
+                                    var hraArray=[];
+                                    for (let i = 1; i < hra_duration+1; i++) {
+                                        hraArray.push(i);
+                                    }
+                                    async.forEachOf(hraArray, hraLoop, function (err) {
+                                        if (err) {
+                                            console.error(err);
+                                        } else {
+                                        }
+                                    })
                                     // hra_final_difference=(pay+gp)*hra_difference*hra_duration/100
-                                    hra_final_difference=(pay+gp)*hra_difference*hra_duration
+                                    // hra_final_difference=(pay+gp)*hra_difference*hra_duration
                                 }
                                 mysqldb.query(`select * from da_difference where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                     if (err) {
@@ -1808,8 +1906,44 @@ router.post('/generateSalary',(req,res)=>{
                                             var data=JSON.parse(JSON.stringify(result))[0];
                                             var da_difference=data.difference;
                                             var da_duration=data.duration;
+                                            var monthNames = [ "january", "february", "march", "april", "may", "june",
+                                            "july", "august", "september", "october", "november", "december" ];
+                                            // for(let j=1;j<duration+1;j++)
+                                            function daLoop(item,k,callback)
+                                            {
+                                                var temp_month=monthNames[monthNames.indexOf(data.month.toLowerCase())-k].toLowerCase();
+        
+                                                mysqldb.query(`select bp,gp from Salary where empID='${empID}' and month='${temp_month}' and year=${year}`,(err,result)=>{
+                                                    if (err) {
+                                                        
+                                                        console.log(err)
+                                                        console.log("for loop error for da difference")
+                                                    }
+                                                    else{
+                                                        if(result.length===0)
+                                                        {
+
+                                                        }
+                                                        else
+                                                        {
+                                                            var data=JSON.parse(JSON.stringify(result))[0];
+                                                            da_final_difference+=(data.bp+data.gp)*da_difference
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            var daArray=[];
+                                            for (let i = 1; i < da_duration+1; i++) {
+                                                daArray.push(i);
+                                            }
+                                            async.forEachOf(daArray, daLoop, function (err) {
+                                                if (err) {
+                                                    console.error(err);
+                                                } else {
+                                                }
+                                            })
                                             // da_final_difference=(pay+gp)*da_difference*da_duration/100
-                                            da_final_difference=(pay+gp)*da_difference*da_duration
+                                            // da_final_difference=(pay+gp)*da_difference*da_duration
                                         }
                                     
                                         //variable to calc advances
@@ -1831,7 +1965,15 @@ router.post('/generateSalary',(req,res)=>{
                                                     }
                                                     else if(month.toLowerCase()==="february")
                                                     {
-                                                        days=28;
+                                                        if( (0 == year % 4) && (0 != year % 100) || (0 == year % 400) )
+                                                        {
+                                                            days=29
+                                                        }
+                                                        else
+                                                        {
+                                                            days=28
+                                                        }
+                
                                                         month_num=2;
                                                     }
                                                     else if(month.toLowerCase()==="march")
@@ -2003,7 +2145,7 @@ router.post('/generateSalary',(req,res)=>{
                                                         //to get lwp data for calculating part of deduction value
                                                         // console.log(`select days,lwp from lwp where empID='${empID}' and month=${month} and year=${year}`);
 
-                                                        mysqldb.query(`select days,lwp from lwp where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
+                                                        mysqldb.query(`select lwp.days as days,lwp.lwp as lwp,IFNULL(late.latedays,0) as latedays from lwp lwp left outer join late_attendance late on (lwp.empID=late.empID and lwp.month=late.month and lwp.year=late.year) where lwp.empID="${empID}" and lwp.year=${year} and lwp.month="${month}";`,(err,result)=>{
                                                             if (err) {
                                                                 
                                                                 console.log(err)
@@ -2014,18 +2156,24 @@ router.post('/generateSalary',(req,res)=>{
                                                                 // var year=JSON.parse(JSON.stringify(req.body)).year
                                                                 // var days;
                                                                 var lwp=0;
+                                                                var late_days=0;
                                                                 if(result.length===0)
                                                                 {
 
                                                                 }
                                                                 else{
+                                                                    console.log("RESULT FOR LWPPP",JSON.parse(JSON.stringify(result)))
                                                                     lwp=JSON.parse(JSON.stringify(result))[0].lwp;
+                                                                    late_days=JSON.parse(JSON.stringify(result))[0].latedays;
+                                                                    // lwp+=late_days;
                                                                 }
                                                                 
                                                                 var daysOfMonth=days;
                                                                 console.log("days are",days)
                                                                 
-                                                                var workedDays=daysOfMonth-lwp;
+                                                                var workedDays=daysOfMonth-lwp-late_days;
+                                                                var original_pay=pay;
+                                                                var original_gp=gp;
                                                                 pay*=workedDays/daysOfMonth;
                                                                 gp*=workedDays/daysOfMonth;
                                                                 da*=workedDays/daysOfMonth;
@@ -2053,10 +2201,10 @@ router.post('/generateSalary',(req,res)=>{
                                                                 //pay+gp
                                                                 //(15600+6000)*0.03
                                                                 //648 is increment
-                                                                //ceil the increment=650
-                                                                //650 x (da_factor+hra_factor) i.e 1.59=1033.5
-                                                                //increment=1033.5 + 650
-                                                                //x number of months is final difference
+                                                                //ceil the increment=650 * workedDays/daysOfMonth
+                                                                //650* workedDays/daysOfMonth x (da_factor+hra_factor) i.e 1.59=1033.5
+                                                                //increment=1033.5 + 650* workedDays/daysOfMonth
+                                                                //x number of months is final difference NOT REQUIRED.
 
                                                                 //get new basic pay, diff calculated on old basic pay.
 
@@ -2122,14 +2270,16 @@ router.post('/generateSalary',(req,res)=>{
                                                                 //         })
                                                                 //     }
                                                                 // })
-                                                                mysqldb.query(`select * from late_attendance where empID='${empID}' and month='${month}' and year=${year}`
+
+                                                                console.log("pay,gp,da,hra,ta_temp,cca_temp 3",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
+                                                                mysqldb.query(`select * from miscellaneous where empID='${empID}' and month='${month}' and year=${year}`
                                                                 ,(err,result)=>{
                                                                     if (err) {
                                                                         console.log(err)
-                                                                        console.log("error while selecting from late attendance table")
+                                                                        console.log("error while selecting from miscellaneous table")
                                                                     }
                                                                     else{
-                                                                        var late_attendance_deduction=0;
+                                                                        var miscellaneous_deduction=0;
                                                                         if(result.length===0)
                                                                         {
 
@@ -2137,188 +2287,165 @@ router.post('/generateSalary',(req,res)=>{
                                                                         else
                                                                         {
                                                                             var data=JSON.parse(JSON.stringify(result))[0];
-                                                                            var latedays=data.latedays;
-                                                                            var prevdays=data.prevdays;
-                                                                            late_attendance_deduction=gross_sal/prevdays*latedays
+                                                                            miscellaneous_deduction=data.miscellaneous_amt
 
                                                                         }
-                                                                        oth_spl+=parseInt(late_attendance_deduction)
-                                                                        console.log("late attendance deductions is",late_attendance_deduction,"for empid",empID)
-                                                                        console.log("pay,gp,da,hra,ta_temp,cca_temp 3",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
-                                                                        mysqldb.query(`select * from miscellaneous where empID='${empID}' and month='${month}' and year=${year}`
-                                                                        ,(err,result)=>{
+                                                                        oth_spl+=parseInt(miscellaneous_deduction)
+                                                                        console.log("pay,gp,da,hra,ta_temp,cca_temp 4",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
+
+                                                                        console.log("miscellaneous deductions is",miscellaneous_deduction,"for empID",empID)
+                                                                        mysqldb.query(`select * from increment_difference where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                                                             if (err) {
                                                                                 console.log(err)
-                                                                                console.log("error while selecting from miscellaneous table")
+                                                                                console.log("error while calculating from increment difference table,select query")
                                                                             }
                                                                             else{
-                                                                                var miscellaneous_deduction=0;
-                                                                                if(result.length===0)
+                                                                                if(result.length==0)
                                                                                 {
-
+                                                                                    console.log("for empid",empID,"not found in increment difference", month,year)
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                    var data=JSON.parse(JSON.stringify(result))[0];
-                                                                                    miscellaneous_deduction=data.miscellaneous_amt
-
-                                                                                }
-                                                                                oth_spl+=parseInt(miscellaneous_deduction)
-                                                                                console.log("pay,gp,da,hra,ta_temp,cca_temp 4",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
-
-                                                                                console.log("miscellaneous deductions is",miscellaneous_deduction,"for empID",empID)
-                                                                                mysqldb.query(`select * from increment_difference where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
-                                                                                    if (err) {
-                                                                                        console.log(err)
-                                                                                        console.log("error while calculating from increment difference table,select query")
-                                                                                    }
-                                                                                    else{
-                                                                                        if(result.length==0)
-                                                                                        {
-                                                                                            console.log("for empid",empID,"not found in increment difference", month,year)
+                                                                                    var durationIncrement=JSON.parse(JSON.stringify(result))[0].duration
+                                                                                    //take latest increment value
+                                                                                    mysqldb.query(`select * from increment where empID='${empID}' order by year desc,month desc limit 1`,(err,result)=>{
+                                                                                        if (err) {
+                                                                                            console.log(err)
+                                                                                            console.log("error while calculating from increment table,select query")
                                                                                         }
                                                                                         else
                                                                                         {
-                                                                                            var durationIncrement=JSON.parse(JSON.stringify(result))[0].duration
-                                                                                            //take latest increment value
-                                                                                            mysqldb.query(`select * from increment where empID='${empID}' order by year desc,month desc limit 1`,(err,result)=>{
-                                                                                                if (err) {
-                                                                                                    console.log(err)
-                                                                                                    console.log("error while calculating from increment table,select query")
-                                                                                                }
-                                                                                                else
+                                                                                            // var finalIncrement=0
+                                                                                            if(result.length===0)
+                                                                                            {
+                                                                                                console.log("no prior increment history")
+                                                                                            }
+                                                                                            else{
+                                                                                                var prevPay=JSON.parse(JSON.stringify(result))[0].prevPay;
+                                                                                                var increment=JSON.parse(JSON.stringify(result))[0].increment;
+                                                                                                // var durationIncrement=JSON.parse(JSON.stringify())
+                                                                                                var incrementvalue=(prevPay+gp*daysOfMonth/workedDays)*(increment/100)
+                                                                                                if((Math.floor(incrementvalue)%10)===0)
                                                                                                 {
-                                                                                                    // var finalIncrement=0
-                                                                                                    if(result.length===0)
-                                                                                                    {
-                                                                                                        console.log("no prior increment history")
-                                                                                                    }
-                                                                                                    else{
-                                                                                                        var prevPay=JSON.parse(JSON.stringify(result))[0].prevPay;
-                                                                                                        var increment=JSON.parse(JSON.stringify(result))[0].increment;
-                                                                                                        // var durationIncrement=JSON.parse(JSON.stringify())
-                                                                                                        var incrementvalue=(prevPay+gp*daysOfMonth/workedDays)*(increment/100)
-                                                                                                        if((Math.floor(incrementvalue)%10)===0)
-                                                                                                        {
 
-                                                                                                        }
-                                                                                                        else{
-                                                                                                            incrementvalue=Math.ceil(incrementvalue/10)*10
-                                                                                                        }
-                                                                                                        var toAddValue=(hra_MultFactor+da_MultFactor)*incrementvalue
-                                                                                                        finalIncrement=Math.ceil((toAddValue+incrementvalue)*durationIncrement)
-                                                                                                        diff+=parseInt(finalIncrement)
-                                                                                                        console.log("increment difference is ",finalIncrement,"for empID",empID)
-                                                                                                        console.log("pay,gp,da,hra,ta_temp,cca_temp 5",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
-
-                                                                                                    }
                                                                                                 }
-                                                                                            })
+                                                                                                else{
+                                                                                                    incrementvalue=Math.ceil(incrementvalue/10)*10
+                                                                                                }
+                                                                                                var toAddValue=(hra_MultFactor+da_MultFactor)*incrementvalue
+                                                                                                finalIncrement=Math.ceil((toAddValue+incrementvalue)*durationIncrement)
+                                                                                                diff+=parseInt(finalIncrement)
+                                                                                                console.log("increment difference is ",finalIncrement,"for empID",empID)
+                                                                                                console.log("pay,gp,da,hra,ta_temp,cca_temp 5",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
+
+                                                                                            }
                                                                                         }
-                                                                                        mysqldb.query(`select * from donation where empID='${empID}'`
+                                                                                    })
+                                                                                }
+                                                                                mysqldb.query(`select * from donation where empID='${empID}'`
+                                                                                ,(err,result)=>{
+                                                                                    if (err) {
+                                                                                        console.log(err)
+                                                                                        console.log("error while selecting from donation table")
+                                                                                    }
+                                                                                    else{
+                                                                                        if(result.length===0)
+                                                                                        {
+                                                                                            console.log("no donations for employee with empID",empID)
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            var donationDays=JSON.parse(JSON.stringify(result))[0].donationDays;
+                                                                                            var amount=gross_sal/daysOfMonth*donationDays
+                                                                                            oth_spl+=parseInt(amount)
+                                                                                            console.log("donation amount is ",amount,"for empID ",empID)
+                                                                                        }
+                                                                                        mysqldb.query(`select * from recovery where empID='${empID}' and month='${month}' and year=${year}`
                                                                                         ,(err,result)=>{
                                                                                             if (err) {
                                                                                                 console.log(err)
-                                                                                                console.log("error while selecting from donation table")
+                                                                                                console.log("error while selecting from recovery table")
                                                                                             }
                                                                                             else{
                                                                                                 if(result.length===0)
                                                                                                 {
-                                                                                                    console.log("no donations for employee with empID",empID)
+                                                                                                    console.log("no recovery for employee with empID",empID)
                                                                                                 }
                                                                                                 else
                                                                                                 {
-                                                                                                    var donationDays=JSON.parse(JSON.stringify(result))[0].donationDays;
-                                                                                                    var amount=gross_sal/daysOfMonth*donationDays
-                                                                                                    oth_spl+=parseInt(amount)
-                                                                                                    console.log("donation amount is ",amount,"for empID ",empID)
+                                                                                                    var recovery=JSON.parse(JSON.stringify(result))[0].recoveryAmount;
+                                                                                    
+                                                                                                    oth_spl+=parseInt(recovery)
+                                                                                                    console.log("recovery amount is ",recovery,"for empID ",empID)
+                                                                                                    console.log("pay,gp,da,hra,ta_temp,cca_temp 6",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
+
                                                                                                 }
-                                                                                                mysqldb.query(`select * from recovery where empID='${empID}' and month='${month}' and year=${year}`
+                                                                                                mysqldb.query(`select * from income_tax where empID='${empID}' and month='${month}' and year=${year}`
                                                                                                 ,(err,result)=>{
                                                                                                     if (err) {
                                                                                                         console.log(err)
-                                                                                                        console.log("error while selecting from recovery table")
+                                                                                                        console.log("error while selecting from income_tax table")
                                                                                                     }
                                                                                                     else{
                                                                                                         if(result.length===0)
                                                                                                         {
-                                                                                                            console.log("no recovery for employee with empID",empID)
+                                                                                                            console.log("pay,gp,da,hra,ta_temp,cca_temp 7",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
+
+                                                                                                            console.log("no income_tax for employee with empID",empID)
                                                                                                         }
                                                                                                         else
                                                                                                         {
-                                                                                                            var recovery=JSON.parse(JSON.stringify(result))[0].recoveryAmount;
+                                                                                                            var tds=JSON.parse(JSON.stringify(result))[0].tds_per_month;
                                                                                             
-                                                                                                            oth_spl+=parseInt(recovery)
-                                                                                                            console.log("recovery amount is ",recovery,"for empID ",empID)
-                                                                                                            console.log("pay,gp,da,hra,ta_temp,cca_temp 6",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
-
+                                                                                                            // oth_spl+=tds 
+                                                                                                            console.log("tds is ",tds,"for empID ",empID)
+                                                                                                            //independant query
+                                                                                                            mysqldb.query(`update income_tax set balance=balance-tds_per_month where empID='${empID}' and month='${month}' and year=${year}`
+                                                                                                            ,(err,result)=>{
+                                                                                                                if (err) {
+                                                                                                                    console.log(err)
+                                                                                                                    console.log("error while updating income_tax table")
+                                                                                                                }
+                                                                                                                else{
+                                                                                                                    console.log("updated balance in income_tax table for empID",empID)
+                                                                                                                }
+                                                                                                            })
                                                                                                         }
-                                                                                                        mysqldb.query(`select * from income_tax where empID='${empID}' and month='${month}' and year=${year}`
+                                                                                                        var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl)+3000; //+parseFloat(lwp_amt);
+                                                                                                        var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
+                                                                                                        
+                                                                                                        console.log("pay,gp,da,hra,ta_temp,cca_temp 8    ",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
+
+                                                                                                        console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal,original_pay,bp,original_gp,gp,pf,other_deductions) VALUES ('${empID}', '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, 3000, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal},${original_pay},${pay},${original_gp},${gp},${pf},${oth_spl})`)
+                                                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal,original_pay,bp,original_gp,gp,pf,other_deductions) VALUES ('${empID}', '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, 3000, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal},${original_pay},${pay},${original_gp},${gp},${pf},${oth_spl})`
                                                                                                         ,(err,result)=>{
                                                                                                             if (err) {
                                                                                                                 console.log(err)
-                                                                                                                console.log("error while selecting from income_tax table")
+                                                                                                                console.log("error while inserting into salary table")
                                                                                                             }
                                                                                                             else{
-                                                                                                                if(result.length===0)
-                                                                                                                {
-                                                                                                                    console.log("pay,gp,da,hra,ta_temp,cca_temp 7",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
-
-                                                                                                                    console.log("no income_tax for employee with empID",empID)
-                                                                                                                }
-                                                                                                                else
-                                                                                                                {
-                                                                                                                    var tds=JSON.parse(JSON.stringify(result))[0].tds_per_month;
-                                                                                                    
-                                                                                                                    // oth_spl+=tds 
-                                                                                                                    console.log("tds is ",tds,"for empID ",empID)
-                                                                                                                    //independant query
-                                                                                                                    mysqldb.query(`update income_tax set balance=balance-tds_per_month where empID='${empID}' and month='${month}' and year=${year}`
-                                                                                                                    ,(err,result)=>{
-                                                                                                                        if (err) {
-                                                                                                                            console.log(err)
-                                                                                                                            console.log("error while updating income_tax table")
-                                                                                                                        }
-                                                                                                                        else{
-                                                                                                                            console.log("updated balance in income_tax table for empID",empID)
-                                                                                                                        }
-                                                                                                                    })
-                                                                                                                }
-                                                                                                                var total_ded=parseFloat(pf)+parseFloat(prof_tax)+parseFloat(rev_stmp)+parseFloat(sal_adv)+parseFloat(oth_spl)+3000; //+parseFloat(lwp_amt);
-                                                                                                                var net_sal=parseFloat(gross_sal)-parseFloat(total_ded);
-                                                                                                                
-                                                                                                                console.log("pay,gp,da,hra,ta_temp,cca_temp 8    ",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
-
-                                                                                                                console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal,bp,gp,pf,other_deductions) VALUES ('${empID}', '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, 3000, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal},${pay},${gp},${pf},${oth_spl})`)
-                                                                                                                mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal,bp,gp,pf,other_deductions) VALUES ('${empID}', '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, 3000, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal},${pay},${gp},${pf},${oth_spl})`
-                                                                                                                ,(err,result)=>{
-                                                                                                                    if (err) {
-                                                                                                                        console.log(err)
-                                                                                                                        console.log("error while inserting into salary table")
-                                                                                                                    }
-                                                                                                                    else{
-                                                                                                                        // console.log(JSON.parse(JSON.stringify(result))[0])
-                                                                                                                        // res.send("Done");
-                                                                                                                        // req.flash(
-                                                                                                                        //     'success_msg',
-                                                                                                                        //     'Employee found!'
-                                                                                                                        // );
-                                                                                                                        console.log("YAYYYYY")
-                                                                                                                        console.log("i,length is ",i,length)
-                                                                                                                    }
-                                                                                                                })
+                                                                                                                // console.log(JSON.parse(JSON.stringify(result))[0])
+                                                                                                                // res.send("Done");
+                                                                                                                // req.flash(
+                                                                                                                //     'success_msg',
+                                                                                                                //     'Employee found!'
+                                                                                                                // );
+                                                                                                                console.log("YAYYYYY")
+                                                                                                                console.log("i,length is ",i,length)
                                                                                                             }
                                                                                                         })
                                                                                                     }
                                                                                                 })
                                                                                             }
-                                                                                        })                                
+                                                                                        })
                                                                                     }
-                                                                                })
+                                                                                })                                
                                                                             }
-                                                                        })   
+                                                                        })
                                                                     }
-                                                                })
+                                                                })   
+                                                            
+                                                                
                                                             }
                                                         })
                                                     }
@@ -2523,8 +2650,8 @@ router.post('/lateattendance', ensureAuthenticated, (req, res) => {
     // const length=data["lwp"].length
     var monthNames = ["january", "february", "march", "april", "may", "june",
         "july", "august", "september", "october", "november", "december"];
-    var prev = data.month;
-    prev = monthNames[monthNames.indexOf(prev.toLowerCase()) - 1]
+    var prev = data.month.toLowerCase();
+    prev = monthNames[monthNames.indexOf(prev.toLowerCase()) - 1].toLowerCase()
     // console.log(length)
     // for (let i = 0; i < length; i++) {
     var prevdays;
@@ -2533,7 +2660,14 @@ router.post('/lateattendance', ensureAuthenticated, (req, res) => {
         prevdays = 31;
     }
     else if (prev === "february") {
-        prevdays = 28;
+        if( (0 == data.year % 4) && (0 != data.year % 100) || (0 == data.year % 400) )
+        {
+            prevDays=29
+        }
+        else
+        {
+            prevDays=28
+        }
     }
     else if (prev === "march") {
         prevdays = 31;
@@ -2568,7 +2702,7 @@ router.post('/lateattendance', ensureAuthenticated, (req, res) => {
 
     // console.log(data["lwp"],data["month"],data["year"],days)
     // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
-    mysqldb.query(`INSERT INTO late_attendance (empID, empName, latedays,month, year, prevdays) VALUES ('${data.empID}', '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${prevdays})`, (err, result) => {
+    mysqldb.query(`INSERT INTO late_attendance (empID, empName, latedays,month, year, prevdays) VALUES ('${data.empID}', '${data.empName}', ${data.latedays}, '${data["month"].toLowerCase()}', ${data["year"]}, ${prevdays})`, (err, result) => {
         if (err) {
             console.log(err);
             console.log("invalid details");
