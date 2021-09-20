@@ -795,7 +795,7 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
     
     for (let i = 0; i < list2.length; i++) {
         console.log("i is", list2[i])
-        mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month}',${da_duration},${year})`, (err, result) => {
+        mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month.toLowerCase()}',${da_duration},${year})`, (err, result) => {
             if (err) {
                 console.log(err);
             }
@@ -803,7 +803,7 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
 
             }
         })
-        mysqldb.query(`insert into hra_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${hra_difference},'${month}',${hra_duration},${year})`, (err, result) => {
+        mysqldb.query(`insert into hra_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${hra_difference},'${month.toLowerCase()}',${hra_duration},${year})`, (err, result) => {
             if (err) {
                 console.log(err);
             }
@@ -947,7 +947,7 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
     //     }
     //     else{
     // var empID=JSON.parse(JSON.stringify(result))[0].empID;
-    mysqldb.query(`INSERT INTO lwp (empID, month, year, days, lwp) VALUES ('${data.empID}', '${data["month"]}', ${data["year"]}, ${days}, ${data["lwp"]}) ON DUPLICATE KEY UPDATE
+    mysqldb.query(`INSERT INTO lwp (empID, month, year, days, lwp) VALUES ('${data.empID}', '${data["month"].toLowerCase()}', ${data["year"]}, ${days}, ${data["lwp"]}) ON DUPLICATE KEY UPDATE
         lwp=lwp+${data["lwp"]}`
         , (err, result) => {
             if (err) {
@@ -1835,7 +1835,7 @@ router.post('/generateSalary',(req,res)=>{
                                     // for(let j=1;j<duration+1;j++)
                                     function hraLoop(item,j,callback)
                                     {
-                                        var temp_month=monthNames[monthNames.indexOf(data.month.toLowerCase())-j].toLowerCase();
+                                        var temp_month=monthNames[monthNames.indexOf(data.month.toLowerCase())-j-1].toLowerCase();
 
                                         mysqldb.query(`select bp,gp from Salary where empID='${empID}' and month='${temp_month}' and year=${year}`,(err,result)=>{
                                             if (err) {
@@ -1846,7 +1846,7 @@ router.post('/generateSalary',(req,res)=>{
                                             else{
                                                 if(result.length===0)
                                                 {
-
+                                                    console.log("hra difference is not calculated for month",month,"for empID",empID)
                                                 }
                                                 else
                                                 {
@@ -1865,6 +1865,7 @@ router.post('/generateSalary',(req,res)=>{
                                         if (err) {
                                             console.error(err);
                                         } else {
+                                            console.log("Done with hra difference for empid",empID)
                                         }
                                     })
                                     // hra_final_difference=(pay+gp)*hra_difference*hra_duration/100
@@ -1891,7 +1892,7 @@ router.post('/generateSalary',(req,res)=>{
                                             // for(let j=1;j<duration+1;j++)
                                             function daLoop(item,k,callback)
                                             {
-                                                var temp_month=monthNames[monthNames.indexOf(data.month.toLowerCase())-k].toLowerCase();
+                                                var temp_month=monthNames[monthNames.indexOf(data.month.toLowerCase())-k-1].toLowerCase();
         
                                                 mysqldb.query(`select bp,gp from Salary where empID='${empID}' and month='${temp_month}' and year=${year}`,(err,result)=>{
                                                     if (err) {
@@ -1920,8 +1921,11 @@ router.post('/generateSalary',(req,res)=>{
                                                 if (err) {
                                                     console.error(err);
                                                 } else {
+                                                    console.log("Done with da difference for empid",empID)
+
                                                 }
                                             })
+
                                             // da_final_difference=(pay+gp)*da_difference*da_duration/100
                                             // da_final_difference=(pay+gp)*da_difference*da_duration
                                         }
@@ -2274,6 +2278,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                         console.log("pay,gp,da,hra,ta_temp,cca_temp 4",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
 
                                                                         console.log("miscellaneous deductions is",miscellaneous_deduction,"for empID",empID)
+                                                                        
                                                                         mysqldb.query(`select * from increment_difference where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                                                             if (err) {
                                                                                 console.log(err)
@@ -2287,6 +2292,9 @@ router.post('/generateSalary',(req,res)=>{
                                                                                 else
                                                                                 {
                                                                                     var durationIncrement=JSON.parse(JSON.stringify(result))[0].duration
+                                                                                    var monthNames = [ "january", "february", "march", "april", "may", "june",
+                                                                                        "july", "august", "september", "october", "november", "december" ];
+                                                                                    // for(let j=1;j<duration+1;j++)
                                                                                     //take latest increment value
                                                                                     mysqldb.query(`select * from increment where empID='${empID}' order by year desc,month desc limit 1`,(err,result)=>{
                                                                                         if (err) {
@@ -2295,32 +2303,74 @@ router.post('/generateSalary',(req,res)=>{
                                                                                         }
                                                                                         else
                                                                                         {
-                                                                                            // var finalIncrement=0
+                                                                                            var finalIncrement=0
                                                                                             if(result.length===0)
                                                                                             {
                                                                                                 console.log("no prior increment history")
                                                                                             }
-                                                                                            else{
-                                                                                                var prevPay=JSON.parse(JSON.stringify(result))[0].prevPay;
+                                                                                            else
+                                                                                            {   
                                                                                                 var increment=JSON.parse(JSON.stringify(result))[0].increment;
-                                                                                                // var durationIncrement=JSON.parse(JSON.stringify())
-                                                                                                var incrementvalue=(prevPay+gp*daysOfMonth/workedDays)*(increment/100)
-                                                                                                if((Math.floor(incrementvalue)%10)===0)
-                                                                                                {
+                                                                                                var prevPay=JSON.parse(JSON.stringify(result))[0].prevPay;
 
+
+                                                                                                function incrementLoop(item,j,callback)
+                                                                                                {
+                                                                                                    var temp_month=monthNames[monthNames.indexOf(month.toLowerCase())-j-1].toLowerCase();
+            
+                                                                                                    mysqldb.query(`select workedDays,daysOfMonth from Salary where empID='${empID}' and month='${temp_month}' and year=${year}`,(err,result)=>{
+                                                                                                        if (err) {
+                                                                                                            
+                                                                                                            console.log(err)
+                                                                                                            console.log("for loop error for hra difference")
+                                                                                                        }
+                                                                                                        else{
+                                                                                                            if(result.length===0)
+                                                                                                            {
+                                                                                                                console.log("not found for month",temp_month,"for empId",empID)
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                var data=JSON.parse(JSON.stringify(result))[0];
+                                                                                                                var workedDays=data.workedDays;
+                                                                                                                var daysOfMonth=data.daysOfMonth;
+                                                                                                                var incrementvalue=((prevPay+original_gp))*(increment/100)
+                                                                                                                if((Math.floor(incrementvalue)%10)===0)
+                                                                                                                {
+                
+                                                                                                                }
+                                                                                                                else{
+                                                                                                                    incrementvalue=Math.ceil(incrementvalue/10)*10
+                                                                                                                }
+                                                                                                                incrementvalue*=workedDays/daysOfMonth;
+                                                                                                                var toAddValue=(hra_MultFactor+da_MultFactor)*incrementvalue
+                                                                                                                finalIncrement=Math.ceil(toAddValue+incrementvalue)
+                                                                                                                diff+=parseInt(finalIncrement)
+                                                                                                                console.log("calculated increment difference for empID",empID,"for month",temp_month)
+                                                                                                            }
+                                                                                                            
+                                                                                                        }
+                                                                                                    })
                                                                                                 }
-                                                                                                else{
-                                                                                                    incrementvalue=Math.ceil(incrementvalue/10)*10
+                                                                                                var incrementArray=[];
+                                                                                                for (let i = 1; i < durationIncrement+1; i++) {
+                                                                                                    incrementArray.push(i);
                                                                                                 }
-                                                                                                var toAddValue=(hra_MultFactor+da_MultFactor)*incrementvalue
-                                                                                                finalIncrement=Math.ceil((toAddValue+incrementvalue)*durationIncrement)
-                                                                                                diff+=parseInt(finalIncrement)
+                                                                                                async.forEachOf(incrementArray, incrementLoop, function (err) {
+                                                                                                    if (err) {
+                                                                                                        console.error(err);
+                                                                                                    } else {
+                                                                                                    }
+                                                                                                })
+        
+                                                                                                // var durationIncrement=JSON.parse(JSON.stringify())
                                                                                                 console.log("increment difference is ",finalIncrement,"for empID",empID)
                                                                                                 console.log("pay,gp,da,hra,ta_temp,cca_temp 5",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
-
                                                                                             }
+
                                                                                         }
                                                                                     })
+                                                                                                                              
                                                                                 }
                                                                                 mysqldb.query(`select * from donation where empID='${empID}'`
                                                                                 ,(err,result)=>{
@@ -2774,62 +2824,207 @@ router.post('/storeIncomeTax', (req, res) => {
                         //tax regime,age,investment
                         var empID = parseInt(JSON.parse(JSON.stringify(result))[0].empID);
                         var age = parseInt(JSON.parse(JSON.stringify(result))[0].age);
+                        // var investment=parseInt(JSON.parse(JSON.stringify(result))[0].investment);
                         var investment = parseInt(JSON.parse(JSON.stringify(result))[0].investment);
                         var emp_temp_regime = JSON.parse(JSON.stringify(result))[0].emp_temp_regime;
                         var gross_sal = parseInt(JSON.parse(JSON.stringify(result))[0].gross_sal);
                         var gross_total_income = gross_sal * 12;
                         console.log(JSON.parse(JSON.stringify(result))[0]);
                         var tax_on_income;
-                        var exemption = 250000 + investment
-                        var net_taxable_income = gross_sal - exemption;
+                        var exemption = investment;
+                        if(emp_temp_regime=="new")
+                        {
+                            exemption=0;
+                        }
+                        var net_taxable_income = gross_total_income - exemption;
+                        var remaining=net_taxable_income;
                         console.log("regime is", emp_temp_regime)
                         if (emp_temp_regime === "old") {
                             console.log("in if")
-                            if (gross_total_income < 250000) {
+                            if (net_taxable_income <= 250000) {
                                 console.log("in less")
-                                tax_on_income = 0;
+                                if(remaining>=250000)
+                                {
+                                    tax_on_income+=0;
+                                    remaining-=250000;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += 0;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income < 300000 && age >= 60 && age < 80) {
-                                tax_on_income = 0;
+                            if (age >= 60 ) {
+                                if(remaining>=49999)
+                                {
+                                    tax_on_income+=0;
+                                    remaining-=49999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += 0;
+                                    remaining=0;
+                                }
+
                             }
-                            else if (gross_total_income < 500000 && age > 80) {
-                                tax_on_income = 0;
+                            else if (net_taxable_income > 250000 && gross_sal <=300000 && age<60) {
+                                if(remaining>=49999)
+                                {
+                                    tax_on_income+=49999*5/100;
+                                    remaining-=49999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*5/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 250000 && gross_sal < 500000) {
-                                tax_on_income = net_taxable_income * 0.05
+                            if (age>=80) {
+                                if(remaining>=199999)
+                                {
+                                    tax_on_income+=0;
+                                    remaining-=199999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += 0;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 500000 && gross_sal < 1000000) {
-                                tax_on_income = net_taxable_income * 0.20
+                            else if (net_taxable_income > 300000 && net_taxable_income <= 500000) {
+                                if(remaining>=199999)
+                                {
+                                    tax_on_income+=199999*5/100;
+                                    remaining-=199999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*5/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 1000000) {
-                                tax_on_income = net_taxable_income * 0.30
+                            if (net_taxable_income > 500000 && net_taxable_income <= 1000000) {
+                                if(remaining>=499999)
+                                {
+                                    tax_on_income+=499999*20/100;
+                                    remaining-=499999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*20/100;
+                                    remaining=0;
+                                }
+                            }
+                            if (net_taxable_income > 1000000) { 
+                                tax_on_income += remaining*30/100;
+                                remaining=0;
                             }
 
                         }
                         else if (emp_temp_regime === "new") {
-                            if (gross_total_income < 250000) {
-                                tax_on_income = 0;
+                            if (net_taxable_income <= 250000) {
+                                if(remaining>=25000)
+                                {
+                                    tax_on_income+=0;
+                                    remaining-=25000;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += 0;
+                                    remaining=0;
+                                }
                             }
 
-                            else if (gross_total_income >= 250000 && gross_sal < 500000) {
-                                tax_on_income = net_taxable_income * 0.05
+                            if (net_taxable_income > 250000 && gross_sal <= 500000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*5/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*5/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 500000 && gross_sal < 750000) {
-                                tax_on_income = net_taxable_income * 0.10
+                            if (net_taxable_income > 500000 && gross_sal <= 750000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*10/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*10/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 750000 && gross_sal < 1000000) {
-                                tax_on_income = net_taxable_income * 0.15
+                            if (net_taxable_income > 750000 && gross_sal <= 1000000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*15/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*15/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 1000000 && gross_sal < 1250000) {
-                                tax_on_income = net_taxable_income * 0.20
+                            if (net_taxable_income > 1000000 && gross_sal <= 1250000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*20/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*20/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 1250000 && gross_sal < 1500000) {
-                                tax_on_income = net_taxable_income * 0.25
+                            if (net_taxable_income > 1250000 && gross_sal <= 1500000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*25/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*25/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 1500000) {
-                                tax_on_income = net_taxable_income * 0.30
+                            if (net_taxable_income > 1500000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*30/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*30/100;
+                                    remaining=0;
+                                }
                             }
 
+                        }
+                        if(net_taxable_income<=500000)
+                        {
+                            tax_on_income=0;
                         }
                         var health_and_edu_cess = 0.04 * tax_on_income;
                         var total_tax = tax_on_income + health_and_edu_cess;
@@ -2993,54 +3188,194 @@ router.post('/updateIncomeTax', ensureAuthenticated, (req, res) => {
                         var gross_total_income = gross_sal * 12;
                         console.log(JSON.parse(JSON.stringify(result))[0]);
                         var tax_on_income;
-                        var exemption = 250000 + investment
-                        var net_taxable_income = gross_sal - exemption;
+                        var exemption = investment;
+                        if(emp_temp_regime=="new")
+                        {
+                            exemption=0;
+                        }
+                        var net_taxable_income = gross_total_income - exemption;
+                        var remaining=net_taxable_income;
                         console.log("regime is", emp_temp_regime)
                         if (emp_temp_regime === "old") {
                             console.log("in if")
-                            if (gross_total_income < 250000) {
+                            if (net_taxable_income <= 250000) {
                                 console.log("in less")
-                                tax_on_income = 0;
+                                if(remaining>=250000)
+                                {
+                                    tax_on_income+=0;
+                                    remaining-=250000;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += 0;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income < 300000 && age >= 60 && age < 80) {
-                                tax_on_income = 0;
+                            if (age >= 60 ) {
+                                if(remaining>=49999)
+                                {
+                                    tax_on_income+=0;
+                                    remaining-=49999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += 0;
+                                    remaining=0;
+                                }
+
                             }
-                            else if (gross_total_income < 500000 && age > 80) {
-                                tax_on_income = 0;
+                            else if (net_taxable_income > 250000 && gross_sal <=300000 && age<60) {
+                                if(remaining>=49999)
+                                {
+                                    tax_on_income+=49999*5/100;
+                                    remaining-=49999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*5/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 250000 && gross_sal < 500000) {
-                                tax_on_income = net_taxable_income * 0.05
+                            if (age>=80) {
+                                if(remaining>=199999)
+                                {
+                                    tax_on_income+=0;
+                                    remaining-=199999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += 0;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 500000 && gross_sal < 1000000) {
-                                tax_on_income = net_taxable_income * 0.20
+                            else if (net_taxable_income > 300000 && net_taxable_income <= 500000) {
+                                if(remaining>=199999)
+                                {
+                                    tax_on_income+=199999*5/100;
+                                    remaining-=199999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*5/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 1000000) {
-                                tax_on_income = net_taxable_income * 0.30
+                            if (net_taxable_income > 500000 && net_taxable_income <= 1000000) {
+                                if(remaining>=499999)
+                                {
+                                    tax_on_income+=499999*20/100;
+                                    remaining-=499999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*20/100;
+                                    remaining=0;
+                                }
+                            }
+                            if (net_taxable_income > 1000000) { 
+                                tax_on_income += remaining*30/100;
+                                remaining=0;
                             }
 
                         }
                         else if (emp_temp_regime === "new") {
-                            if (gross_total_income < 250000) {
-                                tax_on_income = 0;
+                            if (net_taxable_income <= 250000) {
+                                if(remaining>=25000)
+                                {
+                                    tax_on_income+=0;
+                                    remaining-=25000;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += 0;
+                                    remaining=0;
+                                }
                             }
 
-                            else if (gross_total_income >= 250000 && gross_sal < 500000) {
-                                tax_on_income = net_taxable_income * 0.05
+                            if (net_taxable_income > 250000 && gross_sal <= 500000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*5/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*5/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 500000 && gross_sal < 750000) {
-                                tax_on_income = net_taxable_income * 0.10
+                            if (net_taxable_income > 500000 && gross_sal <= 750000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*10/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*10/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 750000 && gross_sal < 1000000) {
-                                tax_on_income = net_taxable_income * 0.15
+                            if (net_taxable_income > 750000 && gross_sal <= 1000000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*15/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*15/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 1000000 && gross_sal < 1250000) {
-                                tax_on_income = net_taxable_income * 0.20
+                            if (net_taxable_income > 1000000 && gross_sal <= 1250000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*20/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*20/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 1250000 && gross_sal < 1500000) {
-                                tax_on_income = net_taxable_income * 0.25
+                            if (net_taxable_income > 1250000 && gross_sal <= 1500000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*25/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*25/100;
+                                    remaining=0;
+                                }
                             }
-                            else if (gross_total_income >= 1500000) {
-                                tax_on_income = net_taxable_income * 0.30
+                            if (net_taxable_income > 1500000) {
+                                if(remaining>=249999)
+                                {
+                                    tax_on_income+=249999*30/100;
+                                    remaining-=249999;
+                                }
+                                
+                                else
+                                {
+                                    tax_on_income += remaining*30/100;
+                                    remaining=0;
+                                }
                             }
 
                         }
