@@ -1348,7 +1348,7 @@ router.post('/allowances', (req, res) => {
         }
         else {
             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
-            res.render('index1');
+            res.redirect('index1');
         }
     })
 
@@ -1622,18 +1622,51 @@ router.get('/advances', ensureAuthenticated, (req, res) => {
         }
     })
 });
-router.get('/tempdeclare', ensureAuthenticated, (req, res) => {
+router.get('/declarations', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`, (err, result) => {
         if (err) {
             console.log(err);
         }
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-            res.render('tempdeclare', {
-                Employees: JSON.parse(JSON.stringify(result))
+            res.render('declare_home', {
+               Employees: JSON.parse(JSON.stringify(result))
             });
         }
     })
+});
+
+router.get('/declarations/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+    console.log(req.params.empID)
+
+    if (requestedTitle.includes("EMP")) {
+        mysqldb.query(`select * from Employees `, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                mysqldb.query(`select * from Employees where empID="${req.params.empID}"`, (err, result2) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                        // var set=new Set(JSON.parse(JSON.stringify(result)))
+                        console.log("result2 is", result2)
+                        res.render('declarations', {
+                            Employees: JSON.parse(JSON.stringify(result)),
+                            name: JSON.parse(JSON.stringify(result2))
+                        });
+                    }
+                })
+            }
+        })
+    }
+    else {
+        requestedTitle = "/" + requestedTitle
+        res.redirect(requestedTitle)
+    }
 });
 
 router.get('/salarycert', ensureAuthenticated, (req, res) => {
