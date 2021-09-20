@@ -48,27 +48,32 @@ exports.sendEmails = function(req, res) {
 
 	var obj = csv();
 
-	function AttendeeData(name, email,uan, pay,pf,gp,prof_tax,da,in_tax,hra,cca,rev_stmp,diff,oth_spl,ta,gross_sal, total_ded, net_sal) {
-		this.Name = name;
+	function AttendeeData(name, email, uanno, empid, pay,agp,dada,hra,cca,diffi,othspl,tata, grosstot,provi,proftax,inctax,othded,
+		revstamp,totalded,netsalary,accno,bankname) {
+	    this.Name = name;
 	    this.EmailID = email;
-		this.uan=uan;
-		this.pay = pay;
+		this.Uanno = uanno;
+		this.Empid= empid;
+		this.Pay= pay;
+		this.Agp= agp;
+		this.Dada= dada;
+		this.Hra= hra;
+		this.Cca= cca;
+		this.Diffi= diffi;
+		this.Othspl= othspl;
+		this.Tata= tata;
+		this.Grosstot= grosstot;
 		
-		this.gp = gp;
-		this.pf = pf;
-		this.da = da;
-		this.hra = hra;
-		this.cca = cca;
-		this.ta = ta;
-		this.diff=diff;
-		this.oth_spl=oth_spl;
-		this.prof_tax = prof_tax;
-		this.in_tax = in_tax;
-		
-		this.rev_stmp = rev_stmp;
-		this.gross_sal = gross_sal;
-		this.total_ded = total_ded;
-		this.net_sal = net_sal;
+		this.Provi= provi;
+		this.Proftax= proftax;
+		this.Inctax= inctax;
+		this.Othded= othded;
+		this.Revstamp= revstamp;
+		this.Totalded= totalded;
+		this.Netsalary= netsalary;
+		this.Accno= accno;
+		this.Bankname= bankname;
+
 	};
 
 	var Attendees = [];
@@ -77,7 +82,9 @@ exports.sendEmails = function(req, res) {
 		obj.from.path(path.join(__dirname, '../uploads/sheetSelected.csv')).to.array(function(data) {
 			for (var index = 0; index < data.length; index++) {
 				num++;
-	        	Attendees.push(new AttendeeData(data[index][0], data[index][1], data[index][2],data[index][3],data[index][4],data[index][5],data[index][6],data[index][7],data[index][8],data[index][9],data[index][10],data[index][11],data[index][12],data[index][13],data[index][14],data[index][15],data[index][16],data[index][17],data[index][18],data[index][19]));
+	        	Attendees.push(new AttendeeData(data[index][0], data[index][1], data[index][2], data[index][3], data[index][4], data[index][5], data[index][6], data[index][7], data[index][8], data[index][9], 
+					data[index][10], data[index][11], data[index][12], data[index][13], data[index][14], data[index][15], data[index][16], 
+					data[index][17], data[index][18], data[index][19], data[index][20], data[index][21]));
 	    	}
 	    	resolve(Attendees);
 		});
@@ -114,31 +121,35 @@ exports.sendEmails = function(req, res) {
 
 			let str = templateStr;
 			const mapObj = {
-			  one: Attendees[index].Name,
-			 two: Attendees[index].EmailID,
-			  //three: Attendees[index].bankName,
-			//   four:Attendees[index].Name,
-			  five:Attendees[index].uan,
-			  six:Attendees[index].pay,
-			  seven:Attendees[index].pf,
-			  eight:Attendees[index].gp,
-			  nine:Attendees[index].prof_tax,
-			  ten:Attendees[index].da,
-			  eleven:Attendees[index].in_tax,
-			  twelve:Attendees[index].hra,
-			//   thirteen:Attendees[index].othded,
-			  fourteen:Attendees[index].cca,
-			  fifteen:Attendees[index].rev_stmp,
-			  sixteen:Attendees[index].diff,
-			  seventeen:Attendees[index].oth_spl,
-			  eighteen:Attendees[index].ta,
-			  nineteen:Attendees[index].gross_sal,
-			  twenty:Attendees[index].total_ded,
-			  twentyone:Attendees[index].net_sal,
+				ramesh: Attendees[index].Name,
+				ABC123: Attendees[index].EmailID,
+				uanno: Attendees[index].Uanno,
+				ekdachaid: Attendees[index].Empid,
+				haypay: Attendees[index].Pay,
+				fundmhane: Attendees[index].Provi,
+				yanchagp: Attendees[index].Agp,
+				proftaxha: Attendees[index].Proftax,
+				dadavada: Attendees[index].Dada,
+				lootkut: Attendees[index].Inctax,
+				housing: Attendees[index].Hra,
+				othercuts: Attendees[index].Othded,
+				ccasta: Attendees[index].Cca,
+				revchastamp: Attendees[index].Revstamp,
+				kasladiff: Attendees[index].Diffi,
+				special26: Attendees[index].Othspl,
+				tatabata: Attendees[index].Tata,
+				grossew: Attendees[index].Grosstot,
+				sagleded: Attendees[index].Totalded,
+				nethathme: Attendees[index].Netsalary,
+				dontshare: Attendees[index].Accno,
+				capital: Attendees[index].Bankname,
+ 
+
 			//   catch: "Nidhi"
 			
 			};
-			str = str.replace(/\b(?:one|five|six|seven|eight|nine|ten|eleven|twelve|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|twentyone)\b/gi, matched => mapObj[matched]);
+				lootkut: Attendees[index].Inctax,
+				str = str.replace(/\b(?:ramesh|ABC123|uanno|ekdachaid|haypay|fundmhane|yanchagp|proftaxha|dadavada|lootkut|housing|othercuts|ccasta|revchastamp|kasladiff|special26|tatabata|grossew|sagleded|nethathme|dontshare|capital)\b/gi, matched => mapObj[matched]);
 			//console.log(templateStr);
 
 
@@ -162,9 +173,9 @@ exports.sendEmails = function(req, res) {
 				
 				const options = {
 						from: config.email,
-						to: Attendees[index].uan,
-						subject: 'Salary Slip for the month',
-						text: 'Dear Sir / Madam \n Please find attached herewith Salary Slip for the month JUNE - 2021.\n You are requested to sign the pay register at Administration Office (Staff Counter) after rejoin the college.\n Thanking You \n	PICT. Admin. Dept.',
+						to: Attendees[index].EmailID,
+						subject: 'Your Android Development Workshop certificate is here!',
+						text: 'Hi, \n \nHere is your certificate for participating in the ANDROID DEVELOPMENT WORKSHOP organized by Manan - A Techno Surge on January 19, 2019 at YMCA University of Science and Technology, Faridabad. \n \nThanks for making it a great workshop. \n \nBest, \nNaman Sachdeva \nSecretary, Manan - A Techno Surge \n+91 8222831183',
 						attachments: [
 						    {
 						     path: path.join(__dirname, '../pdfs/certificate'+Attendees[index].Name+'.pdf')

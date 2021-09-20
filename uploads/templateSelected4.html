@@ -1,75 +1,159 @@
-<html>
-<head><meta http-equiv=Content-Type content="text/html; charset=UTF-8">
-    <title>Salary Register of Non Teaching Staff</title>
-<style type="text/css">
-<!--
-span.cls_002{font-family:"Cambria Bold",serif;font-size:16.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-div.cls_002{font-family:"Cambria Bold",serif;font-size:16.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-span.cls_004{font-family:"Cambria Bold",serif;font-size:14.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-div.cls_004{font-family:"Cambria Bold",serif;font-size:14.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-span.cls_008{font-family:"Cambria Bold",serif;font-size:14.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: underline}
-div.cls_008{font-family:"Cambria Bold",serif;font-size:14.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-span.cls_009{font-family:"Cambria Bold",serif;font-size:9.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: underline}
-div.cls_009{font-family:"Cambria Bold",serif;font-size:9.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-span.cls_010{font-family:"Cambria Bold",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: underline}
-div.cls_010{font-family:"Cambria Bold",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-span.cls_006{font-family:"Cambria Bold",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-div.cls_006{font-family:"Cambria Bold",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
-span.cls_007{font-family:"Cambria",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
-div.cls_007{font-family:"Cambria",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
--->
-</style>
-<script type="text/javascript" src="../assets/salregister.jpg"></script>
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Salary Slip</title>
+  <!-- <link rel="stylesheet" href="./style.css"> -->
+  <style>
+    .salary-slip {
+  margin: 15px;
+}
+.salary-slip .empDetail {
+  width: 100%;
+  text-align: left;
+  border: 2px solid black;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.salary-slip .head {
+  margin: 10px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+.salary-slip .companyName {
+  text-align: right;
+  font-size: 25px;
+  font-weight: bold;
+}
+.salary-slip .salaryMonth {
+  text-align: center;
+}
+.salary-slip .table-border-bottom {
+  border-bottom: 1px solid;
+}
+.salary-slip .table-border-right {
+  border-right: 1px solid;
+}
+.salary-slip .myBackground {
+  padding-top: 10px;
+  text-align: left;
+  border: 1px solid black;
+  height: 40px;
+}
+.salary-slip .myAlign {
+  text-align: center;
+  border-right: 1px solid black;
+}
+.salary-slip .myTotalBackground {
+  padding-top: 10px;
+  text-align: left;
+  background-color: #EBF1DE;
+  border-spacing: 0px;
+}
+.salary-slip .align-4 {
+  width: 25%;
+  float: left;
+}
+.salary-slip .tail {
+  margin-top: 35px;
+}
+.salary-slip .align-2 {
+  margin-top: 25px;
+  width: 50%;
+  float: left;
+}
+.salary-slip .border-center {
+  text-align: center;
+}
+.salary-slip .border-center th, .salary-slip .border-center td {
+  border: 1px solid black;
+}
+.salary-slip th, .salary-slip td {
+  padding-left: 6px;
+}
+  </style>
+
 </head>
 <body>
-<div style="position:absolute;left:50%;margin-left:-595px;top:0px;width:1190px;height:841px;border-style:outset;overflow:hidden">
+<div style="position:absolute;left:50%;margin-left:-297px;top:0px;width:595px;height:841px;border-style:outset;overflow:hidden">
 <div style="position:absolute;left:0px;top:0px">
-<img src="../assets/salregister.jpg" width=1190 height=841></div>
-<div style="position:absolute;left:402.17px;top:25.36px" class="cls_002"><span class="cls_002">SCTR'S PUNE INSITUTE OF COMPUTER TECHNOLOGY</span></div>
-<div style="position:absolute;left:447.05px;top:52.36px" class="cls_004"><span class="cls_004">SALARY REGISTER FOR THE MONTH</span><span class="cls_008"> OF MAY 2</span><span class="cls_004">019</span></div>
-<div style="position:absolute;left:92.40px;top:71.44px" class="cls_009"><span class="cls_009">NON- </span><span class="cls_010">TEACHING STAFF</span></div>
-<div style="position:absolute;left:213.98px;top:106.62px" class="cls_006"><span class="cls_006">NAME</span></div>
-<div style="position:absolute;left:121.34px;top:112.50px" class="cls_006"><span class="cls_006">EMP.</span></div>
-<div style="position:absolute;left:627.07px;top:112.50px" class="cls_006"><span class="cls_006">OTHER</span></div>
-<div style="position:absolute;left:787.75px;top:112.50px" class="cls_006"><span class="cls_006">PROF.</span></div>
-<div style="position:absolute;left:832.42px;top:112.50px" class="cls_006"><span class="cls_006">INCOME</span></div>
-<div style="position:absolute;left:890.02px;top:112.50px" class="cls_006"><span class="cls_006">REV.</span></div>
-<div style="position:absolute;left:928.30px;top:112.50px" class="cls_006"><span class="cls_006">OTHER</span></div>
-<div style="position:absolute;left:981.34px;top:112.50px" class="cls_006"><span class="cls_006">TOTAL</span></div>
-<div style="position:absolute;left:86.88px;top:118.38px" class="cls_006"><span class="cls_006">S.NO.</span></div>
-<div style="position:absolute;left:215.54px;top:118.38px" class="cls_006"><span class="cls_006">POST</span></div>
-<div style="position:absolute;left:311.54px;top:118.38px" class="cls_006"><span class="cls_006">B.P. / PAY</span></div>
-<div style="position:absolute;left:365.57px;top:118.38px" class="cls_006"><span class="cls_006">D.P. / G.P.</span></div>
-<div style="position:absolute;left:434.45px;top:118.38px" class="cls_006"><span class="cls_006">D. A.</span></div>
-<div style="position:absolute;left:487.73px;top:118.38px" class="cls_006"><span class="cls_006">H.R.A.</span></div>
-<div style="position:absolute;left:537.29px;top:118.38px" class="cls_006"><span class="cls_006">C.C.A.</span></div>
-<div style="position:absolute;left:586.61px;top:118.38px" class="cls_006"><span class="cls_006">T.A.</span></div>
-<div style="position:absolute;left:673.75px;top:118.38px" class="cls_006"><span class="cls_006">GROSS SAL.</span></div>
-<div style="position:absolute;left:752.54px;top:118.38px" class="cls_006"><span class="cls_006">P.F.</span></div>
-<div style="position:absolute;left:1037.50px;top:121.06px" class="cls_006"><span class="cls_006">NET SAL</span></div>
-<div style="position:absolute;left:1105.15px;top:121.06px" class="cls_006"><span class="cls_006">SIGNATURE</span></div>
-<div style="position:absolute;left:127.34px;top:124.14px" class="cls_006"><span class="cls_006">ID</span></div>
-<div style="position:absolute;left:632.95px;top:124.14px" class="cls_006"><span class="cls_006">PAY.</span></div>
-<div style="position:absolute;left:791.95px;top:124.14px" class="cls_006"><span class="cls_006">TAX</span></div>
-<div style="position:absolute;left:841.42px;top:124.14px" class="cls_006"><span class="cls_006">TAX</span></div>
-<div style="position:absolute;left:884.26px;top:124.14px" class="cls_006"><span class="cls_006">STAMP</span></div>
-<div style="position:absolute;left:924.22px;top:124.14px" class="cls_006"><span class="cls_006">DEDUCT.</span></div>
-<div style="position:absolute;left:976.66px;top:124.14px" class="cls_006"><span class="cls_006">DEDUCT.</span></div>
-<div style="position:absolute;left:185.90px;top:130.02px" class="cls_006"><span class="cls_006">PAY BAND /SCALE</span></div>
-<div style="position:absolute;left:95.88px;top:172.02px" class="cls_007"><span class="cls_007">1</span></div>
-<div style="position:absolute;left:95.88px;top:225.78px" class="cls_007"><span class="cls_007">2</span></div>
-<div style="position:absolute;left:95.88px;top:279.45px" class="cls_007"><span class="cls_007">3</span></div>
-<div style="position:absolute;left:95.88px;top:333.21px" class="cls_007"><span class="cls_007">4</span></div>
-<div style="position:absolute;left:95.88px;top:386.85px" class="cls_007"><span class="cls_007">5</span></div>
-<div style="position:absolute;left:95.88px;top:440.63px" class="cls_007"><span class="cls_007">6</span></div>
-<div style="position:absolute;left:95.88px;top:494.27px" class="cls_007"><span class="cls_007">7</span></div>
-<div style="position:absolute;left:95.88px;top:548.03px" class="cls_007"><span class="cls_007">8</span></div>
-<div style="position:absolute;left:95.88px;top:601.67px" class="cls_007"><span class="cls_007">9</span></div>
-<div style="position:absolute;left:93.12px;top:655.46px" class="cls_007"><span class="cls_007">10</span></div>
-<div style="position:absolute;left:93.12px;top:709.10px" class="cls_007"><span class="cls_007">11</span></div>
-<div style="position:absolute;left:93.12px;top:762.86px" class="cls_007"><span class="cls_007">12</span></div>
-<div style="position:absolute;left:564.89px;top:809.08px" class="cls_006"><span class="cls_006">Page  1  of  6</span></div>
+<img src="../assets/salslip.jpg" width=595 height=841></div>
+<div style="position:absolute;left:79.01px;top:31.82px" class="cls_002"><span class="cls_002">SCTR'S PUNE INSTITUTE OF COMPUTER TECHNOLOGY, PUNE 411043</span></div>
+<div style="position:absolute;left:159.70px;top:58.03px" class="cls_003"><span class="cls_003">SALARY SLIP FOR THE MONTH OF MAY - 2021</span></div>
+<div style="position:absolute;left:31.19px;top:90.63px" class="cls_003"><span class="cls_003">EMPLOYEE NAME : -</span></div>
+<div style="position:absolute;left:144.57px;top:90.63px" class="cls_003"><span class="cls_003">apple</span></div>
+
+<div style="position:absolute;left:31.19px;top:114.72px" class="cls_004"><span class="cls_004">EMPLOYEE NO : -</span></div>
+<div style="position:absolute;left:144.57px;top:114.72px" class="cls_004"><span class="cls_004">banana</span></div>
+
+<div style="position:absolute;left:257.96px;top:114.72px" class="cls_004"><span class="cls_004">UAN: -</span></div>
+<div style="position:absolute;left:371.34px;top:114.72px" class="cls_004"><span class="cls_004">uanno</span></div>
+
+<div style="position:absolute;left:126.88px;top:154.41px" class="cls_003"><span class="cls_003">EARNINGS</span></div>
+<div style="position:absolute;left:374.67px;top:154.41px" class="cls_003"><span class="cls_003">DEDUCTIONS</span></div>
+
+<div style="position:absolute;left:31.19px;top:174.25px" class="cls_004"><span class="cls_004">PAY</span></div>
+<div style="position:absolute;left:158.74px;top:174.25px" class="cls_004"><span class="cls_004">basicPay</span></div>
+
+<div style="position:absolute;left:286.30px;top:174.25px" class="cls_004"><span class="cls_004">PROVIDENT FUND</span></div>
+<div style="position:absolute;left:413.86px;top:174.25px" class="cls_004"><span class="cls_004">pf</span></div>
+
+<div style="position:absolute;left:31.19px;top:194.09px" class="cls_004"><span class="cls_004">AGP/DP</span></div>
+<div style="position:absolute;left:158.74px;top:194.09px" class="cls_004"><span class="cls_004">agpdp</span></div>
+
+<div style="position:absolute;left:286.30px;top:194.09px" class="cls_004"><span class="cls_004">PROF.TAX</span></div>
+<div style="position:absolute;left:413.86px;top:194.09px" class="cls_004"><span class="cls_004">proftax</span></div>
+
+<div style="position:absolute;left:31.19px;top:213.93px" class="cls_004"><span class="cls_004">D.A.</span></div>
+<div style="position:absolute;left:158.74px;top:213.93px" class="cls_004"><span class="cls_004">da</span></div>
+
+<div style="position:absolute;left:286.30px;top:213.93px" class="cls_004"><span class="cls_004">INCOME TAX</span></div>
+<div style="position:absolute;left:413.86px;top:213.93px" class="cls_004"><span class="cls_004">inctax</span></div>
+
+<div style="position:absolute;left:31.19px;top:233.78px" class="cls_004"><span class="cls_004">H.R.A.</span></div>
+<div style="position:absolute;left:158.74px;top:233.78px" class="cls_004"><span class="cls_004">hra</span></div>
+
+<div style="position:absolute;left:286.30px;top:233.78px" class="cls_004"><span class="cls_004">OTHER DEDUCTIONS</span></div>
+<div style="position:absolute;left:413.86px;top:233.78px" class="cls_004"><span class="cls_004">othded</span></div>
+
+<div style="position:absolute;left:31.19px;top:253.62px" class="cls_004"><span class="cls_004">C.C.A.</span></div>
+<div style="position:absolute;left:158.74px;top:253.62px" class="cls_004"><span class="cls_004">cca</span></div>
+
+<div style="position:absolute;left:286.30px;top:253.62px" class="cls_004"><span class="cls_004">REV. STAMP</span></div>
+<div style="position:absolute;left:413.86px;top:253.62px" class="cls_004"><span class="cls_004">revstamp</span></div>
+
+<div style="position:absolute;left:31.19px;top:273.46px" class="cls_004"><span class="cls_004">DIFF.</span></div>
+<div style="position:absolute;left:158.74px;top:273.46px" class="cls_004"><span class="cls_004">diff</span></div>
+
+<div style="position:absolute;left:31.19px;top:293.30px" class="cls_004"><span class="cls_004">OTHER SPL.</span></div>
+<div style="position:absolute;left:158.74px;top:293.30px" class="cls_004"><span class="cls_004">othspl</span></div>
+
+<div style="position:absolute;left:31.19px;top:313.15px" class="cls_004"><span class="cls_004">T.A.</span></div>
+<div style="position:absolute;left:158.74px;top:313.15px" class="cls_004"><span class="cls_004">ta</span></div>
+
+<div style="position:absolute;left:31.19px;top:332.99px" class="cls_003"><span class="cls_003">GROSS TOTAL</span></div>
+<div style="position:absolute;left:158.74px;top:332.99px" class="cls_003"><span class="cls_003">grosssal</span></div>
+
+<div style="position:absolute;left:286.30px;top:332.99px" class="cls_003"><span class="cls_003">TOTAL DEDUCTIONS</span></div>
+<div style="position:absolute;left:413.86px;top:332.99px" class="cls_003"><span class="cls_003">totalded</span></div>
+
+<div style="position:absolute;left:31.19px;top:351.41px" class="cls_003"><span class="cls_003">NET SALARY</span></div>
+<div style="position:absolute;left:286.30px;top:351.41px" class="cls_003"><span class="cls_003">netsal</span></div>
+<div style="position:absolute;left:31.19px;top:387.55px" class="cls_005"><span class="cls_005">NET SALARY RS. netsal HAS BEEN DEPOSITED IN empName'S</span></div>
+
+<div style="position:absolute;left:31.19px;top:407.39px" class="cls_005"><span class="cls_005">BANK A/C NO:-</span></div>
+<div style="position:absolute;left:116.22px;top:407.39px" class="cls_005"><span class="cls_005">bankacc</span></div>
+
+<div style="position:absolute;left:229.61px;top:407.39px" class="cls_005"><span class="cls_005">BANK NAME:-    bankname</span></div>
+
+<div style="position:absolute;left:31.19px;top:466.92px" class="cls_006"><span class="cls_006">REMARK:</span></div>
+
+<div style="position:absolute;left:31.19px;top:486.76px" class="cls_005"><span class="cls_005">THIS IS COMPUTER GENERATED DOCUMENT. NOT VALID FOR LOAN.</span></div>
+<div style="position:absolute;left:31.19px;top:506.60px" class="cls_005"><span class="cls_005">FOR INTERNAL USE ONLY.</span></div>
 </div>
 
+          </div >
+<!-- partial -->
+  
 </body>
 </html>
