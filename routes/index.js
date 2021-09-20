@@ -505,7 +505,7 @@ router.get('/edit', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/addincometax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from employees right join form ON Employees.empID= form.empID`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -3035,7 +3035,7 @@ router.get('/register/nonteaching', (req, res) => {
 
 
 router.get('/updateIncomeTax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from income_tax natural join Salary`, (err, result) => {
+    mysqldb.query(`select * from employees right join form ON Employees.empID= form.empID`, (err, result) => {
         if (err) {
             console.log(err);
         }

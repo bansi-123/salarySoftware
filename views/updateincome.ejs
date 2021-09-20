@@ -115,9 +115,8 @@
                                               <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
                                                   <tr>
                                                       <td><%= Employees[i].empID %></td>
-                                                      <td><%= Employees[i].gross_sal*12 %></td>
+                                                      <td><input type="text" name="Employees[i].empID" value=<%= Employees[i].total %><%= Employees[i].gross_sal %></td>
                                                       <td><%= Employees[i].exemption %></td>
-                                                      <td><input type="text" value=<%= Employees[i].total %> <%= Employees[i].total %>></td>
                                                       <td><%= Employees[i].net_taxable_income %></td>
                                                       <td><%= Employees[i].tax_on_income %></td>
                                                       <td><%= Employees[i].rebate %></td>
@@ -125,7 +124,6 @@
                                                       <td><%= Employees[i].total_tax %></td>
                                                       <td><%= Employees[i].tds_per_month %></td>
                                                       <td><%= Employees[i].balance %></td>
-                                                     
                                                   </tr>
                                               <% }%>
                                           </tbody>
