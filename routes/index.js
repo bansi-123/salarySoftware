@@ -24,8 +24,6 @@ router.get('/index1', ensureAuthenticated, (req, res) => {
 router.get('/test', ensureAuthenticated, (req, res) => {
     res.render('test');
 });
-
-
 router.get('/newdeclaration', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`, (err, result) => {
         if (err) {
@@ -43,8 +41,6 @@ router.get('/newdeclaration', ensureAuthenticated, (req, res) => {
 router.get('/declaration2', ensureAuthenticated, (req, res) => {
     res.render('declaration2');
 });
-
-
 
 router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
@@ -257,6 +253,8 @@ router.post('/form-basic', (req, res) => {
 
         }
     })
+       
+
 });
 
 router.get('/edit/:empID', ensureAuthenticated, (req, res) => {
@@ -318,6 +316,7 @@ router.post('/addEmployee', (req, res) => {
         '${vacation}','${seniority}','${dept_seniority}','${Aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}','${phdYr}',
         '${pgSub}','${pgUni}','${pgYr}','${ugSub}','${ugUni}','${ugYr}','${grade}','${netset}','${othqual}',${exp},${industry_exp},
        '${uni_approval}','${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}','${photo}', ${paycommission})`
+
         , (err, result) => {
             if (err) {
                 console.log(err);
@@ -3171,6 +3170,7 @@ router.post('/storeIncomeTax', (req, res) => {
 //  //  empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , Type  , Type1 ,  onroll  , dop  , doc   ,appointment ,  Relieving  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,(err,result)=>{
    
 //     // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
+//     mysqldb.query(`INSERT INTO Employees (empID,empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo) VALUES ('${mis}','${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}','${appointment}','${category}','${gender}','${status}',${mobile},'${address_correspondence}','${address_permanent}','${mis}','${biometric}','${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}',${phdYr},'${pgSub}','${pgUni}',${pgYr},'${ugSub}','${ugUni}',${ugYr},'${grade}','${netset}','${othqual}',${exp},${industry_exp},${uni_approval},'${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}',${age},'${photo}')`
 //     ,(err,result)=>{
 //             if (err) {
 //             console.log(err);
@@ -3262,7 +3262,7 @@ router.post('/updateIncomeTax', ensureAuthenticated, (req, res) => {
     console.log(indexList)
     console.log(valueList)
     var current = new Date();
-    var currmonth = current.getMonth() + 1;
+    var currmonth = current.getMonth();
 
     function updateIncomeTax(item, i, callback) {
 
@@ -3507,7 +3507,11 @@ router.post('/updateIncomeTax', ensureAuthenticated, (req, res) => {
                                     // var total_tax_prev=JSON.parse(JSON.stringify(result)).total_tax;
 
                                     //change logic to accomodate allround months
-                                    var monthsPassed = currmonth - (mlist.indexOf(monthIssued) + 1);
+                                    if(mlist.indexOf(monthIssued)>currmonth)
+                                    {
+                                        currmonth+=12;
+                                    }
+                                    var monthsPassed = currmonth - (mlist.indexOf(monthIssued));
                                     var tax_payed = tds_per_month_prev * monthsPassed;
                                     var monthsRemaining = 12 - monthsPassed;
                                     var balance_new = total_tax - tax_payed;
