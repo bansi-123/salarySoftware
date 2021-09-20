@@ -169,9 +169,57 @@ router.get('/form-basic', ensureAuthenticated, (req, res) => res.render('form-ba
     name: req.user.name
 }));
 
-router.get('/editlimits', ensureAuthenticated, (req, res) => res.render('editlimits', {
-    name: req.user.name
-}));
+router.get('/editlimits', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from edit_limits`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Edit Details", JSON.parse(JSON.stringify(result)));
+            res.render('editlimits', {
+                edit_limits: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
+router.get('/showlimits', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from edit_limits`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Edit Details", JSON.parse(JSON.stringify(result)));
+            res.render('showlimits', {
+                edit_limits: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
+router.post('/editlimits', (req, res) => {
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    const {climit, glimit, dlimit1, dlimit2, ccclimit, ccdlimit, ddlimit}=JSON.parse(JSON.stringify(req.body));
+    // var c = parseInt(climit);
+    // console.log(c);
+    
+    mysqldb.query(`update edit_limits set climit=${climit},glimit=${glimit},dlimit1=${dlimit1},dlimit2=${dlimit2},ccclimit=${ccclimit}, ccdlimit=${ccdlimit}, ddlimit=${ddlimit} where ID=1`,(err,result)=>
+    
+    // mysqldb.query(`update edit_limits set climit=${c} where ID=1`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else {
+
+            console.log("Limit Details", JSON.parse(JSON.stringify(result)));
+            res.redirect('editlimits');
+        }
+    })
+
+});
 
 
 router.post('/form-basic',  (req, res) => {
@@ -1496,6 +1544,19 @@ router.get('/advances', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('advances_home', {
+                Employees: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+router.get('/tempdeclare', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('tempdeclare', {
                 Employees: JSON.parse(JSON.stringify(result))
             });
         }
