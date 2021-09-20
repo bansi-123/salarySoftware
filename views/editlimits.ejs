@@ -1,0 +1,187 @@
+<%- include('partials/header.ejs'); -%>
+
+<head>
+
+    <meta charset="UTF-8">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'><link rel="stylesheet" href="../assets/alert/style.css">
+ 
+  <meta charset="UTF-8">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
+  <link rel="stylesheet" href="../assets/alert/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <style>
+      .required:after {
+          content: " *";
+          color: red;
+      }
+  </style>
+
+</head>
+<body>
+
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-8 p-r-0 title-margin-right">
+                            <div class="page-header">
+                                <!-- <div class="page-title">
+                                    <h1>Hello, <span>Welcome Here</span></h1>
+                                </div> -->
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-title">
+                                    <h4>Edit Limits For Income Tax</h4>
+
+                                </div>
+
+
+                                <div class="card-body">
+                                    <div class="horizontal-form-elements">
+                                        <form class="form-horizontal" action="\editlimits" method="post">
+                                            <div class="row">
+                                            
+                                                <div class="col-lg-6">
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-6 col-form-label">80C</label>
+                                                        <div class="col-lg-6">
+                                                            <input type="number" name="climit" value=<%= edit_limits[0]["climit"]%> class="form-control" ruqt>
+                                                        </div>
+                                                    </div>
+        
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-6 col-form-label">80G</label>
+                                                        <div class="col-lg-6">
+                                                            <input type="number" name="glimit" value=<%= edit_limits[0]["glimit"]%> class="form-control" ruqt>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-6 col-form-label">80D (below 60)</label>
+                                                        <div class="col-lg-6">
+                                                            <input type="number" name="dlimit1" value=<%= edit_limits[0]["dlimit1"]%> class="form-control" ruqt>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-6 col-form-label">80D (above 60)</label>
+                                                        <div class="col-lg-6">
+                                                            <input type="number" name="dlimit2" value=<%= edit_limits[0]["dlimit2"]%> class="form-control" ruqt>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-6 col-form-label">80E</label>
+                                                        <div class="col-lg-6">
+                                                            <input type="number" name="elimit" value=<%= edit_limits[0]["elimit"]%>class="form-control" ruqt>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                    <!-- /# column -->
+                                                    <!-- <div class="column"> -->
+                                                    <div class="col-lg-6">
+
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-6 col-form-label">80CCC</label>
+                                                            <div class="col-lg-6">
+                                                                <input type="number" name="ccclimit" value=<%= edit_limits[0]["ccclimit"]%> class="form-control" ruqt>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-6 col-form-label">80CCD</label>
+                                                            <div class="col-lg-6">
+                                                                <input type="number" name="ccdlimit" value=<%= edit_limits[0]["ccdlimit"]%> class="form-control" ruqt>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-6 col-form-label">80DD</label>
+                                                            <div class="col-lg-6">
+                                                                <input type="number" name="ddlimit" value=<%= edit_limits[0]["ddlimit"]%> class="form-control" ruqt>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-6 col-form-label">Total Investment</label>
+                                                            <div class="col-lg-6">
+                                                                <input type="number" name="total_investment" class="form-control" ruqt>
+                                                            </div>
+                                                        </div>
+
+                                                       
+                                                        </div> 
+
+    
+                                                        <!-- <button type="submit" onclick="alertFunction()" class="btn btn-primary">Primary</button> -->
+                                                    <!-- <input type="submit" value="Submit"> -->
+
+
+
+                                                    <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert" value="submit" id="myAlert">
+                                                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                        </button>
+
+
+                                                      </div> -->
+
+                                                      <!-- <div class='customAlert'>
+                                                        <p class='message'></p>
+                                                          <input type='button' class='confirmButton' value='Ok'>
+                                                      </div>
+                                                        
+                                                      <input type='button' class='rab' value='Raise alert'> -->
+
+                                                      <!-- <button type="submit" value="showAlert" onclick="showAlert();"> Show Alert</button>
+
+                                                        <div class="container" style="display:none;" id="myAlert">
+                                                            <h2>Dismissal Alert Messages</h2>
+                                                            <div class="alert alert-success alert-dismissable" id="myAlert2">
+                                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                                Success! message sent successfully.
+                                                            </div>
+
+                                                        </div> -->
+
+                                                        
+                                                        <br />
+                                                  
+
+                                            </div>
+                                            <button class="btn btn-primary" type="submit" style="float:right;">Submit</button>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script><script  src="../assets/alert/script.js"></script>
+        <script src="../assets/focus2/vendor/global/global.min.js"></script>
+        <script src="../assets/focus2/js/quixnav-init.js"></script>
+        <script src="../assets/focus2/js/custom.min.js"></script>
+
+
+
+
+        <!-- Jquery Validation -->
+        <script src="../assets/focus2/vendor/jquery-validation/jquery.validate.min.js"></script>
+        <!-- Form validate init -->
+        <script src="../assets/focus2/js/plugins-init/jquery.validate-init.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
+        <script src="../assets/alert/script.js"></script>
+    </body>
+
+</html>

@@ -28,7 +28,7 @@ require('./config/passport')(passport);
 //     host: 'localhost',
 //     user: 'root',
 //     password: 'sunandroot',
-//     database: 'employees2'
+//     database: 'employee'
 // });
 
 // const mysqldb = mysql.createConnection ({
