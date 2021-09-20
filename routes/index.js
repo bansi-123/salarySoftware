@@ -586,6 +586,54 @@ router.get('/incometax', ensureAuthenticated, (req, res) => {
 
 });
 
+router.get('/updateincometax', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees `, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('update_home', {
+                Employees: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
+router.get('/updateincometax/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+    console.log(req.params.empID)
+
+    if (requestedTitle.includes("EMP")) {
+        mysqldb.query(`select * from form natural join Employees `, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                mysqldb.query(`select * from form natural join Employees where empID="${req.params.empID}"`, (err, result2) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                        // var set=new Set(JSON.parse(JSON.stringify(result)))
+                        console.log("result2 is", result2)
+                        res.render('updateincometax', {
+                            Employees: JSON.parse(JSON.stringify(result)),
+                            name: JSON.parse(JSON.stringify(result2))
+                        });
+                    }
+                })
+            }
+        })
+    }
+    else {
+        requestedTitle = "/" + requestedTitle
+        res.redirect(requestedTitle)
+    }
+});
+
 router.get('/donations', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`, (err, result) => {
         if (err) {
@@ -1671,6 +1719,7 @@ router.get('/declarations/:empID', ensureAuthenticated, (req, res) => {
         res.redirect(requestedTitle)
     }
 });
+
 
 router.get('/salarycert', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`, (err, result) => {
@@ -3368,19 +3417,19 @@ router.get('/register/nonteaching', (req, res) => {
 });
 
 
-router.get('/updateIncomeTax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from income_tax natural join Salary`, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-            res.render('addincometax', {
-                Employees: JSON.parse(JSON.stringify(result))
-            });
-        }
-    })
-})
+// router.get('/updateIncomeTax', ensureAuthenticated, (req, res) => {
+//     mysqldb.query(`select * from income_tax natural join Salary`, (err, result) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+//             res.render('addincometax', {
+//                 Employees: JSON.parse(JSON.stringify(result))
+//             });
+//         }
+//     })
+// })
 
 router.post('/updateIncomeTax', (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
