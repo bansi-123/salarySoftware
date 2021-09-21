@@ -81,6 +81,7 @@
                                                         <form class="form-horizontal" action="\generatesalary"
                                                             method="post">
                                                             <select class="form-control" name="month">
+                                                                <option id="demo2"></option>
                                                                 <option id="demo"></option>
                                                                 <option id="demo1"></option>
 
@@ -90,6 +91,8 @@
                                                                 const d = new Date();
                                                                 document.getElementById("demo").innerHTML = months[d.getMonth()];
                                                                 document.getElementById("demo1").innerHTML = months[(d.getMonth() + 1) % 12];
+                                                                document.getElementById("demo2").innerHTML = months[(d.getMonth() - 1) % 12];
+
                                                             </script>
                                                     </div>
                                                 </div>

@@ -1,175 +1,211 @@
 <%- include('partials/header.ejs'); -%>
-<head>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-    <style>
-        /* .dropbtn {
-      background-color: #04AA6D;
-      color: white;
-      padding: 16px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-    } */
-    
-        .dropbtn:hover,
-        .dropbtn:focus {
-          background-color: #3e8e41;
-        }
-    
-        /* #myInput {
-          box-sizing: border-box;
-          background-image: url('searchicon.png');
-          background-position: 14px 12px;
-          background-repeat: no-repeat;
-          font-size: 16px;
-          padding: 14px 20px 12px 45px;
-          border: none;
-          border-bottom: 1px solid #ddd;
-        } */
-    
-        #myInput:focus {
-          outline: 3px solid #ddd;
-        }
-    
-        .dropdown {
-          position: relative;
-          display: inline-block;
-        }
-    
-        .dropdown-content {
-          display: none;
-          position: absolute;
-          background-color: #f6f6f6;
-          min-width: 230px;
-          overflow: auto;
-          border: 1px solid #ddd;
-          z-index: 1;
-        }
-    
-        .dropdown-content a {
-          color: black;
-          padding: 12px 16px;
-          text-decoration: none;
-          display: block;
-        }
-    
-        .dropdown a:hover {
-          background-color: #ddd;
-        }
-    
-        .show {
-          display: block;
-        }
-      </style>
 
-</head>
+    <head>
 
-  <div class="content-wrap">
-        <div class="main">
-          <div class="container-fluid">
-              <div class="row">
-                  <div class="col-lg-8 p-r-0 title-margin-right">
-                      <div class="page-header">
-                          <!-- <div class="page-title">
-                              <h1>Hello, <span>Welcome Here</span></h1>
-                          </div> -->
-                      </div>
-                  </div>
-                  <!-- /# column -->
-                  
-              </div>
+        <meta charset="UTF-8">
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
+        <link rel="stylesheet" href="../assets/alert/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <style>
+            .required:after {
+                content: " *";
+                color: red;
+            }
+        </style>
+
+        
+    </head>
+
+    <body>
+
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <p class="lead mb-2">Welcome 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Declaration by PICT</h4>
+
+                            </div>
+
+                            <!-- <div class="card-body"> -->
+                            <div class="horizontal-form-elements" class="form-validation">
+
+                                <form class="form-valide" action="\check" method="post">
 
 
-              <section id="main-content">
-                  <div class="row">
-                      <div class="col-lg-12">
-                          <div class="card">
-                              <div class="bootstrap-data-table-panel">
-                                  <div class="table-responsive">
-                                      <form class="form-horizontal" action="\updateIncomeTax" method="post">
-                                     
-                                      <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
+                                    <div class="row">
+                                        <% var i=2 %>
+                                        <div class="col-lg-6">
 
-                                      <input type="button"style="float: right;" onclick='selects()' value="Select All"/>   -->
-                                      
-                                      <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                          <thead>
-                                              <tr>
-                                                <th>Employee ID <p><i class="arrow down" style="float: right;"></i></p>
-                                                </th>
-                                                <th>Gross Total Income</th>
-                                                <th>Exemption</th>
-                                                <th>Total Investments</th>
-                                                <th>Net Taxable Income</th>
-                                                <th>Tax On Income</th>
-                                                <th>Rebate u/s 87A (Upto 12500 If Applicable)</th>
-                                                <th>Health and Edu. Cess</th>
-                                                <th>Total Tax</th>
-                                                <th>TDS Per Month</th>
-                                                <th>Balance Tax To Be Recovered</th>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label"> Employee ID
+                                                    (empXXX) <span class="text-danger">*</span></label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="empID" class="form-control"  
+                                                    value="<%= Employees[i].empID %>" pattern="+emp." title="enter valid emp ID"
+                                                        ruqt>
+                                                </div>
+                                            </div>
 
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                              <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
-                                                  <tr>
-                                                      <td><%= Employees[i].empID %></td>
-                                                      <td><input type="text" name="Employees[i].empID" value=<%= Employees[i].total %><%= Employees[i].gross_sal %></td>
-                                                      <td><%= Employees[i].exemption %></td>
-                                                      <td><%= Employees[i].net_taxable_income %></td>
-                                                      <td><%= Employees[i].tax_on_income %></td>
-                                                      <td><%= Employees[i].rebate %></td>
-                                                      <td><%= Employees[i].health_and_edu_cess %></td>
-                                                      <td><%= Employees[i].total_tax %></td>
-                                                      <td><%= Employees[i].tds_per_month %></td>
-                                                      <td><%= Employees[i].balance %></td>
-                                                  </tr>
-                                              <% }%>
-                                          </tbody>
-
-
-                                      </table>
-
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Name (As per Aadhar Card) <span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="empName" class="form-control" value="<%= Employees[i].empName %>"
+                                                        ruqt>
+                                                </div>
+                                            </div>
 
                                         
-                                  </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">PAN No. <span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="Pan_No" class="form-control"
+                                                        pattern=".{10,10}" title="10 alphanumeric characters needed" value="<%= Employees[i].Pan_No %>"
+                                                        ruqt>
+                                                </div>
+                                            </div>
 
-                              </div>
-                          </div>
-                          <!-- /# card -->
-                      </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Tax Regime <span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="emp_temp_regime" class="form-control"
+                                                    value="<%= Employees[i].emp_temp_regime %>" ruqt>
+                                                </div>
+                                            </div>
 
-                  </div>
-                  <input class="btn btn-primary" style="float: right;" type="submit" value="Apply"> 
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Gross Total</label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="<%= Employees[i].empID %>" class="form-control" ruqt>
+                                                </div>
+                                            </div>
 
-                  </form>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">80C</label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="c" value="<%= Employees[i].c %>" class="form-control" ruqt>
+                                                </div>
+                                            </div>
 
-                  </div>
-                  <br>
-                  <br><br><br>
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">80G</label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="g" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            
 
-              </section>
-          </div>
-      </div>
-  </div>
-  
- 
+                                        </div>
+                                            <div class="col-lg-6">
 
-  <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
-  <!-- scripit init-->
-  <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
-  <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-  <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
-  <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
-  <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
-  <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
-  <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
-  <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
-  <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">80D</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="d" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">80E</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="e" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">80CCC</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="ccc" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">80CCD</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="ccd" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+
+                                                <input type="number" name="age" value="<%= Employees[i].age %>" class="form-control" hidden >
+
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">80DD</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="dd" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">Total Investment</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="total_investment" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--card ka end -->
+
+                                            <br />
+
+                                        
+                                    </div>
+
+                            </div>
+
+                        </div>
+
+                        <button class="btn btn-primary" type="submit" style="float:right;">Apply</button>
+                        <br><br><br>
+                        
+                       
+                    </div>
+
+                </div>
+
+                </select>
+            </div>
 
 
-</body>
-</html>
 
 
+        </div>
+        </div>
+        </div>
+        </div>
+        </form>
+        </section>
+        </div>
+        </div>
+        </div>
+        <script src="../assets/focus2/vendor/global/global.min.js"></script>
+        <script src="../assets/focus2/js/quixnav-init.js"></script>
+        <script src="../assets/focus2/js/custom.min.js"></script>
+
+
+
+
+        <!-- Jquery Validation -->
+        <script src="../assets/focus2/vendor/jquery-validation/jquery.validate.min.js"></script>
+        <!-- Form validate init -->
+        <script src="../assets/focus2/js/plugins-init/jquery.validate-init.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
+        <script src="../assets/alert/script.js"></script>
+
+    </body>
