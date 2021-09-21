@@ -587,7 +587,7 @@ router.get('/incometax', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/updateincometax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees `, (err, result) => {
+    mysqldb.query(`select * from Employees natural join form`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -620,7 +620,7 @@ router.get('/updateincometax/:empID', ensureAuthenticated, (req, res) => {
                         // var set=new Set(JSON.parse(JSON.stringify(result)))
                         console.log("result2 is", result2)
                         res.render('updateincometax', {
-                            Employees: JSON.parse(JSON.stringify(result)),
+                            Employees: JSON.parse(JSON.stringify(result2)),
                             name: JSON.parse(JSON.stringify(result2))
                         });
                     }
