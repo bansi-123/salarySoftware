@@ -42,47 +42,44 @@
 
                                 <div class="card-body">
                                     <div class="horizontal-form-elements">
-                                        <form class="form-horizontal" action="\limits" method="post">
+                                        <form class="form-horizontal" action="\editlimits" method="post">
                                             <div class="row">
+                                            
                                                 <div class="col-lg-6">
 
                                                     <div class="form-group row">
                                                         <label class="col-lg-6 col-form-label">80C</label>
                                                         <div class="col-lg-6">
-                                                            <input type="number" name="80c" class="form-control" ruqt>
+                                                            <input type="number" name="climit" value=<%= edit_limits[0]["climit"]%> class="form-control" ruqt>
                                                         </div>
                                                     </div>
         
                                                     <div class="form-group row">
                                                         <label class="col-lg-6 col-form-label">80G</label>
                                                         <div class="col-lg-6">
-                                                            <input type="number" name="80g" class="form-control" ruqt>
+                                                            <input type="number" name="glimit" value=<%= edit_limits[0]["glimit"]%> class="form-control" ruqt>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label class="col-lg-6 col-form-label">80D</label>
+                                                        <label class="col-lg-6 col-form-label">80D (below 60)</label>
                                                         <div class="col-lg-6">
-                                                            <input type="number" name="80d" class="form-control" ruqt>
+                                                            <input type="number" name="dlimit1" value=<%= edit_limits[0]["dlimit1"]%> class="form-control" ruqt>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-6 col-form-label">80D (above 60)</label>
+                                                        <div class="col-lg-6">
+                                                            <input type="number" name="dlimit2" value=<%= edit_limits[0]["dlimit2"]%> class="form-control" ruqt>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-lg-6 col-form-label">80E</label>
                                                         <div class="col-lg-6">
-                                                            <input type="number" name="80e" class="form-control" ruqt>
+                                                            <input type="number" name="elimit" value=<%= edit_limits[0]["elimit"]%>class="form-control" ruqt>
                                                         </div>
                                                     </div>
 
-    
-
-                                                    
-
-                                            
-
-                                                
-
-                                                    
-                                                    
                                                 </div>
                                                     <!-- /# column -->
                                                     <!-- <div class="column"> -->
@@ -91,19 +88,19 @@
                                                         <div class="form-group row">
                                                             <label class="col-lg-6 col-form-label">80CCC</label>
                                                             <div class="col-lg-6">
-                                                                <input type="number" name="80ccc" class="form-control" ruqt>
+                                                                <input type="number" name="ccclimit" value=<%= edit_limits[0]["ccclimit"]%> class="form-control" ruqt>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label class="col-lg-6 col-form-label">80CCD</label>
                                                             <div class="col-lg-6">
-                                                                <input type="number" name="80ccd" class="form-control" ruqt>
+                                                                <input type="number" name="ccdlimit" value=<%= edit_limits[0]["ccdlimit"]%> class="form-control" ruqt>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label class="col-lg-6 col-form-label">80DD</label>
                                                             <div class="col-lg-6">
-                                                                <input type="number" name="80dd" class="form-control" ruqt>
+                                                                <input type="number" name="ddlimit" value=<%= edit_limits[0]["ddlimit"]%> class="form-control" ruqt>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">

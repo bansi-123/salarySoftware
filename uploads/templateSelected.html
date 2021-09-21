@@ -1,159 +1,381 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - Salary Slip</title>
-  <!-- <link rel="stylesheet" href="./style.css"> -->
-  <style>
-    .salary-slip {
-  margin: 15px;
-}
-.salary-slip .empDetail {
-  width: 100%;
-  text-align: left;
-  border: 2px solid black;
-  border-collapse: collapse;
-  table-layout: fixed;
-}
-.salary-slip .head {
-  margin: 10px;
-  margin-bottom: 50px;
-  width: 100%;
-}
-.salary-slip .companyName {
-  text-align: right;
-  font-size: 25px;
-  font-weight: bold;
-}
-.salary-slip .salaryMonth {
-  text-align: center;
-}
-.salary-slip .table-border-bottom {
-  border-bottom: 1px solid;
-}
-.salary-slip .table-border-right {
-  border-right: 1px solid;
-}
-.salary-slip .myBackground {
-  padding-top: 10px;
-  text-align: left;
-  border: 1px solid black;
-  height: 40px;
-}
-.salary-slip .myAlign {
-  text-align: center;
-  border-right: 1px solid black;
-}
-.salary-slip .myTotalBackground {
-  padding-top: 10px;
-  text-align: left;
-  background-color: #EBF1DE;
-  border-spacing: 0px;
-}
-.salary-slip .align-4 {
-  width: 25%;
-  float: left;
-}
-.salary-slip .tail {
-  margin-top: 35px;
-}
-.salary-slip .align-2 {
-  margin-top: 25px;
-  width: 50%;
-  float: left;
-}
-.salary-slip .border-center {
-  text-align: center;
-}
-.salary-slip .border-center th, .salary-slip .border-center td {
-  border: 1px solid black;
-}
-.salary-slip th, .salary-slip td {
-  padding-left: 6px;
-}
-  </style>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>pdf-html</TITLE>
+<META name="generator" content="BCL easyConverter SDK 5.0.252">
+<STYLE type="text/css">
 
-</head>
-<body>
-<div style="position:absolute;left:50%;margin-left:-297px;top:0px;width:595px;height:841px;border-style:outset;overflow:hidden">
-<div style="position:absolute;left:0px;top:0px">
-<img src="../assets/salslip.jpg" width=595 height=841></div>
-<div style="position:absolute;left:79.01px;top:31.82px" class="cls_002"><span class="cls_002">SCTR'S PUNE INSTITUTE OF COMPUTER TECHNOLOGY, PUNE 411043</span></div>
-<div style="position:absolute;left:159.70px;top:58.03px" class="cls_003"><span class="cls_003">SALARY SLIP FOR THE MONTH OF MAY - 2021</span></div>
-<div style="position:absolute;left:31.19px;top:90.63px" class="cls_003"><span class="cls_003">EMPLOYEE NAME : -</span></div>
-<div style="position:absolute;left:144.57px;top:90.63px" class="cls_003"><span class="cls_003">apple</span></div>
+body {margin-top: 0px;margin-left: 0px;}
 
-<div style="position:absolute;left:31.19px;top:114.72px" class="cls_004"><span class="cls_004">EMPLOYEE NO : -</span></div>
-<div style="position:absolute;left:144.57px;top:114.72px" class="cls_004"><span class="cls_004">banana</span></div>
+#page_1 {position:relative; overflow: hidden;margin: 45px 0px 429px 37px;padding: 0px;border: none;width: 757px;}
 
-<div style="position:absolute;left:257.96px;top:114.72px" class="cls_004"><span class="cls_004">UAN: -</span></div>
-<div style="position:absolute;left:371.34px;top:114.72px" class="cls_004"><span class="cls_004">uanno</span></div>
 
-<div style="position:absolute;left:126.88px;top:154.41px" class="cls_003"><span class="cls_003">EARNINGS</span></div>
-<div style="position:absolute;left:374.67px;top:154.41px" class="cls_003"><span class="cls_003">DEDUCTIONS</span></div>
 
-<div style="position:absolute;left:31.19px;top:174.25px" class="cls_004"><span class="cls_004">PAY</span></div>
-<div style="position:absolute;left:158.74px;top:174.25px" class="cls_004"><span class="cls_004">basicPay</span></div>
 
-<div style="position:absolute;left:286.30px;top:174.25px" class="cls_004"><span class="cls_004">PROVIDENT FUND</span></div>
-<div style="position:absolute;left:413.86px;top:174.25px" class="cls_004"><span class="cls_004">pf</span></div>
 
-<div style="position:absolute;left:31.19px;top:194.09px" class="cls_004"><span class="cls_004">AGP/DP</span></div>
-<div style="position:absolute;left:158.74px;top:194.09px" class="cls_004"><span class="cls_004">agpdp</span></div>
+.ft0{font: bold 16px 'Helvetica';line-height: 19px;}
+.ft1{font: bold 15px 'Helvetica';line-height: 18px;}
+.ft2{font: bold 14px 'Helvetica';line-height: 16px;}
+.ft3{font: 1px 'Helvetica';line-height: 1px;}
+.ft4{font: 1px 'Helvetica';line-height: 11px;}
+.ft5{font: 15px 'Helvetica';line-height: 17px;}
+.ft6{font: 1px 'Helvetica';line-height: 6px;}
+.ft7{font: 1px 'Helvetica';line-height: 5px;}
+.ft8{font: 1px 'Helvetica';line-height: 4px;}
+.ft9{font: 13px 'Helvetica';line-height: 16px;}
+.ft10{font: bold 13px 'Helvetica';line-height: 16px;}
 
-<div style="position:absolute;left:286.30px;top:194.09px" class="cls_004"><span class="cls_004">PROF.TAX</span></div>
-<div style="position:absolute;left:413.86px;top:194.09px" class="cls_004"><span class="cls_004">proftax</span></div>
+.p0{text-align: left;padding-left: 68px;margin-top: 0px;margin-bottom: 0px;}
+.p1{text-align: left;padding-left: 176px;margin-top: 16px;margin-bottom: 0px;}
+.p2{text-align: left;padding-left: 5px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
+.p3{text-align: left;padding-left: 3px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
+.p4{text-align: left;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
+.p5{text-align: right;padding-right: 125px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
+.p6{text-align: right;padding-right: 121px;margin-top: 0px;margin-bottom: 0px;white-space: nowrap;}
+.p7{text-align: left;padding-left: 5px;margin-top: 64px;margin-bottom: 0px;}
+.p8{text-align: left;padding-left: 5px;margin-top: 11px;margin-bottom: 0px;}
+.p9{text-align: left;padding-left: 5px;margin-top: 10px;margin-bottom: 0px;}
 
-<div style="position:absolute;left:31.19px;top:213.93px" class="cls_004"><span class="cls_004">D.A.</span></div>
-<div style="position:absolute;left:158.74px;top:213.93px" class="cls_004"><span class="cls_004">da</span></div>
+.td0{border-left: #000000 1px solid;border-right: #000000 1px solid;border-top: #000000 1px solid;padding: 0px;margin: 0px;width: 151px;vertical-align: bottom;}
+.td1{border-top: #000000 1px solid;padding: 0px;margin: 0px;width: 302px;vertical-align: bottom;}
+.td2{border-top: #000000 1px solid;padding: 0px;margin: 0px;width: 57px;vertical-align: bottom;}
+.td3{border-right: #000000 1px solid;border-top: #000000 1px solid;padding: 0px;margin: 0px;width: 169px;vertical-align: bottom;}
+.td4{border-left: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 131px;vertical-align: bottom;}
+.td5{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 20px;vertical-align: bottom;}
+.td6{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 19px;vertical-align: bottom;}
+.td7{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 97px;vertical-align: bottom;}
+.td8{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 35px;vertical-align: bottom;}
+.td9{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 38px;vertical-align: bottom;}
+.td10{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 113px;vertical-align: bottom;}
+.td11{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 57px;vertical-align: bottom;}
+.td12{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 169px;vertical-align: bottom;}
+.td13{border-left: #000000 1px solid;padding: 0px;margin: 0px;width: 131px;vertical-align: bottom;}
+.td14{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 20px;vertical-align: bottom;}
+.td15{padding: 0px;margin: 0px;width: 116px;vertical-align: bottom;}
+.td16{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 34px;vertical-align: bottom;}
+.td17{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 150px;vertical-align: bottom;}
+.td18{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 226px;vertical-align: bottom;}
+.td19{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 34px;vertical-align: bottom;}
+.td20{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 112px;vertical-align: bottom;}
+.td21{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 132px;vertical-align: bottom;}
+.td22{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 40px;vertical-align: bottom;}
+.td23{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 170px;vertical-align: bottom;}
+.td24{padding: 0px;margin: 0px;width: 137px;vertical-align: bottom;}
+.td25{padding: 0px;margin: 0px;width: 35px;vertical-align: bottom;}
+.td26{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 37px;vertical-align: bottom;}
+.td27{padding: 0px;margin: 0px;width: 113px;vertical-align: bottom;}
+.td28{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 37px;vertical-align: bottom;}
+.td29{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 39px;vertical-align: bottom;}
+.td30{padding: 0px;margin: 0px;width: 97px;vertical-align: bottom;}
+.td31{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 169px;vertical-align: bottom;}
+.td32{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 39px;vertical-align: bottom;}
+.td33{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 56px;vertical-align: bottom;}
+.td34{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 56px;vertical-align: bottom;}
+.td35{padding: 0px;margin: 0px;width: 21px;vertical-align: bottom;}
+.td36{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 18px;vertical-align: bottom;}
+.td37{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 21px;vertical-align: bottom;}
+.td38{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 18px;vertical-align: bottom;}
+.td39{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 72px;vertical-align: bottom;}
+.td40{padding: 0px;margin: 0px;width: 19px;vertical-align: bottom;}
+.td41{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 72px;vertical-align: bottom;}
+.td42{padding: 0px;margin: 0px;width: 57px;vertical-align: bottom;}
+.td43{border-left: #000000 1px solid;border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 340px;vertical-align: bottom;}
+.td44{padding: 0px;margin: 0px;width: 512px;vertical-align: bottom;}
+.td45{padding: 0px;margin: 0px;width: 170px;vertical-align: bottom;}
+.td46{padding: 0px;margin: 0px;width: 269px;vertical-align: bottom;}
+.td47{padding: 0px;margin: 0px;width: 413px;vertical-align: bottom;}
 
-<div style="position:absolute;left:286.30px;top:213.93px" class="cls_004"><span class="cls_004">INCOME TAX</span></div>
-<div style="position:absolute;left:413.86px;top:213.93px" class="cls_004"><span class="cls_004">inctax</span></div>
+.tr0{height: 25px;}
+.tr1{height: 11px;}
+.tr2{height: 19px;}
+.tr3{height: 6px;}
+.tr4{height: 26px;}
+.tr5{height: 20px;}
+.tr6{height: 5px;}
+.tr7{height: 18px;}
+.tr8{height: 4px;}
+.tr9{height: 42px;}
 
-<div style="position:absolute;left:31.19px;top:233.78px" class="cls_004"><span class="cls_004">H.R.A.</span></div>
-<div style="position:absolute;left:158.74px;top:233.78px" class="cls_004"><span class="cls_004">hra</span></div>
+.t0{width: 682px;margin-top: 17px;font: 15px 'Helvetica';}
 
-<div style="position:absolute;left:286.30px;top:233.78px" class="cls_004"><span class="cls_004">OTHER DEDUCTIONS</span></div>
-<div style="position:absolute;left:413.86px;top:233.78px" class="cls_004"><span class="cls_004">othded</span></div>
+</STYLE>
+</HEAD>
 
-<div style="position:absolute;left:31.19px;top:253.62px" class="cls_004"><span class="cls_004">C.C.A.</span></div>
-<div style="position:absolute;left:158.74px;top:253.62px" class="cls_004"><span class="cls_004">cca</span></div>
+<BODY>
+<DIV id="page_1">
 
-<div style="position:absolute;left:286.30px;top:253.62px" class="cls_004"><span class="cls_004">REV. STAMP</span></div>
-<div style="position:absolute;left:413.86px;top:253.62px" class="cls_004"><span class="cls_004">revstamp</span></div>
 
-<div style="position:absolute;left:31.19px;top:273.46px" class="cls_004"><span class="cls_004">DIFF.</span></div>
-<div style="position:absolute;left:158.74px;top:273.46px" class="cls_004"><span class="cls_004">diff</span></div>
-
-<div style="position:absolute;left:31.19px;top:293.30px" class="cls_004"><span class="cls_004">OTHER SPL.</span></div>
-<div style="position:absolute;left:158.74px;top:293.30px" class="cls_004"><span class="cls_004">othspl</span></div>
-
-<div style="position:absolute;left:31.19px;top:313.15px" class="cls_004"><span class="cls_004">T.A.</span></div>
-<div style="position:absolute;left:158.74px;top:313.15px" class="cls_004"><span class="cls_004">ta</span></div>
-
-<div style="position:absolute;left:31.19px;top:332.99px" class="cls_003"><span class="cls_003">GROSS TOTAL</span></div>
-<div style="position:absolute;left:158.74px;top:332.99px" class="cls_003"><span class="cls_003">grosssal</span></div>
-
-<div style="position:absolute;left:286.30px;top:332.99px" class="cls_003"><span class="cls_003">TOTAL DEDUCTIONS</span></div>
-<div style="position:absolute;left:413.86px;top:332.99px" class="cls_003"><span class="cls_003">totalded</span></div>
-
-<div style="position:absolute;left:31.19px;top:351.41px" class="cls_003"><span class="cls_003">NET SALARY</span></div>
-<div style="position:absolute;left:286.30px;top:351.41px" class="cls_003"><span class="cls_003">netsal</span></div>
-<div style="position:absolute;left:31.19px;top:387.55px" class="cls_005"><span class="cls_005">NET SALARY RS. netsal HAS BEEN DEPOSITED IN empName'S</span></div>
-
-<div style="position:absolute;left:31.19px;top:407.39px" class="cls_005"><span class="cls_005">BANK A/C NO:-</span></div>
-<div style="position:absolute;left:116.22px;top:407.39px" class="cls_005"><span class="cls_005">bankacc</span></div>
-
-<div style="position:absolute;left:229.61px;top:407.39px" class="cls_005"><span class="cls_005">BANK NAME:-    bankname</span></div>
-
-<div style="position:absolute;left:31.19px;top:466.92px" class="cls_006"><span class="cls_006">REMARK:</span></div>
-
-<div style="position:absolute;left:31.19px;top:486.76px" class="cls_005"><span class="cls_005">THIS IS COMPUTER GENERATED DOCUMENT. NOT VALID FOR LOAN.</span></div>
-<div style="position:absolute;left:31.19px;top:506.60px" class="cls_005"><span class="cls_005">FOR INTERNAL USE ONLY.</span></div>
-</div>
-
-          </div >
-<!-- partial -->
-  
-</body>
-</html>
+<P class="p0 ft0">SCTR'S PUNE INSTITUTE OF COMPUTER TECHNOLOGY, PUNE 411043</P>
+<P class="p1 ft1">SALARY SLIP FOR THE MONTH OF MAY - 2021</P>
+<TABLE cellpadding=0 cellspacing=0 class="t0">
+<TR>
+	<TD colspan=2 class="tr0 td0"><P class="p2 ft2">EMPLOYEE NAME : -</P></TD>
+	<TD colspan=5 class="tr0 td1"><P class="p3 ft1"> ramesh </P></TD>
+	<TD class="tr0 td2"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr0 td3"><P class="p4 ft3">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr1 td4"><P class="p4 ft4">&nbsp;</P></TD>
+	<TD class="tr1 td5"><P class="p4 ft4">&nbsp;</P></TD>
+	<TD class="tr1 td6"><P class="p4 ft4">&nbsp;</P></TD>
+	<TD class="tr1 td7"><P class="p4 ft4">&nbsp;</P></TD>
+	<TD class="tr1 td8"><P class="p4 ft4">&nbsp;</P></TD>
+	<TD class="tr1 td9"><P class="p4 ft4">&nbsp;</P></TD>
+	<TD class="tr1 td10"><P class="p4 ft4">&nbsp;</P></TD>
+	<TD class="tr1 td11"><P class="p4 ft4">&nbsp;</P></TD>
+	<TD class="tr1 td12"><P class="p4 ft4">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr2 td13"><P class="p2 ft5">EMPLOYEE NO : -</P></TD>
+	<TD class="tr2 td14"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD colspan=2 class="tr2 td15"><P class="p3 ft5">	ekdachaid
+  </P></TD>
+	<TD class="tr2 td16"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD colspan=2 class="tr2 td17"><P class="p3 ft5">UAN: -</P></TD>
+	<TD colspan=2 class="tr2 td18"><P class="p5 ft5">uanno</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td4"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td5"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td6"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td7"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td19"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td9"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td20"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td11"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td12"><P class="p4 ft6">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr4 td21"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD colspan=2 class="tr4 td22"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr4 td7"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr4 td8"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr4 td9"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr4 td10"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr4 td11"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr4 td23"><P class="p4 ft3">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr5 td13"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD colspan=3 class="tr5 td24"><P class="p4 ft1">EARNINGS</P></TD>
+	<TD class="tr5 td25"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td26"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td27"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD colspan=2 class="tr5 td18"><P class="p6 ft1">DEDUCTIONS</P></TD>
+</TR>
+<TR>
+	<TD class="tr6 td4"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD colspan=2 class="tr6 td22"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td7"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td8"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td28"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD colspan=2 class="tr6 td23"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td12"><P class="p4 ft7">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr5 td13"><P class="p2 ft5">PAY</P></TD>
+	<TD colspan=2 class="tr5 td29"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td30"><P class="p3 ft5"> haypay</P></TD>
+	<TD class="tr5 td25"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td26"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD colspan=2 class="tr5 td31"><P class="p3 ft5">PROVIDENT FUND</P></TD>
+	<TD class="tr5 td31"><P class="p3 ft5">fundmhane</P></TD>
+</TR>
+<TR>
+	<TD class="tr6 td4"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD colspan=2 class="tr6 td32"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td7"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td8"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td28"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td10"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td33"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td12"><P class="p4 ft7">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr5 td13"><P class="p2 ft5">AGP/DP</P></TD>
+	<TD colspan=2 class="tr5 td29"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td30"><P class="p3 ft5">yanchagp</P></TD>
+	<TD class="tr5 td25"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td26"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td27"><P class="p3 ft5">PROF.TAX</P></TD>
+	<TD class="tr5 td34"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td31"><P class="p3 ft5">proftaxha</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td4"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD colspan=2 class="tr3 td32"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td7"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td8"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td28"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td10"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td33"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td12"><P class="p4 ft6">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr5 td13"><P class="p2 ft5">D.A.</P></TD>
+	<TD colspan=2 class="tr5 td29"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td30"><P class="p3 ft5">dadavada</P></TD>
+	<TD class="tr5 td25"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td26"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td27"><P class="p3 ft5">INCOME TAX</P></TD>
+	<TD class="tr5 td34"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td31"><P class="p3 ft5">lootkut</P></TD>
+</TR>
+<TR>
+	<TD class="tr6 td4"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD colspan=2 class="tr6 td32"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td7"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td8"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td28"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD colspan=2 class="tr6 td12"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td12"><P class="p4 ft7">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr5 td13"><P class="p2 ft5">H.R.A.</P></TD>
+	<TD colspan=2 class="tr5 td29"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td30"><P class="p3 ft5">housing</P></TD>
+	<TD class="tr5 td25"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td26"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD colspan=2 class="tr5 td31"><P class="p3 ft5">OTHER DEDUCTIONS</P></TD>
+	<TD class="tr5 td31"><P class="p3 ft5">othercuts</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td4"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD colspan=2 class="tr3 td32"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td7"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td8"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td28"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td10"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td33"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td12"><P class="p4 ft6">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr5 td13"><P class="p2 ft5">C.C.A.</P></TD>
+	<TD colspan=2 class="tr5 td29"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td30"><P class="p3 ft5">ccasta</P></TD>
+	<TD class="tr5 td25"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td26"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td27"><P class="p3 ft5">REV. STAMP</P></TD>
+	<TD class="tr5 td34"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td31"><P class="p3 ft5">revchastamp</P></TD>
+</TR>
+<TR>
+	<TD class="tr6 td4"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD colspan=2 class="tr6 td32"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td7"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td8"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td28"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td10"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td33"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td12"><P class="p4 ft7">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr5 td13"><P class="p2 ft5">DIFF.</P></TD>
+	<TD colspan=2 class="tr5 td29"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td30"><P class="p3 ft5">kasladiff</P></TD>
+	<TD class="tr5 td25"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td26"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td27"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td34"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td31"><P class="p4 ft3">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td4"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD colspan=2 class="tr3 td32"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td7"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td8"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td28"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td10"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td33"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td12"><P class="p4 ft6">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr5 td13"><P class="p2 ft5">OTHER SPL.</P></TD>
+	<TD colspan=2 class="tr5 td29"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td30"><P class="p3 ft5">special26</P></TD>
+	<TD class="tr5 td25"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td26"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td27"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td34"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td31"><P class="p4 ft3">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr6 td4"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD colspan=2 class="tr6 td32"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td7"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td8"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td28"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td10"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td33"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td12"><P class="p4 ft7">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr5 td13"><P class="p2 ft5">T.A.</P></TD>
+	<TD colspan=2 class="tr5 td29"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td30"><P class="p3 ft5">tatabata</P></TD>
+	<TD class="tr5 td25"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td26"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td27"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td34"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td31"><P class="p4 ft3">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr3 td4"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD colspan=2 class="tr3 td32"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td7"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td8"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td28"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD colspan=2 class="tr3 td12"><P class="p4 ft6">&nbsp;</P></TD>
+	<TD class="tr3 td12"><P class="p4 ft6">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr5 td13"><P class="p2 ft1">GROSS TOTAL</P></TD>
+	<TD class="tr5 td35"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td36"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td30"><P class="p3 ft1">grossew</P></TD>
+	<TD class="tr5 td25"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr5 td26"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD colspan=2 class="tr5 td31"><P class="p3 ft1">TOTAL DEDUCTIONS</P></TD>
+	<TD class="tr5 td31"><P class="p3 ft1">sagleded</P></TD>
+</TR>
+<TR>
+	<TD class="tr6 td4"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td37"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td38"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td7"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD colspan=2 class="tr6 td39"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td10"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td33"><P class="p4 ft7">&nbsp;</P></TD>
+	<TD class="tr6 td12"><P class="p4 ft7">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD class="tr7 td13"><P class="p2 ft1">NET SALARY</P></TD>
+	<TD class="tr7 td35"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr7 td40"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr7 td30"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD colspan=2 class="tr7 td41"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr7 td27"><P class="p3 ft1">nethathme</P></TD>
+	<TD class="tr7 td42"><P class="p4 ft3">&nbsp;</P></TD>
+	<TD class="tr7 td31"><P class="p4 ft3">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD colspan=6 class="tr8 td43"><P class="p4 ft8">&nbsp;</P></TD>
+	<TD colspan=2 class="tr8 td23"><P class="p4 ft8">&nbsp;</P></TD>
+	<TD class="tr8 td12"><P class="p4 ft8">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD colspan=8 class="tr9 td44"><P class="p2 ft9">NET SALARY RS. nethathme HAS BEEN DEPOSITED IN ramesh'S</P></TD>
+	<TD class="tr9 td45"><P class="p4 ft3">&nbsp;</P></TD>
+</TR>
+<TR>
+	<TD colspan=4 class="tr4 td46"><P class="p2 ft9">BANK A/C NO:- dontshare</P></TD>
+	<TD colspan=5 class="tr4 td47"><P class="p4 ft9">BANK NAME:- capital</P></TD>
+</TR>
+</TABLE>
+<P class="p7 ft10">REMARK:</P>
+<P class="p8 ft9">THIS IS COMPUTER GENERATED DOCUMENT. NOT VALID FOR LOAN.</P>
+<P class="p9 ft9">FOR INTERNAL USE ONLY.</P>
+</DIV>
+</BODY>
+</HTML>

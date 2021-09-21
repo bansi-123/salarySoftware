@@ -314,8 +314,6 @@
                                                 <label class="col-lg-6 col-form-label" for="category">Category</label>
                                                 <div class="col-lg-6">
                                                     <select name="category" id="category" ruqt>
-
-
                                                         <option value="open">OPEN</option>
                                                         <option value="sc">SC</option>
                                                         <option value="st">ST</option>
@@ -372,7 +370,7 @@
                                             </div>
 
                                             <script type="text/javascript">
-                                                function ShowHideDivi() {
+                                                function ShowHideDivii() {
                                                     var ddlPassport1 = document.getElementById("id_category2");
                                                     var dvPassport1 = document.getElementById("dvPassport2");
                                                     dvPassport1.style.display = ddlPassport1.value == "no" ? "block" : "none";
@@ -385,7 +383,7 @@
 
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <select name="onrole" id="id_category2" onchange="ShowHideDivi()"
+                                                    <select name="onrole" id="id_category2" onchange="ShowHideDivii()"
                                                         data-designation-id='id_designation'
                                                         class='dependent-selects__category' ruqt>
                                                         <option value="yes">Yes</option>
@@ -524,17 +522,13 @@
 
 
                                             <script>
-
                                                 function experiance() {
                                                     var date1 = document.getElementById("doj");
                                                     var date2 = new Date();
-
                                                     var Difference_In_Time = date2.getTime() - date1.getTime();
-
                                                     var Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
                                                     return Difference_In_Days;
                                                 }
-
                                                 document.getElementById("demo").innerHTML = experiance();
                                             </script>
 
@@ -1070,7 +1064,7 @@
                         <div class="row text-center" text-align: center;>
 
                             <!-- <button class="button large round success">Submit</button> -->
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                            button class="btn btn-primary" type="submi<t">Submit</button>
 
 
                         </div>

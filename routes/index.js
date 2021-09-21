@@ -74,7 +74,7 @@ router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
     
     var cur_year = new Date().getFullYear()
    // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
-    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="${requestedTitle}"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
     `, (err, result) => {
  
    if (err) {
@@ -89,6 +89,7 @@ router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
                 requestedTitle: req.params.empID,
                 cur_month: mlist[new Date().getMonth()],
                 sunand:parseInt(sunand),
+                duration:parseInt(duration),
                 date:new Date()
 
             });
@@ -129,6 +130,7 @@ router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
                 requestedTitle: req.params.empID,
                 cur_month: mlist[new Date().getMonth()],
                 sunand:parseInt(sunand),
+                dura:parseInt(dura),
                 date:new Date()
 
             });
@@ -181,16 +183,65 @@ router.get('/salsheet',  (req, res) => {
 });
 
 var sunand;
+var dura;
 router.get('/form-basic', ensureAuthenticated, (req, res) => res.render('form-basic', {
     name: req.user.name
 }));
 
-router.get('/editlimits', ensureAuthenticated, (req, res) => res.render('editlimits', {
-    name: req.user.name
-}));
+router.get('/editlimits', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from edit_limits`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Edit Details", JSON.parse(JSON.stringify(result)));
+            res.render('editlimits', {
+                edit_limits: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
+router.get('/showlimits', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from edit_limits`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Edit Details", JSON.parse(JSON.stringify(result)));
+            res.render('showlimits', {
+                edit_limits: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
+router.post('/editlimits', (req, res) => {
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    const {climit, glimit, dlimit1, dlimit2, ccclimit, ccdlimit, ddlimit}=JSON.parse(JSON.stringify(req.body));
+    // var c = parseInt(climit);
+    // console.log(c);
+    
+    mysqldb.query(`update edit_limits set climit=${climit},glimit=${glimit},dlimit1=${dlimit1},dlimit2=${dlimit2},ccclimit=${ccclimit}, ccdlimit=${ccdlimit}, ddlimit=${ddlimit} where ID=1`,(err,result)=>
+    
+    // mysqldb.query(`update edit_limits set climit=${c} where ID=1`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else {
+
+            console.log("Limit Details", JSON.parse(JSON.stringify(result)));
+            res.redirect('editlimits');
+        }
+    })
+
+});
 
 
-router.post('/form-basic', (req, res) => {
+router.post('/declarations', (req, res) => {
 
     console.log(req.body)
     //     var cur_month=new Date().getMonth()+1;
@@ -649,6 +700,54 @@ router.get('/incometax', ensureAuthenticated, (req, res) => {
         }
     })
 
+});
+
+router.get('/updateincometax', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees `, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('update_home', {
+                Employees: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
+router.get('/updateincometax/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+    console.log(req.params.empID)
+
+    if (requestedTitle.includes("EMP")) {
+        mysqldb.query(`select * from form natural join Employees `, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                mysqldb.query(`select * from form natural join Employees where empID="${req.params.empID}"`, (err, result2) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                        // var set=new Set(JSON.parse(JSON.stringify(result)))
+                        console.log("result2 is", result2)
+                        res.render('updateincometax', {
+                            Employees: JSON.parse(JSON.stringify(result)),
+                            name: JSON.parse(JSON.stringify(result2))
+                        });
+                    }
+                })
+            }
+        })
+    }
+    else {
+        requestedTitle = "/" + requestedTitle
+        res.redirect(requestedTitle)
+    }
 });
 
 router.get('/donations', ensureAuthenticated, (req, res) => {
@@ -1416,7 +1515,7 @@ router.post('/allowances', (req, res) => {
         }
         else {
             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
-            res.render('index1');
+            res.redirect('index1');
         }
     })
 
@@ -1690,6 +1789,53 @@ router.get('/advances', ensureAuthenticated, (req, res) => {
         }
     })
 });
+router.get('/declarations', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('declare_home', {
+               Employees: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/declarations/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+    console.log(req.params.empID)
+
+    if (requestedTitle.includes("EMP")) {
+        mysqldb.query(`select * from Employees `, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                mysqldb.query(`select * from Employees where empID="${req.params.empID}"`, (err, result2) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                        // var set=new Set(JSON.parse(JSON.stringify(result)))
+                        console.log("result2 is", result2)
+                        res.render('declarations', {
+                            Employees: JSON.parse(JSON.stringify(result)),
+                            name: JSON.parse(JSON.stringify(result2))
+                        });
+                    }
+                })
+            }
+        })
+    }
+    else {
+        requestedTitle = "/" + requestedTitle
+        res.redirect(requestedTitle)
+    }
+});
+
 
 router.get('/salarycert', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`, (err, result) => {
@@ -1699,10 +1845,30 @@ router.get('/salarycert', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('salarycert', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                salary: JSON.parse(JSON.stringify(result))
+
             });
         }
     })
+});
+
+router.post('/salarycert',  (req, res) => {
+
+    console.log(req.body)
+    var cur_month=new Date().getMonth()+1;
+    const trip =JSON.parse(JSON.stringify(req.body));
+    month= trip.trip.slice(5,7);
+    empID= trip.empID;
+    dura=trip.dura;
+    console.log(dura);
+    sunand= cur_month-month;
+    console.log(empID);
+   res.redirect('salcert1/'+empID);
+   //res.redirect('/?valid=' + string);
+  
+       
+
 });
 
 router.get('/advances/:empID', ensureAuthenticated, (req, res) => {
@@ -1931,6 +2097,23 @@ router.get('/showsalary', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('showsalary', {
+                salary: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/masterview', ensureAuthenticated, (req, res) => {
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month="${cur_month}" and year="${cur_year}"`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('masterview', {
                 salary: JSON.parse(JSON.stringify(result))
             });
         }
@@ -3367,6 +3550,19 @@ router.get('/updateincometax', ensureAuthenticated, (req, res) => {
         }
     })
 });
+// router.get('/updateIncomeTax', ensureAuthenticated, (req, res) => {
+//     mysqldb.query(`select * from income_tax natural join Salary`, (err, result) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+//             res.render('addincometax', {
+//                 Employees: JSON.parse(JSON.stringify(result))
+//             });
+//         }
+//     })
+// })
 
 router.post('/updateIncomeTax', (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
