@@ -227,7 +227,7 @@ router.post('/editlimits', (req, res) => {
 });
 
 
-router.post('/form-basic', (req, res) => {
+router.post('/declarations', (req, res) => {
 
     console.log(req.body)
     //     var cur_month=new Date().getMonth()+1;
