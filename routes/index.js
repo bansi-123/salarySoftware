@@ -395,9 +395,9 @@ router.post('/updateform', (req, res) => {
                             }
                             total+=Math.min(ded_d, limit_d) 
                             
-                            mysqldb.query(`update form set empID='${empID}',c=${ded_c},
+                            mysqldb.query(`update form set c=${ded_c},
                             d=${ded_d},
-                            dd${ded_dd},
+                            dd=${ded_dd},
                             total=${total},
                             gross_sal=${gross_sal})`,(err,result2)=>{
                                 if(err)
@@ -732,13 +732,23 @@ router.get('/updateincometax/:empID', ensureAuthenticated, (req, res) => {
                         console.log(err);
                     }
                     else {
-                        // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-                        // var set=new Set(JSON.parse(JSON.stringify(result)))
-                        console.log("result2 is", result2)
-                        res.render('updateincometax', {
-                            Employees: JSON.parse(JSON.stringify(result2)),
-                            name: JSON.parse(JSON.stringify(result2))
-                        });
+
+                        mysqldb.query(`select * from edit_limits`, (err, result3) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+
+                            // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                            // var set=new Set(JSON.parse(JSON.stringify(result)))
+                                console.log("result3 is", result3)
+                                res.render('updateincometax', {
+                                    Employees: JSON.parse(JSON.stringify(result2)),
+                                    name: JSON.parse(JSON.stringify(result2)),
+                                    limits: JSON.parse(JSON.stringify(result3))
+                                });
+                            }
+                        })
                     }
                 })
             }
@@ -3537,19 +3547,19 @@ router.get('/register/nonteaching', (req, res) => {
 });
 
 
-router.get('/updateincometax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-            res.render('updateincome', {
-                Employees: JSON.parse(JSON.stringify(result))
-            });
-        }
-    })
-});
+// router.get('/updateincometax', ensureAuthenticated, (req, res) => {
+//     mysqldb.query(`select * from Employees`, (err, result) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+//             res.render('updateincome', {
+//                 Employees: JSON.parse(JSON.stringify(result))
+//             });
+//         }
+//     })
+// });
 // router.get('/updateIncomeTax', ensureAuthenticated, (req, res) => {
 //     mysqldb.query(`select * from income_tax natural join Salary`, (err, result) => {
 //         if (err) {
@@ -3566,7 +3576,17 @@ router.get('/updateincometax', ensureAuthenticated, (req, res) => {
 
 router.post('/updateIncomeTax', (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
-    console.log(data)
+    // console.log(data.empID[1])
+    mysqldb.query(`update form set c=${data.c}, d=${data.d}, dd=${data.dd},
+    total=${data[`${data.empID}`][1]},
+    gross_sal=${data[`${data.empID}`][0]} where empID ='${data.empID}' `
+        , (res, error) => {
+
+            if (error) {
+                console.log(error)
+            }
+        }
+    )
     var indexList = []
     var grossTotalList = []
     var investmentList=[]
@@ -3576,8 +3596,8 @@ router.post('/updateIncomeTax', (req, res) => {
             console.log(i)
             console.log(data[i][0])
             indexList.push(i)
-            grossTotalList.push(data[i][0])
-            investmentList.push(data[i][1])
+            grossTotalList.push(parseInt(data[i][0]))
+            investmentList.push(parseInt(data[i][1]))
         }
 
     }
