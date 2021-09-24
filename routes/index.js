@@ -1918,6 +1918,41 @@ router.get('/masterview', ensureAuthenticated, (req, res) => {
     })
 });
 
+router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var prev_month = mlist[new Date().getMonth()-1]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month="${prev_month}" and year="${cur_year}"`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('masterviewprev', {
+                salary: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+router.get('/bankform', ensureAuthenticated, (req, res) => {
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var prev_month = mlist[new Date().getMonth()-1]
+    var cur_year = new Date().getFullYear()
+    mysqldb.query(`select * from Salary natural join Employees where month="${prev_month}" and year="${cur_year}"`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('bankform', {
+                salary: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+});
+
+
 router.get('/showfinaldeductions', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()]
