@@ -76,66 +76,11 @@
             <div class="main">
                 <div class="container-fluid">
 
-                    <div class="card">
-                    <form class="form-valide" action="\dates" method="post">
-                        <div class="card-body">
-
-                            <div class="row">
-                                <!-- <div class="form-group row"> -->
-                                <% var i=0 %>
-                                    <div class="col-lg-6">
-
-                                        <div class="form-group row">
-                                            <label hidden class="col-lg-6 col-form-label"> EMP ID
-                                                (empXXX) <span class="text-danger">*</span></label>
-                                            <div class="col-lg-6">
-                                                <input hidden type="text" value="<%= Employees[i].empID %>"
-                                                    name="empID" class="form-control" readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">DOB</label>
-                                            <div class="col-lg-6">
-                                                <input type="date" name="dob" class="form-control">
-
-
-                                            </div>
-                                        </div>
-
-
-
-                                    </div>
-
-                                    <div class="col-lg-6">
-
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">DOJ</label>
-                                            <div class="col-lg-6">
-                                                <input type="date" name="doj" class="form-control">
-
-
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-
-
-                            </div>
-                        </div>
-                        <button class="button large round success">Update</button>
-
-                    </form>
-                </div>
-
-
-
+                    
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-title">
-                                <h4>Add New Employee</h4>
+                                <h4>Edit Employee</h4>
 
                             </div>
 
@@ -150,14 +95,14 @@
                                         <div class="col-lg-5">
 
                                             <% var i=0 %>
-                                            <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> EMP ID
-                                                    (empXXX) <span class="text-danger">*</span></label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" value="<%= Employees[i].empID %>" name="empID" class="form-control" readonly
-                                                         >
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label"> EMP ID
+                                                        (empXXX) <span class="text-danger">*</span></label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" value="<%= Employees[i].empID %>"
+                                                            name="empID" class="form-control" readonly>
+                                                    </div>
                                                 </div>
-                                            </div>
                                                 <div class="form-group row">
                                                     <label class="col-lg-6 col-form-label">Name (As per Aadhar
                                                         Card)</label>
@@ -172,15 +117,17 @@
                                                     <label class="col-lg-6 col-form-label">Email ID (Personal)</label>
                                                     <div class="col-lg-6">
                                                         <input id="val-email" name="emailID" class="form-control"
-                                                            type="email" value="<%= Employees[i].emailID2 %>" placeholder="admin@gmail.com" ruqt>
+                                                            type="email" value="<%= Employees[i].emailID2 %>"
+                                                            placeholder="admin@gmail.com" ruqt>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-lg-6 col-form-label">Email ID (PICT)</label>
                                                     <div class="col-lg-6">
                                                         <input id="example-email2" name="emailID2" class="form-control"
-                                                            type="email" value="<%= Employees[i].emailID %>" placeholder="admin@pict.edu"
-                                                            pattern=".+@pict\.edu" title="enter valid email ID" ruqt>
+                                                            type="email" value="<%= Employees[i].emailID %>"
+                                                            placeholder="admin@pict.edu" pattern=".+@pict\.edu"
+                                                            title="enter valid email ID" ruqt>
                                                     </div>
                                                 </div>
 
@@ -194,30 +141,92 @@
 
                                                 <div class="form-group row">
 
-                                                    <label class="col-lg-6 col-form-label">Designation Category
-                                                        </label>
-                                                            <div class="col-lg-6">
-                                                                <input type="text" name="designationcategory" value="<%= Employees[i].designationCategory %>" class="form-control" ruqt>
-                                                            </div>
-                                                        
+                                                    <label class="col-lg-6 col-form-label">Designation Category 
+                                                        : <span
+                                                        class="text-danger">*</span></label>
+                                                    <div class="col-lg-6">
+                                                        <select name="designationCategory" id="id_category"
+                                                            onchange="ShowHideDiv()"
+                                                            data-designation-id='id_designation'
+                                                            class='dependent-selects__category' ruqt>
+                                                            <option value="">---------</option>
+                                                            <option value="teaching"
+                                                                data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer">
+                                                                Teaching</option>
+                                                            <option value="nonteaching"
+                                                                data-designation-options="Registrar|#Librarian|#OffSup|#Technical Assistant|#Lab. Assistant|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Asstt. Programmer|#Director of Physical Education & Sports|#Electrician|#Accounts Assistant|#Network Administrator|#Workshop Instructor">
+                                                                Non- Teaching</option>
+                                                        </select><br><br>
+                                                    </div>
                                                 </div>
 
 
                                                 <div class="form-group row" id="dvPassport" style="display: none">
 
-                                                    <label class="col-lg-6 col-form-label"> Type 1: </label>
+                                                    <label class="col-lg-6 col-form-label"> Type 1: <span
+                                                            class="text-danger">*</span>
+                                                    </label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="designation" value="<%= Employees[i].designation %>" class="form-control" ruqt>
+                                                        <select name="nonteach">
+                                                            <option value="" hidden selected>-----</option>
+
+                                                            <option value="Technical">Technical</option>
+                                                            <option value="Non technical">Non Technical</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
 
-                                                    <label class="col-lg-6 col-form-label"> Designation: </label>
+                                                    <label class="col-lg-6 col-form-label"> Designation: <span
+                                                        class="text-danger">*</span> </label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="designation" value="<%= Employees[i].designation %>" class="form-control" ruqt>
+                                                        <select name="designation" id="id_designation"
+                                                            class='dependent-selects__designation' ruqt>
+                                                            <option value="">-----</option>
+                                                            <option value="Principal">Principal</option>
+                                                            <option value="professor">Professor</option>
+                                                            <option value="Associate Professor">Associate Professor
+                                                            </option>
+                                                            <option value="Assistant Professor">Assistant Professor
+                                                            </option>
+                                                            <option value="Workshop Superintendent">Workshop
+                                                                Superintendent</option>
+                                                            <option value="Lecturer (Sr. Scale)"> Lecturer (Sr. Scale)
+                                                            </option>
+                                                            <option value="Lecturer">Lecturer</option>
+                                                            <!-- teaching over -->
+                                                            <option value="Registrar">Registrar</option>
+                                                            <option value="Librarian">Librarian</option>
+                                                            <option value="OffSup">Office Superintendent</option>
+                                                            <option value="Technical Assistant">Technical Assistant
+                                                            </option>
+                                                            <option value="Lab. Assistant">Lab. Assistant</option>
+                                                            <option value="Jr. Library Assistant">Jr. Library Assistant
+                                                            </option>
+                                                            <option value="Library Attendant">Library Attendant</option>
+                                                            <option value="Senior Clerk">Senior Clerk</option>
+                                                            <option value="Junior Clerk">Junior Clerk</option>
+                                                            <option value="PurOff">Purchase Officer</option>
+
+                                                            <option value="BS">Black Smithy</option>
+                                                            <option value="Asstt. Programmer">Asstt. Programmer</option>
+                                                            <option value="Director of Physical Education & Sports">
+                                                                Director of Physical Education & Sports</option>
+                                                            <option value="Electrician">Electrician</option>
+                                                            <option value="Accounts Assistant">Accounts Assistant
+                                                            </option>
+                                                            <option value="Network Administrator">Network Administrator
+                                                            </option>
+                                                            <option value="Workshop Instructor">Workshop Instructor
+                                                            </option>
+                                                        </select>
+
+                                                        <br>
+                                                        <br>
                                                     </div>
                                                 </div>
                                                 <br>
+
 
 
 
@@ -225,8 +234,8 @@
                                                     <label class="col-lg-6 col-form-label">UAN</label>
                                                     <div class="col-lg-6">
                                                         <input type="number" name="uan" class="form-control" ruqt
-                                                        value="<%= Employees[i].uan %>" placeholder="UAN" pattern=".{12,12}"
-                                                            title="12 characters needed">
+                                                            value="<%= Employees[i].uan %>" placeholder="UAN"
+                                                            pattern=".{12,12}" title="12 characters needed">
                                                     </div>
                                                 </div><br>
 
@@ -245,15 +254,29 @@
 
                                                 <div class="form-group row">
 
-                                                    <label class="col-lg-6 col-form-label"> Departments</label>
+                                                    <label class="col-lg-6 col-form-label"> Departments <span
+                                                        class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="dept" value="<%= Employees[i].dept %>" class="form-control" ruqt>
+                                                        <select name="dept" id="id_category1" onchange="ShowHideDivi()"
+                                                            data-designation-id='id_designation'
+                                                            class='dependent-selects__category' ruqt>
+
+                                                            <option value="Computer">Computer</option>
+                                                            <option value="IT">IT</option>
+                                                            <option value="E&TC">E&TC</option>
+                                                            <option value="FE">FE</option>
+                                                            <option value="Administration">Administration</option>
+                                                            <option value="Accounts">Accounts</option>
+                                                            <option value="Library">Library</option>
+                                                            <option value="Sports">Sports</option>
+                                                        </select><br><br>
                                                     </div>
 
 
                                                     <div id="dvPassport1" style="display: none">
-                                                        Type 1
-                                                        <select name="Subject" value="<%= Employees[i].Subject %>">
+                                                        Type 1 <span
+                                                        class="text-danger">*</span>
+                                                        <select name="Subject">
                                                             <option value="" hidden selected>-----</option>
                                                             <option value="Mechanical">Mechanical</option>
                                                             <option value="Civil">Civil</option>
@@ -272,86 +295,122 @@
                                                 </div>
 
 
-
                                                 <!-- salary cat -->
-                                                    <div class="form-group row">
-                                                        <label class="col-lg-6 col-form-label">Salary Category</label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" name="salaryCategory" value="<%= Employees[i].salaryCategory %>" class="form-control" ruqt>
-                                                        </div>
-
-                                                    </div>
-
                                                 <div class="form-group row">
-
-                                                    <label class="col-lg-6 col-form-label"
-                                                        for="category">Category</label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" name="category" value="<%= Employees[i].category %>" class="form-control" ruqt>
-                                                        </div>
-                                                </div>
-                                                <div class="form-group row">
-
-                                                    <label class="col-lg-6 col-form-label" for="gender">Gender</label>
+                                                    <label class="col-lg-6 col-form-label">Salary Category <span
+                                                        class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="gender" value="<%= Employees[i].gender %>" class="form-control" ruqt>
+                                                        <select class="form-control" name="salaryCategory" ruqt>
+                                                            <!-- <option value="value" selected>Option Name</option> -->
+                                                            <option value="consolidated" id="consolidated" selected>
+                                                                Consolidated</option>
+                                                            <option value="payscale" id="payscale" selected>Pay
+                                                                Scale</option>
+    
+                                                        </select>
+                                                    </div>
+    
+                                                </div>
+    
+
+                                                <div class="form-group row">
+
+                                                    <label class="col-lg-6 col-form-label" for="category">Category <span
+                                                        class="text-danger">*</span></label>
+                                                    <div class="col-lg-6">
+                                                        <select name="category" id="category" ruqt>
+                                                            <option value="open">OPEN</option>
+                                                            <option value="sc">SC</option>
+                                                            <option value="st">ST</option>
+                                                            <option value="dta">DT-a</option>
+                                                            <option value="ntb">NT-b</option>
+                                                            <option value="ntc">NT-c</option>
+                                                            <option value="ntd">NT-d</option>
+                                                            <option value="obc">OBC</option>
+                                                            <option value="sbc">SBC</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
 
+                                                    <label class="col-lg-6 col-form-label" for="gender">Gender <span
+                                                        class="text-danger">*</span></label>
+                                                    <div class="col-lg-6">
+                                                        <select name="gender" id="gender" ruqt>
+                                                            <option value="male">Male</option>
+                                                            <option value="female">Female</option>
+                                                            <option value="other">Other</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+    
                                                     <label class="col-lg-6 col-form-label" for="status">Maritial
-                                                        Status</label>
-                                                    
+                                                        Status <span
+                                                        class="text-danger">*</span></label>
+                                                    <div class="col-lg-6">
+                                                        <select name="status" id="status" ruqt>
+                                                            <option value="married">Married</option>
+                                                            <option value="single">Single</option>
+                                                            <option value="other">Other</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-lg-6 col-form-label">Aadhar Number</label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="Aadhar" value="<%= Employees[i].aadhar %>" class="form-control"
+                                                        <input type="text" name="Aadhar"
+                                                            value="<%= Employees[i].aadhar %>" class="form-control"
                                                             pattern=".{12,12}" title="12 numbers needed" ruqt>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-lg-6 col-form-label">PAN No.</label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" value="<%= Employees[i].Pan_No %>" name="Pan_No" class="form-control"
-                                                            pattern=".{10,10}" title="10 alphanumeric characters needed"
-                                                            ruqt>
+                                                        <input type="text" value="<%= Employees[i].Pan_No %>"
+                                                            name="Pan_No" class="form-control" pattern=".{10,10}"
+                                                            title="10 alphanumeric characters needed" ruqt>
                                                     </div>
                                                 </div>
 
                                                 <script type="text/javascript">
-                                                    function ShowHideDivi() {
+                                                    function ShowHideDivii() {
                                                         var ddlPassport1 = document.getElementById("id_category2");
                                                         var dvPassport1 = document.getElementById("dvPassport2");
-                                                        dvPassport1.style.display = ddlPassport1.value == "yes" ? "block" : "none";
+                                                        dvPassport1.style.display = ddlPassport1.value == "no" ? "block" : "none";
                                                     }
                                                 </script>
                                                 <div class="form-group row">
-
-                                                    <label class="col-lg-6 col-form-label">Employee on Roll
+    
+                                                    <label class="col-lg-6 col-form-label">Employee on Roll <span
+                                                            class="text-danger">*</span>
+    
                                                     </label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="onrole" value="<%= Employees[i].onrole %>" class="form-control" ruqt>
+                                                        <select name="onrole" id="id_category2" onchange="ShowHideDivii()"
+                                                            data-designation-id='id_designation'
+                                                            class='dependent-selects__category' ruqt>
+                                                            <option value="yes">Yes</option>
+                                                            <option value="no">No</option>
+    
+    
+    
+                                                        </select><br><br>
                                                     </div>
-
-                                                    <br><br>
-
-                                                    
-
-                                                    
-
-
+    
+    
+    
                                                     <div id="dvPassport2" style="display: none">
                                                         Relieving Date:
-                                                        <input type="date" class="form-control" id="doc" name="doc" value="<%= Employees[i].Relieving %>"
-                                                            ruqt>
+                                                        <input type="date" class="form-control" id="Relieving" name="Relieving" ruqt>
+    
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-lg-6 col-form-label">Date of Promotion</label>
                                                     <div class="col-lg-6">
-                                                        <input type="date" class="form-control" value="<%= Employees[i].dop %>" id="dop" name="dop"
-                                                            ruqt>
+                                                        <input type="date" class="form-control"
+                                                            value="<%= Employees[i].dop %>" id="dop" name="dop" ruqt>
 
                                                     </div>
                                                 </div>
@@ -359,18 +418,25 @@
                                                     <label class="col-lg-6 col-form-label">Date Confirmation of
                                                         Service</label>
                                                     <div class="col-lg-6">
-                                                        <input type="date" class="form-control" value="<%= Employees[i].doc %>" id="doc" name="doc"
-                                                            ruqt>
+                                                        <input type="date" class="form-control"
+                                                            value="<%= Employees[i].doc %>" id="doc" name="doc" ruqt>
 
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
                                                     <label class="col-lg-6 col-form-label" for="appointment">Nature of
-                                                        Appointment</label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" name="appointment" value="<%= Employees[i].appointment %>" class="form-control" ruqt>
-                                                        </div>
+                                                        Appointment <span
+                                                        class="text-danger">*</span></label>
+                                                    <div class="col-lg-6">
+    
+                                                        <select name="appointment" id="appointment" ruqt>
+                                                            <option value="Permanent">Permanent</option>
+                                                            <option value="Probation">Probation</option>
+                                                            <option value="Adhoc">Adhoc</option>
+    
+                                                        </select>
+                                                    </div>
                                                 </div>
 
                                         </div>
@@ -385,8 +451,9 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Mobile No.</label>
                                                 <div class="col-lg-6">
-                                                    <input type="number" value="<%= Employees[i].mobile %>" name="mobile" class="form-control"
-                                                        pattern=".{10,10}" title="10 characters needed" ruqt>
+                                                    <input type="number" value="<%= Employees[i].mobile %>"
+                                                        name="mobile" class="form-control" pattern=".{10,10}"
+                                                        title="10 characters needed" ruqt>
                                                 </div>
                                             </div>
 
@@ -395,18 +462,19 @@
                                                 <label class="col-lg-6 col-form-label">Address for Correspondence
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" value="<%= Employees[i].address_correspondence %>" name="address_correspondence"
-                                                        class="form-control" ruqt>
+                                                    <input type="text"
+                                                        value="<%= Employees[i].address_correspondence %>"
+                                                        name="address_correspondence" class="form-control" ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Permanent Address</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" value="<%= Employees[i].address_permanent %>" name="address_permanent"  class="form-control"
-                                                        ruqt>
+                                                    <input type="text" value="<%= Employees[i].address_permanent %>"
+                                                        name="address_permanent" class="form-control" ruqt>
                                                 </div>
                                             </div>
-                                           
+
                                             <!-- <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Biometric Attendance ID</label>
                                                 <div class="col-lg-6">
@@ -415,25 +483,29 @@
                                             </div> -->
                                             <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label" for="vacation">Vacation</label>
+                                                <label class="col-lg-6 col-form-label" for="vacation">Vacation <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
 
-                                                    <div class="col-lg-6">
-                                                        <input type="text" name="vacation" value="<%= Employees[i].vacation %>" class="form-control" ruqt>
-                                                    </div>
+                                                    <select name="vacation" id="vacation" ruqt>
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+
+                                                    </select>
                                                 </div>
                                             </div>
 
 
                                             <!-- UG PG sorted -->
-                                            
+
 
                                             <!-- experiance and oth qual -->
 
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Other Qualification</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="othqual" value="<%= Employees[i].othqual %>"  class="form-control"
+                                                    <input type="text" name="othqual"
+                                                        value="<%= Employees[i].othqual %>" class="form-control"
                                                         placeholder="Other Qualification" ruqt>
                                                 </div>
                                             </div>
@@ -441,7 +513,8 @@
                                                 <label class="col-lg-6 col-form-label">Teaching Experiance (Other than
                                                     PICT)</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="exp" value="<%= Employees[i].exp %>" class="form-control" ruqt>
+                                                    <input type="text" name="exp" value="<%= Employees[i].exp %>"
+                                                        class="form-control" ruqt>
                                                 </div>
                                             </div>
 
@@ -469,26 +542,34 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Industry Experience</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="industry_exp" value="<%= Employees[i].industry_exp %>" class="form-control" ruqt>
+                                                    <input type="text" name="industry_exp"
+                                                        value="<%= Employees[i].industry_exp %>" class="form-control"
+                                                        ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">University Approval No.</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="uni_approval" value="<%= Employees[i].uni_approval %>" class="form-control" ruqt>
+                                                    <input type="text" name="uni_approval"
+                                                        value="<%= Employees[i].uni_approval %>" class="form-control"
+                                                        ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">University Approval Date</label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" name="uni_app_date" value="<%= Employees[i].uni_app_date %>" class="form-control" ruqt>
+                                                    <input type="date" name="uni_app_date"
+                                                        value="<%= Employees[i].uni_app_date %>" class="form-control"
+                                                        ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">University Approval
                                                     Period</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="uni_app_period" value="<%= Employees[i].uni_app_period %>" class="form-control" ruqt>
+                                                    <input type="text" name="uni_app_period"
+                                                        value="<%= Employees[i].uni_app_period %>" class="form-control"
+                                                        ruqt>
                                                 </div>
                                             </div>
 
@@ -497,7 +578,8 @@
                                                 <label class="col-lg-6 col-form-label">Work Experience (for NT Staff -
                                                     Other than PICT)</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="workexNT" value="<%= Employees[i].workexNT %>" class="form-control" ruqt>
+                                                    <input type="text" name="workexNT"
+                                                        value="<%= Employees[i].workexNT %>" class="form-control" ruqt>
                                                 </div>
                                             </div>
 
@@ -505,38 +587,52 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Overall Seniority No.</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="seniority" value="<%= Employees[i].seniority %>" class="form-control" ruqt>
+                                                    <input type="text" name="seniority"
+                                                        value="<%= Employees[i].seniority %>" class="form-control" ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Dept Seniority No.</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="dept_seniority" value="<%= Employees[i].dept_seniority %>" class="form-control" ruqt>
+                                                    <input type="text" name="dept_seniority"
+                                                        value="<%= Employees[i].dept_seniority %>" class="form-control"
+                                                        ruqt>
                                                 </div>
                                             </div>
 
 
-                                            
+
                                             <div class="form-group row">
 
                                                 <label class="col-lg-6 col-form-label" for="emp_temp_regime">Employee
-                                                    Tax Regime</label>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" name="emp_temp_regime" value="<%= Employees[i].emp_temp_regime %>" class="form-control" ruqt>
-                                                    </div>
+                                                    Tax Regime <span
+                                                    class="text-danger">*</span></label>
+                                                <div class="col-lg-6">
+
+                                                    <select name="emp_temp_regime" id="emp_temp_regime" ruqt>
+                                                        <option value="old_tax_reg">Old tax regime</option>
+                                                        <option value="new_tax_reg">New tax regime</option>
+
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Investment </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="investment" value="<%= Employees[i].investment %>" class="form-control" ruqt>
+                                                    <input type="text" name="investment"
+                                                        value="<%= Employees[i].investment %>" class="form-control"
+                                                        ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Drive link for photo </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="photo" value="<%= Employees[i].image %>" class="form-control" ruqt>
+                                                    <input type="text" name="photo" value="<%= Employees[i].image %>"
+                                                        class="form-control" ruqt>
                                                 </div>
                                             </div>
+
+                                            
                                         </div>
                                         <!-- if no selected add Relieving Date -->
                                         <!-- /# column -->
@@ -559,6 +655,64 @@
                             </div>
 
                         </div>
+
+                        <div class="card">
+                            <form class="form-valide" action="\dates" method="post">
+                                <div class="card-body">
+    
+                                    <div class="row">
+                                        <!-- <div class="form-group row"> -->
+                                        <% var i=0 %>
+                                            <div class="col-lg-6">
+    
+                                                <div class="form-group row">
+                                                    <label hidden class="col-lg-6 col-form-label"> EMP ID
+                                                        (empXXX) <span class="text-danger">*</span></label>
+                                                    <div class="col-lg-6">
+                                                        <input hidden type="text" value="<%= Employees[i].empID %>"
+                                                            name="empID" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">DOB</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="date" name="dob" class="form-control">
+    
+    
+                                                    </div>
+                                                </div>
+    
+    
+    
+                                            </div>
+    
+                                            <div class="col-lg-6">
+                                                <br>
+    
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">DOJ</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="date" name="doj" class="form-control">
+    
+    
+                                                    </div>
+                                                </div>
+    
+    
+                                            </div>
+    
+    
+    
+                                    </div>
+                                </div>
+    
+                            
+                        </div>
+                        <input class="btn btn-success" type="submit" value="Update" style="float:right;">
+                    </form>
+                    <br><br>
+
                         <!-- </div> -->
 
                         <!-- ---------------salary-------------------- -->
@@ -578,8 +732,8 @@
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">Basic Pay</label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="pay" value="<%= Employees[i].pay %>" class="form-control"
-                                                    placeholder="Basic Pay">
+                                                <input type="text" name="pay" value="<%= Employees[i].pay %>"
+                                                    class="form-control" placeholder="Basic Pay">
 
 
                                             </div>
@@ -587,7 +741,8 @@
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label"> TA</label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="ta" value="<%= Employees[i].ta %>" class="form-control">
+                                                <input type="text" name="ta" value="<%= Employees[i].ta %>"
+                                                    class="form-control">
                                             </div>
                                         </div>
 
@@ -598,15 +753,16 @@
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label"> CCA</label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="cca" value="<%= Employees[i].cca %>" class="form-control">
+                                                <input type="text" name="cca" value="<%= Employees[i].cca %>"
+                                                    class="form-control">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">Grade Pay</label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="gp" value="<%= Employees[i].gp %>" class="form-control"
-                                                    placeholder="Grade Pay">
+                                                <input type="text" name="gp" value="<%= Employees[i].gp %>"
+                                                    class="form-control" placeholder="Grade Pay">
                                             </div>
                                         </div>
 
@@ -616,15 +772,16 @@
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">Provident Fund</label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="pf" value="<%= Employees[i].pf %>" class="form-control"
-                                                    placeholder="Provident Fund" ruqt>
+                                                <input type="text" name="pf" value="<%= Employees[i].pf %>"
+                                                    class="form-control" placeholder="Provident Fund" ruqt>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">Group Insurance</label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="groupInsurance" value="<%= Employees[i].groupInsurance %>" class="form-control"
+                                                <input type="text" name="groupInsurance"
+                                                    value="<%= Employees[i].groupInsurance %>" class="form-control"
                                                     placeholder="Group Insurance" ruqt>
                                             </div>
                                         </div>
@@ -639,16 +796,24 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="payBand" value="<%= Employees[i].payBand %>" class="form-control" ruqt>
+                                                <input type="text" name="payBand" value="<%= Employees[i].payBand %>"
+                                                    class="form-control" ruqt>
                                             </div>
-                                            
+
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Pay Commission<span class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">Pay Commission <span
+                                                    class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="paycommission" value="<%= Employees[i].paycommission %>" class="form-control" ruqt>
+                                                <select class="form-control" name="paycommission" ruqt>
+                                                    <option>---------</option>
+                                                    <option value=5 id="5th">5th Type</option>
+                                                    <option value=6 id="6th">6th Type</option>
+                                                    <option value=7 id="7th">7th Type</option>
+
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -677,8 +842,8 @@
 
                                             <label class="col-lg-6 col-form-label">Bank Name</label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="bankName" value="<%= Employees[i].bankName %>" class="form-control"
-                                                    placeholder="Bank Name" ruqt>
+                                                <input type="text" name="bankName" value="<%= Employees[i].bankName %>"
+                                                    class="form-control" placeholder="Bank Name" ruqt>
                                             </div>
                                         </div>
 
@@ -686,7 +851,8 @@
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">Branch Name</label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="branchName" value="<%= Employees[i].branchName %>" class="form-control"
+                                                <input type="text" name="branchName"
+                                                    value="<%= Employees[i].branchName %>" class="form-control"
                                                     placeholder="Branch Name" ruqt>
 
                                             </div>
@@ -698,7 +864,8 @@
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">IFSC Code</label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="ifscCode" id="ifsc" value="<%= Employees[i].ifscCode %>" class="form-control"
+                                                <input type="text" name="ifscCode" id="ifsc"
+                                                    value="<%= Employees[i].ifscCode %>" class="form-control"
                                                     placeholder="IFSC Code" pattern=".{11,11}"
                                                     title="11 characters needed" ruqt />
 
@@ -711,7 +878,8 @@
                                             <label class="col-lg-6 col-form-label">Enter Bank Account
                                                 No.</label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="bankAccNum" value="<%= Employees[i].bankAccNum %>" class="form-control"
+                                                <input type="text" name="bankAccNum"
+                                                    value="<%= Employees[i].bankAccNum %>" class="form-control"
                                                     placeholder="Acc No." ruqt>
 
                                             </div>
@@ -763,7 +931,8 @@
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">PhD.</label>
                                         <div class="col-lg-6">
-                                            <input type="text" name="phd" value="<%= Employees[i].phd %>" class="form-control" ruqt>
+                                            <input type="text" name="phd" value="<%= Employees[i].phd %>"
+                                                class="form-control" ruqt>
                                         </div>
                                     </div>
 
@@ -771,8 +940,8 @@
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">PhD Subject</label>
                                         <div class="col-lg-6">
-                                            <input type="text" name="phdSub" value="<%= Employees[i].phdSub %>" class="form-control"
-                                                placeholder="PhD Subject" value="null" ruqt>
+                                            <input type="text" name="phdSub" value="<%= Employees[i].phdSub %>"
+                                                class="form-control" placeholder="PhD Subject"  ruqt>
                                         </div>
                                     </div>
 
@@ -782,22 +951,22 @@
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">PhD Institute</label>
                                         <div class="col-lg-6">
-                                            <input type="text" name="phdInsti" value="<%= Employees[i].phdInsti %>" class="form-control"
-                                                placeholder="PhD Institute" value="null" ruqt>
+                                            <input type="text" name="phdInsti" value="<%= Employees[i].phdInsti %>"
+                                                class="form-control" placeholder="PhD Institute" ruqt>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">PhD University</label>
                                         <div class="col-lg-6">
-                                            <input type="text" name="phdUni" value="<%= Employees[i].phdUni %>" class="form-control"
-                                                placeholder="PhD University" value="null" ruqt>
+                                            <input type="text" name="phdUni" value="<%= Employees[i].phdUni %>"
+                                                class="form-control" placeholder="PhD University" ruqt>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-6 control-label">PhD Passing year</label>
                                         <div class="col-lg-6">
-                                            <input type="text" name="phdYr" value="<%= Employees[i].phdYr %>" class="form-control"
-                                                placeholder="PhD Passing year" value=0 ruqt>
+                                            <input type="text" name="phdYr" value="<%= Employees[i].phdYr %>"
+                                                class="form-control" placeholder="PhD Passing year" value=0 ruqt>
                                         </div>
                                     </div>
                                 </div>
@@ -829,7 +998,8 @@
                                 <div class="form-group">
                                     <label class="col-lg-6 col-form-label">P.G. Subject</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="pgSub" value="<%= Employees[i].pgSub %>" class="form-control" placeholder="P.G. Subject">
+                                        <input type="text" name="pgSub" value="<%= Employees[i].pgSub %>"
+                                            class="form-control" placeholder="P.G. Subject">
                                     </div>
                                 </div>
                             </div>
@@ -839,8 +1009,8 @@
                                 <div class="form-group row">
                                     <label class="col-lg-6 col-form-label">P.G. University</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="pgUni"  value="<%= Employees[i].pgUni %>" class="form-control"
-                                            placeholder="P.G. University">
+                                        <input type="text" name="pgUni" value="<%= Employees[i].pgUni %>"
+                                            class="form-control" placeholder="P.G. University">
                                     </div>
                                 </div>
 
@@ -849,8 +1019,8 @@
 
                                     <label class="col-lg-6 col-form-label">P.G. Passing year</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="pgYr" value="<%= Employees[i].pgYr %>" class="form-control"
-                                            placeholder="P.G. Passing year">
+                                        <input type="text" name="pgYr" value="<%= Employees[i].pgYr %>"
+                                            class="form-control" placeholder="P.G. Passing year">
                                     </div>
                                 </div>
 
@@ -888,8 +1058,8 @@
                                     <label class="col-lg-6 col-form-label">U.G. Subject <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="ugSub" value="<%= Employees[i].ugSub %>" class="form-control" placeholder="U.G. Subject"
-                                            ruqt>
+                                        <input type="text" name="ugSub" value="<%= Employees[i].ugSub %>"
+                                            class="form-control" placeholder="U.G. Subject" ruqt>
                                     </div>
                                 </div>
 
@@ -900,8 +1070,8 @@
                                     <label class="col-lg-6 col-form-label">U.G. University <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="ugUni" value="<%= Employees[i].ugUni %>" class="form-control"
-                                            placeholder="U.G. University" ruqt>
+                                        <input type="text" name="ugUni" value="<%= Employees[i].ugUni %>"
+                                            class="form-control" placeholder="U.G. University" ruqt>
                                     </div>
                                 </div>
                             </div>
@@ -921,16 +1091,16 @@
                                     <label class="col-lg-6 col-form-label">U.G. Passing year <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="ugYr" value="<%= Employees[i].ugYr %>" class="form-control"
-                                            placeholder="U.G. Passing year" ruqt>
+                                        <input type="text" name="ugYr" value="<%= Employees[i].ugYr %>"
+                                            class="form-control" placeholder="U.G. Passing year" ruqt>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-6 col-form-label">U.G. Grade/Class <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="grade" value="<%= Employees[i].grade %>" class="form-control"
-                                            placeholder="U.G. Grade/Class" ruqt>
+                                        <input type="text" name="grade" value="<%= Employees[i].grade %>"
+                                            class="form-control" placeholder="U.G. Grade/Class" ruqt>
                                     </div>
                                 </div>
                             </div>
