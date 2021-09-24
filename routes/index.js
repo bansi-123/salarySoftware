@@ -319,6 +319,7 @@ router.post('/declarations', (req, res) => {
 
         }
     })
+    res.redirect('/addincometax');
        
 
 });
@@ -2552,7 +2553,7 @@ router.post('/generateSalary',(req,res)=>{
                                                         //to get lwp data for calculating part of deduction value
                                                         // console.log(`select days,lwp from lwp where empID='${empID}' and month=${month} and year=${year}`);
 
-                                                        mysqldb.query(`select lwp.days as days,lwp.lwp as lwp,IFNULL(late.latedays,0) as latedays from lwp lwp left outer join late_attendance late on (lwp.empID=late.empID and lwp.month=late.month and lwp.year=late.year) where lwp.empID="${empID}" and lwp.year=${year} and lwp.month="${month}";`,(err,result)=>{
+                                                        mysqldb.query(`select lwp.days as days,IFNULL(lwp.lwp,0) as lwp,IFNULL(late.latedays,0) as latedays from lwp lwp left outer join late_attendance late on (lwp.empID=late.empID) where lwp.empID="${empID}" and lwp.year=${year} and lwp.month="${month}" union all select lwp.days as days,IFNULL(lwp.lwp,0) as lwp,IFNULL(late.latedays,0) as latedays from late_attendance late left outer join lwp lwp on (late.empID=lwp.empID) where late.empID="${empID}" and late.year=${year} and late.month="${month}"`,(err,result)=>{
                                                             if (err) {
                                                                 
                                                                 console.log(err)
@@ -3475,6 +3476,7 @@ router.post('/storeIncomeTax', (req, res) => {
             }
         }
     })
+    res.redirect('incometax');
 
 })
 
