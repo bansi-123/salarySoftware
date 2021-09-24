@@ -82,7 +82,7 @@
               </div>
             </div>
 
-            <div class="col-lg-12">
+            <!-- <div class="col-lg-12">
               <div class="card">
                 <div class="card-title">
                   <h4>Search</h4>
@@ -123,7 +123,7 @@
                       }
                     }
                   }
-                </script>
+                </script> -->
                 <div class="col-lg-12">
                   <div class="card">
                     <div class="card-title">
@@ -184,21 +184,21 @@
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">Gross Total</label>
                                         <div class="col-lg-6">
-                                            <input type="number" name="gross_total" class="form-control"  ruqt>
+                                            <input type="number" name="<%= Employees[i].empID %>" class="form-control" value=<%= Employees[i].gross_sal %> ruqt>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">80C</label>
                                         <div class="col-lg-6">
-                                            <input type="number" name="c" class="form-control" value="<%= Employees[i].c %>" ruqt>
+                                            <input type="number" name="c" id="c" oninput="add_number()" class="form-control" value="<%= Employees[i].c %>" ruqt>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">80G</label>
                                         <div class="col-lg-6">
-                                            <input type="number" name="g" class="form-control" value="<%= Employees[i].g %>" ruqt>
+                                            <input type="number" name="g" id="g" oninput="add_number()" class="form-control" value="<%= Employees[i].g %>" ruqt>
                                         </div>
                                     </div>
                                     
@@ -211,36 +211,124 @@
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">80D</label>
                                             <div class="col-lg-6">
-                                                <input type="number" name="d" class="form-control" value="<%= Employees[i].d %>" ruqt>
+                                                <input type="number" name="d" oninput="add_number()"  id="d" class="form-control" value="<%= Employees[i].d %>" ruqt>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">80E</label>
                                             <div class="col-lg-6">
-                                                <input type="number" name="e" class="form-control" value="<%= Employees[i].e %>" ruqt>
+                                                <input type="number" name="e"  id="e" class="form-control" oninput="add_number()"  value="<%= Employees[i].e %>" ruqt>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">80CCC</label>
                                             <div class="col-lg-6">
-                                                <input type="number" name="ccc" class="form-control"  value="<%= Employees[i].ccc %>" ruqt>
+                                                <input type="number" name="ccc"  id="ccc" class="form-control" oninput="add_number()"  value="<%= Employees[i].ccc %>" ruqt>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">80CCD</label>
                                             <div class="col-lg-6">
-                                                <input type="number" name="ccd" class="form-control" value="<%= Employees[i].ccd %>" ruqt>
+                                                <input type="number" name="ccd"  id="ccd" class="form-control" oninput="add_number()" value="<%= Employees[i].ccd %>" ruqt>
                                             </div>
                                         </div>
 
-                                        <input type="number" name="age" value="<%= Employees[i].age %>" class="form-control" hidden >
+                                        <!-- <input type="number" name="age" value="<%= Employees[i].age %>" class="form-control" hidden > -->
 
                                         <div class="form-group row">
                                             <label class="col-lg-6 col-form-label">80DD</label>
                                             <div class="col-lg-6">
-                                                <input type="number" name="dd" class="form-control" value="<%= Employees[i].dd %>" ruqt>
+                                                <input type="number" name="dd"  id="dd" class="form-control" oninput="add_number()"  value="<%= Employees[i].dd %>" ruqt>
                                             </div>
                                         </div>
+
+                                        <div class="form-group row">
+                                          <label class="col-lg-6 col-form-label">Total Investment</label>
+                                          <div class="col-lg-6">
+                                              <input type="number" id ="txtresult" name="<%= Employees[i].empID %>" class="form-control" ruqt>
+                                          </div>
+                                      </div>
+
+                                      <input id="cl" hidden value="<%= limits[0].climit %>"></input>
+                                      <input id="gl" hidden value="<%= limits[0].glimit %>"></input>
+                                      <input id="dl1" hidden value="<%= limits[0].dlimit1 %>"></input>
+                                      <input id="dl2" hidden value="<%= limits[0].dlimit2 %>"></input>
+                                      <input id="el" hidden value="<%= limits[0].elimit %>"></input>
+                                      <input id="ccdl" hidden value="<%= limits[0].ccdlimit %>"></input>
+                                      <input id="cccl" hidden value="<%= limits[0].ccclimit %>"></input>
+                                      <input id="ddl" hidden value="<%= limits[0].ddlimit%>"></input>
+                                      <input id="age" hidden value=<%= Employees[0].age%>></input>
+                                      
+
+                                      <script>
+                                        var climit = document.getElementById("c");
+                                        var glimit = document.getElementById("g");
+                                        var dlimit = document.getElementById("d");
+                                        var elimit = document.getElementById("e");
+                                        var ccclimit = document.getElementById("ccc");
+                                        var ccdlimit = document.getElementById("ccd");
+                                        var ddlimit = document.getElementById("dd");
+
+                                        var cl = document.getElementById("cl");
+                                        var dl1 = document.getElementById("dl1");
+                                        var dl2 = document.getElementById("dl2");
+                                        
+                                        var ddl = document.getElementById("ddl");
+                                        var el = document.getElementById("el");
+                                        var gl = document.getElementById("gl");
+                                        var ccdl = document.getElementById("ccdl");
+                                        var cccl = document.getElementById("cccl");
+                                        var age = document.getElementById("age");
+                                        
+                                         
+                                        cl = parseInt(cl.value);
+                                           gl = parseInt(gl.value);
+                                           ddl = parseInt(ddl.value);
+                                           el = parseInt(el.value);
+                                           dl1 = parseInt(dl1.value);
+                                           dl2 = parseInt(dl2.value);
+                                           
+                                           cccl = parseInt(cccl.value);
+                                           ccdl = parseInt(ccdl.value);
+                                          
+                                           
+                                        
+                                      // console.log(text1,"text1",text2)
+                                        function add_number() {
+                                          // console.log(cl)
+                                           
+                                          var c  = parseInt(climit.value);
+                                         var g =parseInt(glimit.value);
+                                         var d =parseInt(dlimit.value);
+                                        var e =parseInt(elimit.value);
+                                        var ccc =parseInt(ccclimit.value);
+                                         var ccd =parseInt(ccdlimit.value);
+                                         var dd = parseInt(ddlimit.value);
+                                        //  var check=limits[0].c;
+                                            // console.log(cl.value)
+                                        if (isNaN(c)) c = 0;
+                                         if (isNaN(g)) g = 0;
+                                         if (isNaN(d)) d = 0;
+                                         if (isNaN(e)) e = 0;
+                                         if (isNaN(ccc)) ccc = 0;
+                                         if (isNaN(ccd)) ccd= 0;
+                                         if (isNaN(dd)) dd = 0;
+
+                                          
+                                          var result = Math.min(gl, g) + Math.min(cl, c) + e + Math.min(cccl, ccc) + Math.min(ccdl, ccd) + Math.min(ddl, dd);
+                                                          // console.log(result);
+                                          var limit_d = dl1
+                                          age=61
+                                          
+                                            if (age > 60) {
+                                              console.log(dl2)
+                                                limit_d = dl2;
+                                            }
+                                            result+=Math.min(d, limit_d)  
+                                          
+                                          document.getElementById("txtresult").value = result;
+                                        }
+                                      </script>
                                        
 
                                     </div>

@@ -1,0 +1,211 @@
+<%- include('partials/header.ejs'); -%>
+
+    <head>
+
+        <meta charset="UTF-8">
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
+        <link rel="stylesheet" href="../assets/alert/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <style>
+            .required:after {
+                content: " *";
+                color: red;
+            }
+        </style>
+
+        
+    </head>
+
+    <body>
+
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <p class="lead mb-2">Welcome 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Declaration by PICT</h4>
+
+                            </div>
+
+                            <!-- <div class="card-body"> -->
+                            <div class="horizontal-form-elements" class="form-validation">
+
+                                <form class="form-valide" action="\check" method="post">
+
+
+                                    <div class="row">
+                                        <% var i=2 %>
+                                        <div class="col-lg-6">
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label"> Employee ID
+                                                    (empXXX) <span class="text-danger">*</span></label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="empID" class="form-control"  
+                                                    value="<%= Employees[i].empID %>" pattern="+emp." title="enter valid emp ID"
+                                                        ruqt>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Name (As per Aadhar Card) <span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="empName" class="form-control" value="<%= Employees[i].empName %>"
+                                                        ruqt>
+                                                </div>
+                                            </div>
+
+                                        
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">PAN No. <span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="Pan_No" class="form-control"
+                                                        pattern=".{10,10}" title="10 alphanumeric characters needed" value="<%= Employees[i].Pan_No %>"
+                                                        ruqt>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Tax Regime <span
+                                                        class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="emp_temp_regime" class="form-control"
+                                                    value="<%= Employees[i].emp_temp_regime %>" ruqt>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Gross Total</label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="<%= Employees[i].empID %>" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">80C</label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="c" value="<%= Employees[i].c %>" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">80G</label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="g" class="form-control" ruqt>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            
+
+                                        </div>
+                                            <div class="col-lg-6">
+
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">80D</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="d" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">80E</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="e" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">80CCC</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="ccc" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">80CCD</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="ccd" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+
+                                                <input type="number" name="age" value="<%= Employees[i].age %>" class="form-control" hidden >
+
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">80DD</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="dd" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">Total Investment</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="total_investment" class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--card ka end -->
+
+                                            <br />
+
+                                        
+                                    </div>
+
+                            </div>
+
+                        </div>
+
+                        <button class="btn btn-primary" type="submit" style="float:right;">Apply</button>
+                        <br><br><br>
+                        
+                       
+                    </div>
+
+                </div>
+
+                </select>
+            </div>
+
+
+
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </form>
+        </section>
+        </div>
+        </div>
+        </div>
+        <script src="../assets/focus2/vendor/global/global.min.js"></script>
+        <script src="../assets/focus2/js/quixnav-init.js"></script>
+        <script src="../assets/focus2/js/custom.min.js"></script>
+
+
+
+
+        <!-- Jquery Validation -->
+        <script src="../assets/focus2/vendor/jquery-validation/jquery.validate.min.js"></script>
+        <!-- Form validate init -->
+        <script src="../assets/focus2/js/plugins-init/jquery.validate-init.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
+        <script src="../assets/alert/script.js"></script>
+
+    </body>
