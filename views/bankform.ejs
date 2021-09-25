@@ -1,7 +1,9 @@
 <%- include('partials/header.ejs'); -%>
 
     <head>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js">
+        
+        </script>
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
         <style>
             .arrow {
@@ -20,7 +22,7 @@
 
     </head>
 
-    <body>
+    <body onload="add_number()">
         <div class="content-wrap">
             <div class="main">
                 <div class="container-fluid">
@@ -67,9 +69,9 @@
                                                             <th>Name <p><i class="arrow down" style="float: right;"></i>
                                                             </th>
                                                            
-                                                            <th>EmpID</th>
+                                                            <th >EmpID</th>
                                                            
-                                                            <th>Net sal</th>
+                                                            <th >Net sal</th>
                                                             
                                                             <th>Bank Account No.</th>
                                                             
@@ -80,35 +82,101 @@
                                                     </thead>
                                                     <tbody>
 
-                                                        <% for(var i=salary.length-1; i>= 0 ; i-- ) { %>
-                                                            <tr>
-                                                                <td>
-                                                                    <%= i %>
+                                                        <% for(var i = 0 ; i<salary.length-1; i++) { %>
+                                                            <DIV id="page_1">
+                                                                <DIV id="p1dimg1">
+                                                           
+                                                            <tr > 
+
+                                                            <td  >
+                                                               
+                                                                <% if((i+1)%20==0) { %>
+                                                                        
+                                                                    <div style="break-after:page"></div>
+                                                                <% } %>
+                                                                        <%= i+1 %>
+                                                               
                                                                 </td>
                                                                
-                                                                <td>
+                                                                <td valign="bottom">
                                                                     <%= salary[i].empName %>
                                                                 </td>
                                                                 
-                                                                <td>
+                                                                <td valign="bottom">
                                                                     <%= salary[i].empID %>
                                                                 </td>
                                                                 
-                                                                <td>
+                                                                
+                                                            <!-- <td id="test" value= "<%= salary[i].net_sal %>" > -->
+                                                                <td valign="bottom">
                                                                     <%= salary[i].net_sal %>
                                                                 </td>
-                                                                <td>
+                                                                <td valign="bottom">
                                                                     <%= salary[i].bankAccNum %>
+                                                                    
                                                                 </td>
+                                                                
                                                           
                                                             </tr>
+                                                           
+
+                                                                </DIV></DIV>
+
+                                                            
                                                             <% }%>
 
+                                                       
+
+                                                            
+
                                                     </tbody>
+                                                    
 
 
                                                 </table>
+                                                
+                                                <% for(var i= 0; i<10; i++){ %>
+                                                <input id="<%= i %>" hidden value=<%= salary[i].net_sal%>></input>
+                                                <!-- <input id="test2" hidden value=<%= salary[1].net_sal%>></input> -->
+                                                <% }%>
+                                                
+                                                <script>
+                                                    var sum=0;
+                                                    
+                                                    // var temp2= document.getElementById("test2");
+                                                        console.log(/_START_/);
+                                                    
+                                                    function add_number() {
+                                                        for(var i=0; i<10; i++){
+                                                            var temp= document.getElementById(i);
+                                                        var sal = parseInt(temp.value);
+                                                        sum=sum+sal;
+                                                          
 
+                                                        }
+                                                 
+                                          document.getElementById("txtresult").value = sum;
+                                          document.getElementById("break");
+
+
+                                          console.log(temp.value); 
+                                        //   console.log(temp2.value);
+                                                    }
+
+                                                    var lmao= document.getElementsByTagName("select");
+                                                    console.log(lmao);
+                                                   
+
+                                          
+                                                </script>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-6 col-form-label">Total Salary</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" readonly id ="txtresult"  class="form-control" ruqt>
+                                                    </div>
+                                                </div>
+                                              
+                                                 
 
 
                                         </div>
@@ -123,6 +191,7 @@
 
 
                         </form>
+                       
 
                         <!-- <input type="submit" style="float: right;" value="Submit"> -->
 

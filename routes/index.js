@@ -168,7 +168,7 @@ router.get('/salsheet',  (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}',empID="${req.params.empID}" and year=${cur_year}`, (err, result) => {
+    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -2149,9 +2149,9 @@ router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
 
 router.get('/bankform', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var prev_month = mlist[new Date().getMonth()-1]
+    var cur_month = mlist[new Date().getMonth()+1]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month="${prev_month}" and year="${cur_year}"`, (err, result) => {
+    mysqldb.query(`select * from Salary natural join Employees `, (err, result) => {
         if (err) {
             console.log(err);
         }
