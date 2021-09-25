@@ -76,16 +76,16 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.STRING
 	},   
 	cca:{
-		type: Sequelize.STRING
+		type: Sequelize.INTEGER
 	},   
 	ta:{
-		type: Sequelize.STRING
+		type: Sequelize.INTEGER
 	} , 
 	dop :{
-		type: Sequelize.DATE
+		type: Sequelize.STRING
 	} , 
 	doc:{
-		type: Sequelize.DATE
+		type: Sequelize.STRING
 	}   ,
 	appointment :{
 		type: Sequelize.STRING
@@ -100,7 +100,7 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.STRING
 	},
 	  mobile:{
-		type: Sequelize.INTEGER
+		type: Sequelize.STRING
 	},  
     address_correspondence:{
 		type: Sequelize.STRING
@@ -118,10 +118,10 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.STRING
 	} ,
 	 aadhar:{
-		type: Sequelize.INTEGER
+		type: Sequelize.STRING
 	} , 
 	Pan_No:{
-		type: Sequelize.INTEGER
+		type: Sequelize.STRING
 	},   
 	onrole :{
 		type: Sequelize.STRING
@@ -178,7 +178,7 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.STRING
 	},
 	uni_app_date:{
-		type: Sequelize.DATE
+		type: Sequelize.STRING
 	},
 	uni_app_period:{
 		type: Sequelize.INTEGER
@@ -189,15 +189,15 @@ module.exports = (sequelize, Sequelize) => {
 	dob:{
 		type: Sequelize.DATE
 	},
-	investment:{
-		type: Sequelize.INTEGER
-	},
+	// investment:{
+	// 	type: Sequelize.INTEGER
+	// },
 	emp_temp_regime:{
 		type: Sequelize.STRING
 	},
-	age:{
-		type: Sequelize.INTEGER
-	},
+	// age:{
+	// 	type: Sequelize.INTEGER
+	// },
 	photo:{
 		type: Sequelize.STRING
 	},

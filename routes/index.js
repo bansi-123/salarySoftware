@@ -319,6 +319,7 @@ router.post('/declarations', (req, res) => {
 
         }
     })
+    res.redirect('/addincometax');
        
 
 });
@@ -1612,6 +1613,22 @@ router.post('/addEmployee', (req, res) => {
         })
 })
 router.get('/groupinsurance', ensureAuthenticated, (req, res) => {
+    var month = new Array();
+  month[0] = "January";
+  month[1] = "February";
+  month[2] = "March";
+  month[3] = "April";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "August";
+  month[8] = "September";
+  month[9] = "October";
+  month[10] = "November";
+  month[11] = "December";
+
+  var d = new Date();
+  var date = month[d.getMonth()];
     mysqldb.query(`select * from Employees`, (err, result) => {
         if (err) {
             console.log(err);
@@ -1619,7 +1636,9 @@ router.get('/groupinsurance', ensureAuthenticated, (req, res) => {
         else {
             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
             res.render('groupinsurance', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                date: date
+                
             });
         }
     })
@@ -2587,7 +2606,7 @@ router.post('/generateSalary',(req,res)=>{
                                                         //to get lwp data for calculating part of deduction value
                                                         // console.log(`select days,lwp from lwp where empID='${empID}' and month=${month} and year=${year}`);
 
-                                                        mysqldb.query(`select lwp.days as days,lwp.lwp as lwp,IFNULL(late.latedays,0) as latedays from lwp lwp left outer join late_attendance late on (lwp.empID=late.empID and lwp.month=late.month and lwp.year=late.year) where lwp.empID="${empID}" and lwp.year=${year} and lwp.month="${month}";`,(err,result)=>{
+                                                        mysqldb.query(`select lwp.days as days,IFNULL(lwp.lwp,0) as lwp,IFNULL(late.latedays,0) as latedays from lwp lwp left outer join late_attendance late on (lwp.empID=late.empID) where lwp.empID="${empID}" and lwp.year=${year} and lwp.month="${month}" union all select lwp.days as days,IFNULL(lwp.lwp,0) as lwp,IFNULL(late.latedays,0) as latedays from late_attendance late left outer join lwp lwp on (late.empID=lwp.empID) where late.empID="${empID}" and late.year=${year} and late.month="${month}"`,(err,result)=>{
                                                             if (err) {
                                                                 
                                                                 console.log(err)
@@ -3510,6 +3529,7 @@ router.post('/storeIncomeTax', (req, res) => {
             }
         }
     })
+    res.redirect('incometax');
 
 })
 

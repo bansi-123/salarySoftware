@@ -13,7 +13,11 @@
                 color: red;
             }
         </style>
-
+<script>
+    function myFunction() {
+      alert("Data Inserted Successfully!");
+    }
+    </script>
 <script>
     var handle_dependent_selects = function ($category) {
         var $designation = document.getElementById($category.getAttribute('data-designation-id')),
@@ -111,7 +115,7 @@
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="empName" class="form-control"
-                                                        placeholder="Enter Name" ruqt>
+                                                        placeholder="Enter Name" required>
                                                 </div>
                                             </div>
 
@@ -121,7 +125,7 @@
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input id="val-email" name="emailID" class="form-control"
-                                                        type="email" placeholder="admin@gmail.com" ruqt>
+                                                        type="email" placeholder="admin@gmail.com" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -131,7 +135,7 @@
                                                 <div class="col-lg-6">
                                                     <input id="example-email2" name="emailID2" class="form-control"
                                                         type="email" placeholder="admin@pict.edu" pattern=".+@pict\.edu"
-                                                        title="enter valid email ID" ruqt>
+                                                        title="enter valid email ID" required>
                                                 </div>
                                             </div>
 
@@ -173,7 +177,7 @@
                                                 
                                               <label class="col-lg-6 col-form-label">  Designation: </label>
                                               <div class="col-lg-6">
-                                              <select name="designation" id="id_designation" class='dependent-selects__designation'  ruqt>
+                                              <select name="designation" id="id_designation" class='dependent-selects__designation'  required>
                                                 <option value="">-----</option>
                                                 <option value="Principal">Principal</option>
                                                 <option value="professor">Professor</option>
@@ -293,7 +297,7 @@
                                                     Joining <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" class="form-control" id="doj" name="doj" ruqt>
+                                                    <input type="date" class="form-control" id="doj" name="doj" required>
 
                                                 </div>
                                             </div>
@@ -305,7 +309,7 @@
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" name="dob" class="form-control" ruqt>
+                                                    <input type="date" name="dob" class="form-control" required>
                                                 </div>
                                                 <div id="age" style="padding-top:2em;"></div>
                                             </div>
@@ -314,6 +318,8 @@
                                                 <label class="col-lg-6 col-form-label" for="category">Category</label>
                                                 <div class="col-lg-6">
                                                     <select name="category" id="category" ruqt>
+
+
                                                         <option value="open">OPEN</option>
                                                         <option value="sc">SC</option>
                                                         <option value="st">ST</option>
@@ -355,7 +361,7 @@
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="Aadhar" class="form-control"
-                                                        pattern=".{12,12}" title="12 numbers needed" ruqt>
+                                                        pattern=".{12,12}" title="12 numbers needed" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -365,12 +371,12 @@
                                                 <div class="col-lg-6">
                                                     <input type="text" name="Pan_No" class="form-control"
                                                         pattern=".{10,10}" title="10 alphanumeric characters needed"
-                                                        ruqt>
+                                                        required>
                                                 </div>
                                             </div>
 
                                             <script type="text/javascript">
-                                                function ShowHideDivii() {
+                                                function ShowHideDivi() {
                                                     var ddlPassport1 = document.getElementById("id_category2");
                                                     var dvPassport1 = document.getElementById("dvPassport2");
                                                     dvPassport1.style.display = ddlPassport1.value == "no" ? "block" : "none";
@@ -383,9 +389,9 @@
 
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <select name="onrole" id="id_category2" onchange="ShowHideDivii()"
+                                                    <select name="onrole" id="id_category2" onchange="ShowHideDivi()"
                                                         data-designation-id='id_designation'
-                                                        class='dependent-selects__category' ruqt>
+                                                        class='dependent-selects__category' required>
                                                         <option value="yes">Yes</option>
                                                         <option value="no">No</option>
 
@@ -405,7 +411,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Date of Promotion</label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" class="form-control" id="dop" name="dop" ruqt>
+                                                    <input type="date" class="form-control" id="dop" name="dop">
 
                                                 </div>
                                             </div>
@@ -413,7 +419,7 @@
                                                 <label class="col-lg-6 col-form-label">Date Confirmation of
                                                     Service</label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" class="form-control" id="doc" name="doc" ruqt>
+                                                    <input type="date" class="form-control" id="doc" name="doc" >
 
                                                 </div>
                                             </div>
@@ -447,7 +453,7 @@
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="number" name="mobile" class="form-control"
-                                                        pattern=".{10,10}" title="10 characters needed" ruqt>
+                                                        pattern=".{10,10}" title="10 characters needed" required>
                                                 </div>
                                             </div>
 
@@ -464,7 +470,7 @@
                                                 <label class="col-lg-6 col-form-label"> Permanent Address</label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="address_permanent" class="form-control"
-                                                        ruqt>
+                                                    >
                                                 </div>
                                             </div>
 
@@ -663,7 +669,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="pay" class="form-control"
-                                                    placeholder="Basic Pay">
+                                                    placeholder="Basic Pay" required>
 
 
                                             </div>
@@ -675,7 +681,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="gp" class="form-control"
-                                                    placeholder="Grade Pay">
+                                                    placeholder="Grade Pay" required>
                                             </div>
                                         </div>
 
@@ -690,7 +696,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="cca" class="form-control">
+                                                <input type="text" name="cca" class="form-control" required>
                                             </div>
                                         </div>
 
@@ -699,7 +705,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="ta" class="form-control">
+                                                <input type="text" name="ta" class="form-control" required>
                                             </div>
                                         </div>
 
@@ -713,7 +719,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="pf" class="form-control"
-                                                    placeholder="Provident Fund" ruqt>
+                                                    placeholder="Provident Fund" required>
                                             </div>
                                         </div>
 
@@ -723,7 +729,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="groupInsurance" class="form-control"
-                                                    placeholder="Group Insurance" ruqt>
+                                                    placeholder="Group Insurance" required>
                                             </div>
                                         </div>
                                     </div>
@@ -737,7 +743,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <select class="form-control" name="payBand" ruqt>
+                                                <select class="form-control" name="payBand" required>
                                                     
                                                     <option value="4440-7440" id="4440-7440">4440-7440</option>
                                                     <option value="5200-20200" id="5200-20200">5200-20200</option>
@@ -755,7 +761,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <select class="form-control" name="paycommission" ruqt>
+                                                <select class="form-control" name="paycommission" required>
                                                     <option>---------</option>
                                                     <option value=5 id="5th">5th Type</option>
                                                     <option value=6 id="6th">6th Type</option>
@@ -793,7 +799,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="bankName" class="form-control"
-                                                    placeholder="Bank Name" ruqt>
+                                                    placeholder="Bank Name" required>
                                             </div>
                                         </div>
 
@@ -804,7 +810,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="branchName" class="form-control"
-                                                    placeholder="Branch Name" ruqt>
+                                                    placeholder="Branch Name" required>
 
                                             </div>
                                         </div>
@@ -819,7 +825,7 @@
                                             <div class="col-lg-6">
                                                 <input type="text" name="ifscCode" id="ifsc" class="form-control"
                                                     placeholder="IFSC Code" pattern=".{11,11}"
-                                                    title="11 characters needed" ruqt />
+                                                    title="11 characters needed" required />
 
                                             </div>
                                         </div>
@@ -832,7 +838,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="bankAccNum" class="form-control"
-                                                    placeholder="Acc No." ruqt>
+                                                    placeholder="Acc No." required>
 
                                             </div>
                                         </div>
@@ -884,7 +890,7 @@
                                         <label class="col-lg-6 col-form-label">PhD.</label>
                                         <div class="col-lg-6">
                                             <select name="phd">
-                                                <option value="null" hidden selected>-----</option>
+                                                <option hidden selected>-----</option>
 
                                                 <option value="Awarded">Awarded</option>
                                                 <option value="Registered">Registered</option>
@@ -898,7 +904,7 @@
                                         <label class="col-lg-6 col-form-label">PhD Subject</label>
                                         <div class="col-lg-6">
                                             <input type="text" name="phdSub" class="form-control"
-                                                placeholder="PhD Subject" value="null" ruqt>
+                                                placeholder="PhD Subject" ruqt>
                                         </div>
                                     </div>
 
@@ -909,14 +915,14 @@
                                         <label class="col-lg-6 col-form-label">PhD Institute</label>
                                         <div class="col-lg-6">
                                             <input type="text" name="phdInsti" class="form-control"
-                                                placeholder="PhD Institute" value="null" ruqt>
+                                                placeholder="PhD Institute" ruqt>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">PhD University</label>
                                         <div class="col-lg-6">
                                             <input type="text" name="phdUni" class="form-control"
-                                                placeholder="PhD University" value="null" ruqt>
+                                                placeholder="PhD University"ruqt>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -955,7 +961,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-6 col-form-label">P.G. Subject</label>
                                     <div class="col-lg-6">
-                                        <input type="text" value="null" name="pgSub" class="form-control"
+                                        <input type="text"  name="pgSub" class="form-control"
                                             placeholder="P.G. Subject">
                                     </div>
                                 </div>
@@ -966,7 +972,7 @@
                                 <div class="form-group row">
                                     <label class="col-lg-6 col-form-label">P.G. University</label>
                                     <div class="col-lg-6">
-                                        <input type="text" value="null" name="pgUni" class="form-control"
+                                        <input type="text"  name="pgUni" class="form-control"
                                             placeholder="P.G. University">
                                     </div>
                                 </div>
@@ -976,7 +982,7 @@
 
                                     <label class="col-lg-6 col-form-label">P.G. Passing year</label>
                                     <div class="col-lg-6">
-                                        <input type="text" value="null" name="pgYr" class="form-control"
+                                        <input type="text" name="pgYr" class="form-control"
                                             placeholder="P.G. Passing year">
                                     </div>
                                 </div>
@@ -1016,7 +1022,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-6">
                                         <input type="text" name="ugSub" class="form-control" placeholder="U.G. Subject"
-                                            ruqt>
+                                        required>
                                     </div>
                                 </div>
 
@@ -1027,7 +1033,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <input type="text" name="ugUni" class="form-control"
-                                            placeholder="U.G. University" ruqt>
+                                            placeholder="U.G. University" required>
                                     </div>
                                 </div>
                             </div>
@@ -1048,7 +1054,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <input type="text" name="ugYr" class="form-control"
-                                            placeholder="U.G. Passing year" ruqt>
+                                            placeholder="U.G. Passing year" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -1056,7 +1062,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <input type="text" name="grade" class="form-control"
-                                            placeholder="U.G. Grade/Class" ruqt>
+                                            placeholder="U.G. Grade/Class" required>
                                     </div>
                                 </div>
                             </div>
@@ -1064,7 +1070,7 @@
                         <div class="row text-center" text-align: center;>
 
                             <!-- <button class="button large round success">Submit</button> -->
-                            button class="btn btn-primary" type="submi<t">Submit</button>
+                            <pre>                                                                      </pre><button class="btn btn-primary" type="submit" onclick="myFunction()">Submit</button>
 
 
                         </div>
