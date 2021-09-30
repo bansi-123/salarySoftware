@@ -1,0 +1,247 @@
+<%- include('partials/header.ejs'); -%>
+
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js">
+
+        </script>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+        <style>
+            .arrow {
+                border: solid black;
+                border-width: 0 3px 3px 0;
+                display: inline-block;
+                padding: 3px;
+
+            }
+
+            .down {
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+            }
+        </style>
+
+    </head>
+
+    <body onload="add_number()">
+        <div class="content-wrap">
+            <div class="main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-8 p-r-0 title-margin-right">
+                            <div class="page-header">
+                                <div class="page-title">
+                                    <h1>Gross Salary Earnings</span></h1>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /# column -->
+                        <div class="col-lg-4 p-l-0 title-margin-left">
+                            <div class="page-header">
+                                <div class="page-title">
+                                    <ol class="breadcrumb">
+                                        <!-- <li class="breadcrumb-item"><a href="#">Dashboard</a></li> -->
+                                        <!-- <li class="breadcrumb-item active">Table-Export</li> -->
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /# column -->
+                    </div>
+                    <!-- /# row -->
+
+                    <section id="main-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="bootstrap-data-table-panel">
+                                        <div class="table-responsive">
+                                            <form class="form-horizontal" action="\table-export" method="post">
+
+                                                <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
+
+                                        <input type="button"style="float: right;" onclick='selects()' value="Select All"/>   -->
+
+                                                <table id="bootstrap-data-table-export"
+                                                    class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr. No</th>
+                                                            <th>Name <p><i class="arrow down" style="float: right;"></i>
+                                                            </th>
+
+                                                            <th>EmpID</th>
+
+                                                            <th>Net sal</th>
+
+                                                            <th>Bank Account No.</th>
+
+
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <% for(var i=0 ; i<salary.length-1; i++) { %>
+                                                            <DIV id="page_1">
+                                                                <DIV id="p1dimg1">
+
+                                                                    <tr valign="top">
+
+                                                                        <td valign="top">
+
+                                                                            <% if((i+1)%20==0) { %>
+
+                                                                                <div style="page-break-after: always"></div>
+                                                                                
+                                                                                <% } %>
+                                                                                
+                                                                                    <%= i+1 %>
+
+                                                                        </td>
+
+                                                                        <td valign="top">
+                                                                            <% if((i+1)%20==0) { %>
+
+                                                                                <div style="break-after:page"></div>
+                                                                                <% } %>
+                                                                            <%= salary[i].empName %>
+                                                                        </td>
+
+                                                                        <td valign="top">
+                                                                            <% if((i+1)%20==0) { %>
+
+                                                                                <div style="break-after:page"></div>
+                                                                                <% } %>
+                                                                            <%= salary[i].empID %>
+                                                                        </td>
+
+
+                                                                        <!-- <td id="test" value= "<%= salary[i].net_sal %>" > -->
+                                                                        <td valign="top">
+                                                                            <% if((i+1)%20==0) { %>
+
+                                                                                <div style="break-after:page"></div>
+                                                                                <% } %>
+                                                                            <%= salary[i].net_sal %>
+                                                                        </td>
+                                                                        <td valign="top">
+                                                                            <% if((i+1)%20==0) { %>
+
+                                                                                <div style="break-after:page"></div>
+                                                                                <%  } %>
+                                                                            <%= salary[i].bankAccNum %>
+
+                                                                        </td>
+
+
+                                                                    </tr>
+
+
+                                                                </DIV>
+                                                            </DIV>
+
+
+                                                            <% }%>
+
+
+
+
+
+                                                    </tbody>
+
+
+
+                                                </table>
+
+                                                <% for(var i=0; i<10; i++){ %>
+                                                    <input id="<%= i %>" hidden value=<%=salary[i].net_sal%>></input>
+                                                    <!-- <input id="test2" hidden value=<%= salary[1].net_sal%>></input> -->
+                                                    <% }%>
+
+                                                        <script>
+                                                            var sum = 0;
+
+                                                            // var temp2= document.getElementById("test2");
+                                                            console.log(/_START_/);
+
+                                                            function add_number() {
+                                                                for (var i = 0; i < 10; i++) {
+                                                                    var temp = document.getElementById(i);
+                                                                    var sal = parseInt(temp.value);
+                                                                    sum = sum + sal;
+
+
+                                                                }
+
+                                                                document.getElementById("txtresult").value = sum;
+                                                                document.getElementById("break");
+
+
+                                                                console.log(temp.value);
+                                                                //   console.log(temp2.value);
+                                                            }
+
+                                                            var lmao = document.getElementsByTagName("select");
+                                                            console.log(lmao);
+
+
+
+                                                        </script>
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-6 col-form-label">Total Salary</label>
+                                                            <div class="col-lg-6">
+                                                                <input type="number" readonly id="txtresult"
+                                                                    class="form-control" ruqt>
+                                                            </div>
+                                                        </div>
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- /# card -->
+                            </div>
+
+                        </div>
+
+
+
+                        </form>
+
+
+                        <!-- <input type="submit" style="float: right;" value="Submit"> -->
+
+                </div>
+
+
+                <!-- /# row -->
+
+
+                </section>
+            </div>
+        </div>
+        </div>
+
+
+        <!-- bootstrap -->
+
+        <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
+        <script src="../assets/assets/js/scripts.js"></script>
+        <!-- scripit init-->
+        <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
+        <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+        <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
+        <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
+        <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
+        <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
+        <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
+        <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
+        <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+
+    </body>
+
+    </html>

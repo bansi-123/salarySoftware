@@ -174,8 +174,8 @@ exports.sendEmails = function(req, res) {
 				const options = {
 						from: config.email,
 						to: Attendees[index].EmailID,
-						subject: 'Your Android Development Workshop certificate is here!',
-						text: 'Hi, \n \nHere is your certificate for participating in the ANDROID DEVELOPMENT WORKSHOP organized by Manan - A Techno Surge on January 19, 2019 at YMCA University of Science and Technology, Faridabad. \n \nThanks for making it a great workshop. \n \nBest, \nNaman Sachdeva \nSecretary, Manan - A Techno Surge \n+91 8222831183',
+						subject: 'Salary Slip for the month of August',
+						text: 'Dear Sir / Madam \n Please find attached herewith Salary Slip for the month JUNE - 2021.\n You are requested to sign the pay register at Administration Office (Staff Counter) after rejoin the college.\n Thanking You \n	PICT. Admin. Dept.',
 						attachments: [
 						    {
 						     path: path.join(__dirname, '../pdfs/certificate'+Attendees[index].Name+'.pdf')
