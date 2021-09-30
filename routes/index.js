@@ -16,7 +16,7 @@ router.get('/dashboard', (req, res) => res.render('dash', {
 }));
 
 router.get('/index1', ensureAuthenticated, (req, res) => {
-
+    
     res.render('index1', {
         name: req.user.name
     })
@@ -918,6 +918,112 @@ router.post('/ta', ensureAuthenticated, (req, res) => {
 
 });
 
+router.get('/hra', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('hra', {
+                Employees: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
+router.post('/hra', ensureAuthenticated, (req, res) => {
+
+    console.log(JSON.parse(JSON.stringify(req.body)))
+
+    const data = JSON.parse(JSON.stringify(req.body));
+    var list = "(";
+    var list2 = []
+    for (var i in data) {
+
+        if(i.includes("EMP"))
+        {
+            console.log(i)
+            console.log(data[i])
+            list+="'"+i.toString()+"'"+","
+            list2.push(i)
+        }
+
+    }
+    var newValue=data["newValue"];
+    list=list.substring(0,list.length - 1);
+    list+=")";
+    console.log("list is",list2)
+    console.log(`update Employees set hra=${newValue} where empID in ${list}`)
+    mysqldb.query(`update Employees set hra=${newValue} where empID in ${list}`,(err,result)=>{
+        if(err)
+        {
+            console.log(err)
+        }
+        else {
+            console.log("updated hra in employee")
+        }
+    })
+
+    res.redirect('hra');
+
+});
+
+router.get('/da', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('da', {
+                Employees: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
+router.post('/da', ensureAuthenticated, (req, res) => {
+
+    console.log(JSON.parse(JSON.stringify(req.body)))
+
+    const data = JSON.parse(JSON.stringify(req.body));
+    var list = "(";
+    var list2 = []
+    for (var i in data) {
+
+        if(i.includes("EMP"))
+        {
+            console.log(i)
+            console.log(data[i])
+            list+="'"+i.toString()+"'"+","
+            list2.push(i)
+        }
+
+    }
+    var newValue=data["newValue"];
+    list=list.substring(0,list.length - 1);
+    list+=")";
+    console.log("list is",list2)
+    console.log(`update Employees set da=${newValue} where empID in ${list}`)
+    mysqldb.query(`update Employees set da=${newValue} where empID in ${list}`,(err,result)=>{
+        if(err)
+        {
+            console.log(err)
+        }
+        else {
+            console.log("updated da in employee")
+        }
+    })
+
+    res.redirect('da');
+
+});
+
+
+
 router.get('/cca', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`, (err, result) => {
         if (err) {
@@ -1545,36 +1651,36 @@ router.get('/allowances', (req, res) => {
 
 });
 
-router.post('/allowances', (req, res) => {
-    console.log(JSON.parse(JSON.stringify(req.body)))
-    const {hra_MultFactor,da_MultFactor}=JSON.parse(JSON.stringify(req.body));
-    mysqldb.query(`update config set hra_MultFactor=${hra_MultFactor},da_MultFactor=${da_MultFactor} where ID=1`,(err,result)=>
-    {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            console.log("Salary Details", JSON.parse(JSON.stringify(result)));
-            res.redirect('index1');
-        }
-    })
+// router.post('/allowances', (req, res) => {
+//     console.log(JSON.parse(JSON.stringify(req.body)))
+//     const {hra_MultFactor,da_MultFactor}=JSON.parse(JSON.stringify(req.body));
+//     mysqldb.query(`update config set hra_MultFactor=${hra_MultFactor},da_MultFactor=${da_MultFactor} where ID=1`,(err,result)=>
+//     {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
+//             res.redirect('index1');
+//         }
+//     })
 
-});
+// });
 
-router.get('/viewallow', (req, res) => {
-    mysqldb.query(`select * from config`, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            console.log("Salary Details", JSON.parse(JSON.stringify(result)));
-            res.render('viewallow', {
-                data: JSON.parse(JSON.stringify(result))
-            });
-        }
-    })
+// router.get('/viewallow', (req, res) => {
+//     mysqldb.query(`select * from config`, (err, result) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
+//             res.render('viewallow', {
+//                 data: JSON.parse(JSON.stringify(result))
+//             });
+//         }
+//     })
 
-});
+// });
 
 router.get('/salsheet', (req, res) => {
     res.render('salsheet');
@@ -2071,7 +2177,7 @@ router.post('/updatepay', (req, res) => {
         }
 
     }
-    var incrementPercent = parseInt(data["increment"]);
+    var incrementPercent = parseFloat(data["increment"]);
     list = list.substring(0, list.length - 1);
     list += ")";
     console.log("list is", list2)
@@ -2264,8 +2370,8 @@ router.post('/generateSalary',(req,res)=>{
                 console.log("error while select from config query")
             }
             else{
-                var da_MultFactor=JSON.parse(JSON.stringify(result))[0].da_MultFactor
-                var hra_MultFactor=JSON.parse(JSON.stringify(result))[0].hra_MultFactor
+                // var da_MultFactor=JSON.parse(JSON.stringify(result))[0].da_MultFactor
+                // var hra_MultFactor=JSON.parse(JSON.stringify(result))[0].hra_MultFactor
                 // var ta=JSON.parse(JSON.stringify(result))[0].ta
                 // var cca=JSON.parse(JSON.stringify(result))[0].cca
                 var prov_fund_DNA=JSON.parse(JSON.stringify(result))[0].prov_fund_DNA
@@ -2282,7 +2388,7 @@ router.post('/generateSalary',(req,res)=>{
                 // for (let i = 1; i < length+1; i++) {
                
                 //to get employee specific properties for calculation
-                mysqldb.query(`select pay,gp,pf,empID,ta,cca from Employees ORDER BY empID LIMIT ${i},1`,(err,result)=>{
+                mysqldb.query(`select pay,gp,pf,empID,ta,cca,hra,da from Employees ORDER BY empID LIMIT ${i},1`,(err,result)=>{
                     if (err) {
 
                         console.log(err)
@@ -2296,9 +2402,11 @@ router.post('/generateSalary',(req,res)=>{
                         var pay=parseInt(JSON.parse(JSON.stringify(result))[0].pay);
                         var ta_temp=parseInt(JSON.parse(JSON.stringify(result))[0].ta);
                         var cca_temp=parseInt(JSON.parse(JSON.stringify(result))[0].cca);
+                        var da_MultFactor=parseFloat(JSON.parse(JSON.stringify(result))[0].da);
+                        var hra_MultFactor=parseFloat(JSON.parse(JSON.stringify(result))[0].hra);
 
                         console.log(JSON.parse(JSON.stringify(result))[0]);
-                        console.log("gp,pf,bp selected for empid",gp,pf,pay,empID);
+                        console.log("gp,pf,bp,da,hra selected for empid",gp,pf,pay,da_MultFactor,hra_MultFactor,empID);
                         // req.flash(
                         //     'success_msg',
                         //     'Employee found!'
@@ -3023,6 +3131,7 @@ router.post('/generateSalary',(req,res)=>{
             })
         }
     })
+    res.redirect('index1');
     
 })
 
