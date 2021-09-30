@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/checkAuth');
 const { route } = require('./auth');
-const async = require('async')
+const async = require('async');
+const config = require('../config');
 
 //------------ Welcome Route ------------//
 router.get('/', (req, res) => {
@@ -194,10 +195,20 @@ router.get('/editlimits', ensureAuthenticated, (req, res) => {
             console.log(err);
         }
         else {
-            console.log("Edit Details", JSON.parse(JSON.stringify(result)));
-            res.render('editlimits', {
-                edit_limits: JSON.parse(JSON.stringify(result))
-            });
+            mysqldb.query(`select * from config`, (err, result2) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log("Edit Details", JSON.parse(JSON.stringify(result)));
+                    res.render('editlimits', {
+                        edit_limits: JSON.parse(JSON.stringify(result)),
+                        config: JSON.parse(JSON.stringify(result2))
+                        
+                        
+                    });
+                }
+            })
         }
     })
 
@@ -239,7 +250,25 @@ router.post('/editlimits', (req, res) => {
     })
 
 });
+router.post('/editcess', (req, res) => {
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    const { educess }=JSON.parse(JSON.stringify(req.body));
+    // var c = parseInt(climit);
+    // console.log(c);
+    
+    mysqldb.query(`update config set educess=${educess} where ID=1`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else {
 
+            console.log("Limit Details", JSON.parse(JSON.stringify(result)));
+            res.redirect('editlimits');
+        }
+    })
+
+});
 
 router.post('/declarations', (req, res) => {
 
@@ -3284,255 +3313,238 @@ router.post('/storeIncomeTax', (req, res) => {
         }
         else {
             length = JSON.parse(JSON.stringify(result))[0]['count(*)'];
-            mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-            var cur_month = mlist[new Date().getMonth()].toLowerCase();
-            // var cur_month="august"
-            var cur_year = new Date().getFullYear()
-            for (let i = 0; i < length; i++) {
-                console.log(`select * from Employees left join form ORDER BY empID LIMIT ${i},1`)
-                //to get employee specific properties for calculation
-                mysqldb.query(`select E.empID,E.age,IFNULL(f.total,0) as total,E.emp_temp_regime,IFNULL(f.gross_sal,50000) as gross_sal from Employees E left join form f on(E.empID=f.empID) ORDER BY E.empID LIMIT ${i},1`, (err, result) => {
-                    if (err) {
-
-                        console.log(err)
-                        console.log("error in select query of Employee")
-                    }
-                    else {
-                        console.log("Result is", result, "for i-1", i - 1)
-                        // var investment,gross_sal;
-                        // if(JSON.parse(JSON.stringify(result))[0].total==null)
-                        // {
-                        //     investment=0;
-                        //     gross_sal=100000;
-                        // }
-                        //tax regime,age,investment
-                        var empID = JSON.parse(JSON.stringify(result))[0].empID;
-                        var age = parseInt(JSON.parse(JSON.stringify(result))[0].age);
-                        // var investment=parseInt(JSON.parse(JSON.stringify(result))[0].investment);
-                        var investment = parseInt(JSON.parse(JSON.stringify(result))[0].total);
-                        var emp_temp_regime = JSON.parse(JSON.stringify(result))[0].emp_temp_regime;
-                        var gross_total_income = parseInt(JSON.parse(JSON.stringify(result))[0].gross_sal);
-                        // var gross_total_income = gross_sal * 12;
-                        console.log(JSON.parse(JSON.stringify(result))[0]);
-                        var tax_on_income=0;
-                        var exemption = investment;
-                        if(emp_temp_regime=="new")
-                        {
-                            exemption=0;
-                        }
-                        var net_taxable_income = gross_total_income - exemption;
-                        var remaining=net_taxable_income;
-                        console.log("regime is", emp_temp_regime)
-                        if (emp_temp_regime === "old") {
-                            console.log("in if")
-                            // if (net_taxable_income <= 250000) {
-                                console.log("in less")
-                                if(remaining>=250000)
-                                {
-                                    tax_on_income+=0;
-                                    remaining-=250000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += 0;
-                                    remaining=0;
-                                }
-                            // }
-                            if (age >= 60 ) {
-                                if(remaining>=50000)
-                                {
-                                    tax_on_income+=0;
-                                    remaining-=50000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += 0;
-                                    remaining=0;
-                                }
-
-                            }
-                            // net_taxable_income > 250000 && net_taxable_income <=300000 &&
-                            else if ( age<60) {
-                                if(remaining>=50000)
-                                {
-                                    tax_on_income+=50000*5/100;
-                                    remaining-=50000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += remaining*5/100;
-                                    remaining=0;
-                                }
-                            }
-                            if (age>=80) {
-                                if(remaining>=200000)
-                                {
-                                    tax_on_income+=0;
-                                    remaining-=200000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += 0;
-                                    remaining=0;
-                                }
-                            }
-                            // net_taxable_income > 300000 && net_taxable_income <= 500000
-                            else {
-                                if(remaining>=200000)
-                                {
-                                    tax_on_income+=200000*5/100;
-                                    remaining-=200000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += remaining*5/100;
-                                    remaining=0;
-                                }
-                            }
-                            // if (net_taxable_income > 500000 && net_taxable_income <= 1000000) {
-                                if(remaining>=500000)
-                                {
-                                    tax_on_income+=500000*20/100;
-                                    remaining-=500000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += remaining*20/100;
-                                    remaining=0;
-                                }
-                            // }
-                            // if (net_taxable_income > 1000000) { 
-                                tax_on_income += remaining*30/100;
-                                remaining=0;
-                            //}
-
-                        }
-                        else if (emp_temp_regime === "new") {
-                            // if (net_taxable_income <= 250000) {
-                                if(remaining>=250000)
-                                {
-                                    tax_on_income+=0;
-                                    remaining-=250000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += 0;
-                                    remaining=0;
-                                }
-                            // }
-
-                            // if (net_taxable_income > 250000 && gross_sal <= 500000) {
-                                if(remaining>=250000)
-                                {
-                                    tax_on_income+=250000*5/100;
-                                    remaining-=250000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += remaining*5/100;
-                                    remaining=0;
-                                }
-                            // }
-                            // if (net_taxable_income > 500000 && gross_sal <= 750000) {
-                                if(remaining>=250000)
-                                {
-                                    tax_on_income+=250000*10/100;
-                                    remaining-=250000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += remaining*10/100;
-                                    remaining=0;
-                                }
-                            // }
-                            // if (net_taxable_income > 750000 && gross_sal <= 1000000) {
-                                if(remaining>=250000)
-                                {
-                                    tax_on_income+=250000*15/100;
-                                    remaining-=250000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += remaining*15/100;
-                                    remaining=0;
-                                }
-                            // }
-                            // if (net_taxable_income > 1000000 && gross_sal <= 1250000) {
-                                if(remaining>=250000)
-                                {
-                                    tax_on_income+=250000*20/100;
-                                    remaining-=250000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += remaining*20/100;
-                                    remaining=0;
-                                }
-                            // }
-                            // if (net_taxable_income > 1250000 && gross_sal <= 1500000) {
-                                if(remaining>=250000)
-                                {
-                                    tax_on_income+=250000*25/100;
-                                    remaining-=250000;
-                                }
-                                
-                                else
-                                {
-                                    tax_on_income += remaining*25/100;
-                                    remaining=0;
-                                }
-                            // }
-                            // if (net_taxable_income > 1500000) {
-                               
-                                    tax_on_income += remaining*30/100;
-                                    remaining=0;
-                                
-                            // }
-
-                        }
-                        var rebate=0;
-                        if(net_taxable_income<=500000)
-                        {
-                            rebate+=tax_on_income;
-                            tax_on_income=0;
-                        }
-                        var health_and_edu_cess = 0.04 * tax_on_income;
-                        var total_tax = tax_on_income + health_and_edu_cess;
-                        var tds_per_month = total_tax / 12;
-                        var balance = total_tax;
-                        console.log(`insert into income_tax (empID,exemption,prev_investment,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES ('${empID}',${exemption},${investment},${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year})`)
-                        mysqldb.query(`insert into income_tax (empID,exemption,prev_investment,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year,type) VALUES ('${empID}',${exemption},${investment},${investment},${net_taxable_income},${tax_on_income},${rebate},${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year},"initial")`, (err, result) => {
+            mysqldb.query(`select * from config`, (err, result4) => {
+                if (result.length === 0) {
+                    console.log("no employees")
+                }
+                else {
+                   
+                    var educess=JSON.parse(JSON.stringify(result4))[0].educess;
+                    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+                    var cur_month = mlist[new Date().getMonth()].toLowerCase();
+                    // var cur_month="august"
+                    var cur_year = new Date().getFullYear()
+                    for (let i = 0; i < length; i++) {
+                        console.log(`select * from Employees left join form ORDER BY empID LIMIT ${i},1`)
+                        //to get employee specific properties for calculation
+                        mysqldb.query(`select E.empID,E.age,IFNULL(f.total,0) as total,E.emp_temp_regime,IFNULL(f.gross_sal,50000) as gross_sal from Employees E left join form f on(E.empID=f.empID) ORDER BY E.empID LIMIT ${i},1`, (err, result) => {
                             if (err) {
 
                                 console.log(err)
-                                console.log("error in insert query of income_tax")
+                                console.log("error in select query of Employee")
                             }
                             else {
-                                // res.redirect('/index1')
+                                console.log("Result is", result, "for i-1", i - 1)
+                                // var investment,gross_sal;
+                                // if(JSON.parse(JSON.stringify(result))[0].total==null)
+                                // {
+                                //     investment=0;
+                                //     gross_sal=100000;
+                                // }
+                                //tax regime,age,investment
+                                var empID = JSON.parse(JSON.stringify(result))[0].empID;
+                                var age = parseInt(JSON.parse(JSON.stringify(result))[0].age);
+                                // var investment=parseInt(JSON.parse(JSON.stringify(result))[0].investment);
+                                var investment = parseInt(JSON.parse(JSON.stringify(result))[0].total);
+                                var emp_temp_regime = JSON.parse(JSON.stringify(result))[0].emp_temp_regime;
+                                var gross_total_income = parseInt(JSON.parse(JSON.stringify(result))[0].gross_sal);
+                                // var gross_total_income = gross_sal * 12;
+                                console.log(JSON.parse(JSON.stringify(result))[0]);
+                                var tax_on_income = 0;
+                                var exemption = investment;
+                                if (emp_temp_regime == "new") {
+                                    exemption = 0;
+                                }
+                                var net_taxable_income = gross_total_income - exemption;
+                                var remaining = net_taxable_income;
+                                console.log("regime is", emp_temp_regime)
+                                if (emp_temp_regime === "old") {
+                                    console.log("in if")
+                                    // if (net_taxable_income <= 250000) {
+                                    console.log("in less")
+                                    if (remaining >= 250000) {
+                                        tax_on_income += 0;
+                                        remaining -= 250000;
+                                    }
+
+                                    else {
+                                        tax_on_income += 0;
+                                        remaining = 0;
+                                    }
+                                    // }
+                                    if (age >= 60) {
+                                        if (remaining >= 50000) {
+                                            tax_on_income += 0;
+                                            remaining -= 50000;
+                                        }
+
+                                        else {
+                                            tax_on_income += 0;
+                                            remaining = 0;
+                                        }
+
+                                    }
+                                    // net_taxable_income > 250000 && net_taxable_income <=300000 &&
+                                    else if (age < 60) {
+                                        if (remaining >= 50000) {
+                                            tax_on_income += 50000 * 5 / 100;
+                                            remaining -= 50000;
+                                        }
+
+                                        else {
+                                            tax_on_income += remaining * 5 / 100;
+                                            remaining = 0;
+                                        }
+                                    }
+                                    if (age >= 80) {
+                                        if (remaining >= 200000) {
+                                            tax_on_income += 0;
+                                            remaining -= 200000;
+                                        }
+
+                                        else {
+                                            tax_on_income += 0;
+                                            remaining = 0;
+                                        }
+                                    }
+                                    // net_taxable_income > 300000 && net_taxable_income <= 500000
+                                    else {
+                                        if (remaining >= 200000) {
+                                            tax_on_income += 200000 * 5 / 100;
+                                            remaining -= 200000;
+                                        }
+
+                                        else {
+                                            tax_on_income += remaining * 5 / 100;
+                                            remaining = 0;
+                                        }
+                                    }
+                                    // if (net_taxable_income > 500000 && net_taxable_income <= 1000000) {
+                                    if (remaining >= 500000) {
+                                        tax_on_income += 500000 * 20 / 100;
+                                        remaining -= 500000;
+                                    }
+
+                                    else {
+                                        tax_on_income += remaining * 20 / 100;
+                                        remaining = 0;
+                                    }
+                                    // }
+                                    // if (net_taxable_income > 1000000) { 
+                                    tax_on_income += remaining * 30 / 100;
+                                    remaining = 0;
+                                    //}
+
+                                }
+                                else if (emp_temp_regime === "new") {
+                                    // if (net_taxable_income <= 250000) {
+                                    if (remaining >= 250000) {
+                                        tax_on_income += 0;
+                                        remaining -= 250000;
+                                    }
+
+                                    else {
+                                        tax_on_income += 0;
+                                        remaining = 0;
+                                    }
+                                    // }
+
+                                    // if (net_taxable_income > 250000 && gross_sal <= 500000) {
+                                    if (remaining >= 250000) {
+                                        tax_on_income += 250000 * 5 / 100;
+                                        remaining -= 250000;
+                                    }
+
+                                    else {
+                                        tax_on_income += remaining * 5 / 100;
+                                        remaining = 0;
+                                    }
+                                    // }
+                                    // if (net_taxable_income > 500000 && gross_sal <= 750000) {
+                                    if (remaining >= 250000) {
+                                        tax_on_income += 250000 * 10 / 100;
+                                        remaining -= 250000;
+                                    }
+
+                                    else {
+                                        tax_on_income += remaining * 10 / 100;
+                                        remaining = 0;
+                                    }
+                                    // }
+                                    // if (net_taxable_income > 750000 && gross_sal <= 1000000) {
+                                    if (remaining >= 250000) {
+                                        tax_on_income += 250000 * 15 / 100;
+                                        remaining -= 250000;
+                                    }
+
+                                    else {
+                                        tax_on_income += remaining * 15 / 100;
+                                        remaining = 0;
+                                    }
+                                    // }
+                                    // if (net_taxable_income > 1000000 && gross_sal <= 1250000) {
+                                    if (remaining >= 250000) {
+                                        tax_on_income += 250000 * 20 / 100;
+                                        remaining -= 250000;
+                                    }
+
+                                    else {
+                                        tax_on_income += remaining * 20 / 100;
+                                        remaining = 0;
+                                    }
+                                    // }
+                                    // if (net_taxable_income > 1250000 && gross_sal <= 1500000) {
+                                    if (remaining >= 250000) {
+                                        tax_on_income += 250000 * 25 / 100;
+                                        remaining -= 250000;
+                                    }
+
+                                    else {
+                                        tax_on_income += remaining * 25 / 100;
+                                        remaining = 0;
+                                    }
+                                    // }
+                                    // if (net_taxable_income > 1500000) {
+
+                                    tax_on_income += remaining * 30 / 100;
+                                    remaining = 0;
+
+                                    // }
+
+                                }
+                                var rebate = 0;
+                                if (net_taxable_income <= 500000) {
+                                    rebate += tax_on_income;
+                                    tax_on_income = 0;
+                                }
+                                var health_and_edu_cess = educess * tax_on_income / 100;
+                                var total_tax = tax_on_income + health_and_edu_cess;
+                                var tds_per_month = total_tax / 12;
+                                var balance = total_tax;
+                                console.log(`insert into income_tax (empID,exemption,prev_investment,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES ('${empID}',${exemption},${investment},${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year})`)
+                                mysqldb.query(`insert into income_tax (empID,exemption,prev_investment,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year,type) VALUES ('${empID}',${exemption},${investment},${investment},${net_taxable_income},${tax_on_income},${rebate},${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year},"initial")`, (err, result) => {
+                                    if (err) {
+
+                                        console.log(err)
+                                        console.log("error in insert query of income_tax")
+                                    }
+                                    else {
+                                        // res.redirect('/index1')
+
+                                    }
+                                })
 
                             }
                         })
-
                     }
-                })
-            }
+                }
+            })
         }
-    })
-    res.redirect('incometax');
+            res.redirect('incometax');
 
-})
-
+        })
+    }
+)
 // router.post('/declaration',(req,res)=>{
     
 //     const data=JSON.parse(JSON.stringify(req.body));
@@ -3880,7 +3892,7 @@ router.post('/updateIncomeTax', (req, res) => {
                     rebate+=tax_on_income;
                     tax_on_income=0;
                 }
-                var health_and_edu_cess = 0.04 * tax_on_income;
+                var health_and_edu_cess = (educess/100) * tax_on_income ;
                 var total_tax = tax_on_income + health_and_edu_cess;
                 var tds_per_month = total_tax / 12;
                 var balance = total_tax;
