@@ -82,12 +82,51 @@
                         <div class="form-group">
                             <label class="col-sm-10 control-label">Increment Percentage</label>
                             <div class="col-sm-4">
-                                <input type="text" name="increment" class="form-control">
+                                <input type="number" step="0.001" class="form-control" id="percent" oninput="calculate()">
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-6">
 
+                        <div class="form-group">
+                            <label class="col-sm-10 control-label">Duration</label>
+                            <div class="col-sm-4">
+                                <input type="number" step="0.001" class="form-control" id="duration" oninput="calculate()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+
+                        <div class="form-group">
+                            <label class="col-sm-10 control-label" hidden>Final Percentage</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="increment" id="final" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    var percent = document.getElementById("percent");
+                    var duration = document.getElementById("duration");
+                    function calculate()
+                    {
+                        console.log(percent.value,duration.value)
+                        var result=100+parseFloat(percent.value);
+                        for(let i=1;i<parseInt(duration.value);i++)
+                        {
+                            result=100+result*parseFloat(percent.value)/100;
+                        }
+                        result=result-100;
+                       
+                        document.getElementById("final").value = result;
+                    }
+                    
+                   
+                </script>
                 <section id="main-content">
                     <div class="row">
                         <div class="col-lg-12">
