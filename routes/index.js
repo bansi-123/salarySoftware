@@ -462,7 +462,7 @@ router.post('/addEmployee', (req, res) => {
         appointment, category, gender, status, mobile, address_correspondence, address_permanent, 
         vacation, seniority, dept_seniority, Aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, 
         pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, 
-        uni_approval, uni_app_date, uni_app_period, workexNT, dob, investment, emp_temp_regime, photo, paycommission } = data;
+        uni_approval, uni_app_date, uni_app_period, workexNT, dob, investment, emp_temp_regime, photo, paycommission, hra, da, bloodgrp } = data;
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("here")
     // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
@@ -476,14 +476,15 @@ router.post('/addEmployee', (req, res) => {
         appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent ,   
         vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  
         pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,
-        uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,photo,paycommission) VALUES 
+        uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,photo,paycommission, hra, da, bloodgrp) VALUES 
         ('${empID}','${empName}', '${uan}', '${dept}', '${designation}', 
         ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}',
         '${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}', '${Relieving}',
         '${appointment}','${category}','${gender}','${status}','${mobile}','${address_correspondence}','${address_permanent}',
         '${vacation}','${seniority}','${dept_seniority}','${Aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}','${phdYr}',
         '${pgSub}','${pgUni}','${pgYr}','${ugSub}','${ugUni}','${ugYr}','${grade}','${netset}','${othqual}',${exp},${industry_exp},
-       '${uni_approval}','${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}','${photo}', ${paycommission})`
+       '${uni_approval}','${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}','${photo}', ${paycommission},
+       ${hra}, ${da}, '${bloodgrp}')`
 
         , (err, result) => {
             if (err) {

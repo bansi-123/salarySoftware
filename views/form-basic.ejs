@@ -105,7 +105,7 @@
                                                 <div class="col-lg-6">
                                                     <input type="text" name="empID" class="form-control"
                                                         placeholder="XXX" pattern="+emp." title="enter valid mis ID"
-                                                        ruqt>
+                                                         >
                                                 </div>
                                             </div>
 
@@ -120,12 +120,11 @@
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Email ID (Personal) <span
-                                                        class="text-danger">*</span>
+                                                <label class="col-lg-6 col-form-label">Email ID (Personal)
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input id="val-email" name="emailID" class="form-control"
-                                                        type="email" placeholder="admin@gmail.com" required>
+                                                        type="email" placeholder="admin@gmail.com">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -149,9 +148,10 @@
 
                                            <div class="form-group row">
                                                 
-                                                <label  class="col-lg-6 col-form-label">Designation Category :</label>
+                                                <label  class="col-lg-6 col-form-label">Designation Category: <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                 <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category'  ruqt>
+                                                 <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category'   >
                                                 <option value="">---------</option>
                                                 <option value="teaching" data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer">Teaching</option>
                                                 <option value="nonteaching" data-designation-options="Registrar|#Librarian|#OffSup|#Technical Assistant|#Lab. Assistant|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Asstt. Programmer|#Director of Physical Education & Sports|#Electrician|#Accounts Assistant|#Network Administrator|#Workshop Instructor">Non- Teaching</option>
@@ -165,7 +165,7 @@
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <select name="nonteach">
+                                                    <select name="nonteach" required>
                                                         <option value="" hidden selected>-----</option>
 
                                                         <option value="Technical">Technical</option>
@@ -175,7 +175,8 @@
                                             </div>
                                             <div class="form-group row">
                                                 
-                                              <label class="col-lg-6 col-form-label">  Designation: </label>
+                                              <label class="col-lg-6 col-form-label">  Designation: <span
+                                                class="text-danger">*</span> </label>
                                               <div class="col-lg-6">
                                               <select name="designation" id="id_designation" class='dependent-selects__designation'  required>
                                                 <option value="">-----</option>
@@ -216,7 +217,7 @@
                                            <div class="form-group row">
                                                 <label  class="col-lg-6 col-form-label">UAN</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="uan" class="form-control"  ruqt
+                                                    <input type="text" name="uan" class="form-control"   
                                                         placeholder="UAN"  pattern=".{12,12}"     title="12 characters needed">
                                                 </div>
                                             </div><br>
@@ -236,13 +237,14 @@
 
                                             <div class="form-group row">
 
-                                                <label class="col-lg-6 col-form-label"> Departments</label>
+                                                <label class="col-lg-6 col-form-label"> Departments <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <select name="dept" id="id_category1" onchange="ShowHideDivi()"
                                                         data-designation-id='id_designation'
-                                                        class='dependent-selects__category' ruqt>
+                                                        class='dependent-selects__category' required >
 
-                                                        <option value="Computer">Computer</option>
+                                                        <option value="Computer">C.E</option>
                                                         <option value="IT">IT</option>
                                                         <option value="E&TC">E&TC</option>
                                                         <option value="FE">FE</option>
@@ -280,7 +282,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Salary Category</label>
                                                 <div class="col-lg-6">
-                                                    <select class="form-control" name="salaryCategory" ruqt>
+                                                    <select class="form-control" name="salaryCategory"  >
                                                         <!-- <option value="value" selected>Option Name</option> -->
                                                         <option value="consolidated" id="consolidated" selected>
                                                             Consolidated</option>
@@ -317,7 +319,7 @@
 
                                                 <label class="col-lg-6 col-form-label" for="category">Category</label>
                                                 <div class="col-lg-6">
-                                                    <select name="category" id="category" ruqt>
+                                                    <select name="category" id="category"  >
 
 
                                                         <option value="open">OPEN</option>
@@ -336,7 +338,7 @@
 
                                                 <label class="col-lg-6 col-form-label" for="gender">Gender</label>
                                                 <div class="col-lg-6">
-                                                    <select name="gender" id="gender" ruqt>
+                                                    <select name="gender" id="gender"  >
                                                         <option value="male">Male</option>
                                                         <option value="female">Female</option>
                                                         <option value="other">Other</option>
@@ -348,7 +350,7 @@
                                                 <label class="col-lg-6 col-form-label" for="status">Maritial
                                                     Status</label>
                                                 <div class="col-lg-6">
-                                                    <select name="status" id="status" ruqt>
+                                                    <select name="status" id="status"  >
                                                         <option value="married">Married</option>
                                                         <option value="single">Single</option>
                                                         <option value="other">Other</option>
@@ -404,7 +406,7 @@
 
                                                 <div id="dvPassport2" style="display: none">
                                                     Relieving Date:
-                                                    <input type="date" class="form-control" id="Relieving" name="Relieving" ruqt>
+                                                    <input type="date" class="form-control" id="Relieving" name="Relieving"  >
 
                                                 </div>
                                             </div>
@@ -429,7 +431,7 @@
                                                     Appointment</label>
                                                 <div class="col-lg-6">
 
-                                                    <select name="appointment" id="appointment" ruqt>
+                                                    <select name="appointment" id="appointment"  >
                                                         <option value="Permanent">Permanent</option>
                                                         <option value="Probation">Probation</option>
                                                         <option value="Adhoc">Adhoc</option>
@@ -463,7 +465,7 @@
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="address_correspondence"
-                                                        class="form-control" ruqt>
+                                                        class="form-control"  >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -478,7 +480,7 @@
                                                 <label class="col-lg-6 col-form-label"> Biometric Attendance ID                            <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="biometric" class="form-control" ruqt>
+                                                    <input type="text" name="biometric" class="form-control"  >
                                                 </div>
                                             </div> -->
                                             <div class="form-group row">
@@ -486,7 +488,7 @@
                                                 <label class="col-lg-6 col-form-label" for="vacation">Vacation</label>
                                                 <div class="col-lg-6">
 
-                                                    <select name="vacation" id="vacation" ruqt>
+                                                    <select name="vacation" id="vacation"  >
                                                         <option value="yes">Yes</option>
                                                         <option value="no">No</option>
 
@@ -500,7 +502,7 @@
                                                 <label class="col-lg-6 col-form-label">NET/SET</label>
                                                 <div class="col-lg-6">
                                                     <input type="radio" id="qualified" name="netset" value="qualified"
-                                                        ruqt>
+                                                         >
 
                                                     <label for="qualified">qualified</label><br>
                                                     <input type="radio" id="no" name="netset" value="NA">
@@ -514,14 +516,14 @@
                                                 <label class="col-lg-6 col-form-label">Other Qualification</label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="othqual" class="form-control"
-                                                        placeholder="Other Qualification" ruqt>
+                                                        placeholder="Other Qualification"  >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Teaching Experiance (Other than
-                                                    PICT)</label>
+                                                <label class="col-lg-6 col-form-label">Teaching Experiance in Years(Other than
+                                                    PICT) </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="exp" class="form-control" ruqt>
+                                                    <input type="number" name="exp" class="form-control"  >
                                                 </div>
                                             </div>
 
@@ -545,26 +547,26 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Industry Experience</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="industry_exp" class="form-control" ruqt>
+                                                    <input type="text" name="industry_exp" class="form-control"  >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">University Approval No.</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="uni_approval" class="form-control" ruqt>
+                                                    <input type="text" name="uni_approval" class="form-control"  >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">University Approval Date</label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" name="uni_app_date" class="form-control" ruqt>
+                                                    <input type="date" name="uni_app_date" class="form-control"  >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">University Approval
                                                     Period</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="uni_app_period" class="form-control" ruqt>
+                                                    <input type="text" name="uni_app_period" class="form-control"  >
                                                 </div>
                                             </div>
 
@@ -573,7 +575,7 @@
                                                 <label class="col-lg-6 col-form-label">Work Experience (for NT Staff -
                                                     Other than PICT)</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="workexNT" class="form-control" ruqt>
+                                                    <input type="text" name="workexNT" class="form-control"  >
                                                 </div>
                                             </div>
 
@@ -581,13 +583,13 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Overall Seniority No.</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="seniority" class="form-control" ruqt>
+                                                    <input type="text" name="seniority" class="form-control"  >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Dept Seniority No.</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="dept_seniority" class="form-control" ruqt>
+                                                    <input type="text" name="dept_seniority" class="form-control"  >
                                                 </div>
                                             </div>
 
@@ -595,7 +597,7 @@
                                             <!-- <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Employee Tax Regime </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="emp_temp_regime" class="form-control" ruqt>
+                                                    <input type="text" name="emp_temp_regime" class="form-control"  >
                                                 </div>
                                             </div> -->
                                             <div class="form-group row">
@@ -604,7 +606,7 @@
                                                     Tax Regime</label>
                                                 <div class="col-lg-6">
 
-                                                    <select name="emp_temp_regime" id="emp_temp_regime" ruqt>
+                                                    <select name="emp_temp_regime" id="emp_temp_regime"  >
                                                         <option value="old_tax_reg">Old tax regime</option>
                                                         <option value="new_tax_reg">New tax regime</option>
 
@@ -615,14 +617,21 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Investment </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="investment" class="form-control" ruqt>
+                                                    <input type="text" name="investment" class="form-control"  >
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Drive link for photo </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="photo" class="form-control" ruqt>
+                                                    <input type="text" name="photo" class="form-control"  >
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-6 col-form-label">Blood Group</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="bloodgrp" class="form-control"  >
                                                 </div>
                                             </div>
                                         </div>
@@ -685,6 +694,26 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">Provident Fund <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="pf" class="form-control"
+                                                    placeholder="Provident Fund" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">Group Insurance <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="groupInsurance" class="form-control"
+                                                    placeholder="Group Insurance" required>
+                                            </div>
+                                        </div>
+
                                         
 
 
@@ -709,30 +738,29 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">HRA<span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="hra" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">DA<span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input type="text" name="da" class="form-control" required>
+                                            </div>
+                                        </div>
+
                                         
                                     </div>
 
-                                    <div class="col-lg-6">
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Provident Fund <span
-                                                    class="text-danger">*</span>
-                                            </label>
-                                            <div class="col-lg-6">
-                                                <input type="text" name="pf" class="form-control"
-                                                    placeholder="Provident Fund" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Group Insurance <span
-                                                    class="text-danger">*</span>
-                                            </label>
-                                            <div class="col-lg-6">
-                                                <input type="text" name="groupInsurance" class="form-control"
-                                                    placeholder="Group Insurance" required>
-                                            </div>
-                                        </div>
-                                    </div>
+                
+                                   
 
 
                                     <div class="col-lg-6">
@@ -904,7 +932,7 @@
                                         <label class="col-lg-6 col-form-label">PhD Subject</label>
                                         <div class="col-lg-6">
                                             <input type="text" name="phdSub" class="form-control"
-                                                placeholder="PhD Subject" ruqt>
+                                                placeholder="PhD Subject"  >
                                         </div>
                                     </div>
 
@@ -915,21 +943,21 @@
                                         <label class="col-lg-6 col-form-label">PhD Institute</label>
                                         <div class="col-lg-6">
                                             <input type="text" name="phdInsti" class="form-control"
-                                                placeholder="PhD Institute" ruqt>
+                                                placeholder="PhD Institute"  >
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">PhD University</label>
                                         <div class="col-lg-6">
                                             <input type="text" name="phdUni" class="form-control"
-                                                placeholder="PhD University"ruqt>
+                                                placeholder="PhD University" >
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-8 control-label">PhD Passing year</label>
                                         <div class="col-lg-6">
                                             <input type="text" name="phdYr" class="form-control"
-                                                placeholder="PhD Passing year" value=0 ruqt>
+                                                placeholder="PhD Passing year" value=0  >
                                         </div>
                                     </div>
                                 </div>
@@ -1043,7 +1071,7 @@
     <label class="col-lg-6 col-form-label">U.G. Institute</label>
     <div class="col-lg-6">
         <input type="text" name="ugInsti" class="form-control"
-            placeholder="U.G. Institute"    ruqt>
+            placeholder="U.G. Institute"     >
     </div>
     </div>  -->
 
