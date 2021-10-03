@@ -482,6 +482,35 @@ router.get('/edit/:empID', ensureAuthenticated, (req, res) => {
     }
 
 });
+
+router.get('/editdates/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+    // console.log(typeof(requestedTitle));
+
+    if (requestedTitle.includes("EMP")) {
+        mysqldb.query(`select * from Employees where empID="${req.params.empID}"`, (err, result2) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                // var set=new Set(JSON.parse(JSON.stringify(result)))
+                console.log("result2 is", result2)
+                res.render('editdates', {
+                    // Employees:JSON.parse(JSON.stringify(result)),
+                    Employees: JSON.parse(JSON.stringify(result2))
+                });
+            }
+        })
+
+    }
+
+    else {
+        requestedTitle = "/" + requestedTitle
+        res.redirect(requestedTitle)
+    }
+
+});
 router.post('/addEmployee', (req, res) => {
 
     const data = JSON.parse(JSON.stringify(req.body));
@@ -592,7 +621,7 @@ router.post('/dropdowns', (req, res) => {
 router.post('/editEmployee', (req, res) => {
 
     const data = JSON.parse(JSON.stringify(req.body));
-    const { empID, empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory, emailID, groupInsurance, payBand, branchName, ifscCode, designationCategory, emailID2, nonteach, Subject, cca, ta, dop, doc, appointment, category, gender, status, mobile, address_correspondence, address_permanent, vacation, seniority, dept_seniority, aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, uni_approval, uni_app_date, uni_app_period, workexNT, dob, investment, emp_temp_regime, age, workexpYr, photo } = data;
+    const { empID, empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, salaryCategory, emailID, groupInsurance, payBand, branchName, ifscCode, designationCategory, emailID2, nonteach, cca, ta, dop, doc, appointment, category, gender, status, mobile, address_correspondence, address_permanent, vacation, seniority, dept_seniority, aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, uni_approval, uni_app_date, uni_app_period, workexNT, investment, emp_temp_regime, photo } = data;
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("here")
     // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
@@ -643,6 +672,9 @@ router.post('/editEmployee', (req, res) => {
                 // );
             }
         })
+
+        //res.redirect('/viewemployee')
+
 })
 
 
@@ -695,6 +727,21 @@ router.get('/edit', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('edit', {
+                Employees: JSON.parse(JSON.stringify(result))
+            });
+        }
+    })
+
+});
+
+router.get('/editdates', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('editdates', {
                 Employees: JSON.parse(JSON.stringify(result))
             });
         }
