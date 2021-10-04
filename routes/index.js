@@ -512,7 +512,7 @@ router.get('/editdates/:empID', ensureAuthenticated, (req, res) => {
 
 });
 router.post('/addEmployee', (req, res) => {
-
+    console.log("HEREEEEEEEEEE")
     const data = JSON.parse(JSON.stringify(req.body));
     const { empID, empName, uan, dept, designation, 
         pay, gp, pf, bankAccNum, bankName, doj, salaryCategory, emailID, groupInsurance, payBand, 
@@ -541,7 +541,7 @@ router.post('/addEmployee', (req, res) => {
         '${appointment}','${category}','${gender}','${status}','${mobile}','${address_correspondence}','${address_permanent}',
         '${vacation}','${seniority}','${dept_seniority}','${Aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}','${phdYr}',
         '${pgSub}','${pgUni}','${pgYr}','${ugSub}','${ugUni}','${ugYr}','${grade}','${netset}','${othqual}',${exp},${industry_exp},
-       '${uni_approval}','${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}','${photo}', ${paycommission},
+       '${uni_approval}','${uni_app_date}',${uni_app_period},${workexNT},'${dob}',0,'${emp_temp_regime}','${photo}', ${paycommission},
        ${hra}, ${da}, '${bloodgrp}')`
 
         , (err, result) => {
@@ -3280,17 +3280,22 @@ router.get('/deductions', ensureAuthenticated, (req, res) => {
 });
 
 router.post('/deductions', (req, res) => {
+    console.log("IN")
+    console.log(req.body)
     console.log(JSON.parse(JSON.stringify(req.body)))
     const { prov_fund_DNA, prov_fund_Percent, prov_fund_Max, prof_tax_Max, prof_tax_Percent, prof_tax_DNA, rev_stamp_max, rev_stamp_DNA } = JSON.parse(JSON.stringify(req.body));
+    // const {prov_fund_DNA}=req.body;
     mysqldb.query(`update config set prov_fund_DNA=${prov_fund_DNA},prov_fund_Percent=${prov_fund_Percent},prov_fund_Max=${prov_fund_Max},prof_tax_Max=${prof_tax_Max},prof_tax_Percent=${prof_tax_Percent},prof_tax_DNA=${prof_tax_DNA},rev_stamp_max=${rev_stamp_max},rev_stamp_DNA=${rev_stamp_DNA} where ID=1`, (err, result) => {
         if (err) {
             console.log(err);
         }
         else {
-
-            res.render('index1');
+            
+            // res.render('index1');
+            
         }
     })
+    res.json({status:"error"})
 
 });
 
