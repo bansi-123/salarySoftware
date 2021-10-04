@@ -511,55 +511,6 @@ router.get('/editdates/:empID', ensureAuthenticated, (req, res) => {
     }
 
 });
-router.post('/addEmployee', (req, res) => {
-
-    const data = JSON.parse(JSON.stringify(req.body));
-    const { empID, empName, uan, dept, designation, 
-        pay, gp, pf, bankAccNum, bankName, doj, salaryCategory, emailID, groupInsurance, payBand, 
-        branchName, ifscCode, designationCategory, emailID2, nonteach, Subject, cca, ta, dop, doc, Relieving, 
-        appointment, category, gender, status, mobile, address_correspondence, address_permanent, 
-        vacation, seniority, dept_seniority, Aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, 
-        pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, 
-        uni_approval, uni_app_date, uni_app_period, workexNT, dob, investment, emp_temp_regime, photo, paycommission, hra, da, bloodgrp } = data;
-    console.log(JSON.parse(JSON.stringify(req.body)))
-    console.log("here")
-    // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
-    //  empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , Type  , Type1 ,  onroll  , dop  , doc   ,appointment ,  Relieving  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,(err,result)=>{
-
-    // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
-    mysqldb.query(`INSERT INTO Employees 
-    (empID,empName, uan,dept, designation, 
-        pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , 
-        branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc, Relieving  ,
-        appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent ,   
-        vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  
-        pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,
-        uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,photo,paycommission, hra, da, bloodgrp) VALUES 
-        ('${empID}','${empName}', '${uan}', '${dept}', '${designation}', 
-        ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}',
-        '${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}', '${Relieving}',
-        '${appointment}','${category}','${gender}','${status}','${mobile}','${address_correspondence}','${address_permanent}',
-        '${vacation}','${seniority}','${dept_seniority}','${Aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}','${phdYr}',
-        '${pgSub}','${pgUni}','${pgYr}','${ugSub}','${ugUni}','${ugYr}','${grade}','${netset}','${othqual}',${exp},${industry_exp},
-       '${uni_approval}','${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}','${photo}', ${paycommission},
-       ${hra}, ${da}, '${bloodgrp}')`
-
-        , (err, result) => {
-            if (err) {
-                console.log(err);
-                console.log("invalid details");
-            }
-            else {
-                // console.log(JSON.parse(JSON.stringify(result))[0])
-                console.log(result);
-                res.redirect('/index1')
-                // req.flash(
-                //     'success_msg',
-                //     'Employee found!'
-                // );
-            }
-        })
-})
 
 router.post('/dates', (req, res) => {
 
@@ -621,7 +572,7 @@ router.post('/dropdowns', (req, res) => {
 router.post('/editEmployee', (req, res) => {
 
     const data = JSON.parse(JSON.stringify(req.body));
-    const { empID, empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, salaryCategory, emailID, groupInsurance, payBand, branchName, ifscCode, designationCategory, emailID2, nonteach, cca, ta, dop, doc, appointment, category, gender, status, mobile, address_correspondence, address_permanent, vacation, seniority, dept_seniority, aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, uni_approval, uni_app_date, uni_app_period, workexNT, investment, emp_temp_regime, photo } = data;
+    const { empID, empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, salaryCategory, emailID, groupInsurance, payBand, branchName, ifscCode, designationCategory, emailID2, nonteach, cca, ta, dop, doc, appointment, category, gender, status, mobile, address_correspondence, address_permanent, vacation, seniority, dept_seniority, aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, uni_approval, uni_app_date, uni_app_period, workexNT, emp_temp_regime, photo } = data;
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("here")
     // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
@@ -653,7 +604,7 @@ router.post('/editEmployee', (req, res) => {
     ugSub='${ugSub}', ugUni='${ugUni}', ugYr='${ugYr}', 
     grade='${grade}', netset='${netset}', othqual='${othqual}', exp='${exp}', industry_exp='${industry_exp}', 
     uni_approval='${uni_approval}', uni_app_date='${uni_app_date}', uni_app_period='${uni_app_period}', workexNT='${workexNT}',
-    investment='${investment}', emp_temp_regime='${emp_temp_regime}', 
+     emp_temp_regime='${emp_temp_regime}', 
     photo='${photo}'
     WHERE 
     empID='${empID}';` 
@@ -1771,14 +1722,38 @@ router.post('/table-export', ensureAuthenticated, (req, res) => {
 router.post('/addEmployee', (req, res) => {
 
     const data = JSON.parse(JSON.stringify(req.body));
-    const { empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory, emailID, groupInsurance, payBand, branchName, ifscCode, designationCategory, emailID2, nonteach, Subject, cca, ta, dop, doc, appointment, category, gender, status, mobile, address_correspondence, address_permanent, vacation, seniority, dept_seniority, aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, uni_approval, uni_app_date, uni_app_period, workexNT, dob, investment, emp_temp_regime, age, photo } = data;
+    const { empID, empName, uan, dept, designation, 
+        pay, gp, pf, bankAccNum, bankName, doj, salaryCategory, emailID, groupInsurance, payBand, 
+        branchName, ifscCode, designationCategory, emailID2, nonteach, Subject, cca, ta, dop, doc, Relieving, 
+        appointment, category, gender, status, mobile, address_correspondence, address_permanent, 
+        vacation, seniority, dept_seniority, aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, 
+        pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, 
+        uni_approval, uni_app_date, uni_app_period, workexNT, dob, emp_temp_regime, photo, paycommission, 
+        hra, da, bloodgrp } = data;
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("here")
     // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
     //  empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , Type  , Type1 ,  onroll  , dop  , doc   ,appointment ,  Relieving  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,(err,result)=>{
 
     // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
-    mysqldb.query(`INSERT INTO Employees (empID,empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent  ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo) VALUES ('${empID}','${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}','${appointment}','${category}','${gender}','${status}',${mobile},'${address_correspondence}','${address_permanent}','${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}',${phdYr},'${pgSub}','${pgUni}',${pgYr},'${ugSub}','${ugUni}',${ugYr},'${grade}','${netset}','${othqual}',${exp},${industry_exp},${uni_approval},'${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}',${age},'${photo}')`
+    mysqldb.query(`INSERT INTO Employees 
+    (empID,empName, uan,dept, designation, 
+        pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , 
+        branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc, Relieving  ,
+        appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent ,   
+        vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  
+        pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,
+        uni_approval,uni_app_date,uni_app_period,workexNT,dob,emp_temp_regime,photo,paycommission, 
+        hra, da, bloodgrp) VALUES 
+        ('${empID}','${empName}', '${uan}', '${dept}', '${designation}', 
+        ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}',
+        '${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}', '${Relieving}',
+        '${appointment}','${category}','${gender}','${status}','${mobile}','${address_correspondence}','${address_permanent}',
+        '${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}','${phdYr}',
+        '${pgSub}','${pgUni}','${pgYr}','${ugSub}','${ugUni}','${ugYr}','${grade}','${netset}','${othqual}',${exp},${industry_exp},
+       '${uni_approval}','${uni_app_date}',${uni_app_period},${workexNT},'${dob}','${emp_temp_regime}','${photo}', ${paycommission},
+       ${hra}, ${da}, '${bloodgrp}')`
+
         , (err, result) => {
             if (err) {
                 console.log(err);
@@ -1795,6 +1770,7 @@ router.post('/addEmployee', (req, res) => {
             }
         })
 })
+
 router.get('/groupinsurance', ensureAuthenticated, (req, res) => {
     var month = new Array();
   month[0] = "January";
