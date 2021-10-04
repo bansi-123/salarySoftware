@@ -149,7 +149,7 @@
                                             (empXXX) <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
                                             <input type="text" name="empID" class="form-control"  
-                                            value="<%= name[i].empID %>" pattern="+emp." title="enter valid emp ID"
+                                            value="<%= name[i].empID %>" pattern="+emp." title="enter valid emp ID" readonly
                                                 ruqt>
                                         </div>
                                     </div>
@@ -160,7 +160,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <input type="text" name="empName" class="form-control" value="<%= name[i].empName %>"
-                                                ruqt>
+                                               readonly ruqt>
                                         </div>
                                     </div>
 
@@ -172,7 +172,7 @@
                                         <div class="col-lg-6">
                                             <input type="text" name="Pan_No" class="form-control"
                                                 pattern=".{10,10}" title="10 alphanumeric characters needed" value="<%= name[i].Pan_No %>"
-                                                ruqt>
+                                               readonly ruqt>
                                         </div>
                                     </div>
 
@@ -181,29 +181,29 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" name="emp_temp_regime" class="form-control"
-                                            value="<%= name[i].emp_temp_regime %>" ruqt>
+                                            <input type="text" name="emp_temp_regime" class="form-control" id="regime"
+                                            value="<%= name[i].emp_temp_regime %>" readonly ruqt>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-lg-6 col-form-label">Gross Total</label>
                                         <div class="col-lg-6">
-                                            <input type="number" name="gross_total" class="form-control" ruqt>
+                                            <input type="number" value=0 name="gross_total" class="form-control" ruqt>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
+                                    <div class="form-group row" id="c">
                                         <label class="col-lg-6 col-form-label">80C</label>
                                         <div class="col-lg-6">
-                                            <input type="number" name="c" class="form-control" ruqt>
+                                            <input type="number" value=0  name="c" class="form-control" ruqt>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
+                                    <div class="form-group row" id="g">
                                         <label class="col-lg-6 col-form-label">80G</label>
                                         <div class="col-lg-6">
-                                            <input type="number" name="g" class="form-control" ruqt>
+                                            <input type="number" value=0 name="g" class="form-control" ruqt>
                                         </div>
                                     </div>
                                     
@@ -213,37 +213,37 @@
                                 </div>
                                     <div class="col-lg-6">
 
-                                        <div class="form-group row">
+                                        <div class="form-group row" id="d">
                                             <label class="col-lg-6 col-form-label">80D</label>
                                             <div class="col-lg-6">
-                                                <input type="number" name="d" class="form-control" ruqt>
+                                                <input type="number" value=0 name="d" class="form-control" ruqt>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row" id="e">
                                             <label class="col-lg-6 col-form-label">80E</label>
                                             <div class="col-lg-6">
-                                                <input type="number" name="e" class="form-control" ruqt>
+                                                <input type="number" value=0 name="e" class="form-control" ruqt>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row" id="ccc">
                                             <label class="col-lg-6 col-form-label">80CCC</label>
                                             <div class="col-lg-6">
-                                                <input type="number" name="ccc" class="form-control" ruqt>
+                                                <input type="number" value=0 name="ccc" class="form-control" ruqt>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row" id="ccd">
                                             <label class="col-lg-6 col-form-label">80CCD</label>
                                             <div class="col-lg-6">
-                                                <input type="number" name="ccd" class="form-control" ruqt>
+                                                <input type="number" value=0 name="ccd" class="form-control" ruqt>
                                             </div>
                                         </div>
 
                                         <input type="number" name="age" value="<%= name[i].age %>" class="form-control" hidden >
 
-                                        <div class="form-group row">
+                                        <div class="form-group row" id="dd">
                                             <label class="col-lg-6 col-form-label">80DD</label>
                                             <div class="col-lg-6">
-                                                <input type="number" name="dd" class="form-control" ruqt>
+                                                <input type="number" value=0 name="dd" class="form-control" ruqt>
                                             </div>
                                         </div>
                                        
@@ -274,7 +274,24 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
         <script src="../assets/alert/script.js"></script>
 
-
+        <script>
+          var regime = document.getElementById("regime").value;
+          console.log("regime is");
+          console.log(regime)
+          if(regime=="new")
+          {
+            var regime = document.getElementById("c").style.display="none";
+            var regime = document.getElementById("g").style.display="none";
+            var regime = document.getElementById("d").style.display="none";
+            var regime = document.getElementById("e").style.display="none";
+            var regime = document.getElementById("ccc").style.display="none";
+            var regime = document.getElementById("ccd").style.display="none";
+            var regime = document.getElementById("dd").style.display="none";
+            // var regime = document.getElementById("regime").value;
+            // var regime = document.getElementById("regime").value;
+            // var regime = document.getElementById("regime").value;
+          }
+        </script>
 
         <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
         <script src="../assets/assets/js/scripts.js"></script>
