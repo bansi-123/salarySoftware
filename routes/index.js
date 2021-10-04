@@ -511,58 +511,6 @@ router.get('/editdates/:empID', ensureAuthenticated, (req, res) => {
     }
 
 });
-<<<<<<< HEAD
-router.post('/addEmployee', (req, res) => {
-    console.log("HEREEEEEEEEEE")
-    const data = JSON.parse(JSON.stringify(req.body));
-    const { empID, empName, uan, dept, designation, 
-        pay, gp, pf, bankAccNum, bankName, doj, salaryCategory, emailID, groupInsurance, payBand, 
-        branchName, ifscCode, designationCategory, emailID2, nonteach, Subject, cca, ta, dop, doc, Relieving, 
-        appointment, category, gender, status, mobile, address_correspondence, address_permanent, 
-        vacation, seniority, dept_seniority, Aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, 
-        pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, 
-        uni_approval, uni_app_date, uni_app_period, workexNT, dob, investment, emp_temp_regime, photo, paycommission, hra, da, bloodgrp } = data;
-    console.log(JSON.parse(JSON.stringify(req.body)))
-    console.log("here")
-    // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
-    //  empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , Type  , Type1 ,  onroll  , dop  , doc   ,appointment ,  Relieving  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,(err,result)=>{
-
-    // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
-    mysqldb.query(`INSERT INTO Employees 
-    (empID,empName, uan,dept, designation, 
-        pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , 
-        branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc, Relieving  ,
-        appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent ,   
-        vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  
-        pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,
-        uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,photo,paycommission, hra, da, bloodgrp) VALUES 
-        ('${empID}','${empName}', '${uan}', '${dept}', '${designation}', 
-        ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}',
-        '${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}', '${Relieving}',
-        '${appointment}','${category}','${gender}','${status}','${mobile}','${address_correspondence}','${address_permanent}',
-        '${vacation}','${seniority}','${dept_seniority}','${Aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}','${phdYr}',
-        '${pgSub}','${pgUni}','${pgYr}','${ugSub}','${ugUni}','${ugYr}','${grade}','${netset}','${othqual}',${exp},${industry_exp},
-       '${uni_approval}','${uni_app_date}',${uni_app_period},${workexNT},'${dob}',0,'${emp_temp_regime}','${photo}', ${paycommission},
-       ${hra}, ${da}, '${bloodgrp}')`
-
-        , (err, result) => {
-            if (err) {
-                console.log(err);
-                console.log("invalid details");
-            }
-            else {
-                // console.log(JSON.parse(JSON.stringify(result))[0])
-                console.log(result);
-                res.redirect('/index1')
-                // req.flash(
-                //     'success_msg',
-                //     'Employee found!'
-                // );
-            }
-        })
-})
-=======
->>>>>>> 1acf14fa0ffb729cceb8ef956f8eba6e6ee5e867
 
 router.post('/dates', (req, res) => {
 
