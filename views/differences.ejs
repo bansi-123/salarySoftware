@@ -194,6 +194,26 @@
                       <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
                       <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
                       <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+
+                      <script>
+                        function manage(txt) {
+                            var bt = document.getElementById('submit');
+                            var ele = document.getElementsByTagName('input'); 
+                    
+                            // Loop through each element.
+                            for (i = 0; i < ele.length; i++) {
+                    
+                                // Check the element type.
+                                if (ele[i].type == 'text' && ele[i].value == '') {
+                                    bt.disabled = true;    // Disable the button.
+                                    return false;
+                                }
+                                else {
+                                    bt.disabled = false;   // Enable the button.
+                                }
+                            }
+                        }
+                    </script>
     </body>
 
     </html>

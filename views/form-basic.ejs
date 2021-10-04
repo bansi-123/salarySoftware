@@ -13,12 +13,7 @@
                 color: red;
             }
         </style>
-<script>
-    function myFunction() {
-      alert("Data Inserted Successfully!");
-    }
-    </script>
-<script>
+        <script>
     var handle_dependent_selects = function ($category) {
         var $designation = document.getElementById($category.getAttribute('data-designation-id')),
             $selected = $category.options[$category.selectedIndex],
@@ -66,6 +61,7 @@
         }
     }, false);
 </script>
+
     </head>
 
     <body>
@@ -103,8 +99,8 @@
                                                 <label class="col-lg-6 col-form-label"> MIS Login ID
                                                     (empXXX) <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="empID" class="form-control"
-                                                        placeholder="XXX" pattern="+emp." title="enter valid mis ID"
+                                                    <input type="text" name="empID" onkeyup="manage()"  class="required"
+                                                        placeholder="XXX" pattern="+emp." title="enter valid mis ID" 
                                                          >
                                                 </div>
                                             </div>
@@ -114,8 +110,8 @@
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="empName" class="form-control"
-                                                        placeholder="Enter Name" required>
+                                                    <input type="text" name="empName" onkeyup="manage()"  class="required"
+                                                        placeholder="Enter Name">
                                                 </div>
                                             </div>
 
@@ -123,18 +119,19 @@
                                                 <label class="col-lg-6 col-form-label">Email ID (Personal)
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input id="val-email" name="emailID" class="form-control"
+                                                    <input name="emailID" onkeyup="manage()" class="required"
                                                         type="email" placeholder="admin@gmail.com">
                                                 </div>
                                             </div>
+                                            
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Email ID (PICT) <span
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input id="example-email2" name="emailID2" class="form-control"
+                                                    <input id="example-email2" name="emailID2" onkeyup="manage()" class="required"
                                                         type="email" placeholder="admin@pict.edu" pattern=".+@pict\.edu"
-                                                        title="enter valid email ID" required>
+                                                        title="enter valid email ID">
                                                 </div>
                                             </div>
 
@@ -151,7 +148,7 @@
                                                 <label  class="col-lg-6 col-form-label">Designation Category: <span
                                                     class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                 <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category'   >
+                                                 <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  onkeyup="manage()"  class="required"   >
                                                 <option value="">---------</option>
                                                 <option value="teaching" data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer">Teaching</option>
                                                 <option value="nonteaching" data-designation-options="Registrar|#Librarian|#OffSup|#Technical Assistant|#Lab. Assistant|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Asstt. Programmer|#Director of Physical Education & Sports|#Electrician|#Accounts Assistant|#Network Administrator|#Workshop Instructor">Non- Teaching</option>
@@ -165,7 +162,7 @@
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <select name="nonteach" required>
+                                                    <select name="nonteach">
                                                         <option value="" hidden selected>-----</option>
 
                                                         <option value="Technical">Technical</option>
@@ -178,7 +175,7 @@
                                               <label class="col-lg-6 col-form-label">  Designation: <span
                                                 class="text-danger">*</span> </label>
                                               <div class="col-lg-6">
-                                              <select name="designation" id="id_designation" class='dependent-selects__designation'  required>
+                                              <select name="designation" id="id_designation" onkeyup="manage()" class="required">
                                                 <option value="">-----</option>
                                                 <option value="Principal">Principal</option>
                                                 <option value="professor">Professor</option>
@@ -242,7 +239,7 @@
                                                 <div class="col-lg-6">
                                                     <select name="dept" id="id_category1" onchange="ShowHideDivi()"
                                                         data-designation-id='id_designation'
-                                                        class='dependent-selects__category' required >
+                                                          onkeyup="manage()" class="required" >
 
                                                         <option value="Computer">C.E</option>
                                                         <option value="IT">IT</option>
@@ -299,7 +296,7 @@
                                                     Joining <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" class="form-control" id="doj" name="doj" required>
+                                                    <input type="date"  id="doj" name="doj"  onkeyup="manage()" class="required">
 
                                                 </div>
                                             </div>
@@ -311,7 +308,7 @@
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" name="dob" class="form-control" required>
+                                                    <input type="date" name="dob"   onkeyup="manage()" class="required">
                                                 </div>
                                                 <div id="age" style="padding-top:2em;"></div>
                                             </div>
@@ -362,8 +359,8 @@
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="Aadhar" class="form-control"
-                                                        pattern=".{12,12}" title="12 numbers needed" required>
+                                                    <input type="text" name="aadhar" 
+                                                        pattern=".{12,12}" title="12 numbers needed"  onkeyup="manage()" class="required">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -371,9 +368,9 @@
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="Pan_No" class="form-control"
+                                                    <input type="text" name="Pan_No"
                                                         pattern=".{10,10}" title="10 alphanumeric characters needed"
-                                                        required>
+                                                         onkeyup="manage()" class="required">
                                                 </div>
                                             </div>
 
@@ -393,7 +390,7 @@
                                                 <div class="col-lg-6">
                                                     <select name="onrole" id="id_category2" onchange="ShowHideDivi()"
                                                         data-designation-id='id_designation'
-                                                        class='dependent-selects__category' required>
+                                                      onkeyup="manage()" class="required">
                                                         <option value="yes">Yes</option>
                                                         <option value="no">No</option>
 
@@ -454,8 +451,8 @@
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="number" name="mobile" class="form-control"
-                                                        pattern=".{10,10}" title="10 characters needed" required>
+                                                    <input type="number" name="mobile" 
+                                                        pattern=".{10,10}" title="10 characters needed"  onkeyup="manage()" class="required">
                                                 </div>
                                             </div>
 
@@ -476,13 +473,7 @@
                                                 </div>
                                             </div>
 
-                                            <!-- <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> Biometric Attendance ID                            <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" name="biometric" class="form-control"  >
-                                                </div>
-                                            </div> -->
+                                           
                                             <div class="form-group row">
 
                                                 <label class="col-lg-6 col-form-label" for="vacation">Vacation</label>
@@ -614,13 +605,7 @@
                                                 </div>
                                             </div>
                                            
-                                            <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> Investment </label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" name="investment" class="form-control"  >
-                                                </div>
-                                            </div>
-
+                                           
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Drive link for photo </label>
                                                 <div class="col-lg-6">
@@ -677,8 +662,8 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="pay" class="form-control"
-                                                    placeholder="Basic Pay" required>
+                                                <input type="text" name="pay" 
+                                                    placeholder="Basic Pay"  onkeyup="manage()" class="required">
 
 
                                             </div>
@@ -689,8 +674,8 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="gp" class="form-control"
-                                                    placeholder="Grade Pay" required>
+                                                <input type="text" name="gp" 
+                                                    placeholder="Grade Pay"  onkeyup="manage()" class="required">
                                             </div>
                                         </div>
 
@@ -699,8 +684,8 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="pf" class="form-control"
-                                                    placeholder="Provident Fund" required>
+                                                <input type="text" name="pf" 
+                                                    placeholder="Provident Fund"  onkeyup="manage()" class="required">
                                             </div>
                                         </div>
 
@@ -709,8 +694,8 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="groupInsurance" class="form-control"
-                                                    placeholder="Group Insurance" required>
+                                                <input type="text" name="groupInsurance" 
+                                                    placeholder="Group Insurance"  onkeyup="manage()" class="required">
                                             </div>
                                         </div>
 
@@ -725,7 +710,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="cca" class="form-control" required>
+                                                <input type="text" name="cca"   onkeyup="manage()" class="required">
                                             </div>
                                         </div>
 
@@ -734,7 +719,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="ta" class="form-control" required>
+                                                <input type="text" name="ta"   onkeyup="manage()" class="required">
                                             </div>
                                         </div>
 
@@ -743,7 +728,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="hra" class="form-control" required>
+                                                <input type="text" name="hra"   onkeyup="manage()" class="required">
                                             </div>
                                         </div>
 
@@ -752,7 +737,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="da" class="form-control" required>
+                                                <input type="text" name="da"   onkeyup="manage()" class="required">
                                             </div>
                                         </div>
 
@@ -771,7 +756,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <select class="form-control" name="payBand" required>
+                                                <select name="payBand"  onkeyup="manage()" class="required">
                                                     
                                                     <option value="4440-7440" id="4440-7440">4440-7440</option>
                                                     <option value="5200-20200" id="5200-20200">5200-20200</option>
@@ -789,7 +774,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <select class="form-control" name="paycommission" required>
+                                                <select  name="paycommission"  onkeyup="manage()" class="required">
                                                     <option>---------</option>
                                                     <option value=5 id="5th">5th Type</option>
                                                     <option value=6 id="6th">6th Type</option>
@@ -826,8 +811,8 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="bankName" class="form-control"
-                                                    placeholder="Bank Name" required>
+                                                <input type="text" name="bankName" 
+                                                    placeholder="Bank Name"  onkeyup="manage()" class="required">
                                             </div>
                                         </div>
 
@@ -837,8 +822,8 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="branchName" class="form-control"
-                                                    placeholder="Branch Name" required>
+                                                <input type="text" name="branchName" 
+                                                    placeholder="Branch Name"  onkeyup="manage()" class="required">
 
                                             </div>
                                         </div>
@@ -851,9 +836,9 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="ifscCode" id="ifsc" class="form-control"
+                                                <input type="text" name="ifscCode" id="ifsc" 
                                                     placeholder="IFSC Code" pattern=".{11,11}"
-                                                    title="11 characters needed" required />
+                                                    title="11 characters needed"  onkeyup="manage()" class="required" />
 
                                             </div>
                                         </div>
@@ -865,8 +850,8 @@
                                                 No. <span class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="bankAccNum" class="form-control"
-                                                    placeholder="Acc No." required>
+                                                <input type="text" name="bankAccNum" 
+                                                    placeholder="Acc No."  onkeyup="manage()" class="required">
 
                                             </div>
                                         </div>
@@ -1049,8 +1034,8 @@
                                     <label class="col-lg-6 col-form-label">U.G. Subject <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="ugSub" class="form-control" placeholder="U.G. Subject"
-                                        required>
+                                        <input type="text" name="ugSub"  placeholder="U.G. Subject"
+                                         onkeyup="manage()" class="required">
                                     </div>
                                 </div>
 
@@ -1060,8 +1045,8 @@
                                     <label class="col-lg-6 col-form-label">U.G. University <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="ugUni" class="form-control"
-                                            placeholder="U.G. University" required>
+                                        <input type="text" name="ugUni" 
+                                            placeholder="U.G. University"  onkeyup="manage()" class="required">
                                     </div>
                                 </div>
                             </div>
@@ -1081,16 +1066,16 @@
                                     <label class="col-lg-6 col-form-label">U.G. Passing year <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="ugYr" class="form-control"
-                                            placeholder="U.G. Passing year" required>
+                                        <input type="text" name="ugYr" 
+                                            placeholder="U.G. Passing year"  onkeyup="manage()" class="required">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-6 col-form-label">U.G. Grade/Class <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="grade" class="form-control"
-                                            placeholder="U.G. Grade/Class" required>
+                                        <input type="text" name="grade" 
+                                            placeholder="U.G. Grade/Class"  onkeyup="manage()" class="required">
                                     </div>
                                 </div>
                             </div>
@@ -1098,9 +1083,9 @@
                         <div class="row text-center" text-align: center;>
 
                             <!-- <button class="button large round success">Submit</button> -->
-                            <pre>                                                                      </pre><button class="btn btn-primary" type="submit" onclick="myFunction()">Submit</button>
+                            <!-- <pre>                                                                      </pre><button class="btn btn-primary" type="submit" onclick="myFunction()">Submit</button> -->
 
-
+                            <input type="submit" id="submit" disabled />
                         </div>
 
                     </div>
@@ -1117,6 +1102,26 @@
         </div>
         </div>
         </div>
+
+        <script>
+            function manage() {
+                var bt = document.getElementById('submit');
+                var ele = document.getElementsByClassName('required'); 
+                console.log(ele.length);
+                // Loop through each element.
+                for (i = 0; i < ele.length; i++) {
+        
+                    // Check the element type.
+                    if (ele[i].value == '') {
+                        bt.disabled = true;    // Disable the button.
+                        return false;
+                    }
+                    else {
+                        bt.disabled = false;   // Enable the button.
+                    }
+                }
+            }
+        </script>
         <script src="../assets/focus2/vendor/global/global.min.js"></script>
         <script src="../assets/focus2/js/quixnav-init.js"></script>
         <script src="../assets/focus2/js/custom.min.js"></script>
@@ -1132,5 +1137,8 @@
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
         <script src="../assets/alert/script.js"></script>
+
+
+        
 
     </body>
