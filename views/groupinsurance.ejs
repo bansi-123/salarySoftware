@@ -99,8 +99,11 @@
                                 <div class="card">
                                     <div class="bootstrap-data-table-panel">
                                         <div class="table-responsive">
+                                            <form class="form-horizontal" action="\truncate" method="post">
+                                                <input class="btn btn-primary" style="float: left;" type="submit" value="Delete Previous records">
+                                                <input name="table" value="group_insurance" hidden>
+                                            </form>
                                             <form class="form-horizontal" action="\groupinsurance" method="post">
-
                                                 <input type="button" class="btn btn-danger" style="float: right;" onclick='deSelect()'
                                                     value="Deselect All" />
 
@@ -223,7 +226,6 @@
 
 
                                         </div>
-
                                     </div>
                                 </div>
                                 <!-- /# card -->
