@@ -3256,17 +3256,22 @@ router.get('/deductions', ensureAuthenticated, (req, res) => {
 });
 
 router.post('/deductions', (req, res) => {
+    console.log("IN")
+    console.log(req.body)
     console.log(JSON.parse(JSON.stringify(req.body)))
     const { prov_fund_DNA, prov_fund_Percent, prov_fund_Max, prof_tax_Max, prof_tax_Percent, prof_tax_DNA, rev_stamp_max, rev_stamp_DNA } = JSON.parse(JSON.stringify(req.body));
+    // const {prov_fund_DNA}=req.body;
     mysqldb.query(`update config set prov_fund_DNA=${prov_fund_DNA},prov_fund_Percent=${prov_fund_Percent},prov_fund_Max=${prov_fund_Max},prof_tax_Max=${prof_tax_Max},prof_tax_Percent=${prof_tax_Percent},prof_tax_DNA=${prof_tax_DNA},rev_stamp_max=${rev_stamp_max},rev_stamp_DNA=${rev_stamp_DNA} where ID=1`, (err, result) => {
         if (err) {
             console.log(err);
         }
         else {
-
-            res.render('index1');
+            
+            // res.render('index1');
+            
         }
     })
+    res.json({status:"error"})
 
 });
 
