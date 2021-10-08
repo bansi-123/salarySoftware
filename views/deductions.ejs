@@ -178,7 +178,9 @@
                         <br />
                         <div style="display: inline;padding-right: 2%;float: right;">
                            
-                            <button onclick="submitFn(event)">Submit</button>
+                            <!-- <button onclick="submitFn(event)">Submit</button> -->
+
+                            <button class="button large round success" onclick="submitFn(event)">Submit</button>
                             
                     
                         </div>
@@ -211,22 +213,38 @@
                         var prop=data[i].name;
                         sendData[prop]=data[i].value
                 }
-                console.log(data)
-                console.log(sendData)
+
                 
+                console.log("data" + data)
+                console.log("sendData" + sendData)
+            
                 axios.post('http://localhost:3000/deductions',sendData)
                     .then(function (response) {
                         if(response.data.status=="error")
                         {
+                            console.log("status" + response.data)
                             console.log("ERROR")
+                            var message="error"+response.data.message
+                            alertify.set({ delay: 1700 });
+	    							alertify.error(message); 
+                                     
                         }
-                        // console.log("SUCCESS")
-                        // console.log(response)
+                        else
+                        {
+                            console.log("SUCCESS")
+                            console.log(response)
+
+                            alertify.set({ delay: 1700 });
+  							alertify.success("Success!");  
+                        }
+                        
                     })
                     .catch(function (error) {
-                        console.log("ERROR")
+                        //console.log("ERROR")
                         console.log(error)
                     });   
             }
         </script>
+
+<script src="../assets/alert/script.js"></script>
     </body>

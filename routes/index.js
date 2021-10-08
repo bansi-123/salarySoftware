@@ -3264,14 +3264,19 @@ router.post('/deductions', (req, res) => {
     mysqldb.query(`update config set prov_fund_DNA=${prov_fund_DNA},prov_fund_Percent=${prov_fund_Percent},prov_fund_Max=${prov_fund_Max},prof_tax_Max=${prof_tax_Max},prof_tax_Percent=${prof_tax_Percent},prof_tax_DNA=${prof_tax_DNA},rev_stamp_max=${rev_stamp_max},rev_stamp_DNA=${rev_stamp_DNA} where ID=1`, (err, result) => {
         if (err) {
             console.log(err);
+        res.json({status:"error", message:"please fill all fields"})
+        
+            
         }
         else {
+            console.log("sunand");
+        res.json({status:"success"})
+
             
-            // res.render('index1');
             
         }
     })
-    res.json({status:"error"})
+    //res.redirect('index1');
 
 });
 
