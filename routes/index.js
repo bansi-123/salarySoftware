@@ -3473,7 +3473,7 @@ router.post('/lateattendance', ensureAuthenticated, (req, res) => {
 
     // console.log(data["lwp"],data["month"],data["year"],days)
     // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
-    mysqldb.query(`INSERT INTO late_attendance (empID, empName, latedays,month, year, prevdays) VALUES ('${data.empID}', '${data.empName}', ${data.latedays}, '${data["month"].toLowerCase()}', ${data["year"]}, ${prevdays})`, (err, result) => {
+    mysqldb.query(`INSERT INTO late_attendance (empID, empName, latedays,month, year, prevdays) VALUES ('${data.empID}', '${data.empName}', ${data.latedays}, '${data["month"].toLowerCase()}', ${data["year"]}, ${prevdays}) on duplicate key update latedays=${data.latedays}`, (err, result) => {
         if (err) {
             console.log(err);
             console.log("invalid details");
@@ -3504,7 +3504,7 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
 
     // console.log(data["lwp"],data["month"],data["year"],days)
     // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
-    mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES ('${data.empID}', '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}')`, (err, result) => {
+    mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES ('${data.empID}', '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}') on duplicate key update miscellaneous_amt=${data.amt},note='${data.note}'`, (err, result) => {
         if (err) {
             console.log(err);
             console.log("invalid details");
@@ -4202,7 +4202,7 @@ router.post('/recovery', (req, res) => {
     // console.log(data["lwp"],data["month"],data["year"],days)
 
 
-    mysqldb.query(`INSERT INTO recovery (empID, month, year, recoveryAmount, note) VALUES ('${data.empID}', '${data["month"]}', ${data["year"]}, ${data.recoveryAmount}, '${data.note}')`
+    mysqldb.query(`INSERT INTO recovery (empID, month, year, recoveryAmount, note) VALUES ('${data.empID}', '${data["month"]}', ${data["year"]}, ${data.recoveryAmount}, '${data.note}') on duplicate key update recoveryAmount=${data.recoveryAmount},note='${data.note}'`
         , (err, result) => {
             if (err) {
                 console.log(err);
