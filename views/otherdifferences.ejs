@@ -60,15 +60,27 @@
         <div class="content-wrap">
             <div class="main">
                 <div class="container-fluid">
+                    <div class="row">
+                        <form class="form-horizontal" action="\truncate" method="post">
+                            <input class="btn btn-primary" style="float: left;width:100%;margin-top: 5%;margin-left: 5%;" type="submit" value="Delete Previous records for Hra Difference">
+                            <input name="table" value="hra_difference" hidden>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <form class="form-horizontal" action="\truncate" method="post">
+                            <input class="btn btn-primary" style="float: left;width:100%;margin-top: 5%;margin-left: 5%;" type="submit" value="Delete Previous records for Da Difference">
+                            <input name="table" value="da_difference" hidden>
+                        </form>
+                    </div>
                     <form class="form-horizontal" action="\otherdifferences" method="post">
-                        <div class="row">
-                            <div class="col-lg-8 p-r-0 title-margin-right">
-                                <div class="page-header">
+                        <div class="row" style="display: block;">
+                            <!-- <div class="col-lg-8 p-r-0 title-margin-right">
+                                <div class="page-header"> -->
                                     <!-- <div class="page-title">
                                         <h1>Hello, Welcome Here</h1>
                                     </div> -->
-                                </div>
-                            </div>
+                                <!-- </div>
+                            </div> -->
 
                             <div class="col-lg-12">
                                 <div class="card">
