@@ -21,6 +21,10 @@ const UserSchema = new mongoose.Schema({
   resetLink: {
     type: String,
     default: ''
+  },
+  role:
+  {
+    type:String
   }
 }, { timestamps: true });
 

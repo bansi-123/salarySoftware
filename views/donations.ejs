@@ -80,9 +80,14 @@
                         </div>
                         <!-- /# column -->
                     </div>
+                    <form class="form-horizontal" action="\truncate" method="post">
+                        <input class="btn btn-primary" style="float: left;width:20%" type="submit" value="Delete Previous records">
+                        <input name="table" value="donation" hidden>
+                    </form>
                     <!-- /# column -->
                 </div>
                 <!-- /# row -->
+                
                 <form class="form-horizontal" action="\donations" method="post">
 
                 <div class="row">
@@ -110,9 +115,10 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
+                                
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                       
+                                        
                                             <input type="button" class="btn btn-danger" style="float: right;" onclick='deSelect()'
                                             value="Deselect All" />
 

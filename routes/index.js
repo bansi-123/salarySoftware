@@ -8,7 +8,8 @@ const config = require('../config');
 
 //------------ Welcome Route ------------//
 router.get('/', (req, res) => {
-    res.render('welcome');
+    res.render('welcome',{
+    });
 });
 
 //------------ Dashboard Route ------------//
@@ -16,15 +17,15 @@ router.get('/dashboard', (req, res) => res.render('dash', {
 }));
 
 router.get('/index1', ensureAuthenticated, (req, res) => {
-    
     res.render('index1', {
-        name: req.user.name
+        name: req.user.name,
+        role: req.user.role
     })
 });
 
-router.get('/test', ensureAuthenticated, (req, res) => {
-    res.render('test');
-});
+// router.get('/test', ensureAuthenticated, (req, res) => {
+//     res.render('test');
+// });
 router.get('/newdeclaration', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`, (err, result) => {
         if (err) {
@@ -33,7 +34,8 @@ router.get('/newdeclaration', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('newdeclaration', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -47,14 +49,18 @@ router.get('/newdeclaration', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('newdeclaration', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
 });
 
 router.get('/declaration2', ensureAuthenticated, (req, res) => {
-    res.render('declaration2');
+    res.render('declaration2',
+    {
+        role: req.user.role
+    });
 });
 
 router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
@@ -91,7 +97,8 @@ router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
                 cur_month: mlist[new Date().getMonth()],
                 sunand:parseInt(sunand),
                 duration:parseInt(duration),
-                date:new Date()
+                date:new Date(),
+                role: req.user.role
 
             });
         }
@@ -132,7 +139,8 @@ router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
                 cur_month: mlist[new Date().getMonth()],
                 sunand:parseInt(sunand),
                 dura:parseInt(dura),
-                date:new Date()
+                date:new Date(),
+                role: req.user.role
 
             });
         }
@@ -154,7 +162,8 @@ router.get('/salcert2/:empID', ensureAuthenticated, (req, res) => {
             res.render('salcert2', {
                 salary: JSON.parse(JSON.stringify(result)),
                 requestedTitle: req.params.empID,
-                cur_month: mlist[new Date().getMonth()]
+                cur_month: mlist[new Date().getMonth()],
+                role: req.user.role
 
             });
         }
@@ -162,7 +171,9 @@ router.get('/salcert2/:empID', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/proposedDeclaration', ensureAuthenticated, (req, res) => {
-    res.render('proposedDeclaration');
+    res.render('proposedDeclaration',{
+        role: req.user.role
+    });
 });
 
 router.get('/salsheet',  (req, res) => {
@@ -176,7 +187,8 @@ router.get('/salsheet',  (req, res) => {
         else {
             //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('salsheet', {
-                salary: JSON.parse(JSON.stringify(result))
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -186,7 +198,8 @@ router.get('/salsheet',  (req, res) => {
 var sunand;
 var dura;
 router.get('/form-basic', ensureAuthenticated, (req, res) => res.render('form-basic', {
-    name: req.user.name
+    name: req.user.name,
+    role: req.user.role
 }));
 
 router.get('/editlimits', ensureAuthenticated, (req, res) => {
@@ -203,8 +216,8 @@ router.get('/editlimits', ensureAuthenticated, (req, res) => {
                     console.log("Edit Details", JSON.parse(JSON.stringify(result)));
                     res.render('editlimits', {
                         edit_limits: JSON.parse(JSON.stringify(result)),
-                        config: JSON.parse(JSON.stringify(result2))
-                        
+                        config: JSON.parse(JSON.stringify(result2)),
+                        role: req.user.role
                         
                     });
                 }
@@ -222,7 +235,8 @@ router.get('/showlimits', ensureAuthenticated, (req, res) => {
         else {
             console.log("Edit Details", JSON.parse(JSON.stringify(result)));
             res.render('showlimits', {
-                edit_limits: JSON.parse(JSON.stringify(result))
+                edit_limits: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -245,7 +259,9 @@ router.post('/editlimits', (req, res) => {
         else {
 
             console.log("Limit Details", JSON.parse(JSON.stringify(result)));
-            res.redirect('editlimits');
+            res.redirect('editlimits',{
+                role: req.user.role
+            });
         }
     })
 
@@ -264,7 +280,9 @@ router.post('/editcess', (req, res) => {
         else {
 
             console.log("Limit Details", JSON.parse(JSON.stringify(result)));
-            res.redirect('editlimits');
+            res.redirect('editlimits',{
+                role: req.user.role
+            });
         }
     })
 
@@ -469,7 +487,8 @@ router.get('/edit/:empID', ensureAuthenticated, (req, res) => {
                 console.log("result2 is", result2)
                 res.render('edit', {
                     // Employees:JSON.parse(JSON.stringify(result)),
-                    Employees: JSON.parse(JSON.stringify(result2))
+                    Employees: JSON.parse(JSON.stringify(result2)),
+                    role: req.user.role
                 });
             }
         })
@@ -478,7 +497,9 @@ router.get('/edit/:empID', ensureAuthenticated, (req, res) => {
 
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle)
+        res.redirect(requestedTitle,{
+            role: req.user.role
+        })
     }
 
 });
@@ -498,7 +519,8 @@ router.get('/editdates/:empID', ensureAuthenticated, (req, res) => {
                 console.log("result2 is", result2)
                 res.render('editdates', {
                     // Employees:JSON.parse(JSON.stringify(result)),
-                    Employees: JSON.parse(JSON.stringify(result2))
+                    Employees: JSON.parse(JSON.stringify(result2)),
+                    role: req.user.role
                 });
             }
         })
@@ -507,7 +529,10 @@ router.get('/editdates/:empID', ensureAuthenticated, (req, res) => {
 
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle)
+        res.redirect(requestedTitle,
+            {
+                role: req.user.role
+            })
     }
 
 });
@@ -630,7 +655,9 @@ router.post('/editEmployee', (req, res) => {
 
 
 router.get('/final', ensureAuthenticated, (req, res) => {
-    res.render('final');
+    res.render('final',{
+        role: req.user.role
+    });
 });
 
 //------------ Search for Employee Details Route ------------//
@@ -663,7 +690,8 @@ router.get('/table-export', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('table-export', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -678,7 +706,8 @@ router.get('/edit', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('edit', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -693,7 +722,8 @@ router.get('/editdates', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('editdates', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -708,7 +738,8 @@ router.get('/addincometax', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('addincometax', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -724,7 +755,8 @@ router.get('/incometax', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('incometax', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -739,7 +771,8 @@ router.get('/updateincometax', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('update_home', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -774,7 +807,8 @@ router.get('/updateincometax/:empID', ensureAuthenticated, (req, res) => {
                                 res.render('updateincometax', {
                                     Employees: JSON.parse(JSON.stringify(result2)),
                                     name: JSON.parse(JSON.stringify(result2)),
-                                    limits: JSON.parse(JSON.stringify(result3))
+                                    limits: JSON.parse(JSON.stringify(result3)),
+                                    role: req.user.role
                                 });
                             }
                         })
@@ -785,7 +819,9 @@ router.get('/updateincometax/:empID', ensureAuthenticated, (req, res) => {
     }
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle)
+        res.redirect(requestedTitle,{
+            role: req.user.role
+        })
     }
 });
 
@@ -797,7 +833,8 @@ router.get('/donations', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('donations', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -858,7 +895,8 @@ router.get('/viewdonations', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('viewdonations', {
-                donation: JSON.parse(JSON.stringify(result))
+                donation: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -873,7 +911,8 @@ router.get('/ta', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('ta', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -925,7 +964,8 @@ router.get('/hra', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('hra', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -956,16 +996,18 @@ router.post('/hra', ensureAuthenticated, (req, res) => {
     console.log("list is",list2)
     console.log(`update Employees set hra=${newValue} where empID in ${list}`)
     mysqldb.query(`update Employees set hra=${newValue} where empID in ${list}`,(err,result)=>{
-        if(err)
-        {
-            console.log(err)
+        if (err) {
+            console.log(err);
+            res.json({status:"error", message:"Please Fill HRA Amount"})
+        
+            
         }
         else {
-            console.log("updated hra in employee")
+        res.json({status:"success"})
         }
     })
 
-    res.redirect('hra');
+    // res.redirect('hra');
 
 });
 
@@ -977,7 +1019,8 @@ router.get('/da', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('da', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1031,7 +1074,8 @@ router.get('/cca', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('cca', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1082,7 +1126,8 @@ router.get('/differences', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('differences', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1167,7 +1212,8 @@ router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
                     console.log("Employees Details", JSON.parse(JSON.stringify(result)));
                     res.render('otherdifferences', {
                         Employees: JSON.parse(JSON.stringify(result)),
-                        config: JSON.parse(JSON.stringify(result2))
+                        config: JSON.parse(JSON.stringify(result2)),
+                        role: req.user.role
                     });
                 }
             })
@@ -1293,7 +1339,8 @@ router.get('/showincrement', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('showincrement', {
-                increment: JSON.parse(JSON.stringify(result))
+                increment: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1309,7 +1356,8 @@ router.get('/generatesalary', (req, res) => {
         else {
             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
             res.render('generatesalary', {
-                salarydata: JSON.parse(JSON.stringify(result))
+                salarydata: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1319,7 +1367,9 @@ router.get('/generatesalary', (req, res) => {
 
 
 router.get('/pdf', ensureAuthenticated, (req, res) => {
-    res.render('pdf')
+    res.render('pdf',{
+        role: req.user.role
+    })
 })
 
 
@@ -1339,7 +1389,8 @@ router.get('/pay', ensureAuthenticated, (req, res) => {
                     console.log("result2 is", result2)
                     res.render('pay', {
                         lwp: JSON.parse(JSON.stringify(result)),
-                        name: JSON.parse(JSON.stringify(result2))
+                        name: JSON.parse(JSON.stringify(result2)),
+                        role: req.user.role
                     });
                 }
             })
@@ -1418,7 +1469,7 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
     //     else{
     // var empID=JSON.parse(JSON.stringify(result))[0].empID;
     mysqldb.query(`INSERT INTO lwp (empID, month, year, days, lwp) VALUES ('${data.empID}', '${data["month"].toLowerCase()}', ${data["year"]}, ${days}, ${data["lwp"]}) ON DUPLICATE KEY UPDATE
-        lwp=lwp+${data["lwp"]}`
+        lwp=${data["lwp"]}`
         , (err, result) => {
             if (err) {
                 console.log(err);
@@ -1459,7 +1510,8 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
                         {
                                 console.log("Employees Details",JSON.parse(JSON.stringify(result)));
                                 res.render('viewemployee',{
-                                Employees:JSON.parse(JSON.stringify(result))
+                                Employees:JSON.parse(JSON.stringify(result)),
+                                role: req.user.role
                             });
 
                         }
@@ -1482,7 +1534,8 @@ router.get('/finalcheck', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('finalcheck', {
-                lwp: JSON.parse(JSON.stringify(result))
+                lwp: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1496,7 +1549,8 @@ router.get('/finalrecoveryamt', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('finalrecoveryamt', {
-                miscell: JSON.parse(JSON.stringify(result))
+                miscell: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1510,7 +1564,8 @@ router.get('/finaladvances', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('finaladvances', {
-                adv: JSON.parse(JSON.stringify(result))
+                adv: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1524,7 +1579,8 @@ router.get('/miscellaneous', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('mis_home', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1539,7 +1595,8 @@ router.get('/recoveryamount', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('recamt_home', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1553,7 +1610,8 @@ router.get('/finalmiscellaneous', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('finalmiscellaneous', {
-                miscell: JSON.parse(JSON.stringify(result))
+                miscell: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1570,7 +1628,8 @@ router.get('/finalattendance', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('finalattendance', {
-                late: JSON.parse(JSON.stringify(result))
+                late: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1587,7 +1646,8 @@ router.get('/trial', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('trial', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1595,6 +1655,7 @@ router.get('/trial', ensureAuthenticated, (req, res) => {
 
 router.get('/showlwp', (req, res) => {
     //mysqldb.query(`select * from lwp natural join Employees`,(err,result)=>
+    mysqldb.query(`delete from lwp where lwp=0`);
     mysqldb.query(`select * from lwp natural join Employees`, (err, result) => {
         if (err) {
             console.log(err);
@@ -1610,7 +1671,8 @@ router.get('/showlwp', (req, res) => {
                     console.log("result2 is", result2)
                     res.render('showlwp', {
                         lwp: JSON.parse(JSON.stringify(result)),
-                        name: JSON.parse(JSON.stringify(result2))
+                        name: JSON.parse(JSON.stringify(result2)),
+                        role: req.user.role
                     });
                 }
             })
@@ -1628,7 +1690,8 @@ router.get('/templwp', (req, res) => {
         else {
             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
             res.render('templwp', {
-                lwp: JSON.parse(JSON.stringify(result))
+                lwp: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1643,7 +1706,8 @@ router.get('/allowances', (req, res) => {
         else {
             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
             res.render('allowances', {
-                data: JSON.parse(JSON.stringify(result))
+                data: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1682,7 +1746,9 @@ router.get('/allowances', (req, res) => {
 // });
 
 router.get('/salsheet', (req, res) => {
-    res.render('salsheet');
+    res.render('salsheet',{
+        role: req.user.role
+    });
 });
 
 router.post('/salsheet', (req, res) => {
@@ -1796,7 +1862,8 @@ router.get('/groupinsurance', ensureAuthenticated, (req, res) => {
             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
             res.render('groupinsurance', {
                 Employees: JSON.parse(JSON.stringify(result)),
-                date: date
+                date: date,
+                role: req.user.role
                 
             });
         }
@@ -1836,7 +1903,7 @@ router.post('/groupinsurance', ensureAuthenticated, (req, res) => {
     // for(var i in indexList)
     for (let i = 0; i < IDlist.length; i++) {
         console.log(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}',${cur_month},${year})`)
-        mysqldb.query(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}','${cur_month}','${year}')`, (err, result) => {
+        mysqldb.query(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}','${cur_month}','${year}') `, (err, result) => {
             if (err) {
                 console.log(err)
                 console.log("error in insert query from group insurance")
@@ -1858,7 +1925,8 @@ router.get('/lateattendance', ensureAuthenticated, (req, res) => {
         else {
             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
             res.render('late_home', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1875,15 +1943,20 @@ router.get('/lateattendance/:empID', ensureAuthenticated, (req, res) => {
                 mysqldb.query(`select * from Employees where empID="${req.params.empID}"`, (err, result2) => {
                     if (err) {
                         console.log(err);
+                        
                     }
                     else {
                         // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
                         // var set=new Set(JSON.parse(JSON.stringify(result)))
                         console.log("result2 is", result2)
+                       
                         res.render('lateattendance', {
                             Employees: JSON.parse(JSON.stringify(result)),
-                            name: JSON.parse(JSON.stringify(result2))
+                            name: JSON.parse(JSON.stringify(result2)),
+                            role: req.user.role
                         });
+
+                       
                     }
                 })
             }
@@ -1917,7 +1990,8 @@ router.get('/miscellaneous/:empID', ensureAuthenticated, (req, res) => {
                         console.log("result2 is", result2)
                         res.render('miscellaneous', {
                             Employees: JSON.parse(JSON.stringify(result)),
-                            name: JSON.parse(JSON.stringify(result2))
+                            name: JSON.parse(JSON.stringify(result2)),
+                            role: req.user.role
                         });
                     }
                 })
@@ -1926,7 +2000,9 @@ router.get('/miscellaneous/:empID', ensureAuthenticated, (req, res) => {
     }
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle)
+        res.redirect(requestedTitle,{
+            role: req.user.role
+        })
     }
 });
 
@@ -1949,7 +2025,8 @@ router.get('/recoveryamount/:empID', ensureAuthenticated, (req, res) => {
                         console.log("result2 is", result2)
                         res.render('recoveryamount', {
                             Employees: JSON.parse(JSON.stringify(result)),
-                            name: JSON.parse(JSON.stringify(result2))
+                            name: JSON.parse(JSON.stringify(result2)),
+                            role: req.user.role
                         });
                     }
                 })
@@ -1959,7 +2036,9 @@ router.get('/recoveryamount/:empID', ensureAuthenticated, (req, res) => {
 
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle)
+        res.redirect(requestedTitle,{
+            role: req.user.role
+        })
     }
 });
 
@@ -1972,7 +2051,8 @@ router.get('/advances', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('advances_home', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -1985,7 +2065,8 @@ router.get('/declarations', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('declare_home', {
-               Employees: JSON.parse(JSON.stringify(result))
+               Employees: JSON.parse(JSON.stringify(result)),
+               role: req.user.role
             });
         }
     })
@@ -2011,7 +2092,8 @@ router.get('/declarations/:empID', ensureAuthenticated, (req, res) => {
                         console.log("result2 is", result2)
                         res.render('declarations', {
                             Employees: JSON.parse(JSON.stringify(result)),
-                            name: JSON.parse(JSON.stringify(result2))
+                            name: JSON.parse(JSON.stringify(result2)),
+                            role: req.user.role
                         });
                     }
                 })
@@ -2020,7 +2102,9 @@ router.get('/declarations/:empID', ensureAuthenticated, (req, res) => {
     }
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle)
+        res.redirect(requestedTitle,{
+            role: req.user.role
+        })
     }
 });
 
@@ -2034,8 +2118,8 @@ router.get('/salarycert', ensureAuthenticated, (req, res) => {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('salarycert', {
                 Employees: JSON.parse(JSON.stringify(result)),
-                salary: JSON.parse(JSON.stringify(result))
-
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -2078,7 +2162,8 @@ router.get('/advances/:empID', ensureAuthenticated, (req, res) => {
                         console.log("result2 is", result2)
                         res.render('advances', {
                             Employees: JSON.parse(JSON.stringify(result)),
-                            name: JSON.parse(JSON.stringify(result2))
+                            name: JSON.parse(JSON.stringify(result2)),
+                            role: req.user.role
                         });
                     }
                 })
@@ -2118,21 +2203,24 @@ router.get('/tempadvances', ensureAuthenticated, (req, res) => {
         else {
             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
             res.render('tempadvances', {
-                salary: JSON.parse(JSON.stringify(result))
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
 });
 
 router.get('/showadvances', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from advance`, (err, result) => {
+    mysqldb.query(`delete from advance_temp where amount=0`);
+    mysqldb.query(`select * from advance_temp`, (err, result) => {
         if (err) {
             console.log(err);
         }
         else {
             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
             res.render('showadvances', {
-                advance: JSON.parse(JSON.stringify(result))
+                advance: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -2143,7 +2231,10 @@ router.post('/advances', ensureAuthenticated, (req, res) => {
     var data = JSON.parse(JSON.stringify(req.body));
     var empID = data.empID;
     console.log(`INSERT INTO advance_temp (empID, ,amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amt"]}, '${data["month"]}', ${data["year"]}, ${data["duration"]}, ${data["amt"]})`)
-    mysqldb.query(`INSERT INTO advance_temp (empID, amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amt"]}, '${data["month"]}', ${data["year"]}, ${data["duration"]}, ${data["amt"]})`
+    mysqldb.query(`INSERT INTO advance_temp (empID, amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amt"]}, '${data["month"]}', ${data["year"]}, ${data["duration"]}, ${data["amt"]}) ON DUPLICATE KEY UPDATE
+    amount = ${data["amt"]},  
+    outstanding = ${data["amt"]},  
+    duration = ${data["duration"]}`
         , (err, result) => {
             if (err) {
                 console.log(err);
@@ -2171,7 +2262,8 @@ router.get('/view2', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('view_2', {
-                salary: JSON.parse(JSON.stringify(result))
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -2285,7 +2377,8 @@ router.get('/showsalary', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('showsalary', {
-                salary: JSON.parse(JSON.stringify(result))
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -2302,7 +2395,8 @@ router.get('/masterview', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('masterview', {
-                salary: JSON.parse(JSON.stringify(result))
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -2319,7 +2413,8 @@ router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('masterviewprev', {
-                salary: JSON.parse(JSON.stringify(result))
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -2336,7 +2431,8 @@ router.get('/bankform', ensureAuthenticated, (req, res) => {
         else {
             //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('bankform', {
-                salary: JSON.parse(JSON.stringify(result))
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -2354,7 +2450,8 @@ router.get('/showfinaldeductions', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('showfinaldeductions', {
-                salary: JSON.parse(JSON.stringify(result))
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -2371,7 +2468,8 @@ router.get('/showmasterview', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('showmasterview', {
-                salary: JSON.parse(JSON.stringify(result))
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -3171,7 +3269,8 @@ router.get('/uploads/:empID', (req, res) => {
                 //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
                 res.render('templateSelected', {
                     salary: JSON.parse(JSON.stringify(result)),
-                    requestedTitle: req.params.empID
+                    requestedTitle: req.params.empID,
+                    role: req.user.role
                     //added the name field here to get the name wise reciept
                 });
             }
@@ -3179,7 +3278,9 @@ router.get('/uploads/:empID', (req, res) => {
     }
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle)
+        res.redirect(requestedTitle,{
+            role: req.user.role
+        })
     }
     // res.render("templateSelected");
 });
@@ -3195,14 +3296,15 @@ router.get('/lwp/:empID', (req, res) => {
             else {
                 console.log("Employees Details", JSON.parse(JSON.stringify(result)));
                 res.render('templwp-2', {
-                    Employees: JSON.parse(JSON.stringify(result))
+                    Employees: JSON.parse(JSON.stringify(result)),
+                    role: req.user.role
                 });
             }
         })
     }
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle)
+        res.redirect(requestedTitle,{ role: req.user.role})
     }
 });
 
@@ -3232,7 +3334,8 @@ router.get('/templwp-2', (req, res) => {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('templwp', {
                 Employees: JSON.parse(JSON.stringify(result)),
-                requestedTitle: req.params.empID
+                requestedTitle: req.params.empID,
+                role: req.user.role
             });
         }
     })
@@ -3248,7 +3351,8 @@ router.get('/deductions', ensureAuthenticated, (req, res) => {
         else {
             console.log("Config Details", JSON.parse(JSON.stringify(result)));
             res.render('deductions', {
-                data: JSON.parse(JSON.stringify(result))
+                data: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -3264,14 +3368,24 @@ router.post('/deductions', (req, res) => {
     mysqldb.query(`update config set prov_fund_DNA=${prov_fund_DNA},prov_fund_Percent=${prov_fund_Percent},prov_fund_Max=${prov_fund_Max},prof_tax_Max=${prof_tax_Max},prof_tax_Percent=${prof_tax_Percent},prof_tax_DNA=${prof_tax_DNA},rev_stamp_max=${rev_stamp_max},rev_stamp_DNA=${rev_stamp_DNA} where ID=1`, (err, result) => {
         if (err) {
             console.log(err);
+        res.json({status:"error", message:"please fill all fields"})
+        
+            
         }
         else {
-            
-            // res.render('index1');
+        
+        res.json({status:"success"})
+ 
             
         }
     })
-    res.json({status:"error"})
+    //res.redirect('index1');
+
+});
+
+router.post('/trial', (req, res) => {
+    
+    res.redirect('index1');
 
 });
 
@@ -3283,7 +3397,8 @@ router.get('/viewdeductions', ensureAuthenticated, (req, res) => {
         else {
             console.log("Config Details", JSON.parse(JSON.stringify(result)));
             res.render('viewdeduction', {
-                data: JSON.parse(JSON.stringify(result))
+                data: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -3377,23 +3492,21 @@ router.post('/lateattendance', ensureAuthenticated, (req, res) => {
 
     // console.log(data["lwp"],data["month"],data["year"],days)
     // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
-    mysqldb.query(`INSERT INTO late_attendance (empID, empName, latedays,month, year, prevdays) VALUES ('${data.empID}', '${data.empName}', ${data.latedays}, '${data["month"].toLowerCase()}', ${data["year"]}, ${prevdays})`, (err, result) => {
+    mysqldb.query(`INSERT INTO late_attendance (empID, empName, latedays,month, year, prevdays) VALUES ('${data.empID}', '${data.empName}', ${data.latedays}, '${data["month"].toLowerCase()}', ${data["year"]}, ${prevdays}) on duplicate key update latedays=${data.latedays}`, (err, result) => {
         if (err) {
             console.log(err);
-            console.log("invalid details");
+            
+            res.json({status:"error", message:"please fill all fields"})
+        
+            
         }
         else {
-            // console.log(JSON.parse(JSON.stringify(result))[0])
-            // res.redirect('/dashboard')
-            // req.flash(
-            //     'success_msg',
-            //     'Employee found!'
-            // );
+        res.json({status:"success"})
         }
     })
     //     }
     // })
-    res.redirect('index1');
+   
 });
 
 
@@ -3408,7 +3521,7 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
 
     // console.log(data["lwp"],data["month"],data["year"],days)
     // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
-    mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES ('${data.empID}', '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}')`, (err, result) => {
+    mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES ('${data.empID}', '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}') on duplicate key update miscellaneous_amt=${data.amt},note='${data.note}'`, (err, result) => {
         if (err) {
             console.log(err);
             console.log("invalid details");
@@ -3435,7 +3548,8 @@ router.get('/storeIncomeTax', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('incometax', {
-                Employees: JSON.parse(JSON.stringify(result))
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
             });
         }
     })
@@ -3723,6 +3837,7 @@ router.get('/register/teaching',  (req, res) => {
             //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('salregister', {
                 salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
                 //requestedTitle = req.params.empID
                 //added the name field here to get the name wise reciept
             });
@@ -3743,6 +3858,7 @@ router.get('/register/nonteaching', (req, res) => {
             //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('salregister', {
                 salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
                 //requestedTitle = req.params.empID
                 //added the name field here to get the name wise reciept
             });
@@ -4103,7 +4219,7 @@ router.post('/recovery', (req, res) => {
     // console.log(data["lwp"],data["month"],data["year"],days)
 
 
-    mysqldb.query(`INSERT INTO recovery (empID, month, year, recoveryAmount, note) VALUES ('${data.empID}', '${data["month"]}', ${data["year"]}, ${data.recoveryAmount}, '${data.note}')`
+    mysqldb.query(`INSERT INTO recovery (empID, month, year, recoveryAmount, note) VALUES ('${data.empID}', '${data["month"]}', ${data["year"]}, ${data.recoveryAmount}, '${data.note}') on duplicate key update recoveryAmount=${data.recoveryAmount},note='${data.note}'`
         , (err, result) => {
             if (err) {
                 console.log(err);
@@ -4114,6 +4230,25 @@ router.post('/recovery', (req, res) => {
             }
         })
 
+})
+
+router.post('/truncate',(req,res)=>{
+    mlist = ["January", "February", "March", "April", "may", "june", "july", "august", "september", "october", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()].toLowerCase();
+    var table = JSON.parse(JSON.stringify(req.body)).table;
+    
+    mysqldb.query(`delete from ${table} where month='${cur_month}'`
+    , (err, result) => {
+        if (err) {
+            console.log(err);
+            console.log("error in delete query");
+        }
+        else {
+            res.redirect('index1');
+        }
+    })
+
+    
 })
 
 module.exports = router;

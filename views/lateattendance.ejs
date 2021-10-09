@@ -91,13 +91,13 @@
                         </div>
                         <div class="dropdown">
                             <label><h3>Search </label></h3> <button  padding="40px" onclick="myFunction()" class="dropbtn">Add Late Attendance </button>
-                            <div id="myDropdown" class="dropdown-content">
+                            <!-- <div id="myDropdown" class="dropdown-content">
                               <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
 
                               <% for(var i=Employees.length-1; i>= 0; i-- ) { %>
                                 <a href="/lateattendance/<%=Employees[i].empID%>"><%= Employees[i].empName %></a>
                               <% }%>
-                            </div>
+                            </div> -->
                           </div>
                         <script>
                         function myFunction() {
@@ -168,7 +168,7 @@
                                                     <label class="col-sm-6 control-label">Month</label>
                                                     <div class="col-sm-10">
                                                       <form class="form-horizontal" action="\lateattendance" method="post"></form>
-                                                        <select class="form-control" name="month">
+                                                        <select class="form-control" name="month" value="5">
                                                             <!-- // <option value="january" name="1" id="january" selected>January</option>
                                                             //                 <option value="february" id="february" selected>February</option>
                                                             //                 <option value="march" id="march" selected>March</option>
@@ -181,7 +181,7 @@
                                                             //                 <option value="october" id="october" selected>October</option>    
                                                             //                 <option value="november" id="november" selected>November</option>    
                                                             //                 <option value="december" id="december" selected>December</option> -->
-                                                            <option  id="demo" ></option>
+                                                            <option name="month" id="demo" ></option>
                                                      <option  id="demo1" ></option>   
                                                         </select>
                                                         <script>
@@ -224,7 +224,7 @@ document.getElementById("demo1").innerHTML = months[(d.getMonth()+1)%12];
                                                 <br />
                                                 <div class="row text-center">
                                                   <div>
-                                                    <button class="button large round success">Submit</button>
+                                                    <button class="button large round success" onclick="submitFn(event)">Submit</button>
                                                   </div>
                                                 
                                                 </div>
@@ -243,10 +243,61 @@ document.getElementById("demo1").innerHTML = months[(d.getMonth()+1)%12];
     </div>
 </div>
 
+<script>
+  // function myFunction() {
+  //   alert("Deductions Edited Successfully!");
+  // }
+  function submitFn(event) {
+      event.preventDefault()
+      console.log("HERE")
+      var data=document.querySelectorAll('select,input')
+     
+      console.log("data2" + data)
+      var sendData={}
+      for (var i in data) {
+              var prop=data[i].name;
+              sendData[prop]=data[i].value;
+      }
+
+    
+      console.log("sendData" + sendData)
+  
+      axios.post('http://localhost:3000/lateattendance',sendData)
+          .then(function (response) {
+              if(response.data.status=="error")
+              {
+                  console.log("status" + response.data)
+                  console.log("ERROR")
+                  var message="error"+response.data.message
+                  alertify.set({ delay: 1700 });
+          alertify.error(message); 
+                           
+              }
+              else
+              {
+                  console.log("SUCCESS")
+                  console.log(response)
+
+                  alertify.set({ delay: 5000 });
+                  alertify.success("Success!");  
+
+                  // await axios.post('http://localhost:3000/trial')
+
+                  
+              }
+              
+          })
+          .catch(function (error) {
+              //console.log("ERROR")
+              console.log(error)
+          });   
+  }
+</script>
+
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script><script  src="../assets/alert/script.js"></script>
 
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
     <!-- scripit init-->

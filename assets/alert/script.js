@@ -628,12 +628,12 @@ $(document).foundation();
 }(this));
 
 
-$('button.success').click(function() {
-  alertify.set({ delay: 1700 });
-  							alertify.success("Success!");  
-});
+// $('button.success').click(function() {
+//   alertify.set({ delay: 1700 });
+//   							alertify.success("Success!");  
+// });
 
-$('button.alert').click(function() {
-    alertify.set({ delay: 1700 });
-	    							alertify.error("Error!");  
-});
+// $('button.alert').click(function() {
+//     alertify.set({ delay: 1700 });
+// 	    							alertify.error("Error!");  
+// });

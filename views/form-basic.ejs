@@ -512,9 +512,9 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Teaching Experiance in Years(Other than
-                                                    PICT) </label>
+                                                    PICT)  <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="number" name="exp" class="form-control"  >
+                                                    <input type="number" name="exp" class="form-control" required >
                                                 </div>
                                             </div>
 
@@ -536,51 +536,51 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Industry Experience</label>
+                                                <label class="col-lg-6 col-form-label">Industry Experience  <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="industry_exp" class="form-control"  >
+                                                    <input type="text" name="industry_exp" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">University Approval No.</label>
+                                                <label class="col-lg-6 col-form-label">University Approval No.  <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="uni_approval" class="form-control"  >
+                                                    <input type="text" name="uni_approval" class="form-control" required >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">University Approval Date</label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" name="uni_app_date" class="form-control"  >
+                                                    <input type="date" name="uni_app_date" class="form-control" required  >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">University Approval
-                                                    Period</label>
+                                                    Period  <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="uni_app_period" class="form-control"  >
+                                                    <input type="text" name="uni_app_period" class="form-control" required >
                                                 </div>
                                             </div>
 
 
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Work Experience (for NT Staff -
-                                                    Other than PICT)</label>
+                                                    Other than PICT)  <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="workexNT" class="form-control"  >
+                                                    <input type="text" name="workexNT" class="form-control" required >
                                                 </div>
                                             </div>
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> Overall Seniority No.</label>
+                                                <label class="col-lg-6 col-form-label"> Overall Seniority No.  <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="seniority" class="form-control"  >
+                                                    <input type="text" name="seniority" class="form-control" required  >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> Dept Seniority No.</label>
+                                                <label class="col-lg-6 col-form-label"> Dept Seniority No.  <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="dept_seniority" class="form-control"  >
+                                                    <input type="text" name="dept_seniority" class="form-control" required >
                                                 </div>
                                             </div>
 
@@ -594,10 +594,10 @@
                                             <div class="form-group row">
 
                                                 <label class="col-lg-6 col-form-label" for="emp_temp_regime">Employee
-                                                    Tax Regime</label>
+                                                    Tax Regime  <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
 
-                                                    <select name="emp_temp_regime" id="emp_temp_regime"  >
+                                                    <select name="emp_temp_regime" id="emp_temp_regime" required>
                                                         <option value="old">Old tax regime</option>
                                                         <option value="new">New tax regime</option>
 
@@ -1085,7 +1085,7 @@
                             <!-- <button class="button large round success">Submit</button> -->
                             <!-- <pre>                                                                      </pre><button class="btn btn-primary" type="submit" onclick="myFunction()">Submit</button> -->
 
-                            <input type="submit" id="submit" disabled />
+                            <pre>                                                                      </pre><input type="submit" id="submit" style="float:right" disabled />
                         </div>
 
                     </div>

@@ -117,31 +117,35 @@
                                                         (empXXX) <span class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
                                                         <input type="text" value="<%= Employees[i].empID %>"
-                                                            name="empID" class="form-control" readonly>
+                                                            name="empID" onkeyup="manage()"  class="required" 
+                                                             readonly>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-lg-6 col-form-label">Name (As per Aadhar
-                                                        Card)</label>
+                                                        Card) <span
+                                                        class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="empName" class="form-control"
+                                                        <input type="text" name="empName" onkeyup="manage()"  class="required"
                                                             value="<%= Employees[i].empName %>" placeholder="Enter Name"
                                                             ruqt>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">Email ID (Personal)</label>
+                                                    <label class="col-lg-6 col-form-label">Email ID (Personal)  <span
+                                                        class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <input id="val-email" name="emailID" class="form-control"
+                                                        <input id="val-email" name="emailID" onkeyup="manage()"  class="required"
                                                             type="email" value="<%= Employees[i].emailID2 %>"
                                                             placeholder="admin@gmail.com" ruqt>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">Email ID (PICT)</label>
+                                                    <label class="col-lg-6 col-form-label">Email ID (PICT)  <span
+                                                        class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <input id="example-email2" name="emailID2" class="form-control"
+                                                        <input id="example-email2" name="emailID2" onkeyup="manage()"  class="required"
                                                             type="email" value="<%= Employees[i].emailID %>"
                                                             placeholder="admin@pict.edu" pattern=".+@pict\.edu"
                                                             title="enter valid email ID" ruqt>
@@ -164,7 +168,7 @@
                                                         <select name="designationCategory" id="id_category"
                                                             onchange="ShowHideDiv()"
                                                             data-designation-id='id_designation'
-                                                            class='dependent-selects__category' required>
+                                                            onkeyup="manage()"  class="required" required>
                                                             <option value="">---------</option>
                                                             <option value="teaching"
                                                                 data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer">
@@ -183,7 +187,7 @@
                                                             class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-lg-6">
-                                                        <select name="nonteach">
+                                                        <select name="nonteach" onkeyup="manage()"  class="required">
                                                             <option value="" hidden selected>-----</option>
 
                                                             <option value="Technical">Technical</option>
@@ -197,7 +201,7 @@
                                                             class="text-danger">*</span> </label>
                                                     <div class="col-lg-6">
                                                         <select name="designation" id="id_designation"
-                                                            class='dependent-selects__designation' required>
+                                                        onkeyup="manage()"  class="required" required>
                                                             <option value="">-----</option>
                                                             <option value="Principal">Principal</option>
                                                             <option value="professor">Professor</option>
@@ -275,7 +279,7 @@
                                                     <div class="col-lg-6">
                                                         <select name="dept" id="id_category1" onchange="ShowHideDivi()"
                                                             data-designation-id='id_designation'
-                                                            class='dependent-selects__category' required>
+                                                            onkeyup="manage()"  class="required" required>
 
                                                             <option value="Computer">C.E</option>
                                                             <option value="IT">IT</option>
@@ -291,7 +295,7 @@
 
                                                     <div id="dvPassport1" style="display: none">
                                                         Type 1 <span class="text-danger">*</span>
-                                                        <select name="Subject">
+                                                        <select name="Subject" onkeyup="manage()"  class="required">
                                                             <option value="" hidden selected>-----</option>
                                                             <option value="Mechanical">Mechanical</option>
                                                             <option value="Civil">Civil</option>
@@ -315,7 +319,7 @@
                                                     <label class="col-lg-6 col-form-label">Salary Category <span
                                                             class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <select class="form-control" name="salaryCategory" required>
+                                                        <select onkeyup="manage()"  class="required" name="salaryCategory" required>
                                                             <!-- <option value="value" selected>Option Name</option> -->
                                                             <option value="consolidated" id="consolidated" selected>
                                                                 Consolidated</option>
@@ -335,7 +339,7 @@
                                                     <label class="col-lg-6 col-form-label" for="category">Category <span
                                                             class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <select name="category" id="category" required>
+                                                        <select name="category" id="category" onkeyup="manage()"  class="required">
                                                             <option value="open">OPEN</option>
                                                             <option value="sc">SC</option>
                                                             <option value="st">ST</option>
@@ -353,7 +357,7 @@
                                                     <label class="col-lg-6 col-form-label" for="gender">Gender <span
                                                             class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <select name="gender" id="gender" required>
+                                                        <select name="gender" id="gender" onkeyup="manage()"  class="required">
                                                             <option value="male">Male</option>
                                                             <option value="female">Female</option>
                                                             <option value="other">Other</option>
@@ -365,7 +369,7 @@
                                                     <label class="col-lg-6 col-form-label" for="status">Maritial
                                                         Status <span class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <select name="status" id="status" required>
+                                                        <select name="status" id="status" onkeyup="manage()"  class="required">
                                                             <option value="married">Married</option>
                                                             <option value="single">Single</option>
                                                             <option value="other">Other</option>
@@ -373,15 +377,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">Aadhar Number</label>
+                                                    <label class="col-lg-6 col-form-label">Aadhar Number  <span
+                                                        class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
                                                         <input type="text" name="aadhar"
-                                                            value="<%= Employees[i].aadhar %>" class="form-control"
+                                                            value="<%= Employees[i].aadhar %>" onkeyup="manage()"  class="required"
                                                             pattern=".{12,12}" title="12 numbers needed" ruqt>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-6 col-form-label">PAN No.</label>
+                                                    <label class="col-lg-6 col-form-label">PAN No.  <span
+                                                        class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
                                                         <input type="text" value="<%= Employees[i].Pan_No %>"
                                                             name="Pan_No" class="form-control" pattern=".{10,10}"
@@ -406,7 +412,7 @@
                                                         <select name="onrole" id="id_category2"
                                                             onchange="ShowHideDivii()"
                                                             data-designation-id='id_designation'
-                                                            class='dependent-selects__category' ruqt>
+                                                            onkeyup="manage()"  class="required" >
                                                             <option value="yes">Yes</option>
                                                             <option value="no">No</option>
 
@@ -447,7 +453,7 @@
                                                         Appointment <span class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
 
-                                                        <select name="appointment" id="appointment" required>
+                                                        <select name="appointment" id="appointment" onkeyup="manage()"  class="required">
                                                             <option value="Permanent">Permanent</option>
                                                             <option value="Probation">Probation</option>
                                                             <option value="Adhoc">Adhoc</option>
@@ -466,11 +472,12 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Mobile No.</label>
+                                                <label class="col-lg-6 col-form-label">Mobile No.  <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="number" value="<%= Employees[i].mobile %>"
-                                                        name="mobile" class="form-control" pattern=".{10,10}"
-                                                        title="10 characters needed" ruqt>
+                                                        name="mobile" onkeyup="manage()"  class="required" pattern=".{10,10}"
+                                                        title="10 characters needed">
                                                 </div>
                                             </div>
 
@@ -528,10 +535,11 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Teaching Experiance (Other than
-                                                    PICT)</label>
+                                                    PICT)  <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="exp" value="<%= Employees[i].exp %>"
-                                                        class="form-control" ruqt>
+                                                        onkeyup="manage()"  class="required">
                                                 </div>
                                             </div>
 
@@ -557,35 +565,39 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">Industry Experience</label>
+                                                <label class="col-lg-6 col-form-label">Industry Experience  <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="industry_exp"
-                                                        value="<%= Employees[i].industry_exp %>" class="form-control"
-                                                        ruqt>
+                                                        value="<%= Employees[i].industry_exp %>" onkeyup="manage()"  class="required"
+                                                        >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">University Approval No.</label>
+                                                <label class="col-lg-6 col-form-label">University Approval No.  <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="uni_approval"
-                                                        value="<%= Employees[i].uni_approval %>" class="form-control"
-                                                        ruqt>
+                                                        value="<%= Employees[i].uni_approval %>" onkeyup="manage()"  class="required"
+                                                        >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label">University Approval Date</label>
+                                                <label class="col-lg-6 col-form-label">University Approval Date  <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="date" name="uni_app_date"
-                                                        value="<%= Employees[i].uni_app_date %>" class="form-control"
-                                                        ruqt>
+                                                        value="<%= Employees[i].uni_app_date %>" onkeyup="manage()"  class="required"
+                                                        >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">University Approval
-                                                    Period</label>
+                                                    Period  <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="uni_app_period"
-                                                        value="<%= Employees[i].uni_app_period %>" class="form-control"
+                                                        value="<%= Employees[i].uni_app_period %>" onkeyup="manage()"  class="required"
                                                         ruqt>
                                                 </div>
                                             </div>
@@ -593,26 +605,29 @@
 
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Work Experience (for NT Staff -
-                                                    Other than PICT)</label>
+                                                    Other than PICT)  <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="workexNT"
-                                                        value="<%= Employees[i].workexNT %>" class="form-control" ruqt>
+                                                        value="<%= Employees[i].workexNT %>" onkeyup="manage()"  class="required" ruqt>
                                                 </div>
                                             </div>
 
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> Overall Seniority No.</label>
+                                                <label class="col-lg-6 col-form-label"> Overall Seniority No.  <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="seniority"
-                                                        value="<%= Employees[i].seniority %>" class="form-control" ruqt>
+                                                        value="<%= Employees[i].seniority %>" onkeyup="manage()"  class="required" ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> Dept Seniority No.</label>
+                                                <label class="col-lg-6 col-form-label"> Dept Seniority No.  <span
+                                                    class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="dept_seniority"
-                                                        value="<%= Employees[i].dept_seniority %>" class="form-control"
+                                                        value="<%= Employees[i].dept_seniority %>" onkeyup="manage()"  class="required"
                                                         ruqt>
                                                 </div>
                                             </div>
@@ -625,7 +640,7 @@
                                                     Tax Regime <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
 
-                                                    <select name="emp_temp_regime" id="emp_temp_regime" ruqt>
+                                                    <select name="emp_temp_regime" id="emp_temp_regime" onkeyup="manage()"  class="required" ruqt>
                                                         <option value="old_tax_reg">Old tax regime</option>
                                                         <option value="new_tax_reg">New tax regime</option>
 
@@ -695,19 +710,21 @@
                                     <div class="col-lg-6">
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Basic Pay</label>
+                                            <label class="col-lg-6 col-form-label">Basic Pay  <span
+                                                class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="pay" value="<%= Employees[i].pay %>"
-                                                    class="form-control" placeholder="Basic Pay">
+                                                onkeyup="manage()"  class="required" placeholder="Basic Pay">
 
 
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label"> TA</label>
+                                            <label class="col-lg-6 col-form-label"> TA  <span
+                                                class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="ta" value="<%= Employees[i].ta %>"
-                                                    class="form-control">
+                                                onkeyup="manage()"  class="required">
                                             </div>
                                         </div>
 
@@ -716,18 +733,20 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label"> CCA</label>
+                                            <label class="col-lg-6 col-form-label"> CCA  <span
+                                                class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="cca" value="<%= Employees[i].cca %>"
-                                                    class="form-control">
+                                                onkeyup="manage()"  class="required">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Grade Pay</label>
+                                            <label class="col-lg-6 col-form-label">Grade Pay  <span
+                                                class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="gp" value="<%= Employees[i].gp %>"
-                                                    class="form-control" placeholder="Grade Pay">
+                                                onkeyup="manage()"  class="required" placeholder="Grade Pay">
                                             </div>
                                         </div>
 
@@ -735,18 +754,20 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Provident Fund</label>
+                                            <label class="col-lg-6 col-form-label">Provident Fund  <span
+                                                class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="pf" value="<%= Employees[i].pf %>"
-                                                    class="form-control" placeholder="Provident Fund" ruqt>
+                                                onkeyup="manage()"  class="required" placeholder="Provident Fund" ruqt>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Group Insurance</label>
+                                            <label class="col-lg-6 col-form-label">Group Insurance  <span
+                                                class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="groupInsurance"
-                                                    value="<%= Employees[i].groupInsurance %>" class="form-control"
+                                                    value="<%= Employees[i].groupInsurance %>" onkeyup="manage()"  class="required"
                                                     placeholder="Group Insurance" ruqt>
                                             </div>
                                         </div>
@@ -757,22 +778,22 @@
 
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Pay Band <span
-                                                    class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">Pay Band  <span
+                                                class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="payBand" value="<%= Employees[i].payBand %>"
-                                                    class="form-control" ruqt>
+                                                onkeyup="manage()"  class="required" ruqt>
                                             </div>
 
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Pay Commission <span
-                                                    class="text-danger">*</span>
+                                            <label class="col-lg-6 col-form-label">Pay Commission  <span
+                                                class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <select class="form-control" name="paycommission" ruqt>
+                                                <select onkeyup="manage()"  class="required" name="paycommission" ruqt>
                                                     <option>---------</option>
                                                     <option value=5 id="5th">5th Type</option>
                                                     <option value=6 id="6th">6th Type</option>
@@ -805,19 +826,21 @@
                                     <div class="col-lg-6">
                                         <div class="form-group row">
 
-                                            <label class="col-lg-6 col-form-label">Bank Name</label>
+                                            <label class="col-lg-6 col-form-label">Bank Name  <span
+                                                class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="bankName" value="<%= Employees[i].bankName %>"
-                                                    class="form-control" placeholder="Bank Name" ruqt>
+                                                onkeyup="manage()"  class="required" placeholder="Bank Name" ruqt>
                                             </div>
                                         </div>
 
 
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Branch Name</label>
+                                            <label class="col-lg-6 col-form-label">Branch Name  <span
+                                                class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="branchName"
-                                                    value="<%= Employees[i].branchName %>" class="form-control"
+                                                    value="<%= Employees[i].branchName %>" onkeyup="manage()"  class="required"
                                                     placeholder="Branch Name" ruqt>
 
                                             </div>
@@ -827,10 +850,11 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">IFSC Code</label>
+                                            <label class="col-lg-6 col-form-label">IFSC Code  <span
+                                                class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="ifscCode" id="ifsc"
-                                                    value="<%= Employees[i].ifscCode %>" class="form-control"
+                                                    value="<%= Employees[i].ifscCode %>" onkeyup="manage()"  class="required"
                                                     placeholder="IFSC Code" pattern=".{11,11}"
                                                     title="11 characters needed" ruqt />
 
@@ -841,10 +865,11 @@
                                         <div class="form-group row">
 
                                             <label class="col-lg-6 col-form-label">Enter Bank Account
-                                                No.</label>
+                                                No.  <span
+                                                class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="bankAccNum"
-                                                    value="<%= Employees[i].bankAccNum %>" class="form-control"
+                                                    value="<%= Employees[i].bankAccNum %>" onkeyup="manage()"  class="required"
                                                     placeholder="Acc No." ruqt>
 
                                             </div>
@@ -1024,7 +1049,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-6">
                                         <input type="text" name="ugSub" value="<%= Employees[i].ugSub %>"
-                                            class="form-control" placeholder="U.G. Subject" ruqt>
+                                        onkeyup="manage()"  class="required" placeholder="U.G. Subject" ruqt>
                                     </div>
                                 </div>
 
@@ -1036,7 +1061,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <input type="text" name="ugUni" value="<%= Employees[i].ugUni %>"
-                                            class="form-control" placeholder="U.G. University" ruqt>
+                                        onkeyup="manage()"  class="required" placeholder="U.G. University" ruqt>
                                     </div>
                                 </div>
                             </div>
@@ -1057,7 +1082,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <input type="text" name="ugYr" value="<%= Employees[i].ugYr %>"
-                                            class="form-control" placeholder="U.G. Passing year" ruqt>
+                                        onkeyup="manage()"  class="required" placeholder="U.G. Passing year" ruqt>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -1065,7 +1090,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <input type="text" name="grade" value="<%= Employees[i].grade %>"
-                                            class="form-control" placeholder="U.G. Grade/Class" ruqt>
+                                        onkeyup="manage()"  class="required" placeholder="U.G. Grade/Class" ruqt>
                                     </div>
                                 </div>
                             </div>
@@ -1090,8 +1115,8 @@
         </div>
 
         
-        <input class="btn btn-success" type="submit" value="Update" onclick="myFunction()" style="float:right;"  >
-<br><br><br>
+        <pre>                                                                      </pre><input type="submit" id="submit" style="float:right" disabled />
+        <br><br><br>
         </form>
 
 
@@ -1100,6 +1125,26 @@
         
         </div>
         </div>
+
+        <script>
+            function manage() {
+                var bt = document.getElementById('submit');
+                var ele = document.getElementsByClassName('required'); 
+                console.log(ele.length);
+                // Loop through each element.
+                for (i = 0; i < ele.length; i++) {
+        
+                    // Check the element type.
+                    if (ele[i].value == '') {
+                        bt.disabled = true;    // Disable the button.
+                        return false;
+                    }
+                    else {
+                        bt.disabled = false;   // Enable the button.
+                    }
+                }
+            }
+        </script>
         <script src="../assets/focus2/vendor/global/global.min.js"></script>
         <script src="../assets/focus2/js/quixnav-init.js"></script>
         <script src="../assets/focus2/js/custom.min.js"></script>

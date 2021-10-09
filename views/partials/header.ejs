@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>PICT Pune Admin: Basic Form </title>
+    <title>PICT Pune Admin: Basic Form</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -63,7 +63,8 @@
                     </li> -->
 
                     <li><a href="index1"><i class="ti-home"></i>Dashboard</a></li>
-
+                    <% if(role == "accountant"){ %>
+                    <% }else{ %>
                     <li><a class="sidebar-sub-toggle"><i class="ti-user"></i> Employee <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
@@ -73,7 +74,7 @@
 
                         </ul>
                     </li>
-
+                    <%}%>
                     <li><a class="sidebar-sub-toggle"><i class="ti-arrow-up"></i> Allowances <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
@@ -171,7 +172,8 @@
                             <li><a href="otherdifferences">HRA and DA Differences</a></li>
                         </ul>
                     </li>
-
+                    <% if(role == "admin"){ %>
+                    <% }else{ %>
                     <li><a class="sidebar-sub-toggle"><i class="ti-stats-down"></i>Income Tax<span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
@@ -190,6 +192,7 @@
                             <!-- <li><a href="proposedDeclaration">Proposed Declaration</a></li> -->
                         </ul>
                     </li>
+                    <% } %>
 
 
 
