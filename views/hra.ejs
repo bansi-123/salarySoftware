@@ -3,6 +3,7 @@
     <head>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+        <link rel="stylesheet" href="../assets/alert/style.css">
         <style>
             .arrow {
                 border: solid black;
@@ -179,7 +180,7 @@
                             
 
                             <!-- <input type="submit" style="float: right;" value="Submit"> -->
-                            <input class="btn btn-primary" style="float: right;" type="submit" value="Submit" onclick="myFunction()">
+                            <button class="button large round success">Submit</button>
 
                     </form>
 
@@ -192,10 +193,54 @@
         </div>
         </div>
 
+        <!-- <script>
+            
+            function submitFn(event) {
+                event.preventDefault()
+                console.log("HERE")
+                var data=document.getElementsById("check")
+                var sendData={}
+                for (var i in data) {
+                        var prop=data[i].name;
+                        sendData[prop]=data[i].value
+                }
 
+                
+                console.log("data" + data)
+                console.log("sendData" + sendData)
+            
+                axios.post('http://localhost:3000/hra',sendData)
+                    .then(function (response) {
+                        if(response.data.status=="error")
+                        {
+                            console.log("status" + response.data)
+                            console.log("ERROR")
+                            var message="error"+response.data.message
+                            alertify.set({ delay: 1700 });
+	    							alertify.error(message); 
+                                     
+                        }
+                        else
+                        {
+                            console.log("SUCCESS")
+                            console.log(response)
+
+                            alertify.set({ delay: 1700 });
+  							alertify.success("Success!");  
+                        }
+                        
+                    })
+                    .catch(function (error) {
+                        //console.log("ERROR")
+                        console.log(error)
+                    });   
+            }
+        </script> -->
+<!-- <script src="../assets/alert/script.js"></script> -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
         <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
-        <script src="../assets/assets/js/scripts.js"></script>
+       
         <!-- scripit init-->
         <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
         <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>

@@ -996,16 +996,18 @@ router.post('/hra', ensureAuthenticated, (req, res) => {
     console.log("list is",list2)
     console.log(`update Employees set hra=${newValue} where empID in ${list}`)
     mysqldb.query(`update Employees set hra=${newValue} where empID in ${list}`,(err,result)=>{
-        if(err)
-        {
-            console.log(err)
+        if (err) {
+            console.log(err);
+            res.json({status:"error", message:"Please Fill HRA Amount"})
+        
+            
         }
         else {
-            console.log("updated hra in employee")
+        res.json({status:"success"})
         }
     })
 
-    res.redirect('hra');
+    // res.redirect('hra');
 
 });
 
@@ -1940,16 +1942,20 @@ router.get('/lateattendance/:empID', ensureAuthenticated, (req, res) => {
                 mysqldb.query(`select * from Employees where empID="${req.params.empID}"`, (err, result2) => {
                     if (err) {
                         console.log(err);
+                        
                     }
                     else {
                         // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
                         // var set=new Set(JSON.parse(JSON.stringify(result)))
                         console.log("result2 is", result2)
+                       
                         res.render('lateattendance', {
                             Employees: JSON.parse(JSON.stringify(result)),
                             name: JSON.parse(JSON.stringify(result2)),
                             role: req.user.role
                         });
+
+                       
                     }
                 })
             }
@@ -3364,14 +3370,19 @@ router.post('/deductions', (req, res) => {
             
         }
         else {
-            console.log("sunand");
+        
         res.json({status:"success"})
-
-            
+ 
             
         }
     })
     //res.redirect('index1');
+
+});
+
+router.post('/trial', (req, res) => {
+    
+    res.redirect('index1');
 
 });
 
@@ -3481,20 +3492,18 @@ router.post('/lateattendance', ensureAuthenticated, (req, res) => {
     mysqldb.query(`INSERT INTO late_attendance (empID, empName, latedays,month, year, prevdays) VALUES ('${data.empID}', '${data.empName}', ${data.latedays}, '${data["month"].toLowerCase()}', ${data["year"]}, ${prevdays}) on duplicate key update latedays=${data.latedays}`, (err, result) => {
         if (err) {
             console.log(err);
-            console.log("invalid details");
+            
+            res.json({status:"error", message:"please fill all fields"})
+        
+            
         }
         else {
-            // console.log(JSON.parse(JSON.stringify(result))[0])
-            // res.redirect('/dashboard')
-            // req.flash(
-            //     'success_msg',
-            //     'Employee found!'
-            // );
+        res.json({status:"success"})
         }
     })
     //     }
     // })
-    res.redirect('index1');
+   
 });
 
 
