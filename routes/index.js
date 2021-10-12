@@ -3532,10 +3532,7 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
     mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES ('${data.empID}', '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}') on duplicate key update miscellaneous_amt=${data.amt},note='${data.note}'`, (err, result) => {
         if (err) {
             console.log(err);
-            
             res.json({status:"error", message:"Please Fill All The Fields"})
-        
-            
         }
         else {
         res.json({status:"success", message:"Miscellaneous Amount Added Successfully!"})

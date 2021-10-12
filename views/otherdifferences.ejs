@@ -102,6 +102,7 @@
                                                             <div class="col-lg-6">
                                                                 <select name="old_hra" id="old_hra"
                                                                     class="required" onchange="filterEmployees()">
+                                                                    <option>Choose</option>
                                                                     <% for(var i = oldHra.length-1; i >= 0 ; i-- ) { %>
 
                                                                     <option value=<%=oldHra[i].hra%>><%=oldHra[i].hra%></option>
@@ -248,9 +249,9 @@
                                                         
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody name="all" >
                                                         <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
-                                                            <tr name=<%=Employees[i].hra %>>
+                                                            <tr id="1" name=<%=Employees[i].hra %>>
                                                                 <td><%= Employees[i].empID %></td>
                                                                 <td><%= Employees[i].empName %></td>
                                                                 <td><%= Employees[i].dept %></td>
@@ -259,58 +260,85 @@
                                                             </tr>
                                                         <% }%>
                                                     </tbody>
-        
-        
                                                 </table>
-        
-        
-                                                  
                                             </div>
-        
                                         </div>
                                     </div>
-               
                                 </div>
-        
                             </div>
-        
-                                
-        
-                            
                             </div>
-                            
-        
                         </section>
-
-
                         <input class="btn btn-primary" style="float: right;" type="submit" value="Submit" onclick="myFunction()">
-  
-                    </form>
-
-                   
-
+                    </form>                
                 </div>
             </div>
-
-
-
         </div>
+        
+            <% for(var i = oldHra.length-1; i >= 0 ; i-- ) { %>
+                <input name="fixed" value = "<%= oldHra[i].hra %>">
+            <%}%>
+                      <script type="text/javascript">
 
-                      <script>
+                        function filterEmployees() {
                           var selectHra=document.getElementById("old_hra").value;
-                        //   console.log(selectHra)
-                          var selectedHraRows=document.getElementsByName(selectHra);
-                        //   console.log(selectedHraRows)
-                          for(var i in selectedHraRows)
+                        //   var length=document.getElementByName("length").value;
+                          var all=document.getElementsByName("fixed");
+                          console.log("all" + all.length);
+                        
+                          for(var i in all)
                           {
                               if(Number.isInteger(parseInt(i)))
                               {
-                                selectedHraRows[i].style.display="none";
-                                // console.log();
+                                console.log(all[i].value);
+                                var selectedHraRows=document.getElementsByName(all[i].value);
+                               
+                                    for(var j in selectedHraRows)
+                                 {
+                                    if(Number.isInteger(parseInt(j)))
+                                    {
+                                    selectedHraRows[j].style.display="unset";
+                                    // console.log(selectedHraRows.length);
+                                    }
+                                 }
+                                
                               }
-                             
                           }
-                          
+
+                          for(var i in all)
+                          {
+                              if(Number.isInteger(parseInt(i)))
+                              {
+                                console.log(all[i].value);
+                                var selectedHraRows=document.getElementsByName(all[i].value);
+                               if(all[i].value!==selectHra)
+                               {
+                                    for(var j in selectedHraRows)
+                                 {
+                                    if(Number.isInteger(parseInt(j)))
+                                    {
+                                    selectedHraRows[j].style.display="none";
+                                    // console.log(selectedHraRows.length);
+                                    }
+                                 }
+                                }
+                              }
+                          }
+                        //  var selectedHraRows=document.getElementsByName(selectHra);
+                        //   console.log(selectHra)
+                        //   for(var i in selectedHraRows)
+                        //       selectedHraRows[i].style.display="none";
+                          var selectedHraRows=document.getElementsByName(selectHra);
+                        //   console.log(selectedHraRows)
+                        //   for(var i in selectedHraRows)
+                        //   {
+                        //       if(Number.isInteger(parseInt(i)))
+                        //       {
+                        //         selectedHraRows[i].style.display="block";
+                        //         console.log(selectedHraRows.length);
+                        //       }
+                             
+                        //   }
+                        }
                       </script>
                       <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
                       <!-- scripit init-->
