@@ -1469,7 +1469,7 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
     //     else{
     // var empID=JSON.parse(JSON.stringify(result))[0].empID;
     mysqldb.query(`INSERT INTO lwp (empID, month, year, days, lwp) VALUES ('${data.empID}', '${data["month"].toLowerCase()}', ${data["year"]}, ${days}, ${data["lwp"]}) ON DUPLICATE KEY UPDATE
-        lwp=lwp+${data["lwp"]}`
+        lwp=${data["lwp"]}`
         , (err, result) => {
             if (err) {
                 console.log(err);
@@ -1655,6 +1655,7 @@ router.get('/trial', ensureAuthenticated, (req, res) => {
 
 router.get('/showlwp', (req, res) => {
     //mysqldb.query(`select * from lwp natural join Employees`,(err,result)=>
+    mysqldb.query(`delete from lwp where lwp=0`);
     mysqldb.query(`select * from lwp natural join Employees`, (err, result) => {
         if (err) {
             console.log(err);
@@ -2171,9 +2172,7 @@ router.get('/advances/:empID', ensureAuthenticated, (req, res) => {
     }
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle,{
-            role: req.user.role
-        })
+        res.redirect(requestedTitle)
     }
 });
 
@@ -2212,7 +2211,8 @@ router.get('/tempadvances', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/showadvances', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from advance`, (err, result) => {
+    mysqldb.query(`delete from advance_temp where amount=0`);
+    mysqldb.query(`select * from advance_temp`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -2231,7 +2231,10 @@ router.post('/advances', ensureAuthenticated, (req, res) => {
     var data = JSON.parse(JSON.stringify(req.body));
     var empID = data.empID;
     console.log(`INSERT INTO advance_temp (empID, ,amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amt"]}, '${data["month"]}', ${data["year"]}, ${data["duration"]}, ${data["amt"]})`)
-    mysqldb.query(`INSERT INTO advance_temp (empID, amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amt"]}, '${data["month"]}', ${data["year"]}, ${data["duration"]}, ${data["amt"]})`
+    mysqldb.query(`INSERT INTO advance_temp (empID, amount, month, year, duration, outstanding) VALUES ('${empID}', ${data["amt"]}, '${data["month"]}', ${data["year"]}, ${data["duration"]}, ${data["amt"]}) ON DUPLICATE KEY UPDATE
+    amount = ${data["amt"]},  
+    outstanding = ${data["amt"]},  
+    duration = ${data["duration"]}`
         , (err, result) => {
             if (err) {
                 console.log(err);
@@ -4229,7 +4232,6 @@ router.post('/recovery', (req, res) => {
         })
 
 })
-
 
 router.post('/truncate',(req,res)=>{
     mlist = ["January", "February", "March", "April", "may", "june", "july", "august", "september", "october", "November", "December"];
