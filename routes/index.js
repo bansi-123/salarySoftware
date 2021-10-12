@@ -348,7 +348,7 @@ router.post('/declarations', (req, res) => {
                             }
                             total+=Math.min(ded_d, limit_d) 
                             
-                            mysqldb.query(`insert into form (empID,c,d,dd,total,gross_sal) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${total},${gross_sal})`,(err,result2)=>{
+                            mysqldb.query(`insert into form (empID,c,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,(err,result2)=>{
                                 if(err)
                                 {
                                     console.log(err)
@@ -1199,22 +1199,30 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
 })
 
 router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select distinct hra from Employees`, (err, result3) => {
         if (err) {
             console.log(err);
         }
         else {
-            mysqldb.query(`select * from config`, (err, result2) => {
+            mysqldb.query(`select * from Employees`, (err, result) => {
                 if (err) {
                     console.log(err);
                 }
                 else {
-                    console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-                    res.render('otherdifferences', {
-                        Employees: JSON.parse(JSON.stringify(result)),
-                        config: JSON.parse(JSON.stringify(result2)),
-                        role: req.user.role
-                    });
+                    mysqldb.query(`select * from config`, (err, result2) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+                            res.render('otherdifferences', {
+                                Employees: JSON.parse(JSON.stringify(result)),
+                                oldHra:JSON.parse(JSON.stringify(result3)),
+                                config: JSON.parse(JSON.stringify(result2)),
+                                role: req.user.role
+                            });
+                        }
+                    })
                 }
             })
         }

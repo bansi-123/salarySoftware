@@ -99,9 +99,22 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-6 control-label">Present HRA
                                                             </label>
-                                                        <div class="col-sm-4">
-                                                            <input type="text" name="presenthra" class="form-control" readonly value=<%=config[0].hra_MultFactor%>>
-                                                        </div>
+                                                            <div class="col-lg-6">
+                                                                <select name="old_hra" id="old_hra"
+                                                                    class="required" onchange="filterEmployees()">
+                                                                    <% for(var i = oldHra.length-1; i >= 0 ; i-- ) { %>
+
+                                                                    <option value=<%=oldHra[i].hra%>><%=oldHra[i].hra%></option>
+                                                                    <!-- <option value="IT">1.49</option>
+                                                                    <option value="E&TC">1.45</option> -->
+                                                                    <% } %>
+                                                                    <!-- <option value="FE">FE</option>
+                                                                    <option value="Administration">Administration</option>
+                                                                    <option value="Accounts">Accounts</option>
+                                                                    <option value="Library">Library</option>
+                                                                    <option value="Sports">Sports</option> -->
+                                                                </select><br><br>
+                                                            </div>
                                                     </div>
                                                     <br><br><br><br>
                                                     Start Month:
@@ -237,7 +250,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
-                                                            <tr>
+                                                            <tr name=<%=Employees[i].hra %>>
                                                                 <td><%= Employees[i].empID %></td>
                                                                 <td><%= Employees[i].empName %></td>
                                                                 <td><%= Employees[i].dept %></td>
@@ -283,7 +296,22 @@
 
         </div>
 
-                  
+                      <script>
+                          var selectHra=document.getElementById("old_hra").value;
+                        //   console.log(selectHra)
+                          var selectedHraRows=document.getElementsByName(selectHra);
+                        //   console.log(selectedHraRows)
+                          for(var i in selectedHraRows)
+                          {
+                              if(Number.isInteger(parseInt(i)))
+                              {
+                                selectedHraRows[i].style.display="none";
+                                // console.log();
+                              }
+                             
+                          }
+                          
+                      </script>
                       <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
                       <!-- scripit init-->
                       <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
