@@ -224,18 +224,19 @@
                         {
                             console.log("status" + response.data)
                             console.log("ERROR")
-                            var message="error"+response.data.message
-                            alertify.set({ delay: 1700 });
+                            var message=response.data.message
+                            alertify.set({ delay: 3000 });
 	    							alertify.error(message); 
                                      
                         }
                         else
                         {
                             console.log("SUCCESS")
+                
                             console.log(response)
-
-                            alertify.set({ delay: 1700 });
-  							alertify.success("Success!");  
+                            var message=response.data.message
+                            alertify.set({ delay: 3000 });
+  							alertify.success(message);  
                         }
                         
                     })

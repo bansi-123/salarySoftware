@@ -3365,13 +3365,13 @@ router.post('/deductions', (req, res) => {
     mysqldb.query(`update config set prov_fund_DNA=${prov_fund_DNA},prov_fund_Percent=${prov_fund_Percent},prov_fund_Max=${prov_fund_Max},prof_tax_Max=${prof_tax_Max},prof_tax_Percent=${prof_tax_Percent},prof_tax_DNA=${prof_tax_DNA},rev_stamp_max=${rev_stamp_max},rev_stamp_DNA=${rev_stamp_DNA} where ID=1`, (err, result) => {
         if (err) {
             console.log(err);
-        res.json({status:"error", message:"please fill all fields"})
+        res.json({status:"error", message:"Please fill all the fields"})
         
             
         }
         else {
         
-        res.json({status:"success"})
+        res.json({status:"success", message:"Deductions Edited Successfully"})
  
             
         }
@@ -3493,12 +3493,12 @@ router.post('/lateattendance', ensureAuthenticated, (req, res) => {
         if (err) {
             console.log(err);
             
-            res.json({status:"error", message:"please fill all fields"})
+            res.json({status:"error", message:"Please fill all fields"})
         
             
         }
         else {
-        res.json({status:"success"})
+        res.json({status:"success", message:"Late Attendance Added Successfully!"})
         }
     })
     //     }
@@ -3521,20 +3521,18 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
     mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES ('${data.empID}', '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}') on duplicate key update miscellaneous_amt=${data.amt},note='${data.note}'`, (err, result) => {
         if (err) {
             console.log(err);
-            console.log("invalid details");
+            
+            res.json({status:"error", message:"Please Fill All The Fields"})
+        
+            
         }
         else {
-            // console.log(JSON.parse(JSON.stringify(result))[0])
-            // res.redirect('/dashboard')
-            // req.flash(
-            //     'success_msg',
-            //     'Employee found!'
-            // );
+        res.json({status:"success", message:"Miscellaneous Amount Added Successfully!"})
         }
     })
     //     }
     // })
-    res.redirect('index1');
+   
 });
 
 router.get('/storeIncomeTax', ensureAuthenticated, (req, res) => {
@@ -4220,10 +4218,13 @@ router.post('/recovery', (req, res) => {
         , (err, result) => {
             if (err) {
                 console.log(err);
-                console.log("error in insert query for recovery");
+                
+                res.json({status:"error", message:"Please Fill All The Fields"})
+            
+                
             }
             else {
-                res.redirect('index1');
+            res.json({status:"success", message:"Recovery Amount Added Successfully!"})
             }
         })
 
