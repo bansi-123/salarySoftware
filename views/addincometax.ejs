@@ -60,15 +60,28 @@
                     <form class="form-horizontal" action="\storeIncomeTax"
                     method="post">
                     <br><br><br>
-                    <div class="center">
-                        <input type="submit" class="btn btn-success btn-lg" value="Calculate Income Tax">
-                        <br>
-                        <!-- <input type="submit" class="btn btn-success btn-lg" value="Submit"> -->
+                    <% if(render){ %>
+                        <div class="center">
+                            <p>First complete all declarations!</p>
+                            <input type="submit" class="btn btn-success btn-lg" value="Calculate Income Tax" disabled>
+                            <br>
+                            <!-- <input type="submit" class="btn btn-success btn-lg" value="Submit"> -->
 
-                        <br> <br> <br>
-                        
+                            <br> <br> <br>
+                            
 
-                    </div>
+                        </div>
+                    <%}else{%>
+                        <div class="center">
+                            <input type="submit" class="btn btn-success btn-lg" value="Calculate Income Tax">
+                            <br>
+                            <!-- <input type="submit" class="btn btn-success btn-lg" value="Submit"> -->
+
+                            <br> <br> <br>
+                            
+
+                        </div>
+                    <%}%>
                 </div>
 
             </div>
