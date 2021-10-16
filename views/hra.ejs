@@ -91,7 +91,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-5 control-label">Enter HRA Amount</label>
                                     <div class="col-sm-3">
-                                        <input type="text" name="newValue" class="form-control">
+                                        <input type="text" name="newValue" id="new" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
                             
 
                             <!-- <input type="submit" style="float: right;" value="Submit"> -->
-                            <button class="button large round success">Submit</button>
+                            <button type="button" class="btn btn-primary" onclick="submitFn(event)" style="float:right">Submit</button>
 
                     </form>
 
@@ -193,16 +193,39 @@
         </div>
         </div>
 
-        <!-- <script>
+        <script>
             
             function submitFn(event) {
                 event.preventDefault()
                 console.log("HERE")
-                var data=document.getElementsById("check")
+            
+
+                var checkedButtons = document.querySelectorAll("#new,.checkedButtons");
+                // var newValue=document.getElementById('new');
+                console.log("new"+checkedButtons[0].value)
+               
+                var data=[]
+                
+                for (var i = 1; i < checkedButtons.length; i++) {
+                    if(checkedButtons[i].checked)
+                    {
+                        
+                        data.push(checkedButtons[i].name)
+                    }
+                    
+                }
+
+                // console.log("newValue"+newValue)
+
+                // console.log("data"+data)
+                // console.log("arr"+arr)
+                    
                 var sendData={}
+
+                sendData["newValue"]=checkedButtons[0].value
                 for (var i in data) {
-                        var prop=data[i].name;
-                        sendData[prop]=data[i].value
+                        var prop=data[i];
+                        sendData[prop]=1
                 }
 
                 
@@ -215,8 +238,8 @@
                         {
                             console.log("status" + response.data)
                             console.log("ERROR")
-                            var message="error"+response.data.message
-                            alertify.set({ delay: 1700 });
+                            var message=response.data.message
+                            alertify.set({ delay: 3000 });
 	    							alertify.error(message); 
                                      
                         }
@@ -224,9 +247,9 @@
                         {
                             console.log("SUCCESS")
                             console.log(response)
-
-                            alertify.set({ delay: 1700 });
-  							alertify.success("Success!");  
+                            var message=response.data.message
+                            alertify.set({ delay: 3000 });
+  							alertify.success(message);  
                         }
                         
                     })
@@ -235,23 +258,24 @@
                         console.log(error)
                     });   
             }
-        </script> -->
-<!-- <script src="../assets/alert/script.js"></script> -->
+        </script> 
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
+<script  src="../assets/alert/script.js"></script>
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-        <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
-       
-        <!-- scripit init-->
-        <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
-
+    <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
+    <!-- scripit init-->
+    <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
 
     </body>
 

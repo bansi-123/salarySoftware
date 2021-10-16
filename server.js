@@ -24,13 +24,13 @@ require('./config/passport')(passport);
 
 //------------ MySQL Connection ------------//
 
-const mysqldb = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: 'sunandroot',
-    multipleStatements: true,
-    database: 'employee'
-});
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'sunandroot',
+//     multipleStatements: true,
+//     database: 'employee'
+// });
 
 // const mysqldb = mysql.createConnection ({
 //     host: 'localhost',
@@ -39,12 +39,12 @@ const mysqldb = mysql.createConnection ({
 //     database: 'employee'
 // });
 
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'Vineet@nexa1',
-//     database: 'employee' 
-// });
+const mysqldb = mysql.createConnection ({
+    host: 'localhost',
+    user: 'root',
+    password: 'Vineet@nexa1',
+    database: 'employee' 
+});
 
 
 // const mysqldb = mysql.createConnection ({
@@ -172,6 +172,23 @@ db.sequelize.sync({force: false}).then(() => {  //{force: true}
 let router = require('./routes/excel.router.js');
 app.use(express.static('resources'));
 app.use('/uploadcsv', router); 
+
+//--------------upload declaration part--------------//
+const db1 = require('./config/db.config1.js');
+
+global.__basedir = __dirname; 
+
+db.sequelize.sync({force: false}).then(() => {  //{force: true}
+  console.log('Drop and Resync with { force: true }');
+}).catch((e)=>{
+  console.log(e)
+});       
+
+let router1 = require('./routes/excel1.router.js');
+app.use(express.static('resources'));
+app.use('/uploaddeclare', router1); 
+
+//------------------------------------------------------//
 
 const PORT = process.env.PORT || 3000;
 

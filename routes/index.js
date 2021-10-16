@@ -861,29 +861,37 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
         }
 
     }
-    var donateDays=parseInt(data["donateDays"]);
-    var cause=data["cause"];
-    list=list.substring(0,list.length - 1);
-    list+=")";
-    console.log("list is",list2)
-    for(var i in list2)
+    if(list2.length==0)
     {
-        console.log(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`)
-        mysqldb.query(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`,(err,result)=>{
-            if(err)
-            {
-                console.log(err)
-                console.log("error while inserting into donation table")
-            }
-            else {
-                console.log("inserted in donation for employee with emp id", list2[i])
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-                //
-            }
-        })
     }
+    else
+    {
+        var donateDays=parseInt(data["donateDays"]);
+        var cause=data["cause"];
+        list=list.substring(0,list.length - 1);
+        list+=")";
+        console.log("list is",list2)
+        for(var i in list2)
+        {
+            console.log(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`)
+            mysqldb.query(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}') on duplicate key update donationDays=${donateDays}, cause='${cause}'`,(err,result)=>{
+                if (err) {
+                    console.log(err);
+                    res.json({status:"error", message:"Please Fill No. of Days and Cause"})
+                
+                    
+                }
+                else {
+                res.json({status:"success", message:"Donations Added Successfully!"})
+                }
+            })
+        }
+    }
+    
 
-    res.redirect('viewdonations');
+   
 
 })
 
@@ -937,22 +945,33 @@ router.post('/ta', ensureAuthenticated, (req, res) => {
         }
 
     }
-    var newValue=parseInt(data["newValue"]);
-    list=list.substring(0,list.length - 1);
-    list+=")";
-    console.log("list is",list2)
-    console.log(`update Employees set ta=${newValue} where empID in ${list}`)
-    mysqldb.query(`update Employees set ta=${newValue} where empID in ${list}`,(err,result)=>{
-        if(err)
-        {
-            console.log(err)
-        }
-        else {
-            console.log("updated ta in employee")
-        }
-    })
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    }
 
-    res.redirect('ta');
+    else
+    {
+        var newValue=parseInt(data["newValue"]);
+        list=list.substring(0,list.length - 1);
+        list+=")";
+        console.log("list is",list2)
+        console.log(`update Employees set ta=${newValue} where empID in ${list}`)
+        mysqldb.query(`update Employees set ta=${newValue} where empID in ${list}`,(err,result)=>{
+            if (err) {
+                console.log(err);
+                res.json({status:"error", message:"Please Fill TA Amount"})
+            
+                
+            }
+            else {
+            res.json({status:"success", message:"TA Added Successfully!"})
+            }
+        })
+    }
+    
+
+    // res.redirect('ta');
 
 });
 
@@ -990,22 +1009,32 @@ router.post('/hra', ensureAuthenticated, (req, res) => {
         }
 
     }
-    var newValue=data["newValue"];
-    list=list.substring(0,list.length - 1);
-    list+=")";
-    console.log("list is",list2)
-    console.log(`update Employees set hra=${newValue} where empID in ${list}`)
-    mysqldb.query(`update Employees set hra=${newValue} where empID in ${list}`,(err,result)=>{
-        if (err) {
-            console.log(err);
-            res.json({status:"error", message:"Please Fill HRA Amount"})
-        
+
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+
+    }
+    else
+    {
+        var newValue=data["newValue"];
+        list=list.substring(0,list.length - 1);
+        list+=")";
+        console.log("list is",list2)
+        console.log(`update Employees set hra=${newValue} where empID in ${list}`)
+        mysqldb.query(`update Employees set hra=${newValue} where empID in ${list}`,(err,result)=>{
+            if (err) {
+                console.log(err);
+                res.json({status:"error", message:"Please Fill HRA Amount"})
             
-        }
-        else {
-        res.json({status:"success"})
-        }
-    })
+                
+            }
+            else {
+            res.json({status:"success", message:"HRA Added Successfully!"})
+            }
+        })
+    }
+    
 
     // res.redirect('hra');
 
@@ -1045,22 +1074,33 @@ router.post('/da', ensureAuthenticated, (req, res) => {
         }
 
     }
-    var newValue=data["newValue"];
-    list=list.substring(0,list.length - 1);
-    list+=")";
-    console.log("list is",list2)
-    console.log(`update Employees set da=${newValue} where empID in ${list}`)
-    mysqldb.query(`update Employees set da=${newValue} where empID in ${list}`,(err,result)=>{
-        if(err)
-        {
-            console.log(err)
-        }
-        else {
-            console.log("updated da in employee")
-        }
-    })
 
-    res.redirect('da');
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    }
+    else
+    {
+        var newValue=data["newValue"];
+        list=list.substring(0,list.length - 1);
+        list+=")";
+        console.log("list is",list2)
+        console.log(`update Employees set da=${newValue} where empID in ${list}`)
+        mysqldb.query(`update Employees set da=${newValue} where empID in ${list}`,(err,result)=>{
+            if (err) {
+                console.log(err);
+                res.json({status:"error", message:"Please Fill DA Amount"})
+            
+                
+            }
+            else {
+            res.json({status:"success", message:"DA Added Successfully!"})
+            }
+        })
+    
+    }
+    
+    // res.redirect('da');
 
 });
 
@@ -1100,20 +1140,33 @@ router.post('/cca', ensureAuthenticated, (req, res) => {
         }
 
     }
-    var newValue = parseInt(data["newValue"]);
-    list = list.substring(0, list.length - 1);
-    list += ")";
-    console.log("list is", list2)
-    mysqldb.query(`update Employees set cca=${newValue} where empID in ${list}`, (err, result) => {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            console.log("updated cca in employee")
-        }
-    })
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-    res.redirect('cca');
+    }
+    else
+    {
+        var newValue = parseInt(data["newValue"]);
+        list = list.substring(0, list.length - 1);
+        list += ")";
+        console.log("list is", list2)
+        mysqldb.query(`update Employees set cca=${newValue} where empID in ${list}`, (err, result) => {
+            if (err) {
+                console.log(err);
+                res.json({status:"error", message:"Please Fill CCA Amount"})
+            
+                
+            }
+            else {
+            res.json({status:"success", message:"CCA Added Successfully!"})
+            
+            }
+        })
+    }
+   
+
+    // res.redirect('cca');
 
 });
 
@@ -1896,23 +1949,34 @@ router.post('/groupinsurance', ensureAuthenticated, (req, res) => {
 
     }
 
-    console.log("id list is", IDlist)
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-
-    // console.log(data.month)
-    // for(var i in indexList)
-    for (let i = 0; i < IDlist.length; i++) {
-        console.log(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}',${cur_month},${year})`)
-        mysqldb.query(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}','${cur_month}','${year}') `, (err, result) => {
-            if (err) {
-                console.log(err)
-                console.log("error in insert query from group insurance")
-            }
-            else {
-                console.log("group insurance added to table")
-            }
-        })
     }
+    else
+    {
+        console.log("id list is", IDlist)
+
+
+        // console.log(data.month)
+        // for(var i in indexList)
+        for (let i = 0; i < IDlist.length; i++) {
+            console.log(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}',${cur_month},${year})`)
+            mysqldb.query(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}','${cur_month}','${year}') `, (err, result) => {
+                if (err) {
+                    console.log(err)
+                    console.log("error in insert query from group insurance")
+                }
+                else {
+                    console.log("group insurance added to table")
+                    res.json({status:"success", message:"Group Insurance Added Successfully!"})
+                }
+            })
+        }
+    }
+
+    
 
     res.redirect('index1');
 })
@@ -2036,9 +2100,7 @@ router.get('/recoveryamount/:empID', ensureAuthenticated, (req, res) => {
 
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle,{
-            role: req.user.role
-        })
+        res.redirect(requestedTitle)
     }
 });
 
