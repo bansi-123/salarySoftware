@@ -348,7 +348,7 @@ router.post('/declarations', (req, res) => {
                             }
                             total+=Math.min(ded_d, limit_d) 
                             
-                            mysqldb.query(`insert into form (empID,c,d,dd,total,gross_sal) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${total},${gross_sal})`,(err,result2)=>{
+                            mysqldb.query(`insert into form (empID,c,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,(err,result2)=>{
                                 if(err)
                                 {
                                     console.log(err)
@@ -731,16 +731,28 @@ router.get('/editdates', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/addincometax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees right join form ON Employees.empID= form.empID`, (err, result) => {
+    mysqldb.query(`select count(*) as empCount from Employees`, (err, result2) => {
         if (err) {
             console.log(err);
         }
         else {
-            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-            res.render('addincometax', {
-                Employees: JSON.parse(JSON.stringify(result)),
-                role: req.user.role
-            });
+            mysqldb.query(`select count(*) as formCount from form`, (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                        var render=false;
+                        if( JSON.parse(JSON.stringify(result2)).empCount===JSON.parse(JSON.stringify(result)).formCount)
+                        {
+                            render=true;
+                        }
+                        console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+                        res.render('addincometax', {
+                            role: req.user.role,
+                            render
+                        })
+                }
+            })
         }
     })
 
@@ -1252,29 +1264,68 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
 })
 
 router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select distinct hra from Employees`, (err, result3) => {
         if (err) {
             console.log(err);
         }
         else {
-            mysqldb.query(`select * from config`, (err, result2) => {
+            mysqldb.query(`select * from Employees`, (err, result) => {
                 if (err) {
                     console.log(err);
                 }
                 else {
-                    console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-                    res.render('otherdifferences', {
-                        Employees: JSON.parse(JSON.stringify(result)),
-                        config: JSON.parse(JSON.stringify(result2)),
-                        role: req.user.role
-                    });
+                    mysqldb.query(`select * from config`, (err, result2) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+                            res.render('otherdifferences', {
+                                Employees: JSON.parse(JSON.stringify(result)),
+                                oldHra:JSON.parse(JSON.stringify(result3)),
+                                config: JSON.parse(JSON.stringify(result2)),
+                                role: req.user.role
+                            });
+                        }
+                    })
                 }
             })
         }
     })
 });
 
-router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
+router.get('/dadifference', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select distinct da from Employees`, (err, result3) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            mysqldb.query(`select * from Employees`, (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    mysqldb.query(`select * from config`, (err, result2) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+                            res.render('dadifference', {
+                                Employees: JSON.parse(JSON.stringify(result)),
+                                oldDa:JSON.parse(JSON.stringify(result3)),
+                                config: JSON.parse(JSON.stringify(result2)),
+                                role: req.user.role
+                            });
+                        }
+                    })
+                }
+            })
+        }
+    })
+});
+
+router.post('/dadifference', ensureAuthenticated, (req, res) => {
     var data = JSON.parse(JSON.stringify(req.body))
     console.log(data)
     var list2 = []
@@ -1288,13 +1339,13 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
 
     }
     console.log("list is", list2)
-    var da_difference = parseFloat(data.newdda) - parseFloat(data.presentdda)
-    var hra_difference = parseFloat(data.newhra) - parseFloat(data.presenthra)
+    var da_difference = parseFloat(data.newdda) - parseFloat(data["old_da"])
+    // var hra_difference = parseFloat(data.newhra) - parseFloat(data.presenthra)
     mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var month = mlist[new Date().getMonth()];
     var year = new Date().getFullYear();
     var da_duration=0;
-    var hra_duration=0;
+    // var hra_duration=0;
 
     first_date_da=data.month2[0];
     second_date_da=data.month2[1];
@@ -1327,6 +1378,116 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
     {
         //alert
     }
+
+    // first_date_hra=data.month1[0];
+    // second_date_hra=data.month1[1];
+    // first_month_hra=parseInt(first_date_hra.split("-")[1]);
+    // second_month_hra=parseInt(second_date_hra.split("-")[1]);
+    // first_year_hra=parseInt(first_date_hra.split("-")[0]);
+    // second_year_hra=parseInt(second_date_hra.split("-")[0]);
+    // console.log(first_month_hra,first_year_hra)
+    // if( second_year_hra>=first_year_hra)
+    // {
+    //         if(first_month_hra>second_month_hra)
+    //         {
+    //             if(second_year_hra===first_year_hra+1)
+    //             {
+    //                 hra_duration=second_month_hra+12-first_month_hra+1;
+    //             }
+    //         }
+    //         else
+    //         {
+    //                 if(second_year_hra===first_year_hra)
+    //                 {
+                        
+    //                     hra_duration=second_month_hra-first_month_hra+1;
+    //                 }
+                    
+               
+    //         }
+    // }
+    // else
+    // {
+    //     //alert
+    // }
+
+
+    
+    for (let i = 0; i < list2.length; i++) {
+        console.log("i is", list2[i])
+        mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month.toLowerCase()}',${da_duration},${year})`, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+
+            }
+        })
+        // mysqldb.query(`insert into hra_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${hra_difference},'${month.toLowerCase()}',${hra_duration},${year})`, (err, result) => {
+        //     if (err) {
+        //         console.log(err);
+        //     }
+        //     else {
+
+        //     }
+        // })
+    }
+
+})
+
+router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
+    var data = JSON.parse(JSON.stringify(req.body))
+    console.log(data)
+    var list2 = []
+    for (var i in data) {
+
+        if (i.includes("EMP")) {
+            console.log(i)
+            console.log(data[i])
+            list2.push(i)
+        }
+
+    }
+    console.log("list is", list2)
+    // var da_difference = parseFloat(data.newdda) - parseFloat(data.presentdda)
+    var hra_difference = parseFloat(data.newhra) - parseFloat(data["old_hra"])
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var month = mlist[new Date().getMonth()];
+    var year = new Date().getFullYear();
+    // var da_duration=0;
+    var hra_duration=0;
+
+    // first_date_da=data.month2[0];
+    // second_date_da=data.month2[1];
+    // first_month_da=parseInt(first_date_da.split("-")[1]);
+    // second_month_da=parseInt(second_date_da.split("-")[1]);
+    // first_year_da=parseInt(first_date_da.split("-")[0]);
+    // second_year_da=parseInt(second_date_da.split("-")[0]);
+    // console.log(first_month_da,first_year_da)
+    // if( second_year_da>=first_year_da)
+    // {
+    //         if(first_month_da>second_month_da)
+    //         {
+    //             if(second_year_da===first_year_da+1)
+    //             {
+    //                 da_duration=second_month_da+12-first_month_da+1;
+    //             }
+    //         }
+    //         else
+    //         {
+    //                 if(second_year_da===first_year_da)
+    //                 {
+                        
+    //                     da_duration=second_month_da-first_month_da+1;
+    //                 }
+                    
+               
+    //         }
+    // }
+    // else
+    // {
+    //     //alert
+    // }
 
     first_date_hra=data.month1[0];
     second_date_hra=data.month1[1];
@@ -1364,14 +1525,14 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
     
     for (let i = 0; i < list2.length; i++) {
         console.log("i is", list2[i])
-        mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month.toLowerCase()}',${da_duration},${year})`, (err, result) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
+        // mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month.toLowerCase()}',${da_duration},${year})`, (err, result) => {
+        //     if (err) {
+        //         console.log(err);
+        //     }
+        //     else {
 
-            }
-        })
+        //     }
+        // })
         mysqldb.query(`insert into hra_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${hra_difference},'${month.toLowerCase()}',${hra_duration},${year})`, (err, result) => {
             if (err) {
                 console.log(err);
@@ -1907,7 +2068,8 @@ router.get('/groupinsurance', ensureAuthenticated, (req, res) => {
 
   var d = new Date();
   var date = month[d.getMonth()];
-    mysqldb.query(`select * from Employees`, (err, result) => {
+  var year=d.getFullYear();
+    mysqldb.query(`select * from Employees where empID not in (select empID from group_insurance where year=${year})`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -3586,10 +3748,7 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
     mysqldb.query(`INSERT INTO miscellaneous (empID, empName, miscellaneous_amt ,month, year, note) VALUES ('${data.empID}', '${data.empName}', ${data.amt}, '${data["month"]}', ${data["year"]}, '${data.note}') on duplicate key update miscellaneous_amt=${data.amt},note='${data.note}'`, (err, result) => {
         if (err) {
             console.log(err);
-            
             res.json({status:"error", message:"Please Fill All The Fields"})
-        
-            
         }
         else {
         res.json({status:"success", message:"Miscellaneous Amount Added Successfully!"})
@@ -3667,7 +3826,11 @@ router.post('/storeIncomeTax', (req, res) => {
                                 if (emp_temp_regime == "new") {
                                     exemption = 0;
                                 }
-                                var net_taxable_income = gross_total_income - exemption;
+                                var net_taxable_income = gross_total_income - exemption-50000;
+                                if(net_taxable_income<0)
+                                {
+                                    net_taxable_income=0;
+                                }
                                 var remaining = net_taxable_income;
                                 console.log("regime is", emp_temp_regime)
                                 if (emp_temp_regime === "old") {

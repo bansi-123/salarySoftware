@@ -5,7 +5,7 @@
 
     <script>
         function myFunction() {
-          alert("HRA Difference Added Successfully!");
+          alert("DA Difference Added Successfully!");
         }
         </script>
     <style>
@@ -60,32 +60,25 @@
         <div class="content-wrap">
             <div class="main">
                 <div class="container-fluid">
-                    <div class="row">
+                    <!-- <div class="row">
                         <form class="form-horizontal" action="\truncate" method="post">
                             <input class="btn btn-primary" style="float: left;width:100%;margin-top: 5%;margin-left: 5%;" type="submit" value="Delete Previous records for Hra Difference">
                             <input name="table" value="hra_difference" hidden>
                         </form>
-                    </div>
-                    <!-- <div class="row">
+                    </div> -->
+                    <div class="row">
                         <form class="form-horizontal" action="\truncate" method="post">
                             <input class="btn btn-primary" style="float: left;width:100%;margin-top: 5%;margin-left: 5%;" type="submit" value="Delete Previous records for Da Difference">
                             <input name="table" value="da_difference" hidden>
                         </form>
-                    </div> -->
-                    <form class="form-horizontal" action="\otherdifferences" method="post">
+                    </div>
+                    <form class="form-horizontal" action="\dadifference" method="post">
                         <div class="row" style="display: block;">
-                            <!-- <div class="col-lg-8 p-r-0 title-margin-right">
-                                <div class="page-header"> -->
-                                    <!-- <div class="page-title">
-                                        <h1>Hello, Welcome Here</h1>
-                                    </div> -->
-                                <!-- </div>
-                            </div> -->
-
+                            
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-title">
-                                        <h4>HRA</h4>
+                                        <h4>DA</h4>
 
                                     </div>
 
@@ -97,15 +90,15 @@
                                                 <div class="col-lg-6">
 
                                                     <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Present HRA
+                                                        <label class="col-sm-6 control-label">Present DA
                                                             </label>
                                                             <div class="col-lg-6">
-                                                                <select name="old_hra" id="old_hra"
+                                                                <select name="old_da" id="old_da"
                                                                     class="required" onchange="filterEmployees()">
                                                                     <option>Choose</option>
-                                                                    <% for(var i = oldHra.length-1; i >= 0 ; i-- ) { %>
+                                                                    <% for(var i = oldDa.length-1; i >= 0 ; i-- ) { %>
 
-                                                                    <option value=<%=oldHra[i].hra%>><%=oldHra[i].hra%></option>
+                                                                    <option value=<%=oldDa[i].da%>><%=oldDa[i].da%></option>
                                                                     <!-- <option value="IT">1.49</option>
                                                                     <option value="E&TC">1.45</option> -->
                                                                     <% } %>
@@ -119,16 +112,16 @@
                                                     </div>
                                                     <br><br><br><br>
                                                     Start Month:
-                                                    <input type="month" id="month" name="month1"><br><br><br><br>
+                                                    <input type="month" id="month" name="month2"><br><br><br><br>
 
                                                     End Month:
-                                                    <input type="month" id="month" name="month1"><br><br><br><br>
+                                                    <input type="month" id="month" name="month2"><br><br><br><br>
 
                                                     <!-- <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Enter No. of Months</label>
-                                                            
+                                                        <label class="col-sm-6 control-label">Enter No. of Months
+                                                            </label>
                                                         <div class="col-sm-4">
-                                                            <input type="text" name="monthhra" class="form-control" value=0>
+                                                            <input type="text" name="monthdda" class="form-control" value=0 required="required">
                                                         </div>
                                                     </div> -->
 
@@ -137,10 +130,10 @@
 
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <label class="col-sm-6 control-label">New HRA</label>
+                                                        <label class="col-sm-6 control-label">New DA</label>
                                                         <div class="col-sm-4">
-                                                            <input type="text" name="newhra" class="form-control" value=<%=config[0].hra_MultFactor%>>
-                                                        
+                                                            <input type="text" name="newdda" class="form-control" value=<%=config[0].da_MultFactor%>>
+                                                            
 
                                                         </div>
                                                     </div>
@@ -156,6 +149,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                         <section id="main-content">
@@ -189,7 +183,7 @@
                                                     </thead>
                                                     <tbody name="all" >
                                                         <% for(var i = Employees.length-1; i >= 0 ; i-- ) { %>
-                                                            <tr id="1" name=<%=Employees[i].hra %>>
+                                                            <tr id="1" name=<%=Employees[i].da %>>
                                                                 <td><%= Employees[i].empID %></td>
                                                                 <td><%= Employees[i].empName %></td>
                                                                 <td><%= Employees[i].dept %></td>
@@ -213,13 +207,13 @@
             </div>
         </div>
         
-            <% for(var i = oldHra.length-1; i >= 0 ; i-- ) { %>
-                <input name="fixed" value = "<%= oldHra[i].hra %>" hidden>
+            <% for(var i = oldDa.length-1; i >= 0 ; i-- ) { %>
+                <input name="fixed" value = "<%= oldDa[i].da %>" hidden>
             <%}%>
                       <script type="text/javascript">
 
                         function filterEmployees() {
-                          var selectHra=document.getElementById("old_hra").value;
+                          var selectDa=document.getElementById("old_da").value;
                         //   var length=document.getElementByName("length").value;
                           var all=document.getElementsByName("fixed");
                           console.log("all" + all.length);
@@ -229,13 +223,13 @@
                               if(Number.isInteger(parseInt(i)))
                               {
                                 console.log(all[i].value);
-                                var selectedHraRows=document.getElementsByName(all[i].value);
+                                var selectedDaRows=document.getElementsByName(all[i].value);
                                
-                                    for(var j in selectedHraRows)
+                                    for(var j in selectedDaRows)
                                  {
                                     if(Number.isInteger(parseInt(j)))
                                     {
-                                    selectedHraRows[j].style.display="table-row";
+                                    selectedDaRows[j].style.display="table-row";
                                     // console.log(selectedHraRows.length);
                                     }
                                  }
@@ -247,15 +241,16 @@
                           {
                               if(Number.isInteger(parseInt(i)))
                               {
-                                console.log(all[i].value);
-                                var selectedHraRows=document.getElementsByName(all[i].value);
-                               if(all[i].value!==selectHra)
+
+                                console.log("all i value"+all[i].value);
+                                var selectedDaRows=document.getElementsByName(all[i].value);
+                               if(all[i].value!==selectDa)
                                {
-                                    for(var j in selectedHraRows)
+                                    for(var j in selectedDaRows)
                                  {
                                     if(Number.isInteger(parseInt(j)))
                                     {
-                                    selectedHraRows[j].style.display="none";
+                                    selectedDaRows[j].style.display="none";
                                     // console.log(selectedHraRows.length);
                                     }
                                  }
@@ -266,7 +261,7 @@
                         //   console.log(selectHra)
                         //   for(var i in selectedHraRows)
                         //       selectedHraRows[i].style.display="none";
-                          var selectedHraRows=document.getElementsByName(selectHra);
+                          var selectedDaRows=document.getElementsByName(selectDa);
                         //   console.log(selectedHraRows)
                         //   for(var i in selectedHraRows)
                         //   {

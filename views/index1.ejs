@@ -34,6 +34,10 @@
             a.custom-card:hover {
                 color: inherit;
             }
+            a.disabled {
+            pointer-events: none;
+            cursor: default;
+            }
         </style>
     </head>
 
@@ -61,6 +65,23 @@
 
                     <section id="main-content">
                         <div class="row">
+                            <% if(role == "accountant"){ %>
+                                <div class="col-lg-3">
+                                    <a href="form-basic" class="custom-card">
+                                        <div class="card">
+                                            <div class="stat-widget-one">
+                                                <div class="stat-icon dib"><a href="form-basic" class="disabled"><i
+                                                            class="ti-user color-success border-success"></i></a>
+                                                </div>
+                                                <div class="stat-content dib">
+                                                    <div class="stat-text"><a href="form-basic" class="disabled">Add Employees</a></div>
+    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <% }else{ %>
                             <div class="col-lg-3">
                                 <a href="form-basic" class="custom-card">
                                     <div class="card">
@@ -76,6 +97,7 @@
                                     </div>
                                 </a>
                             </div>
+                            <%}%>
                             <div class="col-lg-3">
                                 <div class="card">
                                     <div class="stat-widget-one">
