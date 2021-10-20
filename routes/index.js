@@ -731,16 +731,28 @@ router.get('/editdates', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/addincometax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees right join form ON Employees.empID= form.empID`, (err, result) => {
+    mysqldb.query(`select count(*) as empCount from Employees`, (err, result2) => {
         if (err) {
             console.log(err);
         }
         else {
-            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-            res.render('addincometax', {
-                Employees: JSON.parse(JSON.stringify(result)),
-                role: req.user.role
-            });
+            mysqldb.query(`select count(*) as formCount from form`, (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                        var render=false;
+                        if( JSON.parse(JSON.stringify(result2)).empCount===JSON.parse(JSON.stringify(result)).formCount)
+                        {
+                            render=true;
+                        }
+                        console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+                        res.render('addincometax', {
+                            role: req.user.role,
+                            render
+                        })
+                }
+            })
         }
     })
 
@@ -861,29 +873,37 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
         }
 
     }
-    var donateDays=parseInt(data["donateDays"]);
-    var cause=data["cause"];
-    list=list.substring(0,list.length - 1);
-    list+=")";
-    console.log("list is",list2)
-    for(var i in list2)
+    if(list2.length==0)
     {
-        console.log(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`)
-        mysqldb.query(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`,(err,result)=>{
-            if(err)
-            {
-                console.log(err)
-                console.log("error while inserting into donation table")
-            }
-            else {
-                console.log("inserted in donation for employee with emp id", list2[i])
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-                //
-            }
-        })
     }
+    else
+    {
+        var donateDays=parseInt(data["donateDays"]);
+        var cause=data["cause"];
+        list=list.substring(0,list.length - 1);
+        list+=")";
+        console.log("list is",list2)
+        for(var i in list2)
+        {
+            console.log(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`)
+            mysqldb.query(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}') on duplicate key update donationDays=${donateDays}, cause='${cause}'`,(err,result)=>{
+                if (err) {
+                    console.log(err);
+                    res.json({status:"error", message:"Please Fill No. of Days and Cause"})
+                
+                    
+                }
+                else {
+                res.json({status:"success", message:"Donations Added Successfully!"})
+                }
+            })
+        }
+    }
+    
 
-    res.redirect('viewdonations');
+   
 
 })
 
@@ -937,22 +957,33 @@ router.post('/ta', ensureAuthenticated, (req, res) => {
         }
 
     }
-    var newValue=parseInt(data["newValue"]);
-    list=list.substring(0,list.length - 1);
-    list+=")";
-    console.log("list is",list2)
-    console.log(`update Employees set ta=${newValue} where empID in ${list}`)
-    mysqldb.query(`update Employees set ta=${newValue} where empID in ${list}`,(err,result)=>{
-        if(err)
-        {
-            console.log(err)
-        }
-        else {
-            console.log("updated ta in employee")
-        }
-    })
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    }
 
-    res.redirect('ta');
+    else
+    {
+        var newValue=parseInt(data["newValue"]);
+        list=list.substring(0,list.length - 1);
+        list+=")";
+        console.log("list is",list2)
+        console.log(`update Employees set ta=${newValue} where empID in ${list}`)
+        mysqldb.query(`update Employees set ta=${newValue} where empID in ${list}`,(err,result)=>{
+            if (err) {
+                console.log(err);
+                res.json({status:"error", message:"Please Fill TA Amount"})
+            
+                
+            }
+            else {
+            res.json({status:"success", message:"TA Added Successfully!"})
+            }
+        })
+    }
+    
+
+    // res.redirect('ta');
 
 });
 
@@ -990,22 +1021,32 @@ router.post('/hra', ensureAuthenticated, (req, res) => {
         }
 
     }
-    var newValue=data["newValue"];
-    list=list.substring(0,list.length - 1);
-    list+=")";
-    console.log("list is",list2)
-    console.log(`update Employees set hra=${newValue} where empID in ${list}`)
-    mysqldb.query(`update Employees set hra=${newValue} where empID in ${list}`,(err,result)=>{
-        if (err) {
-            console.log(err);
-            res.json({status:"error", message:"Please Fill HRA Amount"})
-        
+
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+
+    }
+    else
+    {
+        var newValue=data["newValue"];
+        list=list.substring(0,list.length - 1);
+        list+=")";
+        console.log("list is",list2)
+        console.log(`update Employees set hra=${newValue} where empID in ${list}`)
+        mysqldb.query(`update Employees set hra=${newValue} where empID in ${list}`,(err,result)=>{
+            if (err) {
+                console.log(err);
+                res.json({status:"error", message:"Please Fill HRA Amount"})
             
-        }
-        else {
-        res.json({status:"success"})
-        }
-    })
+                
+            }
+            else {
+            res.json({status:"success", message:"HRA Added Successfully!"})
+            }
+        })
+    }
+    
 
     // res.redirect('hra');
 
@@ -1045,22 +1086,33 @@ router.post('/da', ensureAuthenticated, (req, res) => {
         }
 
     }
-    var newValue=data["newValue"];
-    list=list.substring(0,list.length - 1);
-    list+=")";
-    console.log("list is",list2)
-    console.log(`update Employees set da=${newValue} where empID in ${list}`)
-    mysqldb.query(`update Employees set da=${newValue} where empID in ${list}`,(err,result)=>{
-        if(err)
-        {
-            console.log(err)
-        }
-        else {
-            console.log("updated da in employee")
-        }
-    })
 
-    res.redirect('da');
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    }
+    else
+    {
+        var newValue=data["newValue"];
+        list=list.substring(0,list.length - 1);
+        list+=")";
+        console.log("list is",list2)
+        console.log(`update Employees set da=${newValue} where empID in ${list}`)
+        mysqldb.query(`update Employees set da=${newValue} where empID in ${list}`,(err,result)=>{
+            if (err) {
+                console.log(err);
+                res.json({status:"error", message:"Please Fill DA Amount"})
+            
+                
+            }
+            else {
+            res.json({status:"success", message:"DA Added Successfully!"})
+            }
+        })
+    
+    }
+    
+    // res.redirect('da');
 
 });
 
@@ -1100,20 +1152,33 @@ router.post('/cca', ensureAuthenticated, (req, res) => {
         }
 
     }
-    var newValue = parseInt(data["newValue"]);
-    list = list.substring(0, list.length - 1);
-    list += ")";
-    console.log("list is", list2)
-    mysqldb.query(`update Employees set cca=${newValue} where empID in ${list}`, (err, result) => {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            console.log("updated cca in employee")
-        }
-    })
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-    res.redirect('cca');
+    }
+    else
+    {
+        var newValue = parseInt(data["newValue"]);
+        list = list.substring(0, list.length - 1);
+        list += ")";
+        console.log("list is", list2)
+        mysqldb.query(`update Employees set cca=${newValue} where empID in ${list}`, (err, result) => {
+            if (err) {
+                console.log(err);
+                res.json({status:"error", message:"Please Fill CCA Amount"})
+            
+                
+            }
+            else {
+            res.json({status:"success", message:"CCA Added Successfully!"})
+            
+            }
+        })
+    }
+   
+
+    // res.redirect('cca');
 
 });
 
@@ -1229,7 +1294,38 @@ router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
     })
 });
 
-router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
+router.get('/dadifference', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select distinct da from Employees`, (err, result3) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            mysqldb.query(`select * from Employees`, (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    mysqldb.query(`select * from config`, (err, result2) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+                            res.render('dadifference', {
+                                Employees: JSON.parse(JSON.stringify(result)),
+                                oldDa:JSON.parse(JSON.stringify(result3)),
+                                config: JSON.parse(JSON.stringify(result2)),
+                                role: req.user.role
+                            });
+                        }
+                    })
+                }
+            })
+        }
+    })
+});
+
+router.post('/dadifference', ensureAuthenticated, (req, res) => {
     var data = JSON.parse(JSON.stringify(req.body))
     console.log(data)
     var list2 = []
@@ -1243,13 +1339,13 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
 
     }
     console.log("list is", list2)
-    var da_difference = parseFloat(data.newdda) - parseFloat(data.presentdda)
-    var hra_difference = parseFloat(data.newhra) - parseFloat(data.presenthra)
+    var da_difference = parseFloat(data.newdda) - parseFloat(data["old_da"])
+    // var hra_difference = parseFloat(data.newhra) - parseFloat(data.presenthra)
     mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var month = mlist[new Date().getMonth()];
     var year = new Date().getFullYear();
     var da_duration=0;
-    var hra_duration=0;
+    // var hra_duration=0;
 
     first_date_da=data.month2[0];
     second_date_da=data.month2[1];
@@ -1282,6 +1378,116 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
     {
         //alert
     }
+
+    // first_date_hra=data.month1[0];
+    // second_date_hra=data.month1[1];
+    // first_month_hra=parseInt(first_date_hra.split("-")[1]);
+    // second_month_hra=parseInt(second_date_hra.split("-")[1]);
+    // first_year_hra=parseInt(first_date_hra.split("-")[0]);
+    // second_year_hra=parseInt(second_date_hra.split("-")[0]);
+    // console.log(first_month_hra,first_year_hra)
+    // if( second_year_hra>=first_year_hra)
+    // {
+    //         if(first_month_hra>second_month_hra)
+    //         {
+    //             if(second_year_hra===first_year_hra+1)
+    //             {
+    //                 hra_duration=second_month_hra+12-first_month_hra+1;
+    //             }
+    //         }
+    //         else
+    //         {
+    //                 if(second_year_hra===first_year_hra)
+    //                 {
+                        
+    //                     hra_duration=second_month_hra-first_month_hra+1;
+    //                 }
+                    
+               
+    //         }
+    // }
+    // else
+    // {
+    //     //alert
+    // }
+
+
+    
+    for (let i = 0; i < list2.length; i++) {
+        console.log("i is", list2[i])
+        mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month.toLowerCase()}',${da_duration},${year})`, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+
+            }
+        })
+        // mysqldb.query(`insert into hra_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${hra_difference},'${month.toLowerCase()}',${hra_duration},${year})`, (err, result) => {
+        //     if (err) {
+        //         console.log(err);
+        //     }
+        //     else {
+
+        //     }
+        // })
+    }
+
+})
+
+router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
+    var data = JSON.parse(JSON.stringify(req.body))
+    console.log(data)
+    var list2 = []
+    for (var i in data) {
+
+        if (i.includes("EMP")) {
+            console.log(i)
+            console.log(data[i])
+            list2.push(i)
+        }
+
+    }
+    console.log("list is", list2)
+    // var da_difference = parseFloat(data.newdda) - parseFloat(data.presentdda)
+    var hra_difference = parseFloat(data.newhra) - parseFloat(data["old_hra"])
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var month = mlist[new Date().getMonth()];
+    var year = new Date().getFullYear();
+    // var da_duration=0;
+    var hra_duration=0;
+
+    // first_date_da=data.month2[0];
+    // second_date_da=data.month2[1];
+    // first_month_da=parseInt(first_date_da.split("-")[1]);
+    // second_month_da=parseInt(second_date_da.split("-")[1]);
+    // first_year_da=parseInt(first_date_da.split("-")[0]);
+    // second_year_da=parseInt(second_date_da.split("-")[0]);
+    // console.log(first_month_da,first_year_da)
+    // if( second_year_da>=first_year_da)
+    // {
+    //         if(first_month_da>second_month_da)
+    //         {
+    //             if(second_year_da===first_year_da+1)
+    //             {
+    //                 da_duration=second_month_da+12-first_month_da+1;
+    //             }
+    //         }
+    //         else
+    //         {
+    //                 if(second_year_da===first_year_da)
+    //                 {
+                        
+    //                     da_duration=second_month_da-first_month_da+1;
+    //                 }
+                    
+               
+    //         }
+    // }
+    // else
+    // {
+    //     //alert
+    // }
 
     first_date_hra=data.month1[0];
     second_date_hra=data.month1[1];
@@ -1319,14 +1525,14 @@ router.post('/otherdifferences', ensureAuthenticated, (req, res) => {
     
     for (let i = 0; i < list2.length; i++) {
         console.log("i is", list2[i])
-        mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month.toLowerCase()}',${da_duration},${year})`, (err, result) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
+        // mysqldb.query(`insert into da_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${da_difference},'${month.toLowerCase()}',${da_duration},${year})`, (err, result) => {
+        //     if (err) {
+        //         console.log(err);
+        //     }
+        //     else {
 
-            }
-        })
+        //     }
+        // })
         mysqldb.query(`insert into hra_difference(empID,difference,month,duration,year) VALUES ('${list2[i]}',${hra_difference},'${month.toLowerCase()}',${hra_duration},${year})`, (err, result) => {
             if (err) {
                 console.log(err);
@@ -1496,10 +1702,14 @@ router.post('/pay', ensureAuthenticated, (req, res) => {
     // })
     res.redirect('showlwp');
 });
+
 router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 
     // var abc="update employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0;"
     // abc += "select * from Employees"
+    mysqldb.query(`UPDATE employees 
+    SET photo = REPLACE(photo , '/view', '/preview') 
+    WHERE photo LIKE ('%/view%');`)
     mysqldb.query(`select * from Employees`, (err, result) => {
         if (err) {
             console.log(err);
@@ -1516,10 +1726,9 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
                         }
                         else
                         {
-                                console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+                               // console.log("Employees Details",JSON.parse(JSON.stringify(result)));
                                 res.render('viewemployee',{
-                                Employees:JSON.parse(JSON.stringify(result)),
-                                role: req.user.role
+                                Employees:JSON.parse(JSON.stringify(result))
                             });
 
                         }
@@ -1862,7 +2071,8 @@ router.get('/groupinsurance', ensureAuthenticated, (req, res) => {
 
   var d = new Date();
   var date = month[d.getMonth()];
-    mysqldb.query(`select * from Employees`, (err, result) => {
+  var year=d.getFullYear();
+    mysqldb.query(`select * from Employees where empID not in (select empID from group_insurance where year=${year})`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1904,23 +2114,34 @@ router.post('/groupinsurance', ensureAuthenticated, (req, res) => {
 
     }
 
-    console.log("id list is", IDlist)
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-
-    // console.log(data.month)
-    // for(var i in indexList)
-    for (let i = 0; i < IDlist.length; i++) {
-        console.log(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}',${cur_month},${year})`)
-        mysqldb.query(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}','${cur_month}','${year}') `, (err, result) => {
-            if (err) {
-                console.log(err)
-                console.log("error in insert query from group insurance")
-            }
-            else {
-                console.log("group insurance added to table")
-            }
-        })
     }
+    else
+    {
+        console.log("id list is", IDlist)
+
+
+        // console.log(data.month)
+        // for(var i in indexList)
+        for (let i = 0; i < IDlist.length; i++) {
+            console.log(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}',${cur_month},${year})`)
+            mysqldb.query(`insert into group_insurance (empID,month,year) VALUES ('${IDlist[i]}','${cur_month}','${year}') `, (err, result) => {
+                if (err) {
+                    console.log(err)
+                    console.log("error in insert query from group insurance")
+                }
+                else {
+                    console.log("group insurance added to table")
+                    res.json({status:"success", message:"Group Insurance Added Successfully!"})
+                }
+            })
+        }
+    }
+
+    
 
     res.redirect('index1');
 })
@@ -2044,9 +2265,7 @@ router.get('/recoveryamount/:empID', ensureAuthenticated, (req, res) => {
 
     else {
         requestedTitle = "/" + requestedTitle
-        res.redirect(requestedTitle,{
-            role: req.user.role
-        })
+        res.redirect(requestedTitle)
     }
 });
 
@@ -2301,76 +2520,86 @@ router.post('/updatepay', (req, res) => {
         }
 
     }
-    var incrementPercent = parseFloat(data["increment"]);
-    list = list.substring(0, list.length - 1);
-    list += ")";
-    console.log("list is", list2)
-    var current = new Date();
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-    mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-    // var cur_month="august"
-    var cur_month = mlist[new Date().getMonth()].toLowerCase()
-    var year = current.getFullYear();
-
-    mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`, (err, result) => {
-        if (err) {
-            //------------ Invalid Employement ID ------------//
-            // req.flash('error_msg',
-            // 'Please enter valid Id.')
-            console.log(err);
-            console.log("invalid employment ID")
-        }
-        else {
-            // gp=JSON.parse(JSON.stringify(result))[0].gp;
-            // pf=JSON.parse(JSON.stringify(result))[0].pf;
-            var queryData = JSON.parse(JSON.stringify(result))
-            console.log(JSON.parse(JSON.stringify(result)));
-            for (let i = 0; i < queryData.length; i++) {
-                var multFactor = 1 + incrementPercent / 100
-                var increment = (queryData[i].pay + queryData[i].gp) * multFactor
-                if ((Math.floor(increment) % 10) === 0) {
-
-                }
-                else {
-                    increment = Math.ceil(increment / 10) * 10
-                }
-                var finalpay=increment-queryData[i].gp;
-                console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
+    }
+    else
+    {
+        var incrementPercent = parseFloat(data["increment"]);
+        list = list.substring(0, list.length - 1);
+        list += ")";
+        console.log("list is", list2)
+        var current = new Date();
+    
+        mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        // var cur_month="august"
+        var cur_month = mlist[new Date().getMonth()].toLowerCase()
+        var year = current.getFullYear();
+    
+        mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`, (err, result) => {
+            if (err) {
+                //------------ Invalid Employement ID ------------//
+                // req.flash('error_msg',
+                // 'Please enter valid Id.')
+                console.log(err);
+                console.log("invalid employment ID")
                 
-                // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
-                
-
-                mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
-                {
-                    if (err) {
-                        console.log(err);
-
-                    }
-                    else{
-                        mysqldb.query(`update Employees set pay=${finalpay} where empID='${list2[i]}'`,(err,result)=>
-                        {
-                            if (err) {
-                                console.log(err);
-                            }
-                            else {
-                            }
-                        })
-
-                    }
-                })
             }
-        }
+            else {
+                // gp=JSON.parse(JSON.stringify(result))[0].gp;
+                // pf=JSON.parse(JSON.stringify(result))[0].pf;
+                var queryData = JSON.parse(JSON.stringify(result))
+                console.log(JSON.parse(JSON.stringify(result)));
+                for (let i = 0; i < queryData.length; i++) {
+                    var multFactor = 1 + incrementPercent / 100
+                    var increment = (queryData[i].pay + queryData[i].gp) * multFactor
+                    if ((Math.floor(increment) % 10) === 0) {
+    
+                    }
+                    else {
+                        increment = Math.ceil(increment / 10) * 10
+                    }
+                    var finalpay=increment-queryData[i].gp;
+                    console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
+                    
+                    // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
+                    
+    
+                    mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
+                    {
+                        if (err) {
+                            console.log(err);
+                            res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
+                        }
+                        else{
+                            mysqldb.query(`update Employees set pay=${finalpay} where empID='${list2[i]}'`,(err,result)=>
+                            {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                }
+                            })
+    
+                        }
+                    })
+                }
+            }
+    
+            // console.log("gp,pf selected",gp,pf);
+            // req.flash(
+            //     'success_msg',
+            //     'Employee found!'
+            // );
+    
+    
+        })
+    }
+    
 
-        // console.log("gp,pf selected",gp,pf);
-        // req.flash(
-        //     'success_msg',
-        //     'Employee found!'
-        // );
-
-
-    })
-
-    res.redirect('index1');
+    // res.redirect('index1');
 })
 
 
@@ -2428,8 +2657,6 @@ router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
     })
 });
 
-var bankform = [];
-
 router.get('/bankform',ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()+1]
@@ -2445,6 +2672,7 @@ router.get('/bankform',ensureAuthenticated, (req, res) => {
         // mysqldb.query(`call while_example();`)
         else {
             mysqldb.query(`select * from trial` , (err, result2) => {
+                console.log("res2", result2[1]);
 
                 var str = JSON.parse(JSON.stringify(result2))[result2.length-1].abc;
                 const myArr = str.split(",");
@@ -2460,7 +2688,8 @@ router.get('/bankform',ensureAuthenticated, (req, res) => {
                     res.render('bankform', {
                         salary: JSON.parse(JSON.stringify(result)),
                         role: req.user.role,
-                        bank: JSON.parse(JSON.stringify(result2))
+                        //bank: JSON.parse(JSON.stringify(result2))
+                        bank:(JSON.parse(JSON.stringify(result2))[result2.length-1].abc).split(",")
                     });
                 }
             })
@@ -3632,7 +3861,11 @@ router.post('/storeIncomeTax', (req, res) => {
                                 if (emp_temp_regime == "new") {
                                     exemption = 0;
                                 }
-                                var net_taxable_income = gross_total_income - exemption;
+                                var net_taxable_income = gross_total_income - exemption-50000;
+                                if(net_taxable_income<0)
+                                {
+                                    net_taxable_income=0;
+                                }
                                 var remaining = net_taxable_income;
                                 console.log("regime is", emp_temp_regime)
                                 if (emp_temp_regime === "old") {

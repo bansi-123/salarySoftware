@@ -3,6 +3,7 @@
     <head>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+        <link rel="stylesheet" href="../assets/alert/style.css">
 
         <script>
             function myFunction() {
@@ -93,19 +94,19 @@
                 <div class="row">
                     <div class="col-lg-6">
 
-                            <div class="form-group">
-                                <label class="col-sm-10 control-label" style="text-align:left;">No. of Days' Amount To Donate</label>
+                        <div class="form-group">
+                                <label class="col-sm-4 control-label" style="text-align:left;">No. of Days' Amount To Donate</label>
                                 <div class="col-sm-4">
-                                    <input type="text" name="donateDays" class="form-control">
+                                    <input type="text" name="donateDays" id="days" class="form-control">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
 
                             <div class="form-group">
-                                <label class="col-sm-10 control-label" style="text-align:left;">Cause</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="cause" class="form-control">
+                                <label class="col-sm-2 control-label" style="text-align:left;">Cause</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="cause" id="cause" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -166,7 +167,7 @@
 
 
 
-                        <input class="btn btn-primary" style="float: right;" type="submit" value="Submit" onclick="myFunction()">
+                        <button type="button" class="btn btn-primary" onclick="submitFn(event)" style="float:right">Submit</button>
 
 
                         </form>
@@ -182,18 +183,91 @@
 
 
 
-        <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
-        <script src="../assets/assets/js/scripts.js"></script>
-        <!-- scripit init-->
-        <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+        <script>
+            
+            function submitFn(event) {
+                event.preventDefault()
+                console.log("HERE")
+            
+
+                var checkedButtons = document.querySelectorAll("#days,#cause,.checkedButtons");
+                // var newValue=document.getElementById('new');
+                console.log("days"+checkedButtons[0].value)
+                console.log("cause"+checkedButtons[1].value)
+                
+                var data=[]
+                
+                for (var i = 2; i < checkedButtons.length; i++) {
+                    if(checkedButtons[i].checked)
+                    {
+                        
+                        data.push(checkedButtons[i].name)
+                    }
+                    
+                }
+
+                // console.log("newValue"+newValue)
+
+                // console.log("data"+data)
+                // console.log("arr"+arr)
+                    
+                var sendData={}
+
+                sendData["donateDays"]=checkedButtons[0].value
+                sendData["cause"]=checkedButtons[1].value
+                for (var i in data) {
+                        var prop=data[i];
+                        sendData[prop]=1
+                }
+
+                
+                console.log("data" + data)
+                console.log("sendData" + sendData)
+            
+                axios.post('http://localhost:3000/updatepay',sendData)
+                    .then(function (response) {
+                        if(response.data.status=="error")
+                        {
+                            console.log("status" + response.data)
+                            console.log("ERROR")
+                            var message=response.data.message
+                            alertify.set({ delay: 3000 });
+	    							alertify.error(message); 
+                                     
+                        }
+                        else
+                        {
+                            console.log("SUCCESS")
+                            console.log(response)
+                            var message=response.data.message
+                            alertify.set({ delay: 3000 });
+  							alertify.success(message);  
+                        }
+                        
+                    })
+                    .catch(function (error) {
+                        //console.log("ERROR")
+                        console.log(error)
+                    });   
+            }
+        </script> 
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
+<script  src="../assets/alert/script.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
+    <!-- scripit init-->
+    <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
 
 
     </body>

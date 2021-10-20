@@ -271,8 +271,7 @@
 
 
                                           <div class="media align-items-center py-3 mb-3">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-                                              class="d-block ui-w-100 rounded-circle">
+                                            <iframe src="<%=Employees[i].photo %>" width="100" height="100" class=" rounded-circle" ></iframe>
                                             <div class="media-body ml-4">
                                               <h4 class="font-weight-bold mb-0">
                                                 <%= Employees[i].empName %>
@@ -554,7 +553,7 @@
                   
 
                     <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                      data-target="#b<%= Employees[i].empID %>">
+                      data-target="<%= Employees[i].empID %>">
                       Delete
                     </button>
 
@@ -607,8 +606,8 @@
 
 
                               <div class="media align-items-center py-3 mb-3">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-                                  class="d-block ui-w-100 rounded-circle">
+                                <img src="<%= Employees[i].photo %>" alt=""
+                                  class=" width=100 height=100 rounded-circle">
                                 <div class="media-body ml-4">
                                   <h4 class="font-weight-bold mb-0">
                                     <%= Employees[i].empName %>
