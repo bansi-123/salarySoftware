@@ -12,7 +12,7 @@ router1.get('/', (req,res) => {
     //res.render('upload');
 });
 
-router1.post('/api/file/uploaddeclare', uploaddeclare.single("file"), csvWorker.uploadFile);
+router1.post('/api/file/upload', uploaddeclare.single("file"), csvWorker.uploadFile);
 //router.post('/api/file/multiple/upload', upload.array('files', 4), csvWorker.uploadMultipleFiles);
 
 router1.get('/api/file', csvWorker.downloadFile);

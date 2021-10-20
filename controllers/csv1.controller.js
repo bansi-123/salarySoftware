@@ -147,11 +147,13 @@ exports.uploadFile = (req, res) => {
             .pipe(csv.parse({ headers: true }))
             .on('error', error => {
                 console.error(error);
+                console.log("here in error")
                 throw error.message;
             })
             .on('data', row => {
                 Employees.push(row);
                 console.log(row);
+                console.log("here in data")
             })
             .on('end', () => {
                 // Save Employees to MySQL/PostgreSQL database
@@ -161,7 +163,7 @@ exports.uploadFile = (req, res) => {
                         filename: req.file.originalname,
                         message: "Upload Successfully!",
                     }
-    
+                    
                     res.json(result);
                 });    
             });
