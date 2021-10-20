@@ -224,7 +224,7 @@
                 console.log("data" + data)
                 console.log("sendData" + sendData)
             
-                axios.post('http://localhost:3000/donations',sendData)
+                axios.post('http://localhost:3000/updatepay',sendData)
                     .then(function (response) {
                         if(response.data.status=="error")
                         {

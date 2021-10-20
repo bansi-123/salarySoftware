@@ -47,12 +47,12 @@ const mysqldb = mysql.createConnection ({
 });
 
 
-const mysqldb = mysql.createConnection ({
-    host: 'localhost',
-    user: 'kshitij',
-    password: 'salary123',
-    database: 'employee'
-});
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'kshitij',
+//     password: 'salary123',
+//     database: 'employee'
+// });
 
 // connect to database
 mysqldb.connect((err) => {
@@ -163,19 +163,19 @@ app.use(express.static('resources'));
 app.use('/uploadcsv', router); 
 
 //--------------upload declaration part--------------//
-const db1 = require('./config/db.config1.js');
+// const db1 = require('./config/db.config1.js');
 
-global.__basedir = __dirname; 
+// global.__basedir = __dirname; 
 
-db.sequelize.sync({force: false}).then(() => {  //{force: true}
-  console.log('Drop and Resync with { force: true }');
-}).catch((e)=>{
-  console.log(e)
-});       
+// db1.sequelize.sync({force: false}).then(() => {  //{force: true}
+//   console.log('Drop and Resync with { force: true }');
+// }).catch((e)=>{
+//   console.log(e)
+// });       
 
-let router1 = require('./routes/excel1.router.js');
-app.use(express.static('resources'));
-app.use('/uploaddeclare', router1); 
+// let router1 = require('./routes/excel1.router.js');
+// app.use(express.static('resources'));
+// app.use('/uploaddeclare', router1); 
 
 //------------------------------------------------------//
 
