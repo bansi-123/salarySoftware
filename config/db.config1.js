@@ -17,12 +17,12 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
   }
 });
  
-const db = {};
+const db1 = {};
  
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+db1.Sequelize = Sequelize;
+db1.sequelize = sequelize;
  
-db.Employee = require('../models/declaration.model.js')(sequelize, Sequelize);
+db1.form = require('../models/declaration.model.js')(sequelize, Sequelize);
 // console.log(db)
  
-module.exports = db
+module.exports = db1

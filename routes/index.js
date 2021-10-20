@@ -2517,76 +2517,86 @@ router.post('/updatepay', (req, res) => {
         }
 
     }
-    var incrementPercent = parseFloat(data["increment"]);
-    list = list.substring(0, list.length - 1);
-    list += ")";
-    console.log("list is", list2)
-    var current = new Date();
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-    mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-    // var cur_month="august"
-    var cur_month = mlist[new Date().getMonth()].toLowerCase()
-    var year = current.getFullYear();
-
-    mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`, (err, result) => {
-        if (err) {
-            //------------ Invalid Employement ID ------------//
-            // req.flash('error_msg',
-            // 'Please enter valid Id.')
-            console.log(err);
-            console.log("invalid employment ID")
-        }
-        else {
-            // gp=JSON.parse(JSON.stringify(result))[0].gp;
-            // pf=JSON.parse(JSON.stringify(result))[0].pf;
-            var queryData = JSON.parse(JSON.stringify(result))
-            console.log(JSON.parse(JSON.stringify(result)));
-            for (let i = 0; i < queryData.length; i++) {
-                var multFactor = 1 + incrementPercent / 100
-                var increment = (queryData[i].pay + queryData[i].gp) * multFactor
-                if ((Math.floor(increment) % 10) === 0) {
-
-                }
-                else {
-                    increment = Math.ceil(increment / 10) * 10
-                }
-                var finalpay=increment-queryData[i].gp;
-                console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
+    }
+    else
+    {
+        var incrementPercent = parseFloat(data["increment"]);
+        list = list.substring(0, list.length - 1);
+        list += ")";
+        console.log("list is", list2)
+        var current = new Date();
+    
+        mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        // var cur_month="august"
+        var cur_month = mlist[new Date().getMonth()].toLowerCase()
+        var year = current.getFullYear();
+    
+        mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`, (err, result) => {
+            if (err) {
+                //------------ Invalid Employement ID ------------//
+                // req.flash('error_msg',
+                // 'Please enter valid Id.')
+                console.log(err);
+                console.log("invalid employment ID")
                 
-                // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
-                
-
-                mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
-                {
-                    if (err) {
-                        console.log(err);
-
-                    }
-                    else{
-                        mysqldb.query(`update Employees set pay=${finalpay} where empID='${list2[i]}'`,(err,result)=>
-                        {
-                            if (err) {
-                                console.log(err);
-                            }
-                            else {
-                            }
-                        })
-
-                    }
-                })
             }
-        }
+            else {
+                // gp=JSON.parse(JSON.stringify(result))[0].gp;
+                // pf=JSON.parse(JSON.stringify(result))[0].pf;
+                var queryData = JSON.parse(JSON.stringify(result))
+                console.log(JSON.parse(JSON.stringify(result)));
+                for (let i = 0; i < queryData.length; i++) {
+                    var multFactor = 1 + incrementPercent / 100
+                    var increment = (queryData[i].pay + queryData[i].gp) * multFactor
+                    if ((Math.floor(increment) % 10) === 0) {
+    
+                    }
+                    else {
+                        increment = Math.ceil(increment / 10) * 10
+                    }
+                    var finalpay=increment-queryData[i].gp;
+                    console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
+                    
+                    // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
+                    
+    
+                    mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
+                    {
+                        if (err) {
+                            console.log(err);
+                            res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
+                        }
+                        else{
+                            mysqldb.query(`update Employees set pay=${finalpay} where empID='${list2[i]}'`,(err,result)=>
+                            {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                }
+                            })
+    
+                        }
+                    })
+                }
+            }
+    
+            // console.log("gp,pf selected",gp,pf);
+            // req.flash(
+            //     'success_msg',
+            //     'Employee found!'
+            // );
+    
+    
+        })
+    }
+    
 
-        // console.log("gp,pf selected",gp,pf);
-        // req.flash(
-        //     'success_msg',
-        //     'Employee found!'
-        // );
-
-
-    })
-
-    res.redirect('index1');
+    // res.redirect('index1');
 })
 
 

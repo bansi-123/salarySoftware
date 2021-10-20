@@ -1,52 +1,29 @@
 
 module.exports = (sequelize, Sequelize) => {
-	const Declaration = sequelize.define('Declaration', {	
+	const form = sequelize.define('form', {	
 	  empID: {
             type: Sequelize.STRING,
             //  autoIncrement: true,
             primaryKey: true
       },
-	//   empName: {
-	// 		type: Sequelize.STRING
-	//   },
-
-    //   Pan_No:{
-	// 	type: Sequelize.STRING
-	// },
-	 
-	tax_on_income:{
+ 
+	c:{
 		type: Sequelize.INTEGER
 
 	},
-	total_tax:{
+	d:{
 		type: Sequelize.INTEGER
 
 	},
-	climit:{
+	dd:{
 		type: Sequelize.INTEGER
 
 	}, 
-    // glimit:{
-	// 	type: Sequelize.INTEGER
-
-	// }, 
-	dlimit:{
+	total:{
 		type: Sequelize.INTEGER
 
 	}, 
-    // elimit:{
-	// 	type: Sequelize.INTEGER
-
-	// }, 
-    // ccclimit:{
-	// 	type: Sequelize.INTEGER
-
-	// }, 
-    // ccdlimit:{
-	// 	type: Sequelize.INTEGER
-
-	// }, 
-    ddlimit:{
+    gross_sal:{
 		type: Sequelize.INTEGER
 
 	} 
@@ -54,5 +31,5 @@ module.exports = (sequelize, Sequelize) => {
 	});
   
 
-	return Declaration;
+	return form;
 }
