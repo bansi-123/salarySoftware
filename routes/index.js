@@ -674,7 +674,7 @@ router.post('/searchEmployee', (req, res) => {
         else {
             console.log(JSON.parse(JSON.stringify(result))[0])
             res.send("Done");
-            // req.flash(
+              // req.flash(
             //     'success_msg',
             //     'Employee found!'
             // );
@@ -2428,20 +2428,42 @@ router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
     })
 });
 
-router.get('/bankform', ensureAuthenticated, (req, res) => {
+var bankform = [];
+
+router.get('/bankform',ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()+1]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees `, (err, result) => {
+
+    // console.log("bankform" + bankform)
+    mysqldb.query(`call while_example();`)
+
+    mysqldb.query(`select * from employees right join salary on employees.empID=salary.empID;`, (err, result) => {
         if (err) {
             console.log(err);
         }
+        // mysqldb.query(`call while_example();`)
         else {
-            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-            res.render('bankform', {
-                salary: JSON.parse(JSON.stringify(result)),
-                role: req.user.role
-            });
+            mysqldb.query(`select * from trial` , (err, result2) => {
+
+                var str = JSON.parse(JSON.stringify(result2))[result2.length-1].abc;
+                const myArr = str.split(",");
+                for(let i=0;i<myArr.length;i++)
+                {
+                    console.log(myArr[i]);
+                }
+                if (err) {
+                    console.log(err);
+                }
+                else {                    
+                    // console.log("check Employees Details", JSON.parse(JSON.stringify(result)));
+                    res.render('bankform', {
+                        salary: JSON.parse(JSON.stringify(result)),
+                        role: req.user.role,
+                        bank: JSON.parse(JSON.stringify(result2))
+                    });
+                }
+            })
         }
     })
 });
@@ -3261,8 +3283,8 @@ router.post('/generateSalary',(req,res)=>{
             })
         }
     })
-    res.redirect('index1');
-    
+    res.redirect('index1');    
+
 })
 
 router.get('/uploads/:empID', (req, res) => {
