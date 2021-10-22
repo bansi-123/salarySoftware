@@ -2,11 +2,7 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-    <script>
-        function myFunction() {
-          alert("Differences Added Successfully!");
-        }
-        </script>
+    <link rel="stylesheet" href="../assets/alert/style.css">
     <style>
         .arrow {
           border: solid black;
@@ -160,10 +156,7 @@
                
                                 </div>
         
-                            </div>
-        
-                                
-        
+                            </div>   
                             
                             </div>
                             
@@ -172,7 +165,7 @@
 
 
                         
-                        <input class="btn btn-primary" style="float: right;" type="submit" value="Submit" onclick="myFunction()">
+                        <input class="btn btn-primary" style="float: right;" type="submit" value="Submit">
 
   
                     </form>
@@ -185,7 +178,7 @@
 
 
         </div>
-        <script>
+        <!-- <script>
             
             function submitFn(event) {
                 event.preventDefault()
@@ -194,8 +187,8 @@
 
                 var checkedButtons = document.querySelectorAll("#start_month,#end_month,.checkedButtons");
                 // var newValue=document.getElementById('new');
-                console.log("days"+checkedButtons[0].value)
-                console.log("cause"+checkedButtons[1].value)
+                console.log("start_month"+checkedButtons[0].value)
+                console.log("end_month"+checkedButtons[1].value)
                 
                 var data=[]
                 
@@ -215,8 +208,8 @@
                     
                 var sendData={}
 
-                sendData["donateDays"]=checkedButtons[0].value
-                sendData["cause"]=checkedButtons[1].value
+                sendData["start_month"]=checkedButtons[0].value
+                sendData["end_month"]=checkedButtons[1].value
                 for (var i in data) {
                         var prop=data[i];
                         sendData[prop]=1
@@ -226,7 +219,7 @@
                 console.log("data" + data)
                 console.log("sendData" + sendData)
             
-                axios.post('http://localhost:3000/updatepay',sendData)
+                axios.post('http://localhost:3000/differences',sendData)
                     .then(function (response) {
                         if(response.data.status=="error")
                         {
@@ -252,7 +245,7 @@
                         console.log(error)
                     });   
             }
-        </script> 
+        </script>  -->
 
                   
                       <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>

@@ -649,7 +649,7 @@ router.post('/editEmployee', (req, res) => {
             }
         })
 
-        //res.redirect('/viewemployee')
+        res.redirect('/viewemployee')
 
 })
 
@@ -1212,54 +1212,67 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
         }
 
     }
-    console.log("list is", list2);
-    var duration=0;
-    first_date=data.month[0];
-    second_date=data.month[1];
-    first_month=parseInt(first_date.split("-")[1]);
-    second_month=parseInt(second_date.split("-")[1]);
-    first_year=parseInt(first_date.split("-")[0]);
-    second_year=parseInt(second_date.split("-")[0]);
-    console.log(first_month,first_year)
-    if( second_year>=first_year)
-    {
-            if(first_month>second_month)
-            {
-                if(second_year===first_year+1)
-                {
-                    duration=second_month+12-first_month+1;
-                }
-            }
-            else
-            {
-                    if(second_year===first_year)
-                    {
-                        
-                        duration=second_month-first_month+1;
-                    }
-                    
-               
-            }
-    }
-    else
-    {
-        //alert
-    }
-    mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var month = mlist[new Date().getMonth()].toLowerCase();
-    var year = new Date().getFullYear()
-    // var duration = data.months
-    for (let i = 0; i < list2.length; i++) {
-        console.log("i is", list2[i])
-        mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`, (err, result) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
+    // if(list2.length==0)
+    // {
+    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-            }
-        })
-    }
+    // }
+    
+        console.log("list is", list2);
+        var duration=0;
+        first_date=data.month[0];
+        second_date=data.month[1];
+        first_month=parseInt(first_date.split("-")[1]);
+        second_month=parseInt(second_date.split("-")[1]);
+        first_year=parseInt(first_date.split("-")[0]);
+        second_year=parseInt(second_date.split("-")[0]);
+        console.log(first_month,first_year)
+        if( second_year>=first_year)
+        {
+                if(first_month>second_month)
+                {
+                    if(second_year===first_year+1)
+                    {
+                        duration=second_month+12-first_month+1;
+                    }
+                }
+                else
+                {
+                        if(second_year===first_year)
+                        {
+                            
+                            duration=second_month-first_month+1;
+                        }
+                        
+                   
+                }
+        }
+        else
+        {
+            //alert
+        }
+        mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var month = mlist[new Date().getMonth()].toLowerCase();
+        var year = new Date().getFullYear()
+        // var duration = data.months
+        for (let i = 0; i < list2.length; i++) {
+            console.log("i is", list2[i])
+            mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    // res.json({status:"error", message:"Please Fill Start and End Month"})
+                
+                    
+                }
+                else {
+                // res.json({status:"success", message:"Differences Added Successfully!"})
+                }
+            })
+        }
+
+        res.redirect('/index1');
+
+    
 
 })
 
@@ -2517,13 +2530,12 @@ router.post('/updatepay', (req, res) => {
         }
 
     }
-    if(list2.length==0)
-    {
-        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    // if(list2.length==0)
+    // {
+    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-    }
-    else
-    {
+    // }
+    
         var incrementPercent = parseFloat(data["increment"]);
         list = list.substring(0, list.length - 1);
         list += ")";
@@ -2593,10 +2605,10 @@ router.post('/updatepay', (req, res) => {
     
     
         })
-    }
+    
     
 
-    // res.redirect('index1');
+    res.redirect('index1');
 })
 
 
