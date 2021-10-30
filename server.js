@@ -41,12 +41,12 @@ const mysqldb = mysql.createConnection ({
 // });
 
 
-const mysqldb = mysql.createConnection ({
-    host: 'localhost',
-    user: 'kshitij',
-    password: 'salary123',
-    database: 'employee'
-});
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'kshitij',
+//     password: 'salary123',
+//     database: 'employee'
+// });
 
 // connect to database
 mysqldb.connect((err) => {
@@ -141,20 +141,20 @@ var storage =   multer.diskStorage({
 
 
 //--------------upload csv part--------------//
-// const db = require('./config/db.config.js');
+const db = require('./config/db.config.js');
 
-// global.__basedir = __dirname;   
+global.__basedir = __dirname;   
     
-// //force: true will drop the table if it already exists
-// db.sequelize.sync({force: false}).then(() => {  //{force: true}
-//   console.log('Drop and Resync with { force: true }');
-// }).catch((e)=>{
-//   console.log(e)
-// });       
+//force: true will drop the table if it already exists
+db.sequelize.sync({force: false}).then(() => {  //{force: true}
+  console.log('Drop and Resync with { force: true }');
+}).catch((e)=>{
+  console.log(e)
+});       
 
-// let router = require('./routes/excel.router.js');
-// app.use(express.static('resources'));
-// app.use('/uploadcsv', router); 
+let router = require('./routes/excel.router.js');
+app.use(express.static('resources'));
+app.use('/uploadcsv', router); 
 
 //--------------upload declaration part--------------//
 const db1 = require('./config/db.config1.js');

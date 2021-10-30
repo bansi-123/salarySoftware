@@ -3,6 +3,14 @@ module.exports = function(app, uploadOptions) {
 
 	app.route('/upload')
 		.get(uiControls.showHomePage);
+
+	// app.route('/upload')
+  	// 	.get(function (req, res) {
+			
+	// 		res.redirect(uiControls.showHomePage, {
+	// 			role: "accountant"
+	// 		});
+  	// 	});
 	
 	app.route('/send')
 		.post(uploadOptions, uiControls.uploadFiles);

@@ -1,5 +1,7 @@
 exports.showHomePage = function(req, res) {
-	res.render('index');
+		res.render("index", {
+			role: "accountant"
+		});
 }
 
 exports.uploadFiles = function(req, res) {
@@ -174,11 +176,11 @@ exports.sendEmails = function(req, res) {
 				const options = {
 						from: config.email,
 						to: Attendees[index].EmailID,
-						subject: 'Salary Slip for the month of August',
-						text: 'Dear Sir / Madam \n Please find attached herewith Salary Slip for the month JUNE - 2021.\n You are requested to sign the pay register at Administration Office (Staff Counter) after rejoin the college.\n Thanking You \n	PICT. Admin. Dept.',
+						subject: 'Salary Slip for the month of' + Attendees[index].Month,
+						text: 'Dear Sir / Madam,\nPlease find attached herewith Salary  Slip for the month '+ Attendees[index].Month+ ' - ' + Attendees[index].Year +'.\nYou are requested to sign the pay register at Administration Office (Staff Counter).\nThanking You,\n	PICT. Admin. Dept.',
 						attachments: [
 						    {
-						     path: path.join(__dirname, '../pdfs/certificate'+Attendees[index].Name+'.pdf')
+						     path: path.join(__dirname, '../pdfs/salarysilp'+Attendees[index].Name+'.pdf')
 						    }
 						]
 					};
