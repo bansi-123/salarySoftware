@@ -178,9 +178,12 @@ router.get('/proposedDeclaration', ensureAuthenticated, (req, res) => {
 
 router.get('/salsheet',  (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()]
+    var cur_month = mlist[new Date().getMonth()-2]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
+    mysqldb.query(`SELECT *
+    FROM Salary
+    RIGHT JOIN employees
+    ON  Salary.empID=Employees.empID where month='${cur_month}' and year= ${cur_year} `, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -188,7 +191,8 @@ router.get('/salsheet',  (req, res) => {
             //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('salsheet', {
                 salary: JSON.parse(JSON.stringify(result)),
-                role: req.user.role
+                mont:cur_month,
+                yrr:cur_year
             });
         }
     })
@@ -649,7 +653,7 @@ router.post('/editEmployee', (req, res) => {
             }
         })
 
-        //res.redirect('/viewemployee')
+        res.redirect('/viewemployee')
 
 })
 
@@ -1215,54 +1219,67 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
         }
 
     }
-    console.log("list is", list2);
-    var duration=0;
-    first_date=data.month[0];
-    second_date=data.month[1];
-    first_month=parseInt(first_date.split("-")[1]);
-    second_month=parseInt(second_date.split("-")[1]);
-    first_year=parseInt(first_date.split("-")[0]);
-    second_year=parseInt(second_date.split("-")[0]);
-    console.log(first_month,first_year)
-    if( second_year>=first_year)
-    {
-            if(first_month>second_month)
-            {
-                if(second_year===first_year+1)
-                {
-                    duration=second_month+12-first_month+1;
-                }
-            }
-            else
-            {
-                    if(second_year===first_year)
-                    {
-                        
-                        duration=second_month-first_month+1;
-                    }
-                    
-               
-            }
-    }
-    else
-    {
-        //alert
-    }
-    mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var month = mlist[new Date().getMonth()].toLowerCase();
-    var year = new Date().getFullYear()
-    // var duration = data.months
-    for (let i = 0; i < list2.length; i++) {
-        console.log("i is", list2[i])
-        mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`, (err, result) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
+    // if(list2.length==0)
+    // {
+    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-            }
-        })
-    }
+    // }
+    
+        console.log("list is", list2);
+        var duration=0;
+        first_date=data.month[0];
+        second_date=data.month[1];
+        first_month=parseInt(first_date.split("-")[1]);
+        second_month=parseInt(second_date.split("-")[1]);
+        first_year=parseInt(first_date.split("-")[0]);
+        second_year=parseInt(second_date.split("-")[0]);
+        console.log(first_month,first_year)
+        if( second_year>=first_year)
+        {
+                if(first_month>second_month)
+                {
+                    if(second_year===first_year+1)
+                    {
+                        duration=second_month+12-first_month+1;
+                    }
+                }
+                else
+                {
+                        if(second_year===first_year)
+                        {
+                            
+                            duration=second_month-first_month+1;
+                        }
+                        
+                   
+                }
+        }
+        else
+        {
+            //alert
+        }
+        mlist = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var month = mlist[new Date().getMonth()].toLowerCase();
+        var year = new Date().getFullYear()
+        // var duration = data.months
+        for (let i = 0; i < list2.length; i++) {
+            console.log("i is", list2[i])
+            mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    // res.json({status:"error", message:"Please Fill Start and End Month"})
+                
+                    
+                }
+                else {
+                // res.json({status:"success", message:"Differences Added Successfully!"})
+                }
+            })
+        }
+
+        res.redirect('/index1');
+
+    
 
 })
 
@@ -2524,13 +2541,12 @@ router.post('/updatepay', (req, res) => {
         }
 
     }
-    if(list2.length==0)
-    {
-        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    // if(list2.length==0)
+    // {
+    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
-    }
-    else
-    {
+    // }
+    
         var incrementPercent = parseFloat(data["increment"]);
         list = list.substring(0, list.length - 1);
         list += ")";
@@ -2600,10 +2616,10 @@ router.post('/updatepay', (req, res) => {
     
     
         })
-    }
+    
     
 
-    // res.redirect('index1');
+    res.redirect('index1');
 })
 
 
@@ -2663,7 +2679,7 @@ router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
 
 router.get('/bankform',ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()-1]
+    var cur_month = mlist[new Date().getMonth()-2]
     var cur_year = new Date().getFullYear()
 
     // console.log("bankform" + bankform)
@@ -2672,14 +2688,14 @@ router.get('/bankform',ensureAuthenticated, (req, res) => {
     mysqldb.query(`SELECT *
     FROM Salary
     RIGHT JOIN employees
-    ON  Salary.empID=Employees.empID where year= ${cur_year}`, (err, result) => {
+    ON  Salary.empID=Employees.empID where month='${cur_month}' and year= ${cur_year}`, (err, result) => {
         if (err) {
             console.log(err);
         }
         // mysqldb.query(`call while_example();`)
         else {
             mysqldb.query(`select * from trial` , (err, result2) => {
-                console.log("res2", result2[1]);
+                // console.log("res2", result2[1]);
 
                 var str = JSON.parse(JSON.stringify(result2))[result2.length-1].abc;
                 const myArr = str.split(",");
@@ -2693,6 +2709,7 @@ router.get('/bankform',ensureAuthenticated, (req, res) => {
                 else {                    
                     // console.log("check Employees Details", JSON.parse(JSON.stringify(result)));
                     res.render('bankform', {
+                        mont:cur_month,
                         salary: JSON.parse(JSON.stringify(result)),
                         role: req.user.role,
                         //bank: JSON.parse(JSON.stringify(result2))
