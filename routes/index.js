@@ -2679,11 +2679,11 @@ router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
 
 router.get('/bankform',ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()-2]
+    var cur_month = mlist[new Date().getMonth()-1]
     var cur_year = new Date().getFullYear()
 
     // console.log("bankform" + bankform)
-    mysqldb.query(`call while_example();`)
+    mysqldb.query(`call while_example('${cur_month}');`)
 
     mysqldb.query(`SELECT *
     FROM Salary
