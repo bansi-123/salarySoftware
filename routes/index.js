@@ -733,7 +733,12 @@ router.get('/editdates', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/addincometax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`RENAME TABLE forms TO form`)
+    mysqldb.query(`RENAME TABLE forms TO form`,(err,result)=>{
+        if(err)
+        {
+
+        }
+    })
 
     mysqldb.query(`select count(*) as empCount from Employees`, (err, result2) => {
         if (err) {
@@ -2536,14 +2541,8 @@ router.get('/view2', ensureAuthenticated, (req, res) => {
 
 // //------------ Update Basic Pay and Related Properties Route ------------//
 router.post('/updatepay', (req, res) => {
-    // const {empID,pay}=req.body;
-    // var increment=3
     console.log(JSON.parse(JSON.stringify(req.body)))
-
     const data = JSON.parse(JSON.stringify(req.body));
-    // const pay=data["increment"];
-    // console.log(JSON.parse(JSON.stringify(req.body)))
-    // var list=[];
     var list = "(";
     var list2 = []
     for (var i in data) {
@@ -2563,22 +2562,20 @@ router.post('/updatepay', (req, res) => {
     else
     {
     
-        var incrementPercent = parseFloat(data["increment"]);
+        var incrementPercent = parseFloat(data["percent"]);
+        console.log("increment percent is",incrementPercent)
         list = list.substring(0, list.length - 1);
         list += ")";
         console.log("list is", list2)
         var current = new Date();
     
         mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-        // var cur_month="august"
+
         var cur_month = mlist[new Date().getMonth()].toLowerCase()
         var year = current.getFullYear();
     
         mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`, (err, result) => {
             if (err) {
-                //------------ Invalid Employement ID ------------//
-                // req.flash('error_msg',
-                // 'Please enter valid Id.')
                 console.log(err);
                 console.log("invalid employment ID")
                 
@@ -2589,7 +2586,7 @@ router.post('/updatepay', (req, res) => {
                 var queryData = JSON.parse(JSON.stringify(result))
                 console.log(JSON.parse(JSON.stringify(result)));
                 for (let i = 0; i < queryData.length; i++) {
-                    var multFactor = 1 + incrementPercent / 100
+                    var multFactor = 1 + parseFloat(incrementPercent) / 100
                     var increment = (queryData[i].pay + queryData[i].gp) * multFactor
                     if ((Math.floor(increment) % 10) === 0) {
     
@@ -2598,51 +2595,63 @@ router.post('/updatepay', (req, res) => {
                         increment = Math.ceil(increment / 10) * 10
                     }
                     var finalpay=increment-queryData[i].gp;
-                    console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
+                    // console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
                     
                     // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
                     
     
-                    mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
+                    mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay}) on duplicate key update increment=${incrementPercent},updatedPay=${finalpay}`,(err,result)=>
                     {
                         if (err) {
                             console.log(err);
                             res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
                         }
                         else{
-                            mysqldb.query(`update Employees set pay=${finalpay} where empID='${list2[i]}'`,(err,result)=>
-                            {
-                                if (err) {
-                                    console.log(err);
-                                }
-                                else {
-                                    res.json({status:"success", message:"Increment Added Successfully!"})
-                                }
-                            })
+        
+                            res.json({status:"success", message:"Increment Added Successfully!"})
     
                         }
                     })
                 }
             }
-    
-            // console.log("gp,pf selected",gp,pf);
-            // req.flash(
-            //     'success_msg',
-            //     'Employee found!'
-            // );
-    
-    
         })
     
     }
-
     // res.redirect('index1');
 })
 
+router.get('/confirmIncrement',ensureAuthenticated,(req,res)=>{
+    res.render('confirmIncrement',{
+        role:req.user.role
+    });
+})
+
+router.post('/confirmIncrement',ensureAuthenticated,(req,res)=>{
+
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()].toLowerCase()
+    mysqldb.query(`select * from increment where month='${cur_month}'`,(err,result)=>
+    {
+        for (let i = 0; i < result.length; i++) {
+            mysqldb.query(`update Employees set pay=${result[i].updatedPay} where empID='${result[i].empID}'`,(err,result)=>
+            {
+                if (err) {
+                    console.log(err);
+                    // res.json({status:"error", message:"Error While Confirming your Increments!"})
+                }
+                else {
+                   
+                }
+            })
+        }
+    })
+    res.redirect('index1')
+   
+})
 
 router.get('/showsalary', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()]
+    var cur_month = mlist[new Date().getMonth()].toLowerCase()
     var cur_year = new Date().getFullYear()
     mysqldb.query(`select S.empID,E.empName,E.salaryCategory,E.uan,E.bankName,E.bankAccNum,S.month,S.year,S.daysOfMonth,IFNULL(l.lwp,0) as lwp,S.workedDays,S.original_pay as original_pay,S.original_gp as original_gp,S.bp,S.gp,S.da,S.hra,S.cca,S.diff,S.oth_spl,S.ta,S.gross_sal,S.pf,S.prof_tax,S.in_tax,case when g.empID is NOT NULL then E.groupInsurance else 0 end as group_insurance,IFNULL(la.latedays,0) as latedays,IFNULL(d.donationDays,0) as donationDays,IFNULL(a.amount,0) as advance,IFNULL(r.recoveryAmount,0) as recovery,IFNULL(m.miscellaneous_amt,0) as miscellaneous,S.other_deductions,S.rev_stmp,S.total_ded,S.net_sal from Salary S left outer join Employees E on (S.empID=E.empID) left outer join lwp l on (S.empID=l.empID AND S.month=l.month and S.year=l.year) left outer join group_insurance g on (S.empId=g.empID and S.month=g.month and S.year=g.year) left outer join late_attendance la on (S.empId=la.empID and S.month=la.month and S.year=la.year) left outer join donation d on (S.empId=d.empID and S.month=d.month and S.year=d.year) left outer join advance a on (S.empId=a.empID and S.month=a.month and S.year=a.year) left outer join recovery r on (S.empId=r.empID and S.month=r.month and S.year=r.year) left outer join miscellaneous m on (S.empId=m.empID and S.month=m.month and S.year=m.year)`, (err, result) => {
         if (err) {
