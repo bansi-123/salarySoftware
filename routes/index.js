@@ -349,14 +349,12 @@ router.post('/declarations', (req, res) => {
                             total+=Math.min(ded_d, limit_d) 
                             
                             mysqldb.query(`insert into form (empID,c,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,(err,result2)=>{
-                                if(err)
-                                {
-                                    console.log(err)
+                                if (err) {
+                                    console.log(err);
+                                    res.json({status:"error", message:"Please Fill All The Fields"})
                                 }
-                                else{
-                                    res.render('incometax', {
-                                            Employees: JSON.parse(JSON.stringify(result2))
-                                        });
+                                else {
+                                res.json({status:"success", message:"Declaration Added Successfully!"})
                                 }
                             })
                         }
@@ -366,7 +364,7 @@ router.post('/declarations', (req, res) => {
 
         }
     })
-    res.redirect('/addincometax');
+    // res.redirect('/addincometax');
        
 
 });
@@ -1217,6 +1215,7 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
     //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
     // }
+
     
         console.log("list is", list2);
         var duration=0;
@@ -1260,12 +1259,12 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
             mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`, (err, result) => {
                 if (err) {
                     console.log(err);
-                    // res.json({status:"error", message:"Please Fill Start and End Month"})
+                     res.json({status:"error", message:"Please Fill Start and End Month"})
                 
                     
                 }
                 else {
-                // res.json({status:"success", message:"Differences Added Successfully!"})
+                 res.json({status:"success", message:"Differences Added Successfully!"})
                 }
             })
         }
@@ -1756,6 +1755,22 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 
 });
 
+router.get('/viewall', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees`, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('viewall', {
+                Employees: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
+            });
+        }
+    })
+
+});
+
 router.get('/finalcheck', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees natural join lwp`, (err, result) => {
         if (err) {
@@ -2127,7 +2142,7 @@ router.post('/groupinsurance', ensureAuthenticated, (req, res) => {
 
     }
 
-    if(list2.length==0)
+    if(IDlist.length==0)
     {
         res.json({status:"error", message:"Please Tick Atleast One Check Box"})
 
@@ -2156,7 +2171,7 @@ router.post('/groupinsurance', ensureAuthenticated, (req, res) => {
 
     
 
-    res.redirect('index1');
+    // res.redirect('index1');
 })
 
 router.get('/lateattendance', ensureAuthenticated, (req, res) => {
@@ -2533,11 +2548,12 @@ router.post('/updatepay', (req, res) => {
         }
 
     }
-    // if(list2.length==0)
-    // {
-    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
-
-    // }
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    }
+    else
+    {
     
         var incrementPercent = parseFloat(data["increment"]);
         list = list.substring(0, list.length - 1);
@@ -2592,6 +2608,7 @@ router.post('/updatepay', (req, res) => {
                                     console.log(err);
                                 }
                                 else {
+                                    res.json({status:"success", message:"Increment Added Successfully!"})
                                 }
                             })
     
@@ -2609,9 +2626,9 @@ router.post('/updatepay', (req, res) => {
     
         })
     
-    
+    }
 
-    res.redirect('index1');
+    // res.redirect('index1');
 })
 
 
