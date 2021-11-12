@@ -147,7 +147,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <% for(var i=Employees.length-1; i>= 0 ; i-- ) { %>
+                                                        <% for(var i=Employees.length-1; i>-1 ; i-- ) { %>
                                                             <tr>
                                                                 <td>
                                                                     <%= Employees[i].empID %>
@@ -238,7 +238,8 @@
 
 
 
-                        <button type="button" class="btn btn-primary"  style="float:right">Submit</button>
+                        <button type="button" class="btn btn-primary" onclick="submitFn(event)" style="float:right">Submit</button>
+
 
                         </form>
 
@@ -250,6 +251,73 @@
             </div>
         </div>
         </div>
+
+        <script>
+            
+            function submitFn(event) {
+                event.preventDefault()
+                console.log("HERE")
+            
+
+                var checkedButtons = document.querySelectorAll("#new,.checkedButtons");
+                // var newValue=document.getElementById('new');
+                console.log("new"+checkedButtons[0].value)
+               
+                var data=[]
+                
+                for (var i = 0; i < checkedButtons.length; i++) {
+                    if(checkedButtons[i].checked)
+                    {
+                        
+                        data.push(checkedButtons[i].name)
+                    }
+                    
+                }
+
+                // console.log("newValue"+newValue)
+
+                // console.log("data"+data)
+                // console.log("arr"+arr)
+                    
+                var sendData={}
+
+                sendData["newValue"]=checkedButtons[0].value
+                for (var i in data) {
+                        var prop=data[i];
+                        sendData[prop]=1
+                }
+
+                
+                console.log("data" + data)
+                console.log("sendData" + sendData)
+            
+                axios.post('http://localhost:3000/groupinsurance',sendData)
+                    .then(function (response) {
+                        if(response.data.status=="error")
+                        {
+                            console.log("status" + response.data)
+                            console.log("ERROR")
+                            var message=response.data.message
+                            alertify.set({ delay: 3000 });
+	    							alertify.error(message); 
+                                     
+                        }
+                        else
+                        {
+                            console.log("SUCCESS")
+                            console.log(response)
+                            var message=response.data.message
+                            alertify.set({ delay: 3000 });
+  							alertify.success(message);  
+                        }
+                        
+                    })
+                    .catch(function (error) {
+                        //console.log("ERROR")
+                        console.log(error)
+                    });   
+            }
+        </script> 
 
         <!-- <script>
             

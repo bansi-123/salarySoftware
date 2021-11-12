@@ -50,10 +50,12 @@ exports.sendEmails = function(req, res) {
 
 	var obj = csv();
 
-	function AttendeeData(name, email, uanno, empid, pay,agp,dada,hra,cca,diffi,othspl,tata, grosstot,provi,proftax,inctax,othded,
+	function AttendeeData(name, email, month,year, uanno, empid, pay,agp,dada,hra,cca,diffi,othspl,tata, grosstot,provi,proftax,inctax,othded,
 		revstamp,totalded,netsalary,accno,bankname) {
 	    this.Name = name;
 	    this.EmailID = email;
+		this.Month=month;
+		this.Year = year;
 		this.Uanno = uanno;
 		this.Empid= empid;
 		this.Pay= pay;
@@ -86,7 +88,7 @@ exports.sendEmails = function(req, res) {
 				num++;
 	        	Attendees.push(new AttendeeData(data[index][0], data[index][1], data[index][2], data[index][3], data[index][4], data[index][5], data[index][6], data[index][7], data[index][8], data[index][9], 
 					data[index][10], data[index][11], data[index][12], data[index][13], data[index][14], data[index][15], data[index][16], 
-					data[index][17], data[index][18], data[index][19], data[index][20], data[index][21]));
+					data[index][17], data[index][18], data[index][19], data[index][20], data[index][21], data[index][22], data[index][23]));
 	    	}
 	    	resolve(Attendees);
 		});
@@ -125,6 +127,8 @@ exports.sendEmails = function(req, res) {
 			const mapObj = {
 				ramesh: Attendees[index].Name,
 				ABC123: Attendees[index].EmailID,
+				mahina:Attendees[index].Month,
+				saal:Attendees[index].Year,
 				uanno: Attendees[index].Uanno,
 				ekdachaid: Attendees[index].Empid,
 				haypay: Attendees[index].Pay,
@@ -151,12 +155,12 @@ exports.sendEmails = function(req, res) {
 			
 			};
 				lootkut: Attendees[index].Inctax,
-				str = str.replace(/\b(?:ramesh|ABC123|uanno|ekdachaid|haypay|fundmhane|yanchagp|proftaxha|dadavada|lootkut|housing|othercuts|ccasta|revchastamp|kasladiff|special26|tatabata|grossew|sagleded|nethathme|dontshare|capital)\b/gi, matched => mapObj[matched]);
+				str = str.replace(/\b(?:ramesh|ABC123|mahina|saal|uanno|ekdachaid|haypay|fundmhane|yanchagp|proftaxha|dadavada|lootkut|housing|othercuts|ccasta|revchastamp|kasladiff|special26|tatabata|grossew|sagleded|nethathme|dontshare|capital)\b/gi, matched => mapObj[matched]);
 			//console.log(templateStr);
 
 
 			var createPromiseForEach = new Promise(function(resolve, reject) {
-				pdf.create(str, options).toFile('./pdfs/certificate'+Attendees[index].Name+'.pdf', function(err, res) {
+				pdf.create(str, options).toFile('./pdfs/salarySlip'+Attendees[index].Name+'.pdf', function(err, res) {
 				  if(err)
 				  	reject(err);
 				  else
