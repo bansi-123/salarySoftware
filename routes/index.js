@@ -4550,9 +4550,10 @@ router.post('/recovery', (req, res) => {
 router.post('/truncate',(req,res)=>{
     mlist = ["January", "February", "March", "April", "may", "june", "july", "august", "september", "october", "November", "December"];
     var cur_month = mlist[new Date().getMonth()].toLowerCase();
+    var cur_year = new Date().getFullYear()
     var table = JSON.parse(JSON.stringify(req.body)).table;
     
-    mysqldb.query(`delete from ${table} where month='${cur_month}'`
+    mysqldb.query(`delete from ${table} where month='${cur_month}' and year=${cur_year}`
     , (err, result) => {
         if (err) {
             console.log(err);
@@ -4565,5 +4566,6 @@ router.post('/truncate',(req,res)=>{
 
     
 })
+
 
 module.exports = router;
