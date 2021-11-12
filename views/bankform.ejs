@@ -30,10 +30,9 @@
                         <div class="col-lg-8 p-r-0 title-margin-right">
                             <div class="page-header">
                                 <div class="page-title">
-                                    <h1>Gross Salary Earnings</span></h1>
-
-                                        <h6><p> <%= bank[bank.length-1].abc %></p></h6>
-
+                                    <h1>Gross Salary Earnings </span></h1>
+                                    <!-- <h6><p> <%= bank[bank.length-1].abc %></p></h6> -->
+                                    <h6><%= bank[0] %></h6>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +57,7 @@
                                 <div class="card">
                                     <div class="bootstrap-data-table-panel">
                                         <div class="table-responsive">
-                                            <form class="form-horizontal" action="\table-export" method="post">
+                                            
 
                                                 <!-- <input type="button" style="float: right;" onclick='deSelect()' value="Deselect All"/>  
 
@@ -69,7 +68,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Sr. No</th>
-                                                            <th>Name <p><i class="arrow down" style="float: right;"></i>
+                                                            <th>Name  <p><i class="arrow down" style="float: right;"></i>
                                                             </th>
 
                                                             <th>EmpID</th>
@@ -77,6 +76,7 @@
                                                             <th>Net sal</th>
 
                                                             <th>Bank Account No.</th>
+                                                            <!-- <th>total</th> -->
 
 
 
@@ -84,67 +84,133 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-
-                                                        <% for(var i=0 ; i<salary.length-1; i++) { %>
+                                                        
+                                                        <% for(var i=0 ; i<salary.length; i++) { %>
+                                                            
                                                             <DIV id="page_1">
                                                                 <DIV id="p1dimg1">
+                                                                    <% if((i+1)%20==0 ) { %>
+                                                                                                                                                           
+                                                                        <div style="page-break-after: always"></div>
+                                                                        Total:
+                                                                        <tr valign="top">
+
+                                                                            <td valign="top" >
+                                                                               
+                                                                                    
+                                                                                    <%= i+1 %>
+                                                                                    <div style="page-break-after: always"></div>
+
+                                                                                    
+    
+                                                                            </td>
+    
+                                                                            <td valign="top">
+    
+                                                                                    <%= salary[i].empName %>
+                                                                                    <div style="break-after:page"></div>
+
+                                                                            </td>
+    
+                                                                            <td valign="top">
+    
+                                                                                    <%= salary[i].empID %>
+                                                                                    <div style="break-after:page"></div>
+
+                                                                            </td>
+    
+    
+                                                                            <!-- <td id="test" value= "<%= salary[i].net_sal %>" > -->
+                                                                            <td valign="top">
+                                                                                    
+    
+                                                                                    <%= salary[i].net_sal %>
+                                                                                    <div style="break-after:page"></div>
+                                                                               
+                                                                            </td>
+                                                                            <td valign="top">
+    
+                                                                                    <%= salary[i].bankAccNum %>
+                                                                                    <div style="break-after:page"></div>
+                                                                            </td></tr>
+                                                                            <tr>
+                                                                            <td ><%=i+1%></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            
+                                                                            <td>total of previous <%= i %></td>
+                                                                            
+                                                                            
+                                                                            <td valign="top">
+                                                                               
+                                                                                    
+                                                                                    <%= bank[0] %>
+                                                                                    <div style="break-after:page"></div>
+                                                                                    </td> 
+                                                                        </tr>
+                                                                        
+                                                                    <% }else { %>
+                                                                        
 
                                                                     <tr valign="top">
 
-                                                                        <td valign="top">
-
-                                                                            <% if((i+1)%20==0) { %>
-
-                                                                                <div style="page-break-after: always"></div>
-                                                                                
-                                                                                <% } %>
-                                                                                
-                                                                                    <%= i+1 %>
-
-                                                                        </td>
+                                                                           
+                                                                        <td valign="top" ><%=i+1%></td>
 
                                                                         <td valign="top">
-                                                                            <% if((i+1)%20==0) { %>
 
-                                                                                <div style="break-after:page"></div>
-                                                                                <% } %>
                                                                             <%= salary[i].empName %>
                                                                         </td>
 
                                                                         <td valign="top">
-                                                                            <% if((i+1)%20==0) { %>
 
-                                                                                <div style="break-after:page"></div>
-                                                                                <% } %>
                                                                             <%= salary[i].empID %>
                                                                         </td>
 
+
                                                                         <!-- <td id="test" value= "<%= salary[i].net_sal %>" > -->
                                                                         <td valign="top">
-                                                                            <% if((i+1)%20==0) { %>
+                                                                                
 
-                                                                                <div style="break-after:page"></div>
-                                                                                <% } %>
+                                                                               
                                                                             <%= salary[i].net_sal %>
+                                                                           
                                                                         </td>
                                                                         <td valign="top">
-                                                                            <% if((i+1)%20==0) { %>
 
-                                                                                <div style="break-after:page"></div>
-                                                                                <%  } %>
+                                                                               
                                                                             <%= salary[i].bankAccNum %>
 
-                                                                        </td>
-
-
+                                                                        </td> 
+                                                                        <!-- <td valign="top">
+                                                                       
+                                                                        </td>  -->
+                                                                        <!-- <% if(i==salary.length-1) {   %>
+                                                                            <td><%= i+1 %></td><td></td><td></td><td></td>
+                                                                            <% } %>    -->
                                                                     </tr>
-
-
+                                                                    <tr>
+                                                                    <% if(i==salary.length-1) {   %>
+                                                                        <td><%= i+1 %></td>
+                                                                        <td></td><td></td><td> <%= bank[(bank.length-2)] %> </td>
+                                                                        <% } %> 
+                                                                    </tr>
+                                                                        <% } %> 
+                                                                   
                                                                 </DIV>
                                                             </DIV>
 
+                                                           
+                                                           
 
                                                             <% }%>
+                                                            
+                                                            
+
+
+
+
+
                                                     </tbody>
 
 
@@ -163,7 +229,7 @@
                                                             console.log(/_START_/);
 
                                                             function add_number() {
-                                                                for (var i = 0; i < 10; i++) {
+                                                                for (var i = 0; i <20; i++) {
                                                                     var temp = document.getElementById(i);
                                                                     var sal = parseInt(temp.value);
                                                                     sum = sum + sal;
@@ -207,7 +273,9 @@
 
 
 
-                        </form>
+                       
+
+
                         <!-- <input type="submit" style="float: right;" value="Submit"> -->
 
                 </div>

@@ -178,9 +178,12 @@ router.get('/proposedDeclaration', ensureAuthenticated, (req, res) => {
 
 router.get('/salsheet',  (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()]
+    var cur_month = mlist[new Date().getMonth()-2]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month='${cur_month}' and year=${cur_year}`, (err, result) => {
+    mysqldb.query(`SELECT *
+    FROM Salary
+    RIGHT JOIN employees
+    ON  Salary.empID=Employees.empID where month='${cur_month}' and year= ${cur_year} `, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -188,7 +191,8 @@ router.get('/salsheet',  (req, res) => {
             //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('salsheet', {
                 salary: JSON.parse(JSON.stringify(result)),
-                role: req.user.role
+                mont:cur_month,
+                yrr:cur_year
             });
         }
     })
@@ -289,7 +293,7 @@ router.post('/editcess', (req, res) => {
 });
 
 router.post('/declarations', (req, res) => {
-
+    mysqldb.query(`RENAME TABLE forms TO form`)
     console.log(req.body)
     //     var cur_month=new Date().getMonth()+1;
     //     const trip =JSON.parse(JSON.stringify(req.body));
@@ -382,7 +386,7 @@ router.post('/check', (req, res)=> {
 
 
 router.post('/updateform', (req, res) => {
-
+    mysqldb.query(`RENAME TABLE forms TO form`)
     console.log(req.body)
     //     var cur_month=new Date().getMonth()+1;
     //     const trip =JSON.parse(JSON.stringify(req.body));
@@ -729,6 +733,8 @@ router.get('/editdates', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/addincometax', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`RENAME TABLE forms TO form`)
+
     mysqldb.query(`select count(*) as empCount from Employees`, (err, result2) => {
         if (err) {
             console.log(err);
@@ -739,21 +745,22 @@ router.get('/addincometax', ensureAuthenticated, (req, res) => {
                     console.log(err);
                 }
                 else {
-                        var render=false;
-                        if( JSON.parse(JSON.stringify(result2)).empCount===JSON.parse(JSON.stringify(result)).formCount)
+                        var render=true;
+                        if( JSON.parse(JSON.stringify(result2))[0].empCount===JSON.parse(JSON.stringify(result))[0].formCount)
                         {
-                            render=true;
+                            render=false;
                         }
-                        console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+                        console.log("Employees Details", JSON.parse(JSON.stringify(result2))[0].empCount);
+                        console.log("Employees Details", JSON.parse(JSON.stringify(result))[0].formCount);
+                        console.log(render);
                         res.render('addincometax', {
                             role: req.user.role,
-                            render
+                            render : render
                         })
                 }
             })
         }
     })
-
 });
 
 
@@ -1740,7 +1747,8 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
                         {
                                // console.log("Employees Details",JSON.parse(JSON.stringify(result)));
                                 res.render('viewemployee',{
-                                Employees:JSON.parse(JSON.stringify(result))
+                                Employees:JSON.parse(JSON.stringify(result)),
+                                role: req.user.role
                             });
 
                         }
@@ -2688,20 +2696,23 @@ router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
 
 router.get('/bankform',ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()+1]
+    var cur_month = mlist[new Date().getMonth()-2]
     var cur_year = new Date().getFullYear()
 
     // console.log("bankform" + bankform)
     mysqldb.query(`call while_example();`)
 
-    mysqldb.query(`select * from employees right join salary on employees.empID=salary.empID;`, (err, result) => {
+    mysqldb.query(`SELECT *
+    FROM Salary
+    RIGHT JOIN employees
+    ON  Salary.empID=Employees.empID where month='${cur_month}' and year= ${cur_year}`, (err, result) => {
         if (err) {
             console.log(err);
         }
         // mysqldb.query(`call while_example();`)
         else {
             mysqldb.query(`select * from trial` , (err, result2) => {
-                console.log("res2", result2[1]);
+                // console.log("res2", result2[1]);
 
                 var str = JSON.parse(JSON.stringify(result2))[result2.length-1].abc;
                 const myArr = str.split(",");
@@ -2715,6 +2726,7 @@ router.get('/bankform',ensureAuthenticated, (req, res) => {
                 else {                    
                     // console.log("check Employees Details", JSON.parse(JSON.stringify(result)));
                     res.render('bankform', {
+                        mont:cur_month,
                         salary: JSON.parse(JSON.stringify(result)),
                         role: req.user.role,
                         //bank: JSON.parse(JSON.stringify(result2))
