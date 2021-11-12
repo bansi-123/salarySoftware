@@ -2587,9 +2587,10 @@ router.post('/updatepay', (req, res) => {
                 // gp=JSON.parse(JSON.stringify(result))[0].gp;
                 // pf=JSON.parse(JSON.stringify(result))[0].pf;
                 var queryData = JSON.parse(JSON.stringify(result))
-                console.log(JSON.parse(JSON.stringify(result)));
+                console.log(incrementPercent, "check");
                 for (let i = 0; i < queryData.length; i++) {
                     var multFactor = 1 + incrementPercent / 100
+
                     var increment = (queryData[i].pay + queryData[i].gp) * multFactor
                     if ((Math.floor(increment) % 10) === 0) {
     
@@ -2597,7 +2598,10 @@ router.post('/updatepay', (req, res) => {
                     else {
                         increment = Math.ceil(increment / 10) * 10
                     }
+                    console.log("inc" , queryData[i].pay , "qd" ,multFactor)
                     var finalpay=increment-queryData[i].gp;
+                    console.log("final" + finalpay )
+                    
                     console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
                     
                     // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
