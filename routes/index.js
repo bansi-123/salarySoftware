@@ -687,7 +687,7 @@ router.post('/searchEmployee', (req, res) => {
 })
 
 router.get('/table-export', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -931,7 +931,7 @@ router.get('/viewdonations', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/ta', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1060,7 +1060,7 @@ router.post('/hra', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/da', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1126,7 +1126,7 @@ router.post('/da', ensureAuthenticated, (req, res) => {
 
 
 router.get('/cca', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1191,7 +1191,7 @@ router.post('/cca', ensureAuthenticated, (req, res) => {
 
 
 router.get('/differences', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1284,12 +1284,12 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
 })
 
 router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select distinct hra from Employees`, (err, result3) => {
+    mysqldb.query(`select distinct hra from Employees where salaryCategory="Pay Scale"`, (err, result3) => {
         if (err) {
             console.log(err);
         }
         else {
-            mysqldb.query(`select * from Employees`, (err, result) => {
+            mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
                 if (err) {
                     console.log(err);
                 }
@@ -1315,12 +1315,12 @@ router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/dadifference', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select distinct da from Employees`, (err, result3) => {
+    mysqldb.query(`select distinct da from Employees where salaryCategory="Pay Scale"`, (err, result3) => {
         if (err) {
             console.log(err);
         }
         else {
-            mysqldb.query(`select * from Employees`, (err, result) => {
+            mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
                 if (err) {
                     console.log(err);
                 }
@@ -2687,7 +2687,7 @@ router.get('/bankform',ensureAuthenticated, (req, res) => {
 
     mysqldb.query(`SELECT *
     FROM Salary
-    RIGHT JOIN employees
+    RIGHT JOIN Employees
     ON  Salary.empID=Employees.empID where month='${cur_month}' and year= ${cur_year}`, (err, result) => {
         if (err) {
             console.log(err);
@@ -2812,10 +2812,7 @@ router.post('/generateSalary',(req,res)=>{
 
                         console.log(JSON.parse(JSON.stringify(result))[0]);
                         console.log("gp,pf,bp,da,hra selected for empid",gp,pf,pay,da_MultFactor,hra_MultFactor,empID);
-                        // req.flash(
-                        //     'success_msg',
-                        //     'Employee found!'
-                        // );
+    
                         var diff=0
                         var oth_spl=0;
                         var adv_deduction=0;
@@ -3197,6 +3194,10 @@ router.post('/generateSalary',(req,res)=>{
                                                                 {
                                                                     pf=prov_fund_Max
                                                                 }
+                                                                if(pf<prov_fund_DNA)
+                                                                {
+                                                                    pf=0
+                                                                }
                                                                 // var lwp_amt=(parseInt(gross_sal)/parseInt(daysOfMonth))*parseInt(lwp);
                                                             
                                                                 // console.log("lwp_amt=",lwp_amt)
@@ -3243,8 +3244,11 @@ router.post('/generateSalary',(req,res)=>{
                                                                 {
                                                                     prof_tax=prof_tax_Max
                                                                 }
-
-                                                                if(gross_sal===rev_stamp_DNA)
+                                                                if(prof_tax<prof_tax_DNA)
+                                                                {
+                                                                    prof_tax=0;
+                                                                }
+                                                                if(gross_sal<rev_stamp_DNA)
                                                                 {
                                                                     rev_stmp=0
                                                                 }
