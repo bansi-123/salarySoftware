@@ -23,9 +23,9 @@ router.get('/index1', ensureAuthenticated, (req, res) => {
     })
 });
 
-// router.get('/test', ensureAuthenticated, (req, res) => {
-//     res.render('test');
-// });
+router.get('/trial', ensureAuthenticated, (req, res) => {
+    res.render('trial');
+});
 router.get('/newdeclaration', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`, (err, result) => {
         if (err) {
