@@ -93,7 +93,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Duration</label>
                             <div class="col-sm-4">
-                                <input type="number" step="0.001" class="form-control" id="duration" name="duration" oninput="calculate()">
+                                <input type="number" step="0.001" class="form-control" id="duration" name="duration" value="1" oninput="calculate()">
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
 
                                         <input type="button" class="btn btn-success" style="float: right;" onclick='selects()'
                                             value="Select All" />
-                                        
+                                        <br><br>
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
@@ -347,4 +347,4 @@
     </script>  -->
 </body>
 
-</html>
+<%- include("partials/footer"); -%>

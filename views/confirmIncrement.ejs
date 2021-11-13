@@ -57,13 +57,12 @@
                         </div>
                     </div>
 
-                    <form class="form-horizontal" action="\storeIncomeTax"
+                    <form class="form-horizontal" action="\confirmIncrement"
                     method="post">
                     <br><br><br>
-                    <% if(render){ %>
+                    
                         <div class="center">
-                            <p>First complete all declarations!</p>
-                            <input type="submit" class="btn btn-success btn-lg" value="Calculate Income Tax" disabled>
+                            <input type="submit" class="btn btn-success btn-lg" value="Confirm Increments">
                             <br>
                             <!-- <input type="submit" class="btn btn-success btn-lg" value="Submit"> -->
 
@@ -71,17 +70,7 @@
                             
 
                         </div>
-                    <%}else{%>
-                        <div class="center">
-                            <input type="submit" class="btn btn-success btn-lg" value="Calculate Income Tax">
-                            <br>
-                            <!-- <input type="submit" class="btn btn-success btn-lg" value="Submit"> -->
-
-                            <br> <br> <br>
-                            
-
-                        </div>
-                    <%}%>
+                   
                 </div>
 
             </div>
@@ -114,6 +103,6 @@
         <!-- scripit init-->
         <script src="../assets/assets/js/dashboard2.js"></script>
     </body>
- 
+
     </html>
     <%- include("partials/footer"); -%>

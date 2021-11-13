@@ -23,9 +23,9 @@ router.get('/index1', ensureAuthenticated, (req, res) => {
     })
 });
 
-// router.get('/test', ensureAuthenticated, (req, res) => {
-//     res.render('test');
-// });
+router.get('/trial', ensureAuthenticated, (req, res) => {
+    res.render('trial');
+});
 router.get('/newdeclaration', ensureAuthenticated, (req, res) => {
     mysqldb.query(`select * from Employees`, (err, result) => {
         if (err) {
@@ -685,7 +685,7 @@ router.post('/searchEmployee', (req, res) => {
 })
 
 router.get('/table-export', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -733,7 +733,12 @@ router.get('/editdates', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/addincometax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`RENAME TABLE forms TO form`)
+    mysqldb.query(`RENAME TABLE forms TO form`,(err,result)=>{
+        if(err)
+        {
+
+        }
+    })
 
     mysqldb.query(`select count(*) as empCount from Employees`, (err, result2) => {
         if (err) {
@@ -943,7 +948,7 @@ router.get('/viewdonations', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/ta', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1072,7 +1077,7 @@ router.post('/hra', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/da', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1138,7 +1143,7 @@ router.post('/da', ensureAuthenticated, (req, res) => {
 
 
 router.get('/cca', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1203,7 +1208,7 @@ router.post('/cca', ensureAuthenticated, (req, res) => {
 
 
 router.get('/differences', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees`, (err, result) => {
+    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -1306,12 +1311,12 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
 })
 
 router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select distinct hra from Employees`, (err, result3) => {
+    mysqldb.query(`select distinct hra from Employees where salaryCategory="Pay Scale"`, (err, result3) => {
         if (err) {
             console.log(err);
         }
         else {
-            mysqldb.query(`select * from Employees`, (err, result) => {
+            mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
                 if (err) {
                     console.log(err);
                 }
@@ -1337,12 +1342,12 @@ router.get('/otherdifferences', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/dadifference', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select distinct da from Employees`, (err, result3) => {
+    mysqldb.query(`select distinct da from Employees where salaryCategory="Pay Scale"`, (err, result3) => {
         if (err) {
             console.log(err);
         }
         else {
-            mysqldb.query(`select * from Employees`, (err, result) => {
+            mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
                 if (err) {
                     console.log(err);
                 }
@@ -2559,14 +2564,8 @@ router.get('/view2', ensureAuthenticated, (req, res) => {
 
 // //------------ Update Basic Pay and Related Properties Route ------------//
 router.post('/updatepay', (req, res) => {
-    // const {empID,pay}=req.body;
-    // var increment=3
     console.log(JSON.parse(JSON.stringify(req.body)))
-
     const data = JSON.parse(JSON.stringify(req.body));
-    // const pay=data["increment"];
-    // console.log(JSON.parse(JSON.stringify(req.body)))
-    // var list=[];
     var list = "(";
     var list2 = []
     for (var i in data) {
@@ -2587,21 +2586,22 @@ router.post('/updatepay', (req, res) => {
     // {
     
         var incrementPercent = parseFloat(data["percent"]);
+<<<<<<< HEAD
+=======
+        console.log("increment percent is",incrementPercent)
+>>>>>>> 97d9b96044f1d4602615166f1c3376de54d79741
         list = list.substring(0, list.length - 1);
         list += ")";
         console.log("list is", list2)
         var current = new Date();
     
         mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-        // var cur_month="august"
+
         var cur_month = mlist[new Date().getMonth()].toLowerCase()
         var year = current.getFullYear();
     
         mysqldb.query(`select empID,pay,gp from Employees where empID in ${list}`, (err, result) => {
             if (err) {
-                //------------ Invalid Employement ID ------------//
-                // req.flash('error_msg',
-                // 'Please enter valid Id.')
                 console.log(err);
                 console.log("invalid employment ID")
                 
@@ -2610,9 +2610,9 @@ router.post('/updatepay', (req, res) => {
                 // gp=JSON.parse(JSON.stringify(result))[0].gp;
                 // pf=JSON.parse(JSON.stringify(result))[0].pf;
                 var queryData = JSON.parse(JSON.stringify(result))
-                console.log(JSON.parse(JSON.stringify(result)));
+                console.log(incrementPercent, "check");
                 for (let i = 0; i < queryData.length; i++) {
-                    var multFactor = 1 + incrementPercent / 100
+                    var multFactor = 1 + parseFloat(incrementPercent) / 100
                     var increment = (queryData[i].pay + queryData[i].gp) * multFactor
                     if ((Math.floor(increment) % 10) === 0) {
     
@@ -2620,52 +2620,65 @@ router.post('/updatepay', (req, res) => {
                     else {
                         increment = Math.ceil(increment / 10) * 10
                     }
+                    console.log("inc" , queryData[i].pay , "qd" ,multFactor)
                     var finalpay=increment-queryData[i].gp;
-                    console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
+                    // console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
                     
                     // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
                     
     
-                    mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay})`,(err,result)=>
+                    mysqldb.query(`INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay}) on duplicate key update increment=${incrementPercent},updatedPay=${finalpay}`,(err,result)=>
                     {
                         if (err) {
                             console.log(err);
                             res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
                         }
                         else{
-                            mysqldb.query(`update Employees set pay=${finalpay} where empID='${list2[i]}'`,(err,result)=>
-                            {
-                                if (err) {
-                                    console.log(err);
-                                }
-                                else {
-                                    res.json({status:"success", message:"Increment Added Successfully!"})
-                                }
-                            })
+        
+                            res.json({status:"success", message:"Increment Added Successfully!"})
     
                         }
                     })
                 }
             }
-    
-            // console.log("gp,pf selected",gp,pf);
-            // req.flash(
-            //     'success_msg',
-            //     'Employee found!'
-            // );
-    
-    
         })
     
-   // }
-
-    res.redirect('index1');
+    }
+    // res.redirect('index1');
 })
 
+router.get('/confirmIncrement',ensureAuthenticated,(req,res)=>{
+    res.render('confirmIncrement',{
+        role:req.user.role
+    });
+})
+
+router.post('/confirmIncrement',ensureAuthenticated,(req,res)=>{
+
+    mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()].toLowerCase()
+    mysqldb.query(`select * from increment where month='${cur_month}'`,(err,result)=>
+    {
+        for (let i = 0; i < result.length; i++) {
+            mysqldb.query(`update Employees set pay=${result[i].updatedPay} where empID='${result[i].empID}'`,(err,result)=>
+            {
+                if (err) {
+                    console.log(err);
+                    // res.json({status:"error", message:"Error While Confirming your Increments!"})
+                }
+                else {
+                   
+                }
+            })
+        }
+    })
+    res.redirect('index1')
+   
+})
 
 router.get('/showsalary', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()]
+    var cur_month = mlist[new Date().getMonth()].toLowerCase()
     var cur_year = new Date().getFullYear()
     mysqldb.query(`select S.empID,E.empName,E.salaryCategory,E.uan,E.bankName,E.bankAccNum,S.month,S.year,S.daysOfMonth,IFNULL(l.lwp,0) as lwp,S.workedDays,S.original_pay as original_pay,S.original_gp as original_gp,S.bp,S.gp,S.da,S.hra,S.cca,S.diff,S.oth_spl,S.ta,S.gross_sal,S.pf,S.prof_tax,S.in_tax,case when g.empID is NOT NULL then E.groupInsurance else 0 end as group_insurance,IFNULL(la.latedays,0) as latedays,IFNULL(d.donationDays,0) as donationDays,IFNULL(a.amount,0) as advance,IFNULL(r.recoveryAmount,0) as recovery,IFNULL(m.miscellaneous_amt,0) as miscellaneous,S.other_deductions,S.rev_stmp,S.total_ded,S.net_sal from Salary S left outer join Employees E on (S.empID=E.empID) left outer join lwp l on (S.empID=l.empID AND S.month=l.month and S.year=l.year) left outer join group_insurance g on (S.empId=g.empID and S.month=g.month and S.year=g.year) left outer join late_attendance la on (S.empId=la.empID and S.month=la.month and S.year=la.year) left outer join donation d on (S.empId=d.empID and S.month=d.month and S.year=d.year) left outer join advance a on (S.empId=a.empID and S.month=a.month and S.year=a.year) left outer join recovery r on (S.empId=r.empID and S.month=r.month and S.year=r.year) left outer join miscellaneous m on (S.empId=m.empID and S.month=m.month and S.year=m.year)`, (err, result) => {
         if (err) {
@@ -2719,15 +2732,15 @@ router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
 
 router.get('/bankform',ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
-    var cur_month = mlist[new Date().getMonth()-2]
+    var cur_month = mlist[new Date().getMonth()-1]
     var cur_year = new Date().getFullYear()
 
     // console.log("bankform" + bankform)
-    mysqldb.query(`call while_example();`)
+    mysqldb.query(`call while_example('${cur_month}');`)
 
     mysqldb.query(`SELECT *
     FROM Salary
-    RIGHT JOIN employees
+    RIGHT JOIN Employees
     ON  Salary.empID=Employees.empID where month='${cur_month}' and year= ${cur_year}`, (err, result) => {
         if (err) {
             console.log(err);
@@ -2852,10 +2865,7 @@ router.post('/generateSalary',(req,res)=>{
 
                         console.log(JSON.parse(JSON.stringify(result))[0]);
                         console.log("gp,pf,bp,da,hra selected for empid",gp,pf,pay,da_MultFactor,hra_MultFactor,empID);
-                        // req.flash(
-                        //     'success_msg',
-                        //     'Employee found!'
-                        // );
+    
                         var diff=0
                         var oth_spl=0;
                         var adv_deduction=0;
@@ -3237,6 +3247,10 @@ router.post('/generateSalary',(req,res)=>{
                                                                 {
                                                                     pf=prov_fund_Max
                                                                 }
+                                                                if(pf<prov_fund_DNA)
+                                                                {
+                                                                    pf=0
+                                                                }
                                                                 // var lwp_amt=(parseInt(gross_sal)/parseInt(daysOfMonth))*parseInt(lwp);
                                                             
                                                                 // console.log("lwp_amt=",lwp_amt)
@@ -3283,8 +3297,11 @@ router.post('/generateSalary',(req,res)=>{
                                                                 {
                                                                     prof_tax=prof_tax_Max
                                                                 }
-
-                                                                if(gross_sal===rev_stamp_DNA)
+                                                                if(prof_tax<prof_tax_DNA)
+                                                                {
+                                                                    prof_tax=0;
+                                                                }
+                                                                if(gross_sal<rev_stamp_DNA)
                                                                 {
                                                                     rev_stmp=0
                                                                 }
@@ -4560,9 +4577,10 @@ router.post('/recovery', (req, res) => {
 router.post('/truncate',(req,res)=>{
     mlist = ["January", "February", "March", "April", "may", "june", "july", "august", "september", "october", "November", "December"];
     var cur_month = mlist[new Date().getMonth()].toLowerCase();
+    var cur_year = new Date().getFullYear()
     var table = JSON.parse(JSON.stringify(req.body)).table;
     
-    mysqldb.query(`delete from ${table} where month='${cur_month}'`
+    mysqldb.query(`delete from ${table} where month='${cur_month}' and year=${cur_year}`
     , (err, result) => {
         if (err) {
             console.log(err);
@@ -4575,5 +4593,6 @@ router.post('/truncate',(req,res)=>{
 
     
 })
+
 
 module.exports = router;

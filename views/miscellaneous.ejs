@@ -173,12 +173,28 @@
                               <div class="form-group">
                                 <label class="col-sm-6 control-label">Month</label>
                                 <div class="col-sm-10">
-                                  <select class="form-control" name="month">
+                                  <!-- <select class="form-control" name="month">
                                     <option id="demo"></option>
                                     <option id="demo1"></option>
 
-                                  </select>
+                                  </select> -->
 
+                                  <select class="form-control" name="month">                                                    
+                                    <!-- <option id="demo" ></option>
+                                     <option id="demo1" ></option> -->
+                                     <option value="January">January</option>
+                                     <option value="February">February</option>
+                                     <option value="March">March</option>
+                                     <option value="April">April</option>
+                                     <option value="May">May</option>
+                                     <option value="June">June</option>
+                                     <option value="July">July</option>
+                                     <option value="August">August</option>
+                                     <option value="September">September</option>
+                                     <option value="October">October</option>
+                                     <option value="November">November</option>
+                                     <option value="December">December</option>
+                                </select>
                                   <script>
                                     const d = new Date();
                                     document.getElementById("demo").innerHTML = months[d.getMonth()];
@@ -317,3 +333,4 @@
   </body>
 
   </html>
+  <%- include("partials/footer"); -%>

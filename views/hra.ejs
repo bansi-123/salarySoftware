@@ -137,30 +137,33 @@
                                                     </thead>
                                                     <tbody>
                                                         <% for(var i=Employees.length-1; i>= 0 ; i-- ) { %>
-                                                            <tr>
-                                                                <td>
-                                                                    <%= Employees[i].empID %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= Employees[i].empName %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= Employees[i].dept %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= Employees[i].designation %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= Employees[i].designationCategory %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= Employees[i].hra %>
-                                                                </td>
-                                                                <td> <input class="checkedButtons" type="checkbox"
-                                                                        name=<%=Employees[i].empID %> id="check"
-                                                                    value="1"><br> </td>
-                                                            </tr>
+                                                            <%if(Employees[i].salaryCategory=="Consolidated"){%>
+                                                            <%}else{%>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= Employees[i].empID %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= Employees[i].empName %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= Employees[i].dept %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= Employees[i].designation %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= Employees[i].designationCategory %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= Employees[i].hra %>
+                                                                    </td>
+                                                                    <td> <input class="checkedButtons" type="checkbox"
+                                                                            name=<%=Employees[i].empID %> id="check"
+                                                                        value="1"><br> </td>
+                                                                </tr>
                                                             <% }%>
+                                                        <% }%>
                                                     </tbody>
 
 
@@ -280,3 +283,4 @@
     </body>
 
     </html>
+    <%- include("partials/footer"); -%>
