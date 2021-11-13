@@ -134,7 +134,7 @@
 
 
                         
-                        <button type="button" class="btn btn-primary" style="float:right">Submit</button>
+                        <button type="button" class="btn btn-primary" onclick="submitFn(event)" style="float:right">Submit</button>
 
   
                     </form>
@@ -147,7 +147,7 @@
 
 
         </div>
-        <!-- <script>
+        <script>
             
             function submitFn(event) {
                 event.preventDefault()
@@ -169,11 +169,6 @@
                     }
                     
                 }
-
-                // console.log("newValue"+newValue)
-
-                // console.log("data"+data)
-                // console.log("arr"+arr)
                     
                 var sendData={}
 
@@ -214,70 +209,8 @@
                         console.log(error)
                     });   
             }
-        </script>  -->
-
-        <!-- <script>
-            
-            function submitFn(event) {
-                event.preventDefault()
-                console.log("HERE")
-            
-
-                var checkedButtons = document.querySelectorAll("#start_month,#end_month,.checkedButtons");
-                // var newValue=document.getElementById('new');
-                console.log("new"+checkedButtons[0].value)
-               
-                var data=[]
-                
-                for (var i = 2; i < checkedButtons.length; i++) {
-                    if(checkedButtons[i].checked)
-                    {
-                        
-                        data.push(checkedButtons[i].name)
-                    }
-                    
-                }
-   
-                var sendData={}
-
-                sendData["start_month"]=checkedButtons[0].value
-                sendData["end_month"]=checkedButtons[0].value
-                for (var i in data) {
-                        var prop=data[i];
-                        sendData[prop]=1
-                }
-
-                
-                console.log("data" + data)
-                console.log("sendData" + sendData)
-            
-                axios.post('http://localhost:3000/differences',sendData)
-                    .then(function (response) {
-                        if(response.data.status=="error")
-                        {
-                            console.log("status" + response.data)
-                            console.log("ERROR")
-                            var message=response.data.message
-                            alertify.set({ delay: 3000 });
-	    							alertify.error(message); 
-                                     
-                        }
-                        else
-                        {
-                            console.log("SUCCESS")
-                            console.log(response)
-                            var message=response.data.message
-                            alertify.set({ delay: 3000 });
-  							alertify.success(message);  
-                        }
-                        
-                    })
-                    .catch(function (error) {
-                        //console.log("ERROR")
-                        console.log(error)
-                    });   
-            }
-        </script>                  -->
+        </script> 
+           
                       <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
                       <!-- scripit init-->
                       <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>

@@ -887,11 +887,15 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
     {
         var donateDays=parseInt(data["donateDays"]);
         var cause=data["cause"];
+        console.log("abcd")
+        console.log(cause)
         list=list.substring(0,list.length - 1);
         list+=")";
         console.log("list is",list2)
         for(var i in list2)
         {
+            console.log("abcd")
+            console.log(cause)
             console.log(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`)
             mysqldb.query(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}') on duplicate key update donationDays=${donateDays}, cause='${cause}'`,(err,result)=>{
                 if (err) {
@@ -901,7 +905,17 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
                     
                 }
                 else {
-                res.json({status:"success", message:"Donations Added Successfully!"})
+                    console.log("abc")
+                    if(data["cause"] =='')
+                    {
+                        
+                        res.json({status:"error", message:"Please Fill No. of Days and Cause"})
+                    }
+                    else
+                    {
+                        res.json({status:"success", message:"Donations Added Successfully!"})
+                    }
+                
                 }
             })
         }
@@ -1217,12 +1231,13 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
         }
 
     }
-    // if(list2.length==0)
-    // {
-    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    }
 
-    // }
-
+    else
+    {
     
         console.log("list is", list2);
         var duration=0;
@@ -1271,13 +1286,21 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
                     
                 }
                 else {
-                 res.json({status:"success", message:"Differences Added Successfully!"})
+                    if(data["first_date"]=='' && data["second_date"]=='' )
+                    {
+                        res.json({status:"error", message:"Please Fill Start and End Month"})
+                    }
+                    else
+                    {
+                        res.json({status:"success", message:"Differences Added Successfully!"})
+                    }
+                 
                 }
             })
         }
 
-        res.redirect('/index1');
-
+        // res.redirect('/index1');
+    }
     
 
 })
@@ -2556,14 +2579,14 @@ router.post('/updatepay', (req, res) => {
         }
 
     }
-    if(list2.length==0)
-    {
-        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
-    }
-    else
-    {
+    // if(list2.length==0)
+    // {
+    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    // }
+    // else
+    // {
     
-        var incrementPercent = parseFloat(data["increment"]);
+        var incrementPercent = parseFloat(data["percent"]);
         list = list.substring(0, list.length - 1);
         list += ")";
         console.log("list is", list2)
@@ -2634,9 +2657,9 @@ router.post('/updatepay', (req, res) => {
     
         })
     
-    }
+   // }
 
-    // res.redirect('index1');
+    res.redirect('index1');
 })
 
 
