@@ -1236,13 +1236,13 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
         }
 
     }
-    if(list2.length==0)
-    {
-        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
-    }
+    // if(list2.length==0)
+    // {
+    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    // }
 
-    else
-    {
+    // else
+    // {
     
         console.log("list is", list2);
         var duration=0;
@@ -1286,26 +1286,26 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
             mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`, (err, result) => {
                 if (err) {
                     console.log(err);
-                     res.json({status:"error", message:"Please Fill Start and End Month"})
+                     // res.json({status:"error", message:"Please Fill Start and End Month"})
                 
                     
                 }
-                else {
-                    if(data["first_date"]=='' && data["second_date"]=='' )
-                    {
-                        res.json({status:"error", message:"Please Fill Start and End Month"})
-                    }
-                    else
-                    {
-                        res.json({status:"success", message:"Differences Added Successfully!"})
-                    }
+                // else {
+                //     if(data["first_date"]=='' && data["second_date"]=='' )
+                //     {
+                //         res.json({status:"error", message:"Please Fill Start and End Month"})
+                //     }
+                //     else
+                //     {
+                //         res.json({status:"success", message:"Differences Added Successfully!"})
+                //     }
                  
-                }
+                // }
             })
         }
 
-        // res.redirect('/index1');
-    }
+         res.redirect('/index1');
+    // }
     
 
 })
@@ -2584,12 +2584,8 @@ router.post('/updatepay', (req, res) => {
     // }
     // else
     // {
-    
         var incrementPercent = parseFloat(data["percent"]);
-<<<<<<< HEAD
-=======
         console.log("increment percent is",incrementPercent)
->>>>>>> 97d9b96044f1d4602615166f1c3376de54d79741
         list = list.substring(0, list.length - 1);
         list += ")";
         console.log("list is", list2)
@@ -2631,11 +2627,11 @@ router.post('/updatepay', (req, res) => {
                     {
                         if (err) {
                             console.log(err);
-                            res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
+                            // res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
                         }
                         else{
         
-                            res.json({status:"success", message:"Increment Added Successfully!"})
+                            // res.json({status:"success", message:"Increment Added Successfully!"})
     
                         }
                     })
@@ -2643,8 +2639,8 @@ router.post('/updatepay', (req, res) => {
             }
         })
     
-    }
-    // res.redirect('index1');
+    // }
+    res.redirect('index1');
 })
 
 router.get('/confirmIncrement',ensureAuthenticated,(req,res)=>{
