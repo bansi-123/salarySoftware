@@ -168,7 +168,7 @@
                                                     <label class="col-sm-6 control-label">Month</label>
                                                     <div class="col-sm-10">
                                                       <form class="form-horizontal" action="\lateattendance" method="post"></form>
-                                                        <select class="form-control" name="month" value="5">
+                                                        <!-- <select class="form-control" name="month" value="5"> -->
                                                             <!-- // <option value="january" name="1" id="january" selected>January</option>
                                                             //                 <option value="february" id="february" selected>February</option>
                                                             //                 <option value="march" id="march" selected>March</option>
@@ -181,8 +181,28 @@
                                                             //                 <option value="october" id="october" selected>October</option>    
                                                             //                 <option value="november" id="november" selected>November</option>    
                                                             //                 <option value="december" id="december" selected>December</option> -->
-                                                            <option name="month" id="demo" ></option>
-                                                     <option  id="demo1" ></option>   
+
+
+                                                            <select class="form-control" name="month">                                                    
+                                                              <!-- <option id="demo" ></option>
+                                                               <option id="demo1" ></option> -->
+                                                               <option value="January">January</option>
+                                                               <option value="February">February</option>
+                                                               <option value="March">March</option>
+                                                               <option value="April">April</option>
+                                                               <option value="May">May</option>
+                                                               <option value="June">June</option>
+                                                               <option value="July">July</option>
+                                                               <option value="August">August</option>
+                                                               <option value="September">September</option>
+                                                               <option value="October">October</option>
+                                                               <option value="November">November</option>
+                                                               <option value="December">December</option>
+                                                          </select>
+                                                            
+
+                                                            <!-- <option name="month" id="demo" ></option>
+                                                     <option  id="demo1" ></option>    -->
                                                         </select>
                                                         <script>
 const d = new Date();

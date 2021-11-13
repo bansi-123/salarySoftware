@@ -53,6 +53,7 @@
                         <input class="btn btn-primary" style="float: left;width:20%;margin-top: 5%;" type="submit" value="Delete Previous records">
                         <input name="table" value="increment_difference" hidden>
                     </form>
+                    <br>
                     <form class="form-horizontal" action="\differences" method="post">
                         <div class="row">
                             <div class="col-lg-8 p-r-0 title-margin-right">
@@ -63,38 +64,7 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-title">
-                                        <h4>Select Month for Proceeding With Differences</h4>
-
-                                    </div>
-
-
-                                    <div class="card-body">
-                                        <div class="horizontal-form-elements">
-
-                                            <div class="row">
-                                                <div class="col-lg-6">
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-6 control-label">Enter No. of Months
-                                                            </label required>
-                                                        <div class="col-sm-4">
-                                                            <input type="text" name="months" class="form-control">
-                                                        </div>
-                                                    </div>
-
-                                                    
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
+                            
                         
 
                         </div>
@@ -116,10 +86,10 @@
                                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                                     <br><br><br><br>
                                                     Start Month:
-                                                    <input type="month" id="start_month" name="month"><br><br><br><br>
+                                                    <input type="month" id="start_month" name="start_month"><br><br><br><br>
 
                                                     End Month:
-                                                    <input type="month" id="end_month" name="month"><br><br><br><br>
+                                                    <input type="month" id="end_month" name="end_month"><br><br><br><br>
                                                     <thead>
                                                         <tr>
                                                             <th>Employee ID<p><i class="arrow down" style="float: right;"></i></th>
@@ -165,7 +135,7 @@
 
 
                         
-                        <input class="btn btn-primary" style="float: right;" type="submit" value="Submit">
+                        <button type="button" class="btn btn-primary" style="float:right">Submit</button>
 
   
                     </form>
@@ -247,7 +217,68 @@
             }
         </script>  -->
 
-                  
+        <!-- <script>
+            
+            function submitFn(event) {
+                event.preventDefault()
+                console.log("HERE")
+            
+
+                var checkedButtons = document.querySelectorAll("#start_month,#end_month,.checkedButtons");
+                // var newValue=document.getElementById('new');
+                console.log("new"+checkedButtons[0].value)
+               
+                var data=[]
+                
+                for (var i = 2; i < checkedButtons.length; i++) {
+                    if(checkedButtons[i].checked)
+                    {
+                        
+                        data.push(checkedButtons[i].name)
+                    }
+                    
+                }
+   
+                var sendData={}
+
+                sendData["start_month"]=checkedButtons[0].value
+                sendData["end_month"]=checkedButtons[0].value
+                for (var i in data) {
+                        var prop=data[i];
+                        sendData[prop]=1
+                }
+
+                
+                console.log("data" + data)
+                console.log("sendData" + sendData)
+            
+                axios.post('http://localhost:3000/differences',sendData)
+                    .then(function (response) {
+                        if(response.data.status=="error")
+                        {
+                            console.log("status" + response.data)
+                            console.log("ERROR")
+                            var message=response.data.message
+                            alertify.set({ delay: 3000 });
+	    							alertify.error(message); 
+                                     
+                        }
+                        else
+                        {
+                            console.log("SUCCESS")
+                            console.log(response)
+                            var message=response.data.message
+                            alertify.set({ delay: 3000 });
+  							alertify.success(message);  
+                        }
+                        
+                    })
+                    .catch(function (error) {
+                        //console.log("ERROR")
+                        console.log(error)
+                    });   
+            }
+        </script>                  -->
                       <script src="../assets/assets/js/lib/bootstrap.min.js"></script><script src="../assets/assets/js/scripts.js"></script>
                       <!-- scripit init-->
                       <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>

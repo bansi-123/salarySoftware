@@ -250,6 +250,7 @@
 
                                     </div>
                                     <!--card ka end -->
+                                    <button class="button large round success" onclick="submitFn(event)">Submit</button>
 
                                     <br />
 
@@ -257,8 +258,50 @@
                                 
                             </div>
 
-                            <input class="btn btn-primary" style="float: right;" type="submit" value="Submit" onclick="myFunction()">
-
+<script>
+          function submitFn(event) {
+              event.preventDefault()
+              console.log("HERE")
+              var data=document.getElementsByTagName('input')
+             
+              console.log("data2" + data)
+              var sendData={}
+              for (var i in data) {
+                      var prop=data[i].name;
+                      sendData[prop]=data[i].value;
+              }
+        
+            
+              console.log("sendData" + sendData)
+          
+              axios.post('http://localhost:3000/declarations',sendData)
+                  .then(function (response) {
+                      if(response.data.status=="error")
+                      {
+                          console.log("status" + response.data)
+                          console.log("ERROR")
+                          var message=response.data.message
+                          alertify.set({ delay: 3000 });
+                  alertify.error(message); 
+                                   
+                      }
+                      else
+                      {
+                          console.log("SUCCESS")
+                          console.log(response)
+                          var message=response.data.message
+                          alertify.set({ delay: 3000 });
+                          alertify.success(message);  
+  
+                      }
+                      
+                  })
+                  .catch(function (error) {
+                      //console.log("ERROR")
+                      console.log(error)
+                  });   
+          }
+        </script>
                         </form>
                       </div>
                     </div>
@@ -292,7 +335,49 @@
             // var regime = document.getElementById("regime").value;
           }
         </script>
+<script>
+  function submitFn(event) {
+      event.preventDefault()
+      console.log("HERE")
+      var data=document.querySelectorAll('select,input')
+     
+      console.log("data2" + data)
+      var sendData={}
+      for (var i in data) {
+              var prop=data[i].name;
+              sendData[prop]=data[i].value;
+      }
 
+    
+      console.log("sendData" + sendData)
+  
+      axios.post('http://localhost:3000/declarations',sendData)
+          .then(function (response) {
+              if(response.data.status=="error")
+              {
+                  console.log("status" + response.data)
+                  console.log("ERROR")
+                  var message=response.data.message
+                  alertify.set({ delay: 3000 });
+          alertify.error(message); 
+                           
+              }
+              else
+              {
+                  console.log("SUCCESS")
+                  console.log(response)
+                  var message=response.data.message
+                  alertify.set({ delay: 3000 });
+                  alertify.success(message);  
+              }
+              
+          })
+          .catch(function (error) {
+              //console.log("ERROR")
+              console.log(error)
+          });   
+  }
+</script>
         <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
         <script src="../assets/assets/js/scripts.js"></script>
         <!-- scripit init-->
@@ -306,7 +391,7 @@
         <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
         <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
 
-
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </body>
 
   </html>
