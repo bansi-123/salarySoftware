@@ -81,7 +81,7 @@ router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
     
     var cur_year = new Date().getFullYear()
    // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
-    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="${requestedTitle}"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="${requestedTitle}"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
     `, (err, result) => {
  
    if (err) {
@@ -123,7 +123,7 @@ router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
     
     var cur_year = new Date().getFullYear()
    // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
-    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
     `, (err, result) => {
  
    if (err) {
@@ -892,11 +892,15 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
     {
         var donateDays=parseInt(data["donateDays"]);
         var cause=data["cause"];
+        console.log("abcd")
+        console.log(cause)
         list=list.substring(0,list.length - 1);
         list+=")";
         console.log("list is",list2)
         for(var i in list2)
         {
+            console.log("abcd")
+            console.log(cause)
             console.log(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}')`)
             mysqldb.query(`insert into donation(empID,donationDays,month,year,cause) VALUES('${list2[i]}',${donateDays},'${cur_month}',${cur_year},'${cause}') on duplicate key update donationDays=${donateDays}, cause='${cause}'`,(err,result)=>{
                 if (err) {
@@ -906,7 +910,17 @@ router.post('/donations',ensureAuthenticated,(req,res)=>{
                     
                 }
                 else {
-                res.json({status:"success", message:"Donations Added Successfully!"})
+                    console.log("abc")
+                    if(data["cause"] =='')
+                    {
+                        
+                        res.json({status:"error", message:"Please Fill No. of Days and Cause"})
+                    }
+                    else
+                    {
+                        res.json({status:"success", message:"Donations Added Successfully!"})
+                    }
+                
                 }
             })
         }
@@ -1225,9 +1239,10 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
     // if(list2.length==0)
     // {
     //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
-
     // }
 
+    // else
+    // {
     
         console.log("list is", list2);
         var duration=0;
@@ -1271,18 +1286,26 @@ router.post('/differences', ensureAuthenticated, (req, res) => {
             mysqldb.query(`insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`, (err, result) => {
                 if (err) {
                     console.log(err);
-                     res.json({status:"error", message:"Please Fill Start and End Month"})
+                     // res.json({status:"error", message:"Please Fill Start and End Month"})
                 
                     
                 }
-                else {
-                 res.json({status:"success", message:"Differences Added Successfully!"})
-                }
+                // else {
+                //     if(data["first_date"]=='' && data["second_date"]=='' )
+                //     {
+                //         res.json({status:"error", message:"Please Fill Start and End Month"})
+                //     }
+                //     else
+                //     {
+                //         res.json({status:"success", message:"Differences Added Successfully!"})
+                //     }
+                 
+                // }
             })
         }
 
-        res.redirect('/index1');
-
+         res.redirect('/index1');
+    // }
     
 
 })
@@ -2176,10 +2199,11 @@ router.post('/groupinsurance', ensureAuthenticated, (req, res) => {
                 }
                 else {
                     console.log("group insurance added to table")
-                    res.json({status:"success", message:"Group Insurance Added Successfully!"})
+                    
                 }
             })
         }
+        res.json({status:"success", message:"Group Insurance Added Successfully!"})
     }
 
     
@@ -2555,13 +2579,12 @@ router.post('/updatepay', (req, res) => {
         }
 
     }
-    if(list2.length==0)
-    {
-        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
-    }
-    else
-    {
-    
+    // if(list2.length==0)
+    // {
+    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    // }
+    // else
+    // {
         var incrementPercent = parseFloat(data["percent"]);
         console.log("increment percent is",incrementPercent)
         list = list.substring(0, list.length - 1);
@@ -2605,11 +2628,11 @@ router.post('/updatepay', (req, res) => {
                     {
                         if (err) {
                             console.log(err);
-                            res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
+                            // res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
                         }
                         else{
         
-                            res.json({status:"success", message:"Increment Added Successfully!"})
+                            // res.json({status:"success", message:"Increment Added Successfully!"})
     
                         }
                     })
@@ -2617,8 +2640,8 @@ router.post('/updatepay', (req, res) => {
             }
         })
     
-    }
-    // res.redirect('index1');
+    // }
+    res.redirect('index1');
 })
 
 router.get('/confirmIncrement',ensureAuthenticated,(req,res)=>{
