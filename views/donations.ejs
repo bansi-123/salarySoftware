@@ -223,8 +223,9 @@
                 
                 console.log("data" + data)
                 console.log("sendData" + sendData)
-            
-                axios.post('http://localhost:3000/updatepay',sendData)
+                
+                
+                axios.post('http://localhost:3000/donations',sendData)
                     .then(function (response) {
                         if(response.data.status=="error")
                         {
@@ -273,6 +274,6 @@
     </body>
 
     </html>
-
+    <%- include("partials/footer"); -%>
 
 
