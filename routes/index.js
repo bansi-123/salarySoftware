@@ -81,7 +81,7 @@ router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
     
     var cur_year = new Date().getFullYear()
    // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
-    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="${requestedTitle}"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="${requestedTitle}"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
     `, (err, result) => {
  
    if (err) {
@@ -123,7 +123,7 @@ router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
     
     var cur_year = new Date().getFullYear()
    // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
-    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
     `, (err, result) => {
  
    if (err) {
@@ -2176,10 +2176,11 @@ router.post('/groupinsurance', ensureAuthenticated, (req, res) => {
                 }
                 else {
                     console.log("group insurance added to table")
-                    res.json({status:"success", message:"Group Insurance Added Successfully!"})
+                    
                 }
             })
         }
+        res.json({status:"success", message:"Group Insurance Added Successfully!"})
     }
 
     
