@@ -1823,6 +1823,7 @@ router.get('/finalcheck', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/finalrecoveryamt', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`delete from recovery where recoveryAmount=0`);
     mysqldb.query(`select * from Employees natural join recovery`, (err, result) => {
         if (err) {
             console.log(err);
@@ -1884,6 +1885,7 @@ router.get('/recoveryamount', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/finalmiscellaneous', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`delete from miscellaneous where miscellaneous_amt=0`);
     mysqldb.query(`select * from Employees natural join miscellaneous`, (err, result) => {
         if (err) {
             console.log(err);
@@ -1899,6 +1901,7 @@ router.get('/finalmiscellaneous', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/finalattendance', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`delete from late_attendance where latedays=0`);
     mysqldb.query(`SELECT *
     FROM Employees
     RIGHT JOIN late_attendance
