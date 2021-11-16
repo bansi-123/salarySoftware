@@ -81,7 +81,7 @@ router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
     
     var cur_year = new Date().getFullYear()
    // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
-    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="${requestedTitle}"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="${requestedTitle}"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
     `, (err, result) => {
  
    if (err) {
@@ -123,7 +123,7 @@ router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
     
     var cur_year = new Date().getFullYear()
    // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
-    mysqldb.query(`   SELECT * FROM salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
     `, (err, result) => {
  
    if (err) {
@@ -1754,7 +1754,7 @@ router.get('/viewemployee', ensureAuthenticated, (req, res) => {
 
     // var abc="update employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0;"
     // abc += "select * from Employees"
-    mysqldb.query(`UPDATE employees 
+    mysqldb.query(`UPDATE Employees 
     SET photo = REPLACE(photo , '/view', '/preview') 
     WHERE photo LIKE ('%/view%');`)
     mysqldb.query(`select * from Employees`, (err, result) => {
@@ -1823,6 +1823,7 @@ router.get('/finalcheck', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/finalrecoveryamt', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`delete from recovery where recoveryAmount=0`);
     mysqldb.query(`select * from Employees natural join recovery`, (err, result) => {
         if (err) {
             console.log(err);
@@ -1884,6 +1885,7 @@ router.get('/recoveryamount', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/finalmiscellaneous', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`delete from miscellaneous where miscellaneous_amt=0`);
     mysqldb.query(`select * from Employees natural join miscellaneous`, (err, result) => {
         if (err) {
             console.log(err);
@@ -1899,6 +1901,7 @@ router.get('/finalmiscellaneous', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/finalattendance', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`delete from late_attendance where latedays=0`);
     mysqldb.query(`SELECT *
     FROM Employees
     RIGHT JOIN late_attendance
@@ -2200,10 +2203,11 @@ router.post('/groupinsurance', ensureAuthenticated, (req, res) => {
                 }
                 else {
                     console.log("group insurance added to table")
-                    res.json({status:"success", message:"Group Insurance Added Successfully!"})
+                    
                 }
             })
         }
+        res.json({status:"success", message:"Group Insurance Added Successfully!"})
     }
 
     
@@ -3778,7 +3782,7 @@ router.post('/lateattendance', ensureAuthenticated, (req, res) => {
     var monthNames = ["january", "february", "march", "april", "may", "june",
         "july", "august", "september", "october", "november", "december"];
     var prev = data.month.toLowerCase();
-    prev = monthNames[monthNames.indexOf(prev.toLowerCase()) - 1].toLowerCase()
+    prev = monthNames[((monthNames.indexOf(prev.toLowerCase()) - 1)+12)%12].toLowerCase()
     // console.log(length)
     // for (let i = 0; i < length; i++) {
     var prevdays;
