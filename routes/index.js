@@ -2196,6 +2196,7 @@ router.post('/groupinsurance', ensureAuthenticated, (req, res) => {
                 if (err) {
                     console.log(err)
                     console.log("error in insert query from group insurance")
+                    res.json({status:"error", message:"Group Insurance Already Added!"})
                 }
                 else {
                     console.log("group insurance added to table")
@@ -2578,13 +2579,14 @@ router.post('/updatepay', (req, res) => {
         }
 
     }
-    // if(list2.length==0)
-    // {
-    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
-    // }
-    // else
-    // {
-        var incrementPercent = parseFloat(data["percent"]);
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    }
+    else
+    {
+        var incrementPercent = parseFloat(data["incrementPercent"]);
+        console.log("data"+ data)
         console.log("increment percent is",incrementPercent)
         list = list.substring(0, list.length - 1);
         list += ")";
@@ -2627,11 +2629,10 @@ router.post('/updatepay', (req, res) => {
                     {
                         if (err) {
                             console.log(err);
-                            // res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
+                            res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
                         }
                         else{
-        
-                            // res.json({status:"success", message:"Increment Added Successfully!"})
+                            res.json({status:"success", message:"Increment Added Successfully!"})
     
                         }
                     })
@@ -2639,8 +2640,8 @@ router.post('/updatepay', (req, res) => {
             }
         })
     
-    // }
-    res.redirect('index1');
+     }
+    // res.redirect('index1');
 })
 
 router.get('/confirmIncrement',ensureAuthenticated,(req,res)=>{
