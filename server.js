@@ -24,6 +24,18 @@ require('./config/passport')(passport);
 
 //------------ MySQL Connection ------------//
 
+<<<<<<< HEAD
+=======
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'sunandroot',
+//     database: 'employee',
+//     multipleStatements: true
+// });
+
+
+>>>>>>> b90f20991a333707905248e56d5d752c4befc0cf
 // const mysqldb = mysql.createConnection ({
 //     host: 'localhost',
 //     user: 'root',
@@ -35,6 +47,7 @@ require('./config/passport')(passport);
 
 const mysqldb = mysql.createConnection ({
     host: 'localhost',
+<<<<<<< HEAD
     user: 'root',
     password: 'Vineet@nexa1',
     database: 'employee' 
@@ -47,6 +60,12 @@ const mysqldb = mysql.createConnection ({
 //     password: 'salary123',
 //     database: 'employee'
 // });
+=======
+    user: 'kshitij',
+    password: 'salary123',
+    database: 'employee'
+});
+>>>>>>> b90f20991a333707905248e56d5d752c4befc0cf
 
 // connect to database
 mysqldb.connect((err) => {
