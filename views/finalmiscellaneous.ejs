@@ -68,6 +68,8 @@
                                                                     <th>Miscellaneous Amount</th>
                                                                     <th>Month</th>
                                                                     <th>Year</th>
+                                                                    <th>Delete</th>
+                                                                    
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -88,6 +90,13 @@
                                                                         <td>
                                                                             <%= miscell[i].year %>
                                                                         </td>
+                                                                        <form class="form-horizontal" action="\deleteAttendance" method="post">
+                                                                            <td>
+                                                                                <!-- <div class="editButtonClass"></div> -->
+                                                                            <input name="table" value="miscellaneous" hidden>
+                                                                                <button type="submit" class="btn btn-outline-danger btn-sm"  value="<%= miscell[i].empID %>" name="empID" ><i class="jsgrid-delete-button ti-trash"></i></button>
+                                                                            </td>
+                                                                        </form>
 
                                                                         <% }%>
 

@@ -9,7 +9,7 @@
 
         <style>
             .required:after {
-                content: " *";
+                content: "*";
                 color: red;
             }
         </style>
@@ -96,11 +96,11 @@
                                         <div class="col-lg-5">
 
                                             <div class="form-group row">
-                                                <label class="col-lg-6 col-form-label"> MIS Login ID
+                                                <label class="col-lg-6 col-form-label"> EMP ID
                                                     (empXXX) <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="empID" onkeyup="manage()"  class="required"
-                                                        placeholder="XXX" pattern="+emp." title="enter valid mis ID" 
+                                                        placeholder="XXX" pattern="+emp." title="enter valid EMP ID" 
                                                          >
                                                 </div>
                                             </div>
@@ -148,7 +148,7 @@
     <label  class="col-lg-6 col-form-label">Designation Category: <span
         class="text-danger">*</span></label>
     <div class="col-lg-6">
-     <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category'   >
+     <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category' required  >
     <option value="">---------</option>
     <option value="teaching" data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer|#Director of Physical Education & Sports">Teaching</option>
     <option value="nonteaching" data-designation-options="Registrar|#Librarian|#OffSup|#Technical Assistant|#Lab. Assistant|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Asstt. Programmer|#Electrician|#Accounts Assistant|#Network Administrator|#Workshop Instructor" >Non- Teaching</option>
@@ -166,7 +166,7 @@
             <option value="" hidden selected>-----</option>
 
             <option value="Technical" data-designation-options="Technical Assistant|#Lab. Assistant|#Electrician|#Network Administrator|#Asstt. Programmer">Technical</option>
-            <option value="Non technical" data-designation-options="Registrar|#Librarian|#OffSup|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Accounts Assistant|#Workshop Instructor">Non Technical</option>
+            <option value="Non Technical" data-designation-options="Registrar|#Librarian|#OffSup|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Accounts Assistant|#Workshop Instructor">Non Technical</option>
         </select>
     </div>
 </div>
@@ -198,7 +198,7 @@
     <option value="PurOff">Purchase Officer</option>
     
     <option value="BS">Black Smithy</option>
-    <option value="Asstt. Programmer">Asstt. Programmer</option>
+    <option value="Asstt. Programmer">Asst. Programmer</option>
     <option value="Director of Physical Education & Sports">Director of Physical Education & Sports</option>
     <option value="Electrician">Electrician</option>
     <option value="Accounts Assistant">Accounts Assistant</option>
