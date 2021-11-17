@@ -70,6 +70,7 @@
                                                                     <th>Advance Amount</th>
                                                                     <th>Month</th>
                                                                     <th>Year</th>
+                                                                    <th>Delete</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -90,6 +91,14 @@
                                                                         <td>
                                                                             <%= adv[i].year %>
                                                                         </td>
+
+                                                                        <form class="form-horizontal" action="\deleteAttendance" method="post">
+                                                                            <td>
+                                                                                <!-- <div class="editButtonClass"></div> -->
+                                                                            <input name="table" value="advance" hidden>
+                                                                                <button type="submit" class="btn btn-outline-danger btn-sm"  value="<%= adv[i].empID %>" name="empID" ><i class="jsgrid-delete-button ti-trash"></i></button>
+                                                                            </td>
+                                                                        </form>
                                                                         
 
                                                                         <% }%>

@@ -65,30 +65,34 @@
                                                                     <th>Recovery Amount</th>
                                                                     <th>Month</th>
                                                                     <th>Year</th>
-                                                                    <th>Edit</th>
+                                                                    <th>Delete</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <% for(var i=miscell.length-1; i>= 0 ; i-- ) { %>
+                                                                <% for(var i=recovery.length-1; i>= 0 ; i-- ) { %>
                                                                     <tr>
                                                                         <td>
-                                                                            <%= miscell[i].empID %>
+                                                                            <%= recovery[i].empID %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= miscell[i].empName %>
+                                                                            <%= recovery[i].empName %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= miscell[i].recoveryAmount %>
+                                                                            <%= recovery[i].recoveryAmount %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= miscell[i].month %>
+                                                                            <%= recovery[i].month %>
                                                                         </td>
                                                                         <td>
-                                                                            <%= miscell[i].year %>
+                                                                            <%= recovery[i].year %>
                                                                         </td>
-                                                                        <td>
-                                                                            <a href ="/miscellaneous/<%= miscell[i].empID %>"><i class="jsgrid-edit-button ti-pencil"></a></i>
-                                                                        </td>   
+                                                                        <form class="form-horizontal" action="\deleteAttendance" method="post">
+                                                                            <td>
+                                                                                <!-- <div class="editButtonClass"></div> -->
+                                                                            <input name="table" value="recovery" hidden>
+                                                                                <button type="submit" class="btn btn-outline-danger btn-sm"  value="<%= recovery[i].empID %>" name="empID" ><i class="jsgrid-delete-button ti-trash"></i></button>
+                                                                            </td>
+                                                                        </form>  
                                                                         <% }%>
 
 

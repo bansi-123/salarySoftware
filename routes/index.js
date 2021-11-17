@@ -1831,7 +1831,7 @@ router.get('/finalrecoveryamt', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('finalrecoveryamt', {
-                miscell: JSON.parse(JSON.stringify(result)),
+                recovery: JSON.parse(JSON.stringify(result)),
                 role: req.user.role
             });
         }
@@ -3771,6 +3771,28 @@ router.post('/deleteEmployee', (req, res) => {
         }
     })
     // res.send({"status":"success"});
+})
+
+router.post('/deleteAttendance', (req, res) => {
+    
+    console.log(req.body)
+
+    console.log("in route")
+    mysqldb.query(`delete from ${req.body.table} where empID='${req.body.empID}'`, (err, result) => {
+        if (err) {
+        
+            console.log(err)
+            
+        }
+        else {
+            res.redirect('finalattendance');
+           
+        }
+    })
+
+    
+
+
 })
 
 

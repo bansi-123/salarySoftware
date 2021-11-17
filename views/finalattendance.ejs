@@ -94,7 +94,8 @@
                                                                     <th>Late Attendance Days</th>
                                                                     <th>Month</th>
                                                                     <th>Year</th>
-                                                                    <th>Edit</th>
+                                                                    <th>Delete</th>
+                                                               
                                                                     
                                                                 </tr>
                                                             </thead>
@@ -116,11 +117,15 @@
                                                                         <td>
                                                                             <%= late[i].year %>
                                                                         </td>
+                                                                        <form class="form-horizontal" action="\deleteAttendance" method="post">
                                                                         <td>
                                                                             <!-- <div class="editButtonClass"></div> -->
-                                                                          
-                                                                            <a href ="/lateattendance/<%= late[i].empID %>"><i class="jsgrid-edit-button ti-pencil"></a></i>
+                                                                        <input name="table" value="late_attendance" hidden>
+                                                                            <button type="submit" class="btn btn-outline-danger btn-sm"  value="<%= late[i].empID %>" name="empID" ><i class="jsgrid-delete-button ti-trash"></i></button>
                                                                         </td>
+                                                                        </form>
+
+                        
 
                                                                         <% }%>
 
