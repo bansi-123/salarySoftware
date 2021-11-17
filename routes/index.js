@@ -1,3 +1,4 @@
+//required pattern="\d{4}-\d{2}-\d{2}"
 const e = require('connect-flash');
 const express = require('express');
 const router = express.Router();
@@ -123,7 +124,7 @@ router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
     
     var cur_year = new Date().getFullYear()
    // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
-    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="${req.params.empID}"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
     `, (err, result) => {
  
    if (err) {
@@ -4164,8 +4165,11 @@ router.post('/storeIncomeTax', (req, res) => {
 router.get('/register/teaching',  (req, res) => {
     //var requestedTitle = req.params.designationCategory;
     //console.log("the param is", req.params.empID);
+    mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        // var cur_month="august"
+        var cur_month = mlist[new Date().getMonth()].toLowerCase()
     var teaching = "teaching";
-    mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'teaching'`, (err, result) => {
+    mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'teaching' and month="${cur_month}"`, (err, result) => {
         if (err) {
             //console.log(err);
         }
@@ -4173,7 +4177,8 @@ router.get('/register/teaching',  (req, res) => {
             //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('salregister', {
                 salary: JSON.parse(JSON.stringify(result)),
-                role: req.user.role
+                role: req.user.role,
+                cur_month:cur_month.toUpperCase()
                 //requestedTitle = req.params.empID
                 //added the name field here to get the name wise reciept
             });
@@ -4183,10 +4188,13 @@ router.get('/register/teaching',  (req, res) => {
 });
 
 router.get('/register/nonteaching', (req, res) => {
+    mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        // var cur_month="august"
+        var cur_month = mlist[new Date().getMonth()].toLowerCase()
     //var requestedTitle = req.params.designationCategory;
     //console.log("the param is", req.params.empID);
     var nonteaching = "nonteaching";
-    mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'Non-Teaching'`, (err, result) => {
+    mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'Non-Teaching' and month="${cur_month}"`, (err, result) => {
         if (err) {
             //console.log(err);
         }
