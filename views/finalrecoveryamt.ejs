@@ -65,6 +65,7 @@
                                                                     <th>Recovery Amount</th>
                                                                     <th>Month</th>
                                                                     <th>Year</th>
+                                                                    <th>Edit</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -85,7 +86,9 @@
                                                                         <td>
                                                                             <%= miscell[i].year %>
                                                                         </td>
-
+                                                                        <td>
+                                                                            <a href ="/miscellaneous/<%= miscell[i].empID %>"><i class="jsgrid-edit-button ti-pencil"></a></i>
+                                                                        </td>   
                                                                         <% }%>
 
 
