@@ -3799,6 +3799,7 @@ router.post('/deleteAttendance', (req, res) => {
     console.log(req.body)
 
     console.log("in route")
+
     mysqldb.query(`delete from ${req.body.table} where empID='${req.body.empID}'`, (err, result) => {
         if (err) {
         
@@ -3806,10 +3807,13 @@ router.post('/deleteAttendance', (req, res) => {
             
         }
         else {
-            res.redirect('finalattendance');
+            res.redirect('index1');
            
         }
     })
+
+    // res.redirect('index1')
+
 
     
 
@@ -4215,11 +4219,7 @@ router.get('/register/teaching',  (req, res) => {
         // var cur_month="august"
         var cur_month = mlist[new Date().getMonth()].toLowerCase()
     var teaching = "teaching";
-<<<<<<< HEAD
-    mysqldb.query(`select * from employees right join Salary  ON Employees.empID= Salary.empID where designationCategory= 'teaching'`, (err, result) => {
-=======
     mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'teaching' and month="${cur_month}"`, (err, result) => {
->>>>>>> 6b493ce85fa33b40d03ca4e5ef8003aecfea8acd
         if (err) {
             //console.log(err);
         }
