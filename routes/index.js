@@ -685,7 +685,7 @@ router.post('/searchEmployee', (req, res) => {
 })
 
 router.get('/table-export', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
+    mysqldb.query(`SELECT Employees.empID,* FROM Employees LEFT JOIN increment ON Employees.empID = increment.empID WHERE increment.increment IS NULL`, (err, result) => {
         if (err) {
             console.log(err);
         }
