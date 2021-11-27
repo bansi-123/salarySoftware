@@ -148,7 +148,7 @@
     <label  class="col-lg-6 col-form-label">Designation Category: <span
         class="text-danger">*</span></label>
     <div class="col-lg-6">
-     <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category'   >
+     <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category' required  >
     <option value="">---------</option>
     <option value="teaching" data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer|#Director of Physical Education & Sports">Teaching</option>
     <option value="nonteaching" data-designation-options="Registrar|#Librarian|#OffSup|#Technical Assistant|#Lab. Assistant|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Asstt. Programmer|#Electrician|#Accounts Assistant|#Network Administrator|#Workshop Instructor" >Non- Teaching</option>
@@ -166,7 +166,7 @@
             <option value="" hidden selected>-----</option>
 
             <option value="Technical" data-designation-options="Technical Assistant|#Lab. Assistant|#Electrician|#Network Administrator|#Asstt. Programmer">Technical</option>
-            <option value="Non technical" data-designation-options="Registrar|#Librarian|#OffSup|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Accounts Assistant|#Workshop Instructor">Non Technical</option>
+            <option value="Non Technical" data-designation-options="Registrar|#Librarian|#OffSup|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Accounts Assistant|#Workshop Instructor">Non Technical</option>
         </select>
     </div>
 </div>
@@ -198,7 +198,7 @@
     <option value="PurOff">Purchase Officer</option>
     
     <option value="BS">Black Smithy</option>
-    <option value="Asstt. Programmer">Asstt. Programmer</option>
+    <option value="Asstt. Programmer">Asst. Programmer</option>
     <option value="Director of Physical Education & Sports">Director of Physical Education & Sports</option>
     <option value="Electrician">Electrician</option>
     <option value="Accounts Assistant">Accounts Assistant</option>
@@ -297,7 +297,8 @@
                                                     Joining <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="date"  id="doj" name="doj"  onkeyup="manage()" class="required">
+                                                    <input type="date" value="2018-07-22"
+                                                    min="2018-01-01" max="2018-12-31" id="doj" name="doj"  onkeyup="manage()" class="required">
 
                                                 </div>
                                             </div>
@@ -309,7 +310,8 @@
                                                         class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" name="dob"   onkeyup="manage()" class="required">
+                                                    <input type="date" name="dob" value="2018-07-22"
+                                                    min="2018-01-01" max="2018-12-31"  onkeyup="manage()" class="required">
                                                 </div>
                                                 <div id="age" style="padding-top:2em;"></div>
                                             </div>
@@ -404,14 +406,16 @@
 
                                                 <div id="dvPassport2" style="display: none">
                                                     Relieving Date:
-                                                    <input type="date" class="form-control" id="Relieving" name="Relieving"  >
+                                                    <input type="date" class="form-control" value="2018-07-22"
+                                                    min="2018-01-01" max="2018-12-31" id="Relieving" name="Relieving"  >
 
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label">Date of Promotion</label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" class="form-control" id="dop" name="dop">
+                                                    <input type="date" class="form-control" value="2018-07-22"
+                                                    min="2018-01-01" max="2018-12-31" id="dop" name="dop">
 
                                                 </div>
                                             </div>
@@ -419,7 +423,8 @@
                                                 <label class="col-lg-6 col-form-label">Date Confirmation of
                                                     Service</label>
                                                 <div class="col-lg-6">
-                                                    <input type="date" class="form-control" id="doc" name="doc" >
+                                                    <input type="date" value="2018-07-22"
+                                                    min="2018-01-01" max="2018-12-31" class="form-control" id="doc" name="doc" >
 
                                                 </div>
                                             </div>
@@ -720,7 +725,7 @@
                                                     class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" name="ta"  value="0" onkeyup="manage()" class="required">
+                                                <input type="text" name="ta" value="0"  onkeyup="manage()" class="required">
                                             </div>
                                         </div>
 
@@ -1172,8 +1177,7 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
         <script src="../assets/alert/script.js"></script>
 
-        <%- include("partials/footer"); -%>
+
         
 
     </body>
-   
