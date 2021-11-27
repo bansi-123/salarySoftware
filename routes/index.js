@@ -1,3 +1,4 @@
+//required pattern="\d{4}-\d{2}-\d{2}"
 const e = require('connect-flash');
 const express = require('express');
 const router = express.Router();
@@ -123,7 +124,7 @@ router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
     
     var cur_year = new Date().getFullYear()
    // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
-    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="${req.params.empID}"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
     `, (err, result) => {
  
    if (err) {
@@ -685,7 +686,12 @@ router.post('/searchEmployee', (req, res) => {
 })
 
 router.get('/table-export', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees where salaryCategory="Pay Scale"`, (err, result) => {
+    mlist = [ "January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December" ];
+    var cur_month=mlist[new Date().getMonth()].toLowerCase()
+    mysqldb.query(`SELECT Employees.empID, Employees.empName, Employees.dept, Employees.designation, Employee.salaryCategory, increment.month
+    FROM Employees
+    LEFT JOIN increment ON Employees.empID = increment.empID
+    WHERE increment.increment IS NULL AND Employee.salaryCategory='Pay Scale' AND increment.month='${cur_month}'`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -696,6 +702,7 @@ router.get('/table-export', ensureAuthenticated, (req, res) => {
                 role: req.user.role
             });
         }
+
     })
 
 });
@@ -1831,7 +1838,7 @@ router.get('/finalrecoveryamt', ensureAuthenticated, (req, res) => {
         else {
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('finalrecoveryamt', {
-                miscell: JSON.parse(JSON.stringify(result)),
+                recovery: JSON.parse(JSON.stringify(result)),
                 role: req.user.role
             });
         }
@@ -2199,6 +2206,7 @@ router.post('/groupinsurance', ensureAuthenticated, (req, res) => {
                 if (err) {
                     console.log(err)
                     console.log("error in insert query from group insurance")
+                    res.json({status:"error", message:"Group Insurance Already Added!"})
                 }
                 else {
                     console.log("group insurance added to table")
@@ -2582,13 +2590,14 @@ router.post('/updatepay', (req, res) => {
         }
 
     }
-    // if(list2.length==0)
-    // {
-    //     res.json({status:"error", message:"Please Tick Atleast One Check Box"})
-    // }
-    // else
-    // {
-        var incrementPercent = parseFloat(data["percent"]);
+    if(list2.length==0)
+    {
+        res.json({status:"error", message:"Please Tick Atleast One Check Box"})
+    }
+    else
+    {
+        var incrementPercent = parseFloat(data["incrementPercent"]);
+        console.log("data"+ data)
         console.log("increment percent is",incrementPercent)
         list = list.substring(0, list.length - 1);
         list += ")";
@@ -2631,11 +2640,10 @@ router.post('/updatepay', (req, res) => {
                     {
                         if (err) {
                             console.log(err);
-                            // res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
+                            res.json({status:"error", message:"Please Fill Increment Percentage and Duration"})
                         }
                         else{
-        
-                            // res.json({status:"success", message:"Increment Added Successfully!"})
+                            res.json({status:"success", message:"Increment Added Successfully!"})
     
                         }
                     })
@@ -2643,8 +2651,8 @@ router.post('/updatepay', (req, res) => {
             }
         })
     
-    // }
-    res.redirect('index1');
+     }
+    // res.redirect('index1');
 })
 
 router.get('/confirmIncrement',ensureAuthenticated,(req,res)=>{
@@ -2657,22 +2665,29 @@ router.post('/confirmIncrement',ensureAuthenticated,(req,res)=>{
 
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()].toLowerCase()
+
+
     mysqldb.query(`select * from increment where month='${cur_month}'`,(err,result)=>
     {
+        if(result.length === 0)
+        {
+            res.json({status:"error", message:"Please Fill Increments First!"})
+        }
         for (let i = 0; i < result.length; i++) {
             mysqldb.query(`update Employees set pay=${result[i].updatedPay} where empID='${result[i].empID}'`,(err,result)=>
             {
                 if (err) {
                     console.log(err);
-                    // res.json({status:"error", message:"Error While Confirming your Increments!"})
+                    res.json({status:"error", message:"Error While Confirming your Increments!"})
                 }
                 else {
-                   
+                    
                 }
             })
         }
+        res.json({status:"success", message:"Confirmed your Increments!"})
     })
-    res.redirect('index1')
+    // res.redirect('in')
    
 })
 
@@ -2698,7 +2713,7 @@ router.get('/masterview', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month="${cur_month}" and year="${cur_year}"`, (err, result) => {
+    mysqldb.query(`select * from Salary right join Employees where month="${cur_month}" and year="${cur_year}"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -2716,7 +2731,7 @@ router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var prev_month = mlist[new Date().getMonth()-1]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month="${prev_month}" and year="${cur_year}"`, (err, result) => {
+    mysqldb.query(`select * from Salary right join Employees where month="${prev_month}" and year="${cur_year}"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -2797,7 +2812,7 @@ router.get('/showmasterview', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select S.empID,E.empName,E.salaryCategory,E.uan,E.bankName,E.bankAccNum,S.month,S.year,S.daysOfMonth,IFNULL(l.lwp,0) as lwp,S.workedDays,S.original_pay as original_pay,S.original_gp as original_gp,S.bp,S.gp,S.da,S.hra,S.cca,S.diff,S.oth_spl,S.ta,S.gross_sal,S.pf,S.prof_tax,S.in_tax,case when g.empID is NOT NULL then E.groupInsurance else 0 end as group_insurance,IFNULL(la.latedays,0) as latedays,IFNULL(d.donationDays,0) as donationDays,IFNULL(a.amount,0) as advance,IFNULL(r.recoveryAmount,0) as recovery,IFNULL(m.miscellaneous_amt,0) as miscellaneous,S.other_deductions,S.rev_stmp,S.total_ded,S.net_sal from Salary S left outer join Employees E on (S.empID=E.empID) left outer join lwp l on (S.empID=l.empID AND S.month=l.month and S.year=l.year) left outer join group_insurance g on (S.empId=g.empID and S.month=g.month and S.year=g.year) left outer join late_attendance la on (S.empId=la.empID and S.month=la.month and S.year=la.year) left outer join donation d on (S.empId=d.empID and S.month=d.month and S.year=d.year) left outer join advance a on (S.empId=a.empID and S.month=a.month and S.year=a.year) left outer join recovery r on (S.empId=r.empID and S.month=r.month and S.year=r.year) left outer join miscellaneous m on (S.empId=m.empID and S.month=m.month and S.year=m.year)`, (err, result) => {
+    mysqldb.query(`select S.empID,S.advance,E.empName,E.salaryCategory,E.uan,E.bankName,E.bankAccNum,S.month,S.year,S.daysOfMonth,IFNULL(l.lwp,0) as lwp,S.workedDays,S.original_pay as original_pay,S.original_gp as original_gp,S.bp,S.gp,S.da,S.hra,S.cca,S.diff,S.oth_spl,S.ta,S.gross_sal,S.pf,S.prof_tax,S.in_tax,case when g.empID is NOT NULL then E.groupInsurance else 0 end as group_insurance,IFNULL(la.latedays,0) as latedays,IFNULL(d.donationDays,0) as donationDays,IFNULL(r.recoveryAmount,0) as recovery,IFNULL(m.miscellaneous_amt,0) as miscellaneous,S.other_deductions,S.rev_stmp,S.total_ded,S.net_sal from Salary S left outer join Employees E on (S.empID=E.empID) left outer join lwp l on (S.empID=l.empID AND S.month=l.month and S.year=l.year) left outer join group_insurance g on (S.empId=g.empID and S.month=g.month and S.year=g.year) left outer join late_attendance la on (S.empId=la.empID and S.month=la.month and S.year=la.year) left outer join donation d on (S.empId=d.empID and S.month=d.month and S.year=d.year) left outer join advance a on (S.empId=a.empID and S.month=a.month and S.year=a.year) left outer join recovery r on (S.empId=r.empID and S.month=r.month and S.year=r.year) left outer join miscellaneous m on (S.empId=m.empID and S.month=m.month and S.year=m.year)`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -3105,14 +3120,18 @@ router.post('/generateSalary',(req,res)=>{
                                                         // if(month_num>=adv_month)
                                                         // {
                                                             //if duration isn't over yet
+                                                            var extra=0;
                                                             if(adv_month>month_num-1)
                                                             {
                                                                 if(year===adv_year+1)
                                                                 {
                                                                     if((adv_month+adv_duration)%12>month_num-1)
                                                                     {
-                                                                        
-                                                                        adv_deduction=adv_amount/adv_duration;
+                                                                        if(adv_month==month_num-1)
+                                                                        {
+                                                                            extra=adv_amount%adv_duration;
+                                                                        }
+                                                                        adv_deduction=Math.floor(adv_amount/adv_duration)+extra;
                                                                         console.log("advance deducted!",adv_deduction,"for empID",empID)
                                                                         
                                                                     }
@@ -3124,8 +3143,11 @@ router.post('/generateSalary',(req,res)=>{
                                                                 {
                                                                     if(year===adv_year)
                                                                     {
-                                                                        
-                                                                        adv_deduction=adv_amount/adv_duration;
+                                                                        if(adv_month==month_num-1)
+                                                                        {
+                                                                            extra=adv_amount%adv_duration;
+                                                                        }
+                                                                        adv_deduction=Math.floor(adv_amount/adv_duration)+extra;
                                                                         console.log("advance deducted!",adv_deduction,"for empID",empID)
                                                                         
                                                                     }
@@ -3176,7 +3198,7 @@ router.post('/generateSalary',(req,res)=>{
                                                 
 
                                                 var groupInsurance=0;
-                                                mysqldb.query(`select groupInsurance from group_insurance natural join Employees where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
+                                                mysqldb.query(`select groupInsurance from group_insurance right join Employees where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                                     if(err)
                                                     {
                                                         console.log(err)
@@ -3267,7 +3289,7 @@ router.post('/generateSalary',(req,res)=>{
 
                                                                 //hra difference ,da change in percent x (pay+gp) on current only.
                                                                 
-                                                                oth_spl+=parseInt(adv_deduction);
+                                                                // oth_spl+=parseInt(adv_deduction);
                                                                 oth_spl+=parseInt(groupInsurance);
                                                                 diff+=parseInt(hra_final_difference);
                                                                 console.log("pay,gp,da,hra,ta_temp,cca_temp 2",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
@@ -3524,7 +3546,7 @@ router.post('/generateSalary',(req,res)=>{
                                                                                                         console.log("pay,gp,da,hra,ta_temp,cca_temp 8    ",pay,gp,da,hra,ta_temp,cca_temp,"for empID",empID)
 
                                                                                                         console.log(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal,original_pay,bp,original_gp,gp,pf,other_deductions) VALUES ('${empID}', '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${tds}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal},${original_pay},${pay},${original_gp},${gp},${pf},${oth_spl})`)
-                                                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal,original_pay,bp,original_gp,gp,pf,other_deductions) VALUES ('${empID}', '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${tds}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal},${original_pay},${pay},${original_gp},${gp},${pf},${oth_spl})`
+                                                                                                        mysqldb.query(`INSERT INTO Salary (empID, month, year, da, hra, cca, diff, oth_spl, daysOfMonth, lwp, workedDays, ta, prof_tax, in_tax, sal_adv, rev_stmp, gross_sal, total_ded, net_sal,original_pay,bp,original_gp,gp,pf,other_deductions,advance) VALUES ('${empID}', '${month}', ${year}, ${da}, ${hra}, ${cca_temp}, ${diff}, ${oth_spl}, ${daysOfMonth}, ${lwp}, ${workedDays}, ${ta_temp}, ${prof_tax}, ${tds}, ${sal_adv}, ${rev_stmp}, ${gross_sal}, ${total_ded}, ${net_sal},${original_pay},${pay},${original_gp},${gp},${pf},${oth_spl},${adv_deduction})`
                                                                                                         ,(err,result)=>{
                                                                                                             if (err) {
                                                                                                                 console.log(err)
@@ -3601,7 +3623,7 @@ router.get('/uploads/:empID', (req, res) => {
     var requestedTitle = req.params.empID;
     //console.log("the param is", req.params.empID);
     if (requestedTitle.includes("EMP")) {
-        mysqldb.query(`select * from Salary natural join Employees`, (err, result) => {
+        mysqldb.query(`select * from Salary right join Employees`, (err, result) => {
             if (err) {
                 //console.log(err);
             }
@@ -3772,6 +3794,32 @@ router.post('/deleteEmployee', (req, res) => {
     // res.send({"status":"success"});
 })
 
+router.post('/deleteAttendance', (req, res) => {
+    
+    console.log(req.body)
+
+    console.log("in route")
+
+    mysqldb.query(`delete from ${req.body.table} where empID='${req.body.empID}'`, (err, result) => {
+        if (err) {
+        
+            console.log(err)
+            
+        }
+        else {
+            res.redirect('index1');
+           
+        }
+    })
+
+    // res.redirect('index1')
+
+
+    
+
+
+})
+
 
 router.post('/lateattendance', ensureAuthenticated, (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
@@ -3876,7 +3924,7 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/storeIncomeTax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from income_tax natural join Salary`, (err, result) => {
+    mysqldb.query(`select * from income_tax right join Salary`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -4167,8 +4215,11 @@ router.post('/storeIncomeTax', (req, res) => {
 router.get('/register/teaching',  (req, res) => {
     //var requestedTitle = req.params.designationCategory;
     //console.log("the param is", req.params.empID);
+    mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        // var cur_month="august"
+        var cur_month = mlist[new Date().getMonth()].toLowerCase()
     var teaching = "teaching";
-    mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'teaching'`, (err, result) => {
+    mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'teaching' and month="${cur_month}"`, (err, result) => {
         if (err) {
             //console.log(err);
         }
@@ -4176,7 +4227,8 @@ router.get('/register/teaching',  (req, res) => {
             //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
             res.render('salregister', {
                 salary: JSON.parse(JSON.stringify(result)),
-                role: req.user.role
+                role: req.user.role,
+                cur_month:cur_month.toUpperCase()
                 //requestedTitle = req.params.empID
                 //added the name field here to get the name wise reciept
             });
@@ -4186,10 +4238,13 @@ router.get('/register/teaching',  (req, res) => {
 });
 
 router.get('/register/nonteaching', (req, res) => {
+    mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        // var cur_month="august"
+        var cur_month = mlist[new Date().getMonth()].toLowerCase()
     //var requestedTitle = req.params.designationCategory;
     //console.log("the param is", req.params.empID);
     var nonteaching = "nonteaching";
-    mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'Non-Teaching'`, (err, result) => {
+    mysqldb.query(`select * from employees right join Salary  ON Employees.empID= Salary.empID where designationCategory= 'Non-Teaching'`, (err, result) => {
         if (err) {
             //console.log(err);
         }
