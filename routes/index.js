@@ -600,7 +600,7 @@ router.post('/dropdowns', (req, res) => {
 router.post('/editEmployee', (req, res) => {
 
     const data = JSON.parse(JSON.stringify(req.body));
-    const { empID, empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, salaryCategory, emailID, groupInsurance, payBand, branchName, ifscCode, designationCategory, emailID2, nonteach, cca, ta, dop, doc, appointment, category, gender, status, mobile, address_correspondence, address_permanent, vacation, seniority, dept_seniority, aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, uni_approval, uni_app_date, uni_app_period, workexNT, emp_temp_regime, photo } = data;
+    const { empID, empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, salaryCategory, emailID, groupInsurance, payBand, branchName, ifscCode, designationCategory, emailID2, nonteach, cca, ta, dop, doc, appointment, category, gender, status, mobile, address_correspondence, address_permanent, vacation, seniority, dept_seniority, aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, uni_approval, uni_app_date, uni_app_period, workexNT, emp_temp_regime, photo, paycommission, bloodgrp } = data;
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("here")
     // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
@@ -633,7 +633,7 @@ router.post('/editEmployee', (req, res) => {
     grade='${grade}', netset='${netset}', othqual='${othqual}', exp='${exp}', industry_exp='${industry_exp}', 
     uni_approval='${uni_approval}', uni_app_date='${uni_app_date}', uni_app_period='${uni_app_period}', workexNT='${workexNT}',
      emp_temp_regime='${emp_temp_regime}', 
-    photo='${photo}'
+    photo='${photo}', paycommission='${paycommission}', bloodgrp='${bloodgrp}'
     WHERE 
     empID='${empID}';` 
         , (err, result) => {
@@ -652,7 +652,7 @@ router.post('/editEmployee', (req, res) => {
             }
         })
 
-        res.redirect('/viewemployee')
+        // res.redirect('/viewemployee')
 
 })
 

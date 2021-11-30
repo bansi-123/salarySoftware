@@ -581,6 +581,9 @@
                       </div>
                     </div>
 
+                   
+
+
 
                     <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
                       data-target="#abc<%= Employees[i].empID %>">
@@ -814,6 +817,7 @@
     <script>
       function deleteFunction(id, ref) {
         console.log(id)
+        console.log("inside delete")
         axios.post('http://localhost:3000/deleteEmployee', { id })
           .then(function (response) {
             console.log(response)

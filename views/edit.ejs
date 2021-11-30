@@ -112,7 +112,7 @@
                                                         (empXXX) <span class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
                                                         <input type="text" value="<%= Employees[i].empID %>"
-                                                            name="empID" onkeyup="manage()"  class="required" 
+                                                            name="empID" oninput="manage()"  class="required" 
                                                              readonly>
                                                     </div>
                                                 </div>
@@ -121,7 +121,7 @@
                                                         Card) <span
                                                         class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" name="empName" onkeyup="manage()"  class="required"
+                                                        <input type="text" name="empName" oninput="manage()"  class="required"
                                                             value="<%= Employees[i].empName %>" placeholder="Enter Name"
                                                             ruqt>
                                                     </div>
@@ -131,7 +131,7 @@
                                                     <label class="col-lg-6 col-form-label">Email ID (Personal)  <span
                                                         class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <input id="val-email" name="emailID" onkeyup="manage()"  class="required"
+                                                        <input id="val-email" name="emailID" oninput="manage()"  class="required"
                                                             type="email" value="<%= Employees[i].emailID2 %>"
                                                             placeholder="admin@gmail.com" ruqt>
                                                     </div>
@@ -140,7 +140,7 @@
                                                     <label class="col-lg-6 col-form-label">Email ID (PICT)  <span
                                                         class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <input id="example-email2" name="emailID2" onkeyup="manage()"  class="required"
+                                                        <input id="example-email2" name="emailID2" oninput="manage()"  class="required"
                                                             type="email" value="<%= Employees[i].emailID %>"
                                                             placeholder="admin@pict.edu" pattern=".+@pict\.edu"
                                                             title="enter valid email ID">
@@ -160,7 +160,7 @@
     <label  class="col-lg-6 col-form-label">Designation Category: <span
         class="text-danger">*</span></label>
     <div class="col-lg-6">
-     <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category' required  >
+     <select name="designationCategory" id="id_category" onchange="ShowHideDiv()"  data-designation-id='id_designation'  class='dependent-selects__category' oninput="manage()"  class="required" required  >
     <option value="">---------</option>
     <option value="teaching" data-designation-options="Principal|#professor|#Associate Professor|#Assistant Professor|#Workshop Superintendent|#Lecturer (Sr. Scale)|#Lecturer|#Director of Physical Education & Sports">Teaching</option>
     <option value="nonteaching" data-designation-options="Registrar|#Librarian|#OffSup|#Technical Assistant|#Lab. Assistant|#Jr. Library Assistant|#Library Attendant|#Senior Clerk|#Junior Clerk|#PurOff|#BS|#Asstt. Programmer|#Electrician|#Accounts Assistant|#Network Administrator|#Workshop Instructor" >Non- Teaching</option>
@@ -170,8 +170,7 @@
 
 <div class="form-group row" id="dvPassport" style="display: none">
 
-    <label class="col-lg-6 col-form-label"> Technical/Non-technical: <span
-            class="text-danger">*</span>
+    <label class="col-lg-6 col-form-label"> Technical/Non-technical: 
     </label>
     <div class="col-lg-6">
         <select name="nonteach">
@@ -188,7 +187,7 @@
                                                     <label class="col-lg-6 col-form-label">  Designation: <span
                                                       class="text-danger">*</span> </label>
                                                     <div class="col-lg-6">
-                                                    <select name="designation" id="id_designation" class='dependent-selects__designation'  required>
+                                                    <select name="designation" id="id_designation" class='dependent-selects__designation' oninput="manage()"  class="required" required>
                                                       <option value="">-----</option>
                                                       <option value="Principal">Principal</option>
                                                       <option value="professor">Professor</option>
@@ -254,9 +253,9 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
                                                         <select name="dept" id="id_category1" onchange="ShowHideDivi()"
-                                                            data-designation-id='id_designation'
-                                                            onkeyup="manage()"  class="required" required>
-
+                                                            data-designation-id='id_designation' oninput="manage()"  class="required"
+                                                             required>
+                                                             <option value="">---------</option>
                                                             <option value="Computer">C.E</option>
                                                             <option value="IT">IT</option>
                                                             <option value="E&TC">E&TC</option>
@@ -295,11 +294,12 @@
                                                     <label class="col-lg-6 col-form-label">Salary Category <span
                                                             class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <select onkeyup="manage()"  class="required" name="salaryCategory" required>
+                                                        <select class="form-control" name="salaryCategory" oninput="manage()"  class="required" required>
                                                             <!-- <option value="value" selected>Option Name</option> -->
-                                                            <option value="consolidated" id="consolidated" selected>
+                                                            <option value="">---------</option>
+                                                            <option value="consolidated" id="consolidated">
                                                                 Consolidated</option>
-                                                            <option value="payscale" id="payscale" selected>Pay
+                                                            <option value="payscale" id="payscale">Pay
                                                                 Scale</option>
 
                                                         </select>
@@ -315,7 +315,8 @@
                                                     <label class="col-lg-6 col-form-label" for="category">Category <span
                                                             class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <select name="category" id="category" onkeyup="manage()"  class="required">
+                                                        <select name="category" id="category" oninput="manage()"  class="required" required>
+                                                            <option value="">---------</option>
                                                             <option value="open">OPEN</option>
                                                             <option value="sc">SC</option>
                                                             <option value="st">ST</option>
@@ -333,7 +334,8 @@
                                                     <label class="col-lg-6 col-form-label" for="gender">Gender <span
                                                             class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <select name="gender" id="gender" onkeyup="manage()"  class="required">
+                                                        <select name="gender" id="gender" oninput="manage()"  class="required" required>
+                                                            <option value="">---------</option>
                                                             <option value="male">Male</option>
                                                             <option value="female">Female</option>
                                                             <option value="other">Other</option>
@@ -345,7 +347,8 @@
                                                     <label class="col-lg-6 col-form-label" for="status">Maritial
                                                         Status <span class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
-                                                        <select name="status" id="status" onkeyup="manage()"  class="required">
+                                                        <select name="status" id="status" oninput="manage()"  class="required" required>
+                                                            <option value="">---------</option>
                                                             <option value="married">Married</option>
                                                             <option value="single">Single</option>
                                                             <option value="other">Other</option>
@@ -357,7 +360,7 @@
                                                         class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
                                                         <input type="text" name="aadhar"
-                                                            value="<%= Employees[i].aadhar %>" onkeyup="manage()"  class="required"
+                                                            value="<%= Employees[i].aadhar %>" oninput="manage()"  class="required"
                                                             pattern=".{12,12}" title="12 numbers needed" ruqt>
                                                     </div>
                                                 </div>
@@ -387,8 +390,9 @@
                                                     <div class="col-lg-6">
                                                         <select name="onrole" id="id_category2"
                                                             onchange="ShowHideDivii()"
-                                                            data-designation-id='id_designation'
-                                                            onkeyup="manage()"  class="required" >
+                                                            data-designation-id='id_designation' oninput="manage()"  class="required"
+                                                            required>
+                                                            <option value="">---------</option>
                                                             <option value="yes">Yes</option>
                                                             <option value="no">No</option>
 
@@ -429,7 +433,8 @@
                                                         Appointment <span class="text-danger">*</span></label>
                                                     <div class="col-lg-6">
 
-                                                        <select name="appointment" id="appointment" onkeyup="manage()"  class="required">
+                                                        <select name="appointment" id="appointment" oninput="manage()"  class="required" required>
+                                                            <option value="">---------</option>
                                                             <option value="Permanent">Permanent</option>
                                                             <option value="Probation">Probation</option>
                                                             <option value="Adhoc">Adhoc</option>
@@ -452,7 +457,7 @@
                                                     class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="number" value="<%= Employees[i].mobile %>"
-                                                        name="mobile" onkeyup="manage()"  class="required" pattern=".{10,10}"
+                                                        name="mobile" oninput="manage()"  class="required" pattern=".{10,10}"
                                                         title="10 characters needed">
                                                 </div>
                                             </div>
@@ -487,7 +492,8 @@
                                                         class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
 
-                                                    <select name="vacation" id="vacation" ruqt>
+                                                    <select name="vacation" id="vacation" oninput="manage()"  class="required" ruqt>
+                                                        <option value="">---------</option>
                                                         <option value="yes">Yes</option>
                                                         <option value="no">No</option>
 
@@ -515,7 +521,7 @@
                                                     class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="exp" value="<%= Employees[i].exp %>"
-                                                        onkeyup="manage()"  class="required">
+                                                        oninput="manage()"  class="required">
                                                 </div>
                                             </div>
 
@@ -545,7 +551,7 @@
                                                     class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="industry_exp"
-                                                        value="<%= Employees[i].industry_exp %>" onkeyup="manage()"  class="required"
+                                                        value="<%= Employees[i].industry_exp %>" oninput="manage()"  class="required"
                                                         >
                                                 </div>
                                             </div>
@@ -554,7 +560,7 @@
                                                     class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="uni_approval"
-                                                        value="<%= Employees[i].uni_approval %>" onkeyup="manage()"  class="required"
+                                                        value="<%= Employees[i].uni_approval %>" oninput="manage()"  class="required"
                                                         >
                                                 </div>
                                             </div>
@@ -563,7 +569,7 @@
                                                     class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="date" name="uni_app_date"
-                                                        value="<%= Employees[i].uni_app_date %>" onkeyup="manage()"  class="required"
+                                                        value="<%= Employees[i].uni_app_date %>" oninput="manage()"  class="required"
                                                         >
                                                 </div>
                                             </div> -->
@@ -573,7 +579,7 @@
                                                     class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="uni_app_period"
-                                                        value="<%= Employees[i].uni_app_period %>" onkeyup="manage()"  class="required"
+                                                        value="<%= Employees[i].uni_app_period %>" oninput="manage()"  class="required"
                                                         ruqt>
                                                 </div>
                                             </div>
@@ -585,7 +591,7 @@
                                                     class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="workexNT"
-                                                        value="<%= Employees[i].workexNT %>" onkeyup="manage()"  class="required" ruqt>
+                                                        value="<%= Employees[i].workexNT %>" oninput="manage()"  class="required" ruqt>
                                                 </div>
                                             </div>
 
@@ -595,7 +601,7 @@
                                                     class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="seniority"
-                                                        value="<%= Employees[i].seniority %>" onkeyup="manage()"  class="required" ruqt>
+                                                        value="<%= Employees[i].seniority %>" oninput="manage()"  class="required" ruqt>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -603,7 +609,7 @@
                                                     class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" name="dept_seniority"
-                                                        value="<%= Employees[i].dept_seniority %>" onkeyup="manage()"  class="required"
+                                                        value="<%= Employees[i].dept_seniority %>" oninput="manage()"  class="required"
                                                         ruqt>
                                                 </div>
                                             </div>
@@ -616,9 +622,10 @@
                                                     Tax Regime <span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
 
-                                                    <select name="emp_temp_regime" id="emp_temp_regime" onkeyup="manage()"  class="required" ruqt>
-                                                        <option value="old_tax_reg">Old tax regime</option>
-                                                        <option value="new_tax_reg">New tax regime</option>
+                                                    <select name="emp_temp_regime" id="emp_temp_regime" oninput="manage()"  class="required" required>
+                                                        <option value="">---------</option>
+                                                        <option value="old">Old tax regime</option>
+                                                        <option value="new">New tax regime</option>
 
                                                     </select>
                                                 </div>
@@ -637,7 +644,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-6 col-form-label"> Blood group </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" name="blood" value="<%= Employees[i].image %>"
+                                                    <input type="text" name="bloodgrp" value="<%= Employees[i].image %>"
                                                         class="form-control" ruqt>
                                                 </div>
                                             </div>
@@ -690,7 +697,7 @@
                                                 class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="pay" value="<%= Employees[i].pay %>"
-                                                onkeyup="manage()"  class="required" placeholder="Basic Pay">
+                                                oninput="manage()"  class="required" placeholder="Basic Pay">
 
 
                                             </div>
@@ -700,7 +707,7 @@
                                                 class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="ta" value="<%= Employees[i].ta %>"
-                                                onkeyup="manage()"  class="required">
+                                                oninput="manage()"  class="required">
                                             </div>
                                         </div>
 
@@ -713,7 +720,7 @@
                                                 class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="cca" value="<%= Employees[i].cca %>"
-                                                onkeyup="manage()"  class="required">
+                                                oninput="manage()"  class="required">
                                             </div>
                                         </div>
 
@@ -722,7 +729,7 @@
                                                 class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="gp" value="<%= Employees[i].gp %>"
-                                                onkeyup="manage()"  class="required" placeholder="Grade Pay">
+                                                oninput="manage()"  class="required" placeholder="Grade Pay">
                                             </div>
                                         </div>
 
@@ -734,7 +741,7 @@
                                                 class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="pf" value="<%= Employees[i].pf %>"
-                                                onkeyup="manage()"  class="required" placeholder="Provident Fund" ruqt>
+                                                oninput="manage()"  class="required" placeholder="Provident Fund" ruqt>
                                             </div>
                                         </div>
 
@@ -743,7 +750,7 @@
                                                 class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="groupInsurance"
-                                                    value="<%= Employees[i].groupInsurance %>" onkeyup="manage()"  class="required"
+                                                    value="<%= Employees[i].groupInsurance %>" oninput="manage()"  class="required"
                                                     placeholder="Group Insurance" ruqt>
                                             </div>
                                         </div>
@@ -759,7 +766,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="payBand" value="<%= Employees[i].payBand %>"
-                                                onkeyup="manage()"  class="required" ruqt>
+                                                oninput="manage()"  class="required" ruqt>
                                             </div>
 
                                         </div>
@@ -769,11 +776,11 @@
                                                 class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <select onkeyup="manage()"  class="required" name="paycommission" ruqt>
-                                                    <option>---------</option>
-                                                    <option value=5 id="5th">5th Type</option>
-                                                    <option value=6 id="6th">6th Type</option>
-                                                    <option value=7 id="7th">7th Type</option>
+                                                <select name="paycommission" oninput="manage()"  class="required" required>
+                                                    <option value="">---------</option>
+                                                    <option value="5th" id="5th">5th Type</option>
+                                                    <option value="6th" id="6th">6th Type</option>
+                                                    <option value="7th" id="7th">7th Type</option>
 
                                                 </select>
                                             </div>
@@ -806,7 +813,7 @@
                                                 class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="bankName" value="<%= Employees[i].bankName %>"
-                                                onkeyup="manage()"  class="required" placeholder="Bank Name" ruqt>
+                                                oninput="manage()"  class="required" placeholder="Bank Name" ruqt>
                                             </div>
                                         </div>
 
@@ -816,7 +823,7 @@
                                                 class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="branchName"
-                                                    value="<%= Employees[i].branchName %>" onkeyup="manage()"  class="required"
+                                                    value="<%= Employees[i].branchName %>" oninput="manage()"  class="required"
                                                     placeholder="Branch Name" ruqt>
 
                                             </div>
@@ -830,7 +837,7 @@
                                                 class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="ifscCode" id="ifsc"
-                                                    value="<%= Employees[i].ifscCode %>" onkeyup="manage()"  class="required"
+                                                    value="<%= Employees[i].ifscCode %>" oninput="manage()"  class="required"
                                                     placeholder="IFSC Code" pattern=".{11,11}"
                                                     title="11 characters needed" ruqt />
 
@@ -845,7 +852,7 @@
                                                 class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <input type="text" name="bankAccNum"
-                                                    value="<%= Employees[i].bankAccNum %>" onkeyup="manage()"  class="required"
+                                                    value="<%= Employees[i].bankAccNum %>" oninput="manage()"  class="required"
                                                     placeholder="Acc No." ruqt>
 
                                             </div>
@@ -1025,7 +1032,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-6">
                                         <input type="text" name="ugSub" value="<%= Employees[i].ugSub %>"
-                                        onkeyup="manage()"  class="required" placeholder="U.G. Subject" ruqt>
+                                        oninput="manage()"  class="required" placeholder="U.G. Subject" ruqt>
                                     </div>
                                 </div>
 
@@ -1037,7 +1044,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <input type="text" name="ugUni" value="<%= Employees[i].ugUni %>"
-                                        onkeyup="manage()"  class="required" placeholder="U.G. University" ruqt>
+                                        oninput="manage()"  class="required" placeholder="U.G. University" ruqt>
                                     </div>
                                 </div>
                             </div>
@@ -1058,7 +1065,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <input type="text" name="ugYr" value="<%= Employees[i].ugYr %>"
-                                        onkeyup="manage()"  class="required" placeholder="U.G. Passing year" ruqt>
+                                        oninput="manage()"  class="required" placeholder="U.G. Passing year" ruqt>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -1066,7 +1073,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <input type="text" name="grade" value="<%= Employees[i].grade %>"
-                                        onkeyup="manage()"  class="required" placeholder="U.G. Grade/Class" ruqt>
+                                        oninput="manage()"  class="required" placeholder="U.G. Grade/Class" ruqt>
                                     </div>
                                 </div>
                             </div>
@@ -1084,11 +1091,13 @@
                 </div>
             </div>
 
-
+            
+            
         </div>
         </div>
         </div>
         </div>
+        
 
         
         <pre>                                                                      </pre><input type="submit" id="submit" style="float:right" disabled />
@@ -1106,7 +1115,7 @@
             function manage() {
                 var bt = document.getElementById('submit');
                 var ele = document.getElementsByClassName('required'); 
-                console.log(ele.length);
+                console.log("length"+ele.length);
                 // Loop through each element.
                 for (i = 0; i < ele.length; i++) {
         
