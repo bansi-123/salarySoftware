@@ -89,18 +89,50 @@
 
                   </div>
 
-
+                  <form class="form-horizontal" action="\update80c" method="post">
                   <div class="card-body">
                     <div class="horizontal-form-elements">
-                   
+                        
                           <div class="row">
                               <% var i=0 %>
                               <div class="col-lg-6">
 
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label"> Employee ID
+                                        (empXXX) <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="empID" class="form-control"  
+                                        value="<%= Employees[i].empID %>" pattern="+emp." title="enter valid emp ID" readonly
+                                            ruqt>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">Name (As per Aadhar Card) <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="empName" class="form-control" value="<%= Employees[i].empName %>" readonly
+                                            ruqt>
+                                    </div>
+                                </div>
+
+                            
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">PAN No. <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="Pan_No" class="form-control"
+                                            pattern=".{10,10}" title="10 alphanumeric characters needed" value="<%= Employees[i].Pan_No %>" readonly
+                                            ruqt>
+                                    </div>
+                                </div>
+
                                   <div class="form-group row">
                                       <label class="col-lg-6 col-form-label"> 	EPF (Employee Provident Fund) </label>
                                       <div class="col-lg-6">
-                                          <input type="text" name="epf" class="form-control">
+                                          <input type="text" name="epf" value="<%= Employees[i].epf %>" class="form-control">
                                       </div>
                                   </div>
 
@@ -109,7 +141,7 @@
                                               
                                       </label>
                                       <div class="col-lg-6">
-                                          <input type="text" name="ppf" class="form-control" 
+                                          <input type="text" name="ppf" value="<%= Employees[i].ppf %>" class="form-control" 
                                             >
                                       </div>
                                   </div>
@@ -120,7 +152,7 @@
                                              
                                       </label>
                                       <div class="col-lg-6">
-                                          <input type="text" name="Pan_No" class="form-control"
+                                          <input type="text" name="nsc" value="<%= Employees[i].nsc %>" class="form-control"
                                                
                                               >
                                       </div>
@@ -131,7 +163,7 @@
                                               
                                       </label>
                                       <div class="col-lg-6">
-                                          <input type="text" name="ulip" class="form-control" id="regime"
+                                          <input type="text" name="ulip" value="<%= Employees[i].ulip %>" class="form-control"
                                           >
                                       </div>
                                   </div>
@@ -139,7 +171,7 @@
                                   <div class="form-group row">
                                       <label class="col-lg-6 col-form-label">Annual Insurance Premium</label>
                                       <div class="col-lg-6">
-                                          <input type="number" value=0 name="insurancePremium" class="form-control" ruqt>
+                                          <input type="text" name="insurancePremium" value="<%= Employees[i].insurancePremium %>" class="form-control" ruqt>
                                       </div>
                                   </div>
 
@@ -156,25 +188,25 @@
                                       <div class="form-group row">
                                           <label class="col-lg-6 col-form-label">	Housing loan Principal Amount</label>
                                           <div class="col-lg-6">
-                                              <input type="number" value=0 name="houseLoan" class="form-control" ruqt>
+                                              <input type="number"  name="houseLoan" value="<%= Employees[i].houseLoan %>" class="form-control" ruqt>
                                           </div>
                                       </div>
                                       <div class="form-group row">
                                           <label class="col-lg-6 col-form-label">	Tuition Fee for Children</label>
                                           <div class="col-lg-6">
-                                              <input type="number" value=0 name="tuitionFee" class="form-control" ruqt>
+                                              <input type="number"  name="tuitionFee" value="<%= Employees[i].tuitionFee %>" class="form-control" ruqt>
                                           </div>
                                       </div>
                                       <div class="form-group row">
                                           <label class="col-lg-6 col-form-label">	Bank Deposits</label>
                                           <div class="col-lg-6">
-                                              <input type="number" value=0 name="bankDeposits" class="form-control" ruqt>
+                                              <input type="number"  name="bankDeposits" value="<%= Employees[i].bankDeposits %>" class="form-control" ruqt>
                                           </div>
                                       </div>
                                       <div class="form-group row">
                                           <label class="col-lg-6 col-form-label">	Registration Fee</label>
                                           <div class="col-lg-6">
-                                              <input type="number" value=0 name="regFee" class="form-control" ruqt>
+                                              <input type="number" name="regFee" value="<%= Employees[i].regFee %>" class="form-control" ruqt>
                                           </div>
                                       </div>
 
@@ -193,12 +225,15 @@
 
                           
 
+                          <button class="btn btn-primary" type="submit" style="float:right;">Update</button>
 
                     
                     </div>
                   </div>
 
-                  
+                
+                </form>
+                </div>
                 </div>
               </div>
               </div>

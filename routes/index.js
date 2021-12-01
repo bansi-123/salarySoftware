@@ -304,10 +304,9 @@ router.post('/declarations', (req, res) => {
     //     sunand= cur_month-month;
     //    res.redirect('salcert/5');
     const dec = JSON.parse(JSON.stringify(req.body));
-    const { g, empID, c, d, e, ccd, ccc, dd, age,gross_total,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee} = dec;
+    const { g, empID, d, e, ccd, ccc, dd, age,gross_total,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee} = dec;
     // var agebased;
     var gg = parseInt(g);
-    var ded_c = parseInt(c);
     var ded_d = parseInt(d);
     var ded_e = parseInt(e);
     var ded_ccd = parseInt(ccd);
@@ -334,8 +333,8 @@ router.post('/declarations', (req, res) => {
                 var ccdlimit=JSON.parse(JSON.stringify(upper))[0].ccdlimit
                 var ddlimit=JSON.parse(JSON.stringify(upper))[0].ddlimit
                
-
-                var total = Math.min(gg, glimit) + Math.min(ded_c, climit) + ded_e + Math.min(ded_ccc, ccclimit) + Math.min(ded_ccd, ccdlimit) + Math.min(ded_dd, ddlimit);
+                // Math.min(ded_c, climit)
+                var total = Math.min(gg, glimit)  + ded_e + Math.min(ded_ccc, ccclimit) + Math.min(ded_ccd, ccdlimit) + Math.min(ded_dd, ddlimit);
                 console.log(total);
 
                 if (err) {
@@ -355,7 +354,7 @@ router.post('/declarations', (req, res) => {
                             }
                             total+=Math.min(ded_d, limit_d) 
                             
-                            mysqldb.query(`insert into form (empID,c,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,(err,result2)=>{
+                            mysqldb.query(`insert into form (empID,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,(err,result2)=>{
                                 if (err) {
 
                                     console.log(err);
@@ -867,7 +866,7 @@ router.get('/incometax', ensureAuthenticated, (req, res) => {
 // });
 
 router.get('/updateit', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees natural join eigthy_c`, (err, result) => {
+    mysqldb.query(`select * from Employees natural join eighty_c`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -887,34 +886,24 @@ router.get('/updateit/:empID', ensureAuthenticated, (req, res) => {
     console.log(req.params.empID)
 
     if (requestedTitle.includes("EMP")) {
-        mysqldb.query(`select * from form natural join Employees `, (err, result) => {
+        mysqldb.query(`select * from eighty_c natural join Employees `, (err, result) => {
             if (err) {
                 console.log(err);
             }
             else {
-                mysqldb.query(`select * from form natural join Employees where empID="${req.params.empID}"`, (err, result2) => {
+                mysqldb.query(`select * from Employees natural join eighty_c where empID="${req.params.empID}"`, (err, result2) => {
                     if (err) {
                         console.log(err);
                     }
                     else {
-
-                        mysqldb.query(`select * from edit_limits`, (err, result3) => {
-                            if (err) {
-                                console.log(err);
-                            }
-                            else {
-
-                            // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-                            // var set=new Set(JSON.parse(JSON.stringify(result)))
-                                console.log("result3 is", result3)
-                                res.render('updateit', {
-                                    Employees: JSON.parse(JSON.stringify(result2)),
-                                    name: JSON.parse(JSON.stringify(result2)),
-                                    limits: JSON.parse(JSON.stringify(result3)),
-                                    role: req.user.role
-                                });
-                            }
-                        })
+                        // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                        // var set=new Set(JSON.parse(JSON.stringify(result)))
+                        // console.log("result2 is", result2)
+                        res.render('updateit', {
+                            Employees: JSON.parse(JSON.stringify(result2)),
+                            name: JSON.parse(JSON.stringify(result)),
+                            role: req.user.role
+                        });
                     }
                 })
             }
@@ -926,6 +915,39 @@ router.get('/updateit/:empID', ensureAuthenticated, (req, res) => {
             role: req.user.role
         })
     }
+});
+
+router.post('/update80c', (req, res) => {
+    console.log(JSON.parse(JSON.stringify(req.body)))
+    console.log("abc");
+    
+    var {empID, epf, ppf, nsc, ulip, insurancePremium, houseLoan, tuitionFee, bankDeposits, regFee}=JSON.parse(JSON.stringify(req.body));
+    // var c = parseInt(climit);
+    // console.log(c);
+    epf=parseInt(epf);
+    console.log(epf);
+    console.log(typeof(epf));
+    
+    ppf=parseInt(ppf);
+    nsc=parseInt(nsc);
+    ulip=parseInt(ulip);
+    insurancePremium=parseInt(insurancePremium);
+    houseLoan=parseInt(houseLoan);
+    tuitionFee=parseInt(tuitionFee);
+    bankDeposits=parseInt(bankDeposits);
+    regFee=parseInt(regFee);
+    mysqldb.query(`update eighty_c set epf=${epf}, ppf=${ppf}, nsc=${nsc}, ulip=${ulip}, insurancePremium=${insurancePremium}, houseLoan=${houseLoan}, tuitionFee=${tuitionFee}, bankDeposits=${bankDeposits}, regFee=${regFee} where empID="${empID}"`,(err,result)=>
+    {
+        if (err) {
+            console.log(err);
+        }
+        else {
+
+            console.log("Limit Details", JSON.parse(JSON.stringify(result)));
+            res.redirect('index1');
+        }
+    })
+
 });
 
 router.get('/donations', ensureAuthenticated, (req, res) => {
