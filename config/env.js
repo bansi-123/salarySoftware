@@ -26,7 +26,6 @@
 //   }
 // };
 
-
 const env = {
   database: 'employee',
   username: 'kshitij',

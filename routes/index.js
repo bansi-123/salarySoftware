@@ -1,3 +1,4 @@
+//required pattern="\d{4}-\d{2}-\d{2}"
 const e = require('connect-flash');
 const express = require('express');
 const router = express.Router();
@@ -107,6 +108,7 @@ router.get('/salcert/:empID', ensureAuthenticated, (req, res) => {
 
 router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
+    console.log("check",requestedTitle)
     
     
     mlist = ["January", "February", "March", "April", "may", "june", "july", "august", "september", "october", "November", "December"];
@@ -123,7 +125,8 @@ router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
     
     var cur_year = new Date().getFullYear()
    // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
-    mysqldb.query(`   SELECT * FROM Salary natural join employees where empID="5"    ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');  
+    mysqldb.query(`   SELECT * FROM Salary right join Employees ON Salary.empID= Employees.empID where Salary.empID="${req.params.empID}" ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');
+  
     `, (err, result) => {
  
    if (err) {
@@ -599,7 +602,7 @@ router.post('/dropdowns', (req, res) => {
 router.post('/editEmployee', (req, res) => {
 
     const data = JSON.parse(JSON.stringify(req.body));
-    const { empID, empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, salaryCategory, emailID, groupInsurance, payBand, branchName, ifscCode, designationCategory, emailID2, nonteach, cca, ta, dop, doc, appointment, category, gender, status, mobile, address_correspondence, address_permanent, vacation, seniority, dept_seniority, aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, uni_approval, uni_app_date, uni_app_period, workexNT, emp_temp_regime, photo } = data;
+    const { empID, empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, salaryCategory, emailID, groupInsurance, payBand, branchName, ifscCode, designationCategory, emailID2, nonteach, cca, ta, dop, doc, appointment, category, gender, status, mobile, address_correspondence, address_permanent, vacation, seniority, dept_seniority, aadhar, Pan_No, onrole, phd, phdSub, phdUni, phdInsti, phdYr, pgSub, pgUni, pgYr, ugSub, ugUni, ugYr, grade, netset, othqual, exp, industry_exp, uni_approval, uni_app_date, uni_app_period, workexNT, emp_temp_regime, photo, paycommission, bloodgrp } = data;
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("here")
     // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
@@ -632,7 +635,7 @@ router.post('/editEmployee', (req, res) => {
     grade='${grade}', netset='${netset}', othqual='${othqual}', exp='${exp}', industry_exp='${industry_exp}', 
     uni_approval='${uni_approval}', uni_app_date='${uni_app_date}', uni_app_period='${uni_app_period}', workexNT='${workexNT}',
      emp_temp_regime='${emp_temp_regime}', 
-    photo='${photo}'
+    photo='${photo}', paycommission='${paycommission}', bloodgrp='${bloodgrp}'
     WHERE 
     empID='${empID}';` 
         , (err, result) => {
@@ -651,7 +654,7 @@ router.post('/editEmployee', (req, res) => {
             }
         })
 
-        res.redirect('/viewemployee')
+        // res.redirect('/viewemployee')
 
 })
 
@@ -685,7 +688,12 @@ router.post('/searchEmployee', (req, res) => {
 })
 
 router.get('/table-export', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`SELECT Employees.empID,* FROM Employees LEFT JOIN increment ON Employees.empID = increment.empID WHERE increment.increment IS NULL`, (err, result) => {
+    mlist = [ "January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December" ];
+    var cur_month=mlist[new Date().getMonth()].toLowerCase()
+    mysqldb.query(`SELECT Employees.empID, Employees.empName, Employees.dept, Employees.designation, Employee.salaryCategory, increment.month
+    FROM Employees
+    LEFT JOIN increment ON Employees.empID = increment.empID
+    WHERE increment.increment IS NULL AND Employee.salaryCategory='Pay Scale' AND increment.month='${cur_month}'`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -696,6 +704,7 @@ router.get('/table-export', ensureAuthenticated, (req, res) => {
                 role: req.user.role
             });
         }
+
     })
 
 });
@@ -2658,22 +2667,29 @@ router.post('/confirmIncrement',ensureAuthenticated,(req,res)=>{
 
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()].toLowerCase()
+
+
     mysqldb.query(`select * from increment where month='${cur_month}'`,(err,result)=>
     {
+        if(result.length === 0)
+        {
+            res.json({status:"error", message:"Please Fill Increments First!"})
+        }
         for (let i = 0; i < result.length; i++) {
             mysqldb.query(`update Employees set pay=${result[i].updatedPay} where empID='${result[i].empID}'`,(err,result)=>
             {
                 if (err) {
                     console.log(err);
-                    // res.json({status:"error", message:"Error While Confirming your Increments!"})
+                    res.json({status:"error", message:"Error While Confirming your Increments!"})
                 }
                 else {
-                   
+                    
                 }
             })
         }
+        res.json({status:"success", message:"Confirmed your Increments!"})
     })
-    res.redirect('index1')
+    // res.redirect('in')
    
 })
 
@@ -2699,7 +2715,7 @@ router.get('/masterview', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var cur_month = mlist[new Date().getMonth()]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month="${cur_month}" and year="${cur_year}"`, (err, result) => {
+    mysqldb.query(`select * from Salary right join Employees where month="${cur_month}" and year="${cur_year}"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -2717,7 +2733,7 @@ router.get('/master-view-prev-month', ensureAuthenticated, (req, res) => {
     mlist = ["January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December"];
     var prev_month = mlist[new Date().getMonth()-1]
     var cur_year = new Date().getFullYear()
-    mysqldb.query(`select * from Salary natural join Employees where month="${prev_month}" and year="${cur_year}"`, (err, result) => {
+    mysqldb.query(`select * from Salary right join Employees where month="${prev_month}" and year="${cur_year}"`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -3184,7 +3200,7 @@ router.post('/generateSalary',(req,res)=>{
                                                 
 
                                                 var groupInsurance=0;
-                                                mysqldb.query(`select groupInsurance from group_insurance natural join Employees where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
+                                                mysqldb.query(`select groupInsurance from group_insurance right join Employees where empID='${empID}' and month='${month}' and year=${year}`,(err,result)=>{
                                                     if(err)
                                                     {
                                                         console.log(err)
@@ -3609,7 +3625,7 @@ router.get('/uploads/:empID', (req, res) => {
     var requestedTitle = req.params.empID;
     //console.log("the param is", req.params.empID);
     if (requestedTitle.includes("EMP")) {
-        mysqldb.query(`select * from Salary natural join Employees`, (err, result) => {
+        mysqldb.query(`select * from Salary right join Employees`, (err, result) => {
             if (err) {
                 //console.log(err);
             }
@@ -3785,6 +3801,7 @@ router.post('/deleteAttendance', (req, res) => {
     console.log(req.body)
 
     console.log("in route")
+
     mysqldb.query(`delete from ${req.body.table} where empID='${req.body.empID}'`, (err, result) => {
         if (err) {
         
@@ -3792,10 +3809,13 @@ router.post('/deleteAttendance', (req, res) => {
             
         }
         else {
-            res.redirect('finalattendance');
+            res.redirect('index1');
            
         }
     })
+
+    // res.redirect('index1')
+
 
     
 
@@ -3906,7 +3926,7 @@ router.post('/miscellaneous', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/storeIncomeTax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from income_tax natural join Salary`, (err, result) => {
+    mysqldb.query(`select * from income_tax right join Salary`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -4197,8 +4217,11 @@ router.post('/storeIncomeTax', (req, res) => {
 router.get('/register/teaching',  (req, res) => {
     //var requestedTitle = req.params.designationCategory;
     //console.log("the param is", req.params.empID);
+    
+    mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+    var cur_month = mlist[new Date().getMonth()].toLowerCase();
     var teaching = "teaching";
-    mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'teaching'`, (err, result) => {
+    mysqldb.query(`select * from Employees right join Salary  ON Employees.empID= Salary.empID where designationCategory= "teaching" and month="${cur_month}"`, (err, result) => {
         if (err) {
             //console.log(err);
         }
@@ -4219,7 +4242,7 @@ router.get('/register/nonteaching', (req, res) => {
     //var requestedTitle = req.params.designationCategory;
     //console.log("the param is", req.params.empID);
     var nonteaching = "nonteaching";
-    mysqldb.query(`select * from employees right join salary  ON Employees.empID= salary.empID where designationCategory= 'Non-Teaching'`, (err, result) => {
+    mysqldb.query(`select * from Employees right join Salary  ON Employees.empID= Salary.empID where designationCategory= 'Non-Teaching'`, (err, result) => {
         if (err) {
             //console.log(err);
         }

@@ -32,6 +32,14 @@ require('./config/passport')(passport);
 //     multipleStatements: true
 // });
 
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Vineet@nexa1',
+//     database: 'employee',
+//     multipleStatements: true
+// });
+
 
 const mysqldb = mysql.createConnection ({
     host: 'localhost',
