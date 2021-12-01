@@ -296,7 +296,7 @@ router.post('/editcess', (req, res) => {
 });
 
 router.post('/declarations', (req, res) => {
-    mysqldb.query(`RENAME TABLE forms TO form`)
+    // mysqldb.query(`RENAME TABLE forms TO form`)
     console.log(req.body)
     //     var cur_month=new Date().getMonth()+1;
     //     const trip =JSON.parse(JSON.stringify(req.body));
@@ -304,7 +304,7 @@ router.post('/declarations', (req, res) => {
     //     sunand= cur_month-month;
     //    res.redirect('salcert/5');
     const dec = JSON.parse(JSON.stringify(req.body));
-    const { g, empID, c, d, e, ccd, ccc, dd, age,gross_total} = dec;
+    const { g, empID, c, d, e, ccd, ccc, dd, age,gross_total,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee} = dec;
     // var agebased;
     var gg = parseInt(g);
     var ded_c = parseInt(c);
@@ -357,11 +357,21 @@ router.post('/declarations', (req, res) => {
                             
                             mysqldb.query(`insert into form (empID,c,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,(err,result2)=>{
                                 if (err) {
+
                                     console.log(err);
                                     res.json({status:"error", message:"Please Fill All The Fields"})
                                 }
                                 else {
-                                res.json({status:"success", message:"Declaration Added Successfully!"})
+                                    mysqldb.query(`insert into eighty_c (empID,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee) VALUES('${empID}',${epf},${ppf},${nsc},${ulip},${insurancePremium},${houseLoan},${tuitionFee},${bankDeposits},${regFee})`,(err,result2)=>{
+                                        if (err) {
+                                            console.log(err);
+                                            res.json({status:"error", message:err})
+                                        }
+                                        else {
+                                        res.json({status:"success", message:"Declaration Added Successfully!"})
+                                        }
+                                    })
+                                // res.json({status:"success", message:"Declaration Added Successfully!"})
                                 }
                             })
                         }
@@ -371,7 +381,7 @@ router.post('/declarations', (req, res) => {
 
         }
     })
-    // res.redirect('/addincometax');
+    //res.redirect('/addincometax');
        
 
 });
@@ -794,8 +804,70 @@ router.get('/incometax', ensureAuthenticated, (req, res) => {
 
 });
 
-router.get('/updateincometax', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees natural join form`, (err, result) => {
+// router.get('/updateincometax', ensureAuthenticated, (req, res) => {
+//     mysqldb.query(`select * from Employees natural join form`, (err, result) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+//             res.render('update_home', {
+//                 Employees: JSON.parse(JSON.stringify(result)),
+//                 role: req.user.role
+//             });
+//         }
+//     })
+
+// });
+
+// router.get('/updateincometax/:empID', ensureAuthenticated, (req, res) => {
+//     var requestedTitle = req.params.empID;
+//     console.log(req.params.empID)
+
+//     if (requestedTitle.includes("EMP")) {
+//         mysqldb.query(`select * from form natural join Employees `, (err, result) => {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 mysqldb.query(`select * from form natural join Employees where empID="${req.params.empID}"`, (err, result2) => {
+//                     if (err) {
+//                         console.log(err);
+//                     }
+//                     else {
+
+//                         mysqldb.query(`select * from edit_limits`, (err, result3) => {
+//                             if (err) {
+//                                 console.log(err);
+//                             }
+//                             else {
+
+//                             // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+//                             // var set=new Set(JSON.parse(JSON.stringify(result)))
+//                                 console.log("result3 is", result3)
+//                                 res.render('updateincometax', {
+//                                     Employees: JSON.parse(JSON.stringify(result2)),
+//                                     name: JSON.parse(JSON.stringify(result2)),
+//                                     limits: JSON.parse(JSON.stringify(result3)),
+//                                     role: req.user.role
+//                                 });
+//                             }
+//                         })
+//                     }
+//                 })
+//             }
+//         })
+//     }
+//     else {
+//         requestedTitle = "/" + requestedTitle
+//         res.redirect(requestedTitle,{
+//             role: req.user.role
+//         })
+//     }
+// });
+
+router.get('/updateit', ensureAuthenticated, (req, res) => {
+    mysqldb.query(`select * from Employees natural join eigthy_c`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -810,7 +882,7 @@ router.get('/updateincometax', ensureAuthenticated, (req, res) => {
 
 });
 
-router.get('/updateincometax/:empID', ensureAuthenticated, (req, res) => {
+router.get('/updateit/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
     console.log(req.params.empID)
 
@@ -835,7 +907,7 @@ router.get('/updateincometax/:empID', ensureAuthenticated, (req, res) => {
                             // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
                             // var set=new Set(JSON.parse(JSON.stringify(result)))
                                 console.log("result3 is", result3)
-                                res.render('updateincometax', {
+                                res.render('updateit', {
                                     Employees: JSON.parse(JSON.stringify(result2)),
                                     name: JSON.parse(JSON.stringify(result2)),
                                     limits: JSON.parse(JSON.stringify(result3)),
