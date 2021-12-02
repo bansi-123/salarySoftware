@@ -89,12 +89,12 @@
 
                         </div>
                         <div class="dropdown">
-                            <label><h3></label></h3> <button  padding="40px" onclick="myFunction()" class="dropbtn">Update</button>
+                            <label><h3></label></h3> <button  padding="40px" onclick="myFunction()" class="dropbtn">Update Income Tax</button>
                             <div id="myDropdown" class="dropdown-content">
                               <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
 
                               <% for(var i=Employees.length-1; i>= 0; i-- ) { %>
-                                <a href="/updateincometax/<%=Employees[i].empID%>"><%= Employees[i].empName %></a>
+                                <a href="/updateit/<%=Employees[i].empID%>"><%= Employees[i].empName %></a>
                               <% }%>
                             </div>
                           </div>
