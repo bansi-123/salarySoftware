@@ -193,12 +193,19 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row" id="c">
+                                    <div class="form-group row" id="ihl">
+                                      <label class="col-lg-6 col-form-label">Interest on Housing Loan</label>
+                                      <div class="col-lg-6">
+                                          <input type="number" value=0  name="ihl" class="form-control" ruqt>
+                                      </div>
+                                    </div>
+
+                                    <!-- <div class="form-group row" id="c">
                                         <label class="col-lg-6 col-form-label">80C</label>
                                         <div class="col-lg-6">
                                             <input type="number" value=0  name="c" class="form-control" ruqt>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="form-group row" id="g">
                                         <label class="col-lg-6 col-form-label">80G (Donation)</label>
@@ -392,7 +399,7 @@
                 <div class="col-lg-12">
                   <div class="card">
                     <div class="card-title">
-                      <h4>80C</h4>
+                      <h4>80G</h4>
 
                     </div>
 
@@ -442,6 +449,64 @@
                     
                   </div>
                 </div>
+                <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-title">
+                      <h4>80GG</h4>
+
+                    </div>
+
+
+                    <div class="card-body">
+                      <div class="horizontal-form-elements">
+                
+                            <div class="row">
+                                <% var i=0 %>
+                                <div class="col-lg-6">
+
+                                    <div class="form-group row">
+                                        <label class="col-lg-6 col-form-label"> Metro/Non-metro </label>
+                                        <div class="col-lg-6">
+                                          <select name="metrof" id="metrof" required >
+                                            <option value="metro">Metro</option>
+                                            <option value="nonmetro">Non Metro</option>
+  
+                                        </select>
+                                        </div>
+                      
+                                    </div>
+ 
+
+                                </div>
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-6 col-form-label">House Rent paid</label>
+                                            <div class="col-lg-6">
+                                                <input type="number"  name="ggg" class="form-control" ruqt>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    <!--card ka end -->
+                                    <button class="button large round success" onclick="submitFn(event)">Submit</button>
+
+                                    <br />
+
+
+                                
+                            </div>
+
+                            
+
+
+                        </form>
+                      </div>
+                    </div>
+
+                    
+                  </div>
+                </div>
               </div>
               </section>
             </div>
@@ -465,6 +530,8 @@
             var regime = document.getElementById("ccc").style.display="none";
             var regime = document.getElementById("ccd").style.display="none";
             var regime = document.getElementById("dd").style.display="none";
+            var regime = document.getElementById("ggg").style.display="none";
+
             // var regime = document.getElementById("regime").value;
             // var regime = document.getElementById("regime").value;
             // var regime = document.getElementById("regime").value;
