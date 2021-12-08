@@ -357,11 +357,7 @@ router.post('/declarations', (req, res) => {
                             }
                             total+=Math.min(ded_d, limit_d) 
                             
-<<<<<<< HEAD
-                            mysqldb.query(`insert into form (empID,c,d,dd,g,e,ccc,ccd,total,gross_sal,ggg) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal},${ded_gg})`,(err,result2)=>{
-=======
                             mysqldb.query(`insert into form (empID,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,(err,result2)=>{
->>>>>>> 9db6a6e1b935a30ac3f93035e18513bfafe1586f
                                 if (err) {
 
                                     console.log(err);
