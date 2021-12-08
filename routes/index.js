@@ -304,7 +304,7 @@ router.post('/declarations', (req, res) => {
     //     sunand= cur_month-month;
     //    res.redirect('salcert/5');
     const dec = JSON.parse(JSON.stringify(req.body));
-    const { g, empID, d, e, ccd, ccc, dd, age,gross_total,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee} = dec;
+    const { g, empID, d, e, ccd, ccc, dd, age,gross_total,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee, e_proof, c_proof, dd_proof, ngo_g_proof, govt_g_proof, ccc_proof, ccd_proof} = dec;
     // var agebased;
     var gg = parseInt(g);
     var ded_d = parseInt(d);
@@ -316,6 +316,15 @@ router.post('/declarations', (req, res) => {
     var ded_dd = parseInt(dd);
     var dec_age=parseInt(age);
     var gross_sal=parseInt(gross_total);
+
+    e_proof=parseInt(e_proof);
+    ccc_proof=parseInt(ccc_proof);
+    ccd_proof=parseInt(ccd_proof);
+    dd_proof=parseInt(dd_proof);
+    c_proof=parseInt(c_proof);
+    govt_g_proof=parseInt(govt_g_proof);
+    ngo_g_proof=parseInt(ngo_g_proof);
+
 
     // console.log("g=" + gg, Math.min(g, 60000), "c=" + ded_c, Math.min(c, 150000), d, e, ccd, ccc, dd)
 
@@ -357,11 +366,7 @@ router.post('/declarations', (req, res) => {
                             }
                             total+=Math.min(ded_d, limit_d) 
                             
-<<<<<<< HEAD
-                            mysqldb.query(`insert into form (empID,c,d,dd,g,e,ccc,ccd,total,gross_sal,ggg) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal},${ded_gg})`,(err,result2)=>{
-=======
                             mysqldb.query(`insert into form (empID,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,(err,result2)=>{
->>>>>>> 9db6a6e1b935a30ac3f93035e18513bfafe1586f
                                 if (err) {
 
                                     console.log(err);
@@ -374,7 +379,17 @@ router.post('/declarations', (req, res) => {
                                             res.json({status:"error", message:err})
                                         }
                                         else {
-                                        res.json({status:"success", message:"Declaration Added Successfully!"})
+
+                                            mysqldb.query(`insert into proof (empID,c_proof, dd_proof, ngo_g_proof, govt_g_proof, e_proof, ccc_proof, ccd_proof,) VALUES('${empID}',${c_proof},${dd_proof},${ngo_g_proof},${govt_g_proof},${e_proof},${ccc_proof},${ccd_proof})`,(err,result3)=>{
+                                                if (err) {
+                                                    console.log(err);
+                                                    res.json({status:"error", message:err})
+                                                }
+                                                else {
+                                                res.json({status:"success", message:"Declaration Added Successfully!"})
+                                                }
+                                            })
+                                        // res.json({status:"success", message:"Declaration Added Successfully!"})
                                         }
                                     })
                                 // res.json({status:"success", message:"Declaration Added Successfully!"})
