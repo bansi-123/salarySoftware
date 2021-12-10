@@ -252,11 +252,11 @@ router.get('/showlimits', ensureAuthenticated, (req, res) => {
 
 router.post('/editlimits', (req, res) => {
     console.log(JSON.parse(JSON.stringify(req.body)))
-    const {climit, glimit, dlimit1, dlimit2, ccclimit, ccdlimit, ddlimit}=JSON.parse(JSON.stringify(req.body));
+    const {climit, glimit, dlimit1, dlimit2, ccclimit, ccdlimit, ddlimit, st_ded}=JSON.parse(JSON.stringify(req.body));
     // var c = parseInt(climit);
     // console.log(c);
     
-    mysqldb.query(`update edit_limits set climit=${climit},glimit=${glimit},dlimit1=${dlimit1},dlimit2=${dlimit2},ccclimit=${ccclimit}, ccdlimit=${ccdlimit}, ddlimit=${ddlimit} where ID=1`,(err,result)=>
+    mysqldb.query(`update edit_limits set climit=${climit},glimit=${glimit},dlimit1=${dlimit1},dlimit2=${dlimit2},ccclimit=${ccclimit}, ccdlimit=${ccdlimit}, ddlimit=${ddlimit}, st_ded=${st_ded} where ID=1`,(err,result)=>
     
     // mysqldb.query(`update edit_limits set climit=${c} where ID=1`,(err,result)=>
     {
@@ -266,9 +266,9 @@ router.post('/editlimits', (req, res) => {
         else {
 
             console.log("Limit Details", JSON.parse(JSON.stringify(result)));
-            res.redirect('editlimits',{
-                role: req.user.role
-            });
+            res.redirect('index1'
+                // role: req.user.role
+            );
         }
     })
 
