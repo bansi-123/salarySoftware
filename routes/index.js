@@ -402,7 +402,7 @@ router.post('/declarations', (req, res) => {
 
         }
     })
-    //res.redirect('/addincometax');
+    res.redirect('index1');
        
 
 });
