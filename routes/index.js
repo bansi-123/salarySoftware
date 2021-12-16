@@ -311,7 +311,7 @@ router.post('/declarations', (req, res) => {
     var ded_e = parseInt(e);
     var ded_ccd = parseInt(ccd);
     var ded_ccc = parseInt(ccc);
-    var ded_gg = parseInt(ggg);
+    // var ded_gg = parseInt(ggg);
 
     var ded_dd = parseInt(dd);
     var dec_age=parseInt(age);
@@ -357,18 +357,15 @@ router.post('/declarations', (req, res) => {
                             }
                             total+=Math.min(ded_d, limit_d) 
                             
-<<<<<<< HEAD
-                            mysqldb.query(`insert into form (empID,c,d,dd,g,e,ccc,ccd,total,gross_sal,ggg) VALUES('${empID}',${ded_c},${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal},${ded_gg})`,(err,result2)=>{
-=======
                             mysqldb.query(`insert into form (empID,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,(err,result2)=>{
->>>>>>> 9db6a6e1b935a30ac3f93035e18513bfafe1586f
                                 if (err) {
 
                                     console.log(err);
                                     res.json({status:"error", message:"Please Fill All The Fields"})
                                 }
                                 else {
-                                    mysqldb.query(`insert into eighty_c (empID,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee) VALUES('${empID}',${epf},${ppf},${nsc},${ulip},${insurancePremium},${houseLoan},${tuitionFee},${bankDeposits},${regFee})`,(err,result2)=>{
+                                    var sum=parseInt(epf)+parseInt(ppf)+parseInt(nsc)+parseInt(ulip)+parseInt(insurancePremium)+parseInt(houseLoan)+parseInt(tuitionFee)+parseInt(bankDeposits)+parseInt(regFee);
+                                    mysqldb.query(`insert into eighty_c (empID,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee,total) VALUES('${empID}',${epf},${ppf},${nsc},${ulip},${insurancePremium},${houseLoan},${tuitionFee},${bankDeposits},${regFee},${sum})`,(err,result2)=>{
                                         if (err) {
                                             console.log(err);
                                             res.json({status:"error", message:err})
@@ -706,10 +703,10 @@ router.post('/searchEmployee', (req, res) => {
 router.get('/table-export', ensureAuthenticated, (req, res) => {
     mlist = [ "January", "February", "March", "April", "May", "June", "July", "august", "September", "October", "November", "December" ];
     var cur_month=mlist[new Date().getMonth()].toLowerCase()
-    mysqldb.query(`SELECT Employees.empID, Employees.empName, Employees.dept, Employees.designation, Employee.salaryCategory, increment.month
+    mysqldb.query(`SELECT Employees.empID, Employees.empName, Employees.dept, Employees.designation, Employees.salaryCategory, increment.month
     FROM Employees
     LEFT JOIN increment ON Employees.empID = increment.empID
-    WHERE increment.increment IS NULL AND Employee.salaryCategory='Pay Scale' AND increment.month='${cur_month}'`, (err, result) => {
+    WHERE Employees.salaryCategory='Pay Scale' AND increment.month!='${cur_month}'`, (err, result) => {
         if (err) {
             console.log(err);
         }
