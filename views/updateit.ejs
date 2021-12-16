@@ -83,26 +83,26 @@
             </div>
 
             <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-title">
-                    <h4>80C</h4>
+              <div class="card">
+                <div class="card-title">
+                  <h4>Employee Details</h4>
 
-                  </div>
+                </div>
 
-                  <form class="form-horizontal" action="\update80c" method="post">
-                  <div class="card-body">
-                    <div class="horizontal-form-elements">
-                        
-                          <div class="row">
-                              <% var i=0 %>
-                              <div class="col-lg-6">
+
+                <div class="card-body">
+                  <div class="horizontal-form-elements">
+                    <form class="form-horizontal" action="\declare" method="post">
+                        <div class="row">
+                            <% var i=0 %>
+                            <div class="col-lg-6">
 
                                 <div class="form-group row">
                                     <label class="col-lg-6 col-form-label"> Employee ID
                                         (empXXX) <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <input type="text" name="empID" class="form-control"  
-                                        value="<%= Employees[i].empID %>" pattern="+emp." title="enter valid emp ID" readonly
+                                        value="<%= name[i].empID %>" pattern="+emp." title="enter valid emp ID" readonly
                                             ruqt>
                                     </div>
                                 </div>
@@ -112,129 +112,407 @@
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="empName" class="form-control" value="<%= Employees[i].empName %>" readonly
-                                            ruqt>
+                                        <input type="text" name="empName" class="form-control" value="<%= name[i].empName %>"
+                                           readonly ruqt>
                                     </div>
                                 </div>
 
                             
-                                <div class="form-group row">
+                               
+                                
+                                
+                                
+
+                            </div>
+                                <div class="col-lg-6">
+                                  <div class="form-group row">
                                     <label class="col-lg-6 col-form-label">PAN No. <span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
                                         <input type="text" name="Pan_No" class="form-control"
-                                            pattern=".{10,10}" title="10 alphanumeric characters needed" value="<%= Employees[i].Pan_No %>" readonly
-                                            ruqt>
+                                            pattern=".{10,10}" title="10 alphanumeric characters needed" value="<%= name[i].Pan_No %>"
+                                           readonly ruqt>
                                     </div>
                                 </div>
 
-                                  <div class="form-group row">
-                                      <label class="col-lg-6 col-form-label"> 	EPF (Employee Provident Fund) </label>
-                                      <div class="col-lg-6">
-                                          <input type="text" name="epf" value="<%= Employees[i].epf %>" class="form-control">
-                                      </div>
-                                  </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-6 col-form-label">Tax Regime <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="emp_temp_regime" class="form-control" id="regime"
+                                        value="<%= name[i].emp_temp_regime %>" readonly ruqt>
+                                    </div>
+                                </div>
 
-                                  <div class="form-group row">
-                                      <label class="col-lg-6 col-form-label">	PPF (Public Provident Fund) 
-                                              
-                                      </label>
-                                      <div class="col-lg-6">
-                                          <input type="text" name="ppf" value="<%= Employees[i].ppf %>" class="form-control" 
-                                            >
-                                      </div>
-                                  </div>
+                                </div>
+                                <!--card ka end -->
+                                
 
-                              
-                                  <div class="form-group row">
-                                      <label class="col-lg-6 col-form-label">NSC (National Saving Certificate) 
-                                             
-                                      </label>
-                                      <div class="col-lg-6">
-                                          <input type="text" name="nsc" value="<%= Employees[i].nsc %>" class="form-control"
-                                               
-                                              >
-                                      </div>
-                                  </div>
+                                <br />
 
-                                  <div class="form-group row">
-                                      <label class="col-lg-6 col-form-label">ULIP (Unit Linked Insurance Plan)/ MF (Mutual Fund) 
-                                              
-                                      </label>
-                                      <div class="col-lg-6">
-                                          <input type="text" name="ulip" value="<%= Employees[i].ulip %>" class="form-control"
-                                          >
-                                      </div>
-                                  </div>
 
-                                  <div class="form-group row">
-                                      <label class="col-lg-6 col-form-label">Annual Insurance Premium</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" name="insurancePremium" value="<%= Employees[i].insurancePremium %>" class="form-control" ruqt>
-                                      </div>
-                                  </div>
+                            
+                        </div>
 
-                                 
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-title">
+                  <h4>Declarations</h4>
+
+                </div>
+
+
+                <div class="card-body">
+                  <div class="horizontal-form-elements">
+                    <form class="form-horizontal" action="\declare" method="post">
+                        <div class="row">
+                            <% var i=0 %>
+                            <div class="col-lg-6">
 
                                 
-                                  
-                                  
-                                  
-
-                              </div>
+                                <div class="form-group row" id="e">
+                                  <label class="col-lg-6 col-form-label">80E (Proof Submitted)</label>
                                   <div class="col-lg-6">
+                                      <input type="number" value=0 name="e" class="form-control" ruqt>
+                                  </div>
+                              </div>
 
-                                      <div class="form-group row">
-                                          <label class="col-lg-6 col-form-label">	Housing loan Principal Amount</label>
-                                          <div class="col-lg-6">
-                                              <input type="number"  name="houseLoan" value="<%= Employees[i].houseLoan %>" class="form-control" ruqt>
-                                          </div>
-                                      </div>
-                                      <div class="form-group row">
-                                          <label class="col-lg-6 col-form-label">	Tuition Fee for Children</label>
-                                          <div class="col-lg-6">
-                                              <input type="number"  name="tuitionFee" value="<%= Employees[i].tuitionFee %>" class="form-control" ruqt>
-                                          </div>
-                                      </div>
-                                      <div class="form-group row">
-                                          <label class="col-lg-6 col-form-label">	Bank Deposits</label>
-                                          <div class="col-lg-6">
-                                              <input type="number"  name="bankDeposits" value="<%= Employees[i].bankDeposits %>" class="form-control" ruqt>
-                                          </div>
-                                      </div>
-                                      <div class="form-group row">
-                                          <label class="col-lg-6 col-form-label">	Registration Fee</label>
-                                          <div class="col-lg-6">
-                                              <input type="number" name="regFee" value="<%= Employees[i].regFee %>" class="form-control" ruqt>
-                                          </div>
-                                      </div>
+                            
+                              <div class="form-group row" id="ihl">
+                                  <label class="col-lg-6 col-form-label">Interest on Housing Loan (Proof Submitted)</label>
+                                  <div class="col-lg-6">
+                                      <input type="number" value=0 name="ihl" class="form-control" ruqt>
+                                  </div>
+                              </div>
+                              
+                                
+                              
+                                
+
+                            </div>
+                                <div class="col-lg-6">
+
+                                    
+                                   
+                                    <div class="form-group row" id="ccd">
+                                        <label class="col-lg-6 col-form-label">80CCD (Proof Submitted)</label>
+                                        <div class="col-lg-6">
+                                            <input type="number" value=0 name="ccd" class="form-control" ruqt>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--card ka end -->
+                                
+
+                                <br />
+
+
+                            
+                        </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-title">
+                  <h4>80C</h4>
+
+                </div>
+
+
+                <div class="card-body">
+                  <div class="horizontal-form-elements">
+
+                    <div class="row">
+                      <% var i=0 %>
+                        <div class="col-lg-6">
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> EPF (Employee Provident Fund) </label>
+                            <div class="col-lg-6">
+                              <input type="text" name="epf" class="form-control">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> PPF (Public Provident Fund)
+
+                            </label>
+                            <div class="col-lg-6">
+                              <input type="text" name="ppf" class="form-control">
+                            </div>
+                          </div>
+
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">NSC (National Saving Certificate)
+
+                            </label>
+                            <div class="col-lg-6">
+                              <input type="text" name="nsc" class="form-control">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">ULIP (Unit Linked Insurance Plan)/ MF (Mutual Fund)
+
+                            </label>
+                            <div class="col-lg-6">
+                              <input type="text" name="ulip" class="form-control" id="regime">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Annual Insurance Premium</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="insurancePremium" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Total 80C (Proof)</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="c" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+
+
+
+
+
+
+
+                        </div>
+                        <div class="col-lg-6">
+
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Housing loan Principal Amount</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="houseLoan" class="form-control" ruqt>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Tuition Fee for Children</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="tuitionFee" class="form-control" ruqt>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Bank Deposits</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="bankDeposits" class="form-control" ruqt>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Registration Fee</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="regFee" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+                          <br><br><br>
 
                         
-                                     
 
-                                  </div>
-                                  <!--card ka end -->
-                                 
-
-                                  <br />
+                        </div>
+                        <!--card ka end -->
 
 
-                              
+                        <br />
+
+
+
+                    </div>
+
+
+
+
+
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-title">
+                  <h4>80G</h4>
+
+                </div>
+
+
+                <div class="card-body">
+                  <div class="horizontal-form-elements">
+
+                    <div class="row">
+                      <% var i=0 %>
+                        <div class="col-lg-6">
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Amt paid to Government considered before adjusted
+                              gross salary (Proof Submitted) </label>
+                            <div class="col-lg-6">
+                              <input type="text" name="govtAmt" class="form-control">
+                            </div>
                           </div>
+
+                         
+
+
+
+
+                        </div>
+                        <div class="col-lg-6">
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Amt paid to NGO after adjusted gross salary (Proof Submitted)</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="ngoAmt" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+
+
+
+                        </div>
+                        <!--card ka end -->
+
+
+                        <br />
+
+
+
+                    </div>
+
+
+                    
+
+                    </form>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-title">
+                  <h4>80GG</h4>
+
+                </div>
+
+
+                <div class="card-body">
+                  <div class="horizontal-form-elements">
+
+                    <div class="row">
+                      <% var i=0 %>
+                        <div class="col-lg-6">
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">House Rent paid (Proof Submitted)</label>
+                            <div class="col-lg-6">
+                              <input type="number" name="ggg" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+
+
+
+                        </div>
+                        <div class="col-lg-6">
 
                           
 
-                          <button class="btn btn-primary" type="submit" style="float:right;">Update</button>
+                        </div>
+                        <!--card ka end -->
 
-                    
+                        <br />
+
+
+
                     </div>
-                  </div>
 
-                
-                </form>
+
+
+
+                    </form>
+                  </div>
                 </div>
+
+
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-title">
+                  <h4>80D (Mediclaim)</h4>
+
                 </div>
+
+
+                <div class="card-body">
+                  <div class="horizontal-form-elements">
+
+                    <div class="row">
+                      <% var i=0 %>
+                        <div class="col-lg-6">
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">80D (Proof Submitted)</label>
+                            <div class="col-lg-6">
+                              <input type="number" name="ggg" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+
+
+                        </div>
+                        <div class="col-lg-6">
+
+                          <br><br>
+
+                          
+
+                        </div>
+                        <!--card ka end -->
+                        <button class="btn btn-primary" type="submit" style="float:right;">Update</button>
+
+                        <br />
+
+
+
+                    </div>
+
+
+
+
+                    </form>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
               </div>
               </div>
               </section>
