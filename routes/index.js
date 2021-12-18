@@ -1031,10 +1031,10 @@ router.get("/table-export", ensureAuthenticated, (req, res) => {
   ];
   var cur_month = mlist[new Date().getMonth()].toLowerCase();
   mysqldb.query(
-    `SELECT Employees.empID, Employees.empName, Employees.dept, Employees.designation, Employee.salaryCategory, increment.month
-    FROM Employees
+    `SELECT Employees.empID, Employees.empName, Employees.dept, Employees.designation, Employees.salaryCategory, increment.month
+    FROM Employees 
     LEFT JOIN increment ON Employees.empID = increment.empID
-    WHERE increment.increment IS NULL AND Employee.salaryCategory='Pay Scale' AND increment.month='${cur_month}'`,
+    WHERE Employees.salaryCategory='Pay Scale' AND ((increment.increment IS NULL) OR ("${cur_month}"!=increment.month)) `,
     (err, result) => {
       if (err) {
         console.log(err);
@@ -3834,7 +3834,7 @@ router.post("/generateSalary", (req, res) => {
 
                                 var groupInsurance = 0;
                                 mysqldb.query(
-                                  `select groupInsurance from group_insurance right join Employees where empID='${empID}' and month='${month}' and year=${year}`,
+                                  `select groupInsurance from group_insurance natural join Employees where Employees.empID='${empID}' and month='${month}' and year=${year}`,
                                   (err, result) => {
                                     if (err) {
                                       console.log(err);
@@ -3863,7 +3863,12 @@ router.post("/generateSalary", (req, res) => {
                                       // console.log(`select days,lwp from lwp where empID='${empID}' and month=${month} and year=${year}`);
 
                                       mysqldb.query(
-                                        `select lwp.days as days,IFNULL(lwp.lwp,0) as lwp,IFNULL(late.latedays,0) as latedays from lwp lwp left outer join late_attendance late on (lwp.empID=late.empID) where lwp.empID="${empID}" and lwp.year=${year} and lwp.month="${month}" union all select lwp.days as days,IFNULL(lwp.lwp,0) as lwp,IFNULL(late.latedays,0) as latedays from late_attendance late left outer join lwp lwp on (late.empID=lwp.empID) where late.empID="${empID}" and late.year=${year} and late.month="${month}"`,
+                                        `select lwp.days as days,IFNULL(lwp.lwp,0) as lwp,IFNULL(late.latedays,0) as latedays
+                                        from lwp lwp left outer join late_attendance late on (lwp.empID=late.empID) 
+                                        where lwp.empID="${empID}" and lwp.year=${year} and lwp.month="${month}"
+                                         union all select lwp.days as days,IFNULL(lwp.lwp,0) as lwp,IFNULL(late.latedays,0) as latedays 
+                                         from late_attendance late left outer join lwp lwp on (late.empID=lwp.empID) 
+                                         where late.empID="${empID}" and late.year=${year} and late.month="${month}"`,
                                         (err, result) => {
                                           if (err) {
                                             console.log(err);
@@ -5357,7 +5362,7 @@ router.post("/updateIncomeTax", (req, res) => {
     var cur_month = mlist[new Date().getMonth()].toLowerCase();
     var cur_year = new Date().getFullYear();
     console.log(grossTotalList, indexList, i, "in query");
-    mysqldb.query(`select * from config`, (err, result4) => {
+    mysqldb.query(`select * from config union all select * from edit_limits` , (err, result4) => {
       if (result.length === 0) {
         console.log("error in config query");
       } else {
@@ -5551,7 +5556,8 @@ router.post("/updateIncomeTax", (req, res) => {
                       currmonth += 12;
                     }
                     var monthsPassed = currmonth - mlist.indexOf(monthIssued);
-                    var tax_payed = tds_per_month_prev * monthsPassed;
+                    // var tax_payed = tds_per_month_prev * monthsPassed;
+                    var text_payed = total_tax_old - balance 
                     var monthsRemaining = 12 - monthsPassed;
                     var balance_new = total_tax - tax_payed;
                     tds_per_month = balance_new / monthsRemaining;
