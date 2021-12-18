@@ -252,11 +252,11 @@ router.get('/showlimits', ensureAuthenticated, (req, res) => {
 
 router.post('/editlimits', (req, res) => {
     console.log(JSON.parse(JSON.stringify(req.body)))
-    const {climit, glimit, dlimit1, dlimit2, ccclimit, ccdlimit, ddlimit}=JSON.parse(JSON.stringify(req.body));
+    const {climit, glimit, dlimit1, dlimit2, ccclimit, ccdlimit, ddlimit, st_ded}=JSON.parse(JSON.stringify(req.body));
     // var c = parseInt(climit);
     // console.log(c);
     
-    mysqldb.query(`update edit_limits set climit=${climit},glimit=${glimit},dlimit1=${dlimit1},dlimit2=${dlimit2},ccclimit=${ccclimit}, ccdlimit=${ccdlimit}, ddlimit=${ddlimit} where ID=1`,(err,result)=>
+    mysqldb.query(`update edit_limits set climit=${climit},glimit=${glimit},dlimit1=${dlimit1},dlimit2=${dlimit2},ccclimit=${ccclimit}, ccdlimit=${ccdlimit}, ddlimit=${ddlimit}, st_ded=${st_ded} where ID=1`,(err,result)=>
     
     // mysqldb.query(`update edit_limits set climit=${c} where ID=1`,(err,result)=>
     {
@@ -266,9 +266,9 @@ router.post('/editlimits', (req, res) => {
         else {
 
             console.log("Limit Details", JSON.parse(JSON.stringify(result)));
-            res.redirect('editlimits',{
-                role: req.user.role
-            });
+            res.redirect('index1'
+                // role: req.user.role
+            );
         }
     })
 
@@ -294,6 +294,121 @@ router.post('/editcess', (req, res) => {
     })
 
 });
+router.post('/declare', (req, res) => {
+    console.log("sunand")
+    console.log(req.body)
+    var total = 0
+    const dec = JSON.parse(JSON.stringify(req.body));
+    const { g, empID, c, d, e, ccd, ihl, age, gross_total, gg } = dec;
+    // var agebased;
+    var eg = parseInt(g);
+    var ec = parseInt(c);
+    var ed = parseInt(d);
+    var ee = parseInt(e);
+    var eccd = parseInt(ccd);
+    var dec_age = parseInt(age);
+    var egross_sal = parseInt(gross_total);
+    var eihl = parseInt(ihl);
+    var egg = parseInt(gg);
+
+    console.log(egg + "gg");
+
+    mysqldb.query(`select * from Employees where empID='${empID}'`, (err, result) => {
+
+        var gp=parseInt(JSON.parse(JSON.stringify(result))[0].gp);
+        var pay=parseInt(JSON.parse(JSON.stringify(result))[0].pay);
+        
+        var da_MultFactor=parseFloat(JSON.parse(JSON.stringify(result))[0].da);
+        var hra_MultFactor=parseFloat(JSON.parse(JSON.stringify(result))[0].hra);
+
+        console.log(JSON.parse(JSON.stringify(result))[0]);
+        console.log("gp,pf,bp,da,hra selected for empid",gp,pay,da_MultFactor,hra_MultFactor);
+
+       
+        var da=(pay+parseFloat(gp))*da_MultFactor;
+        da=da+pay;
+        console.log("da is",da);
+        var hra=(pay+parseFloat(gp))*hra_MultFactor;
+        console.log("hra is",hra);
+        
+        if (err) {
+            console.log(err);
+        }
+        else{
+
+            mysqldb.query(`select * from edit_limits`, (err, upper) => {
+
+                console.log(upper)
+                var climit = JSON.parse(JSON.stringify(upper))[0].climit
+                var glimit = JSON.parse(JSON.stringify(upper))[0].glimit
+                var dlimit1 = JSON.parse(JSON.stringify(upper))[0].dlimit1
+                var dlimit2 = JSON.parse(JSON.stringify(upper))[0].dlimit2
+                var ccclimit = JSON.parse(JSON.stringify(upper))[0].ccclimit
+                var ccdlimit = JSON.parse(JSON.stringify(upper))[0].ccdlimit
+                var ddlimit = JSON.parse(JSON.stringify(upper))[0].ddlimit
+                var ihl_limit = JSON.parse(JSON.stringify(upper))[0].ihl
+                var gg1;
+                
+                var city = "metro";
+                if(city==="metro")
+                {
+                    gg1 = (0.5 * da) 
+                } 
+                else{
+                    gg1 = 0.4 * da
+                }
+
+                var rent= 30000
+
+                var gg2 = rent - (0.1 * da);
+                if(gg2<0)
+                {
+                    gg2=0;
+                }
+
+                console.log("gg1",gg1);
+                console.log("gg2",gg2);
+                
+        
+                var total = Math.min(ec, climit) + Math.min(eihl, ihl_limit) + ee + Math.min(eccd, ccdlimit) + Math.min(Math.min(gg1,gg2),hra);
+                // var total=0;
+                console.log(total);
+        
+        
+                mysqldb.query(`update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`, (err, result1) => {
+                    var mediclaim=25000
+                    if (dec_age > 60) {
+                        mediclaim += 25000  
+                    }
+
+                    total += Math.min(mediclaim,ed);
+
+                    var adjusted
+
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+        
+                        mysqldb.query(`insert into form (empID,c,d,ihl,g,e,ccd,total,gross_sal,gg) VALUES('${empID}',${ec},${ed},${eihl},${eg},${ee},${eccd},${total},${egross_sal}, ${egg})`, (err, result2) => {
+                            console.log("result2" + result2);
+                            if (err) {
+                                console.log(err);
+                                res.json({status:"error", message:err})
+                            }
+                            else {
+                                res.json({status:"success", message:"Declaration Added Successfully!"})
+                                // res.redirect('/addincometax');
+                            }
+                        })
+        
+                        // res.json({status:"success", message:"Declaration Added Successfully!"})
+                    }
+                })
+            })
+        }
+    })
+});
 
 router.post('/declarations', (req, res) => {
     // mysqldb.query(`RENAME TABLE forms TO form`)
@@ -304,9 +419,11 @@ router.post('/declarations', (req, res) => {
     //     sunand= cur_month-month;
     //    res.redirect('salcert/5');
     const dec = JSON.parse(JSON.stringify(req.body));
-    const { g, empID, d, e, ccd, ccc, dd, age,gross_total,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee} = dec;
+    var { gg, empID, d, e,c, ccd, ccc, dd,ihl, age,gross_total,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee, e_proof, c_proof, dd_proof, ngo_g_proof, govt_g_proof, ccc_proof, ccd_proof} = dec;
     // var agebased;
-    var gg = parseInt(g);
+    gg = parseInt(gg);
+    c = parseInt(c);   
+    ihl=parseInt(ihl); 
     var ded_d = parseInt(d);
     var ded_e = parseInt(e);
     var ded_ccd = parseInt(ccd);
@@ -316,6 +433,15 @@ router.post('/declarations', (req, res) => {
     var ded_dd = parseInt(dd);
     var dec_age=parseInt(age);
     var gross_sal=parseInt(gross_total);
+
+    e_proof=parseInt(e_proof);
+    ccc_proof=parseInt(ccc_proof);
+    ccd_proof=parseInt(ccd_proof);
+    dd_proof=parseInt(dd_proof);
+    c_proof=parseInt(c_proof);
+    govt_g_proof=parseInt(govt_g_proof);
+    ngo_g_proof=parseInt(ngo_g_proof);
+
 
     // console.log("g=" + gg, Math.min(g, 60000), "c=" + ded_c, Math.min(c, 150000), d, e, ccd, ccc, dd)
 
@@ -336,8 +462,9 @@ router.post('/declarations', (req, res) => {
                 var ddlimit=JSON.parse(JSON.stringify(upper))[0].ddlimit
                
                 // Math.min(ded_c, climit)
-                //addig 80gg part is remaining
-                var total = Math.min(gg, glimit)  + ded_e + Math.min(ded_ccc, ccclimit) + Math.min(ded_ccd, ccdlimit) + Math.min(ded_dd, ddlimit);
+                //adding 80gg part is remaining
+                // var total = Math.min(gg, glimit) + ded_e + Math.min(c, climit)  + Math.min(ded_ccd, ccdlimit) + Math.min(ihl, 200000);
+                var total=0;
                 console.log(total);
 
                 if (err) {
@@ -359,9 +486,8 @@ router.post('/declarations', (req, res) => {
                             
                             mysqldb.query(`insert into form (empID,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,(err,result2)=>{
                                 if (err) {
-
                                     console.log(err);
-                                    res.json({status:"error", message:"Please Fill All The Fields"})
+                                    res.json({status:"error", message:err})
                                 }
                                 else {
                                     var sum=parseInt(epf)+parseInt(ppf)+parseInt(nsc)+parseInt(ulip)+parseInt(insurancePremium)+parseInt(houseLoan)+parseInt(tuitionFee)+parseInt(bankDeposits)+parseInt(regFee);
@@ -371,7 +497,17 @@ router.post('/declarations', (req, res) => {
                                             res.json({status:"error", message:err})
                                         }
                                         else {
-                                        res.json({status:"success", message:"Declaration Added Successfully!"})
+
+                                            mysqldb.query(`insert into proof (empID,c_proof, dd_proof, ngo_g_proof, govt_g_proof, e_proof, ccc_proof, ccd_proof,) VALUES('${empID}',${c_proof},${dd_proof},${ngo_g_proof},${govt_g_proof},${e_proof},${ccc_proof},${ccd_proof})`,(err,result3)=>{
+                                                if (err) {
+                                                    console.log(err);
+                                                    res.json({status:"error", message:err})
+                                                }
+                                                else {
+                                                res.json({status:"success", message:"Declaration Added Successfully!"})
+                                                }
+                                            })
+                                        // res.json({status:"success", message:"Declaration Added Successfully!"})
                                         }
                                     })
                                 // res.json({status:"success", message:"Declaration Added Successfully!"})
@@ -870,7 +1006,7 @@ router.get('/incometax', ensureAuthenticated, (req, res) => {
 // });
 
 router.get('/updateit', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees natural join eighty_c`, (err, result) => {
+    mysqldb.query(`select * from Employees natural join form`, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -890,12 +1026,12 @@ router.get('/updateit/:empID', ensureAuthenticated, (req, res) => {
     console.log(req.params.empID)
 
     if (requestedTitle.includes("EMP")) {
-        mysqldb.query(`select * from eighty_c natural join Employees `, (err, result) => {
+        mysqldb.query(`select * from form natural join Employees `, (err, result) => {
             if (err) {
                 console.log(err);
             }
             else {
-                mysqldb.query(`select * from Employees natural join eighty_c where empID="${req.params.empID}"`, (err, result2) => {
+                mysqldb.query(`select * from Employees natural join form where empID="${req.params.empID}"`, (err, result2) => {
                     if (err) {
                         console.log(err);
                     }
@@ -2475,6 +2611,7 @@ router.get('/declarations', ensureAuthenticated, (req, res) => {
     })
 });
 
+
 router.get('/declarations/:empID', ensureAuthenticated, (req, res) => {
     var requestedTitle = req.params.empID;
     console.log(req.params.empID)
@@ -2493,7 +2630,7 @@ router.get('/declarations/:empID', ensureAuthenticated, (req, res) => {
                         // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
                         // var set=new Set(JSON.parse(JSON.stringify(result)))
                         console.log("result2 is", result2)
-                        res.render('declarations', {
+                        res.render('estimated', {
                             Employees: JSON.parse(JSON.stringify(result)),
                             name: JSON.parse(JSON.stringify(result2)),
                             role: req.user.role
@@ -3895,9 +4032,7 @@ router.post('/deleteEmployee', (req, res) => {
 })
 
 router.post('/deleteAttendance', (req, res) => {
-    
     console.log(req.body)
-
     console.log("in route")
 
     mysqldb.query(`delete from ${req.body.table} where empID='${req.body.empID}'`, (err, result) => {
@@ -3907,17 +4042,10 @@ router.post('/deleteAttendance', (req, res) => {
             
         }
         else {
-            res.redirect('index1');
-           
+            res.redirect('index1');     
         }
     })
-
     // res.redirect('index1')
-
-
-    
-
-
 })
 
 

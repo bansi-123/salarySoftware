@@ -8,7 +8,7 @@
       function myFunction() {
         alert("Declarations Added Successfully!");
       }
-      </script>
+    </script>
     <style>
       /* .dropbtn {
       background-color: #04AA6D;
@@ -97,7 +97,7 @@
                   <label>
                     <h3>
                   </label></h3> <button padding="40px" onclick="myFunction()" class="dropbtn">Income Tax Declaration
-                    </button>
+                  </button>
                   <div id="myDropdown" class="dropdown-content">
                     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
 
@@ -132,468 +132,629 @@
                 <div class="col-lg-12">
                   <div class="card">
                     <div class="card-title">
-                      <h4>Declarations</h4>
+                      <h4>Employee</h4>
 
                     </div>
-
-                    <form class="form-horizontal" action="\declarations" method="post">
-                    <div class="card-body">
-                      <div class="horizontal-form-elements">
-                        
-                            <div class="row">
-                                <% var i=0 %>
-                                <div class="col-lg-6">
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label"> Employee ID
-                                            (empXXX) <span class="text-danger">*</span></label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="empID" class="form-control"  
-                                            value="<%= name[i].empID %>" pattern="+emp." title="enter valid emp ID" readonly
-                                                ruqt>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Name (As per Aadhar Card) <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="empName" class="form-control" value="<%= name[i].empName %>"
-                                               readonly ruqt>
-                                        </div>
-                                    </div>
-
-                                
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">PAN No. <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="Pan_No" class="form-control"
-                                                pattern=".{10,10}" title="10 alphanumeric characters needed" value="<%= name[i].Pan_No %>"
-                                               readonly ruqt>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Tax Regime <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="emp_temp_regime" class="form-control" id="regime"
-                                            value="<%= name[i].emp_temp_regime %>" readonly ruqt>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Gross Total</label>
-                                        <div class="col-lg-6">
-                                            <input type="number" value=0 name="gross_total" class="form-control" ruqt>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row" id="ihl">
-                                      <label class="col-lg-6 col-form-label">Interest on Housing Loan</label>
-                                      <div class="col-lg-6">
-                                          <input type="number" value=0  name="ihl" class="form-control" ruqt>
-                                      </div>
-                                    </div>
-
-                                    <!-- <div class="form-group row" id="c">
-                                        <label class="col-lg-6 col-form-label">80C</label>
-                                        <div class="col-lg-6">
-                                            <input type="number" value=0  name="c" class="form-control" ruqt>
-                                        </div>
-                                    </div> -->
-
-                                    <div class="form-group row" id="g">
-                                        <label class="col-lg-6 col-form-label">80G (Donation)</label>
-                                        <div class="col-lg-6">
-                                            <input type="number" value=0 name="g" class="form-control" ruqt>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    
-
-                                </div>
-                                    <div class="col-lg-6">
-
-                                        <div class="form-group row" id="d">
-                                            <label class="col-lg-6 col-form-label">80D (Mediclaim)</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" value=0 name="d" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row" id="e">
-                                            <label class="col-lg-6 col-form-label">80E (Interest Paid on Educational Loan – No Limit)</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" value=0 name="e" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row" id="ccc">
-                                            <label class="col-lg-6 col-form-label">80CCC</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" value=0 name="ccc" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row" id="ccd">
-                                            <label class="col-lg-6 col-form-label">80CCD (National Pension Scheme(NPS))</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" value=0 name="ccd" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-
-                                        <input type="number" name="age" value="<%= name[i].age %>" class="form-control" hidden >
-
-                                        <div class="form-group row" id="dd">
-                                            <label class="col-lg-6 col-form-label">80DD</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" value=0 name="dd" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-                                       
-
-                                    </div>
-                                    <!--card ka end -->
-                                    
-
-                                    <br />
-
-
-                                
-                            </div>
-
-                            
-
-
-                       
-                      </div>
-                    </div>
-
-                    
-                  </div>
-                </div>
-
-                <div class="col-lg-12">
-                  <div class="card">
-                    <div class="card-title">
-                      <h4>80C</h4>
-
-                    </div>
-
 
                     <div class="card-body">
                       <div class="horizontal-form-elements">
-                     
-                            <div class="row">
-                                <% var i=0 %>
+
+                        <div class="row">
+                          <% var i=0 %>
+                            <div class="col-lg-6">
+
+                              <div class="form-group row">
+                                <label class="col-lg-6 col-form-label"> Employee ID
+                                  (empXXX) <span class="text-danger">*</span></label>
                                 <div class="col-lg-6">
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label"> 	EPF (Employee Provident Fund) </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="epf" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">	PPF (Public Provident Fund) 
-                                                
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="ppf" class="form-control" 
-                                              >
-                                        </div>
-                                    </div>
-
-                                
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">NSC (National Saving Certificate) 
-                                               
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="nsc" class="form-control"
-                                                 
-                                                >
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">ULIP (Unit Linked Insurance Plan)/ MF (Mutual Fund) 
-                                                
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="ulip" class="form-control" id="regime"
-                                            >
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Annual Insurance Premium</label>
-                                        <div class="col-lg-6">
-                                            <input type="number" value=0 name="insurancePremium" class="form-control" ruqt>
-                                        </div>
-                                    </div>
-
-                                   
-
-                                  
-                                    
-                                    
-                                    
-
+                                  <input type="text" name="empID" class="form-control" value="<%= name[i].empID %>"
+                                    pattern="+emp." title="enter valid emp ID" readonly ruqt>
                                 </div>
-                                    <div class="col-lg-6">
+                              </div>
 
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">	Housing loan Principal Amount</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" value=0 name="houseLoan" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">	Tuition Fee for Children</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" value=0 name="tuitionFee" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">	Bank Deposits</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" value=0 name="bankDeposits" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">	Registration Fee</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" value=0 name="regFee" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-
-                          
-                                       
-
-                                    </div>
-                                    <!--card ka end -->
-                                   
-
-                                    <br />
+                              <div class="form-group row">
+                                <label class="col-lg-6 col-form-label">Name (As per Aadhar Card) <span
+                                    class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                  <input type="text" name="empName" class="form-control" value="<%= name[i].empName %>"
+                                    readonly ruqt>
+                                </div>
+                              </div>
 
 
-                                
+
+
                             </div>
+                            <div class="col-lg-6">
+                              <div class="form-group row">
+                                <label class="col-lg-6 col-form-label">PAN No. <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                  <input type="text" name="Pan_No" class="form-control" pattern=".{10,10}"
+                                    title="10 alphanumeric characters needed" value="<%= name[i].Pan_No %>" readonly
+                                    ruqt>
+                                </div>
+                              </div>
 
-                            
+                              <div class="form-group row">
+                                <label class="col-lg-6 col-form-label">Tax Regime <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                  <input type="text" name="emp_temp_regime" class="form-control" id="regime"
+                                    value="<%= name[i].emp_temp_regime %>" readonly ruqt>
+                                </div>
+                              </div>
 
 
-                      
+
+                            </div>
+                            <!--card ka end -->
+
+
+                            <br />
+
+
+
+                        </div>
+
+
+
+
+
                       </div>
                     </div>
 
-                    
                   </div>
                 </div>
 
-                <div class="col-lg-12">
-                  <div class="card">
-                    <div class="card-title">
-                      <h4>80G</h4>
 
-                    </div>
-
-
-                    <div class="card-body">
-                      <div class="horizontal-form-elements">
-                
-                            <div class="row">
-                                <% var i=0 %>
-                                <div class="col-lg-6">
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label"> Amt paid to Government considered before adjusted gross salary  </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="govtAmt" class="form-control">
-                                        </div>
-                                    </div>
- 
-
-                                </div>
-                                    <div class="col-lg-6">
-
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">Amt paid to NGO after adjusted gross salary</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" value=0 name="ngoAmt" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <!--card ka end -->
-                                    <button class="button large round success" onclick="submitFn(event)">Submit</button>
-
-                                    <br />
-
-
-                                
-                            </div>
-
-                            
-
-
-                        </form>
-                      </div>
-                    </div>
-
-                    
-                  </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="card">
-                    <div class="card-title">
-                      <h4>80GG</h4>
-
-                    </div>
-
-
-                    <div class="card-body">
-                      <div class="horizontal-form-elements">
-                
-                            <div class="row">
-                                <% var i=0 %>
-                                <div class="col-lg-6">
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label"> Metro/Non-metro </label>
-                                        <div class="col-lg-6">
-                                          <select name="metrof" id="metrof" required >
-                                            <option value="metro">Metro</option>
-                                            <option value="nonmetro">Non Metro</option>
-  
-                                        </select>
-                                        </div>
-                      
-                                    </div>
- 
-
-                                </div>
-                                    <div class="col-lg-6">
-
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">House Rent paid</label>
-                                            <div class="col-lg-6">
-                                                <input type="number"  name="ggg" class="form-control" ruqt>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <!--card ka end -->
-                                    <button class="button large round success" onclick="submitFn(event)">Submit</button>
-
-                                    <br />
-
-
-                                
-                            </div>
-
-                            
-
-
-                        </form>
-                      </div>
-                    </div>
-
-                    
-                  </div>
-                </div>
               </div>
-              </section>
+            </div>
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-title">
+                  <h4>Declarations</h4>
+
+                </div>
+
+
+
+
+
+                <form class="form-horizontal" action="\declarations" method="post">
+                  <div class="card-body">
+                    <div class="horizontal-form-elements">
+
+                      <div class="row">
+                        <% var i=0 %>
+                          <div class="col-lg-6">
+
+                            <div class="form-group row">
+                              <label class="col-lg-6 col-form-label">Gross Total</label>
+                              <div class="col-lg-6">
+                                <input type="number" value=0 name="gross_total" class="form-control" ruqt>
+                              </div>
+                            </div>
+
+
+                            <div class="form-group row" id="ihl">
+                              <label class="col-lg-6 col-form-label">Interest on Housing Loan (Estimated)</label>
+                              <div class="col-lg-6">
+                                <input type="number" value=0 name="ihl" class="form-control" ruqt>
+                              </div>
+                            </div>
+
+                            <div class="form-group row" id="e">
+                              <label class="col-lg-6 col-form-label">80E (Interest Paid on Educational Loan – No
+                                Limit) (Estimated)</label>
+                              <div class="col-lg-6">
+                                <input type="number" value=0 name="e" class="form-control" ruqt>
+                              </div>
+                            </div>
+                            <div class="form-group row" id="ccc">
+                              <label class="col-lg-6 col-form-label">80CCC (Estimated)</label>
+                              <div class="col-lg-6">
+                                <input type="number" value=0 name="ccc" class="form-control" ruqt>
+                              </div>
+                            </div>
+                            <div class="form-group row" id="ccd">
+                              <label class="col-lg-6 col-form-label">80CCD (National Pension Scheme(NPS))
+                                (Estimated)</label>
+                              <div class="col-lg-6">
+                                <input type="number" value=0 name="ccd" class="form-control" ruqt>
+                              </div>
+                            </div>
+
+                            <input type="number" name="age" value="<%= name[i].age %>" class="form-control" hidden>
+
+                            <div class="form-group row" id="dd">
+                              <label class="col-lg-6 col-form-label">80DD (Estimated)</label>
+                              <div class="col-lg-6">
+                                <input type="number" value=0 name="dd" class="form-control" ruqt>
+                              </div>
+                            </div>
+
+
+
+
+                          </div>
+                          <div class="col-lg-6">
+                            <br><br><br>
+
+                            
+                            <div class="form-group row" id="e_proof">
+                              <label class="col-lg-6 col-form-label">Proof Submitted</label>
+                              <div class="col-lg-6">
+                                <input type="number" value=0 name="e_proof" class="form-control" ruqt>
+                              </div>
+                            </div>
+                            <div class="form-group row" id="ccc_proof">
+                              <label class="col-lg-6 col-form-label">Proof Submitted</label>
+                              <div class="col-lg-6">
+                                <input type="number" value=0 name="ccc_proof" class="form-control" ruqt>
+                              </div>
+                            </div>
+                            <div class="form-group row" id="ccd_proof">
+                              <label class="col-lg-6 col-form-label">Proof Submitted</label>
+                              <div class="col-lg-6">
+                                <input type="number" value=0 name="ccd_proof" class="form-control" ruqt>
+                              </div>
+                            </div>
+
+                            <div class="form-group row" id="dd_proof">
+                              <label class="col-lg-6 col-form-label">Proof Submitted</label>
+                              <div class="col-lg-6">
+                                <input type="number" value=0 name="dd_proof" class="form-control" ruqt>
+                              </div>
+                            </div>
+
+
+
+
+                          </div>
+                          <!--card ka end -->
+
+
+                          <br />
+
+
+
+                      </div>
+
+
+
+
+
+                    </div>
+                  </div>
+
+
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-title">
+                  <h4>80C</h4>
+
+                </div>
+
+
+                <div class="card-body">
+                  <div class="horizontal-form-elements">
+
+                    <div class="row">
+                      <% var i=0 %>
+                        <div class="col-lg-6">
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> EPF (Employee Provident Fund) </label>
+                            <div class="col-lg-6">
+                              <input type="text" name="epf" class="form-control">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> PPF (Public Provident Fund)
+
+                            </label>
+                            <div class="col-lg-6">
+                              <input type="text" name="ppf" class="form-control">
+                            </div>
+                          </div>
+
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">NSC (National Saving Certificate)
+
+                            </label>
+                            <div class="col-lg-6">
+                              <input type="text" name="nsc" class="form-control">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">ULIP (Unit Linked Insurance Plan)/ MF (Mutual Fund)
+
+                            </label>
+                            <div class="col-lg-6">
+                              <input type="text" name="ulip" class="form-control" id="regime">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Annual Insurance Premium</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="insurancePremium" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Total 80C Estimated</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="c" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+
+
+
+
+
+
+
+                        </div>
+                        <div class="col-lg-6">
+
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Housing loan Principal Amount</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="houseLoan" class="form-control" ruqt>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Tuition Fee for Children</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="tuitionFee" class="form-control" ruqt>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Bank Deposits</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="bankDeposits" class="form-control" ruqt>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Registration Fee</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="regFee" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+                          <br><br><br>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Proof Submitted</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="c_proof" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+                        </div>
+                        <!--card ka end -->
+
+
+                        <br />
+
+
+
+                    </div>
+
+
+
+
+
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-title">
+                  <h4>80G</h4>
+
+                </div>
+
+
+                <div class="card-body">
+                  <div class="horizontal-form-elements">
+
+                    <div class="row">
+                      <% var i=0 %>
+                        <div class="col-lg-6">
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Amt paid to Government considered before adjusted
+                              gross salary </label>
+                            <div class="col-lg-6">
+                              <input type="text" name="govtAmt" class="form-control">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Amt paid to NGO after adjusted gross salary</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="ngoAmt" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+
+
+
+                        </div>
+                        <div class="col-lg-6">
+
+
+
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Proof Submitted</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="govt_g_proof" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+                          <br>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Proof Submitted</label>
+                            <div class="col-lg-6">
+                              <input type="number" value=0 name="ngo_g_proof" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+
+
+                        </div>
+                        <!--card ka end -->
+
+
+                        <br />
+
+
+
+                    </div>
+
+
+
+
+                    </form>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-title">
+                  <h4>80GG</h4>
+
+                </div>
+
+
+                <div class="card-body">
+                  <div class="horizontal-form-elements">
+
+                    <div class="row">
+                      <% var i=0 %>
+                        <div class="col-lg-6">
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label"> Metro/Non-metro </label>
+                            <div class="col-lg-6">
+                              <select name="metrof" id="metrof" required>
+                                <option value="metro">Metro</option>
+                                <option value="nonmetro">Non Metro</option>
+
+                              </select>
+                            </div>
+
+                          </div>
+
+
+                        </div>
+                        <div class="col-lg-6">
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">House Rent paid</label>
+                            <div class="col-lg-6">
+                              <input type="number" name="gg" class="form-control" ruqt>
+                            </div>
+                          </div>
+
+                        </div>
+                        <!--card ka end -->
+
+                        <br />
+
+
+
+                    </div>
+
+
+
+
+                    </form>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-title">
+                  <h4>80D (Mediclaim)</h4>
+
+                </div>
+
+
+                <div class="card-body">
+                  <div class="horizontal-form-elements">
+
+                    <div class="row">
+                      <% var i=0 %>
+                        <div class="col-lg-6">
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Mediclaim for yourself?</label>
+                            <div class="col-lg-6">
+                              <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                              <label for="vehicle1">Yes</label><br>
+                              
+                            </div>
+
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Mediclaim for parents?</label>
+                            <div class="col-lg-6">
+                              <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                              <label for="vehicle1">Yes</label><br>
+                              
+                            </div>
+
+                          </div>
+
+
+                        </div>
+                        <div class="col-lg-6">
+
+                          <br><br>
+
+                          <div class="form-group row">
+                            <label class="col-lg-6 col-form-label">Age of parents above 60?</label>
+                            <div class="col-lg-6">
+                              <input type="checkbox" id="vehicle1" name="vehicle1" value="Yes">
+                              <label for="vehicle1">Yes</label><br>
+                             
+
+                              </select>
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <!--card ka end -->
+                        <button class="button large round success" onclick="submitFn(event)">Submit</button>
+
+                        <br />
+
+
+
+                    </div>
+
+
+
+
+                    </form>
+                  </div>
+                </div>
+
+
+              </div>
             </div>
           </div>
+          </section>
         </div>
+      </div>
+    </div>
 
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
-        <script src="../assets/alert/script.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
+    <script src="../assets/alert/script.js"></script>
 
-        <script>
-          var regime = document.getElementById("regime").value;
-          console.log("regime is");
-          console.log(regime)
-          if(regime=="new")
-          {
-            var regime = document.getElementById("c").style.display="none";
-            var regime = document.getElementById("g").style.display="none";
-            var regime = document.getElementById("d").style.display="none";
-            var regime = document.getElementById("e").style.display="none";
-            var regime = document.getElementById("ccc").style.display="none";
-            var regime = document.getElementById("ccd").style.display="none";
-            var regime = document.getElementById("dd").style.display="none";
-            var regime = document.getElementById("ggg").style.display="none";
+    <script>
+      var regime = document.getElementById("regime").value;
+      console.log("regime is");
+      console.log(regime)
+      if (regime == "new") {
+        var regime = document.getElementById("c").style.display = "none";
+        var regime = document.getElementById("g").style.display = "none";
+        var regime = document.getElementById("d").style.display = "none";
+        var regime = document.getElementById("e").style.display = "none";
+        var regime = document.getElementById("ccc").style.display = "none";
+        var regime = document.getElementById("ccd").style.display = "none";
+        var regime = document.getElementById("dd").style.display = "none";
+        var regime = document.getElementById("gg").style.display = "none";
 
-            // var regime = document.getElementById("regime").value;
-            // var regime = document.getElementById("regime").value;
-            // var regime = document.getElementById("regime").value;
-          }
-        </script>
-<script>
-  function submitFn(event) {
-      event.preventDefault()
-      console.log("HERE")
-      var data=document.querySelectorAll('select,input')
-     
-      console.log("data2" + data)
-      var sendData={}
-      for (var i in data) {
-              var prop=data[i].name;
-              sendData[prop]=data[i].value;
+        // var regime = document.getElementById("regime").value;
+        // var regime = document.getElementById("regime").value;
+        // var regime = document.getElementById("regime").value;
       }
+    </script>
+    <script>
+      function submitFn(event) {
+        event.preventDefault()
+        console.log("HERE")
+        var data = document.querySelectorAll('select,input')
 
-    
-      console.log("sendData" + sendData)
-  
-      axios.post('http://localhost:3000/declarations',sendData)
+        console.log("data2" + data)
+        var sendData = {}
+        for (var i in data) {
+          var prop = data[i].name;
+          sendData[prop] = data[i].value;
+        }
+
+
+        console.log("sendData" + sendData)
+
+        axios.post('http://localhost:3000/declarations', sendData)
           .then(function (response) {
-              if(response.data.status=="error")
-              {
-                  console.log("status" + response.data)
-                  console.log("ERROR")
-                  var message=response.data.message
-                  alertify.set({ delay: 3000 });
-          alertify.error(message); 
-                           
-              }
-              else
-              {
-                  console.log("SUCCESS")
-                  console.log(response)
-                  var message=response.data.message
-                  alertify.set({ delay: 3000 });
-                  alertify.success(message);  
-              }
-              
+            if (response.data.status == "error") {
+              console.log("status" + response.data)
+              console.log("ERROR")
+              var message = response.data.message
+              alertify.set({ delay: 3000 });
+              alertify.error(message);
+
+            }
+            else {
+              console.log("SUCCESS")
+              console.log(response)
+              var message = response.data.message
+              alertify.set({ delay: 3000 });
+              alertify.success(message);
+            }
+
           })
           .catch(function (error) {
-              //console.log("ERROR")
-              console.log(error)
-          });   
-  }
-</script>
-        <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
-        <script src="../assets/assets/js/scripts.js"></script>
-        <!-- scripit init-->
-        <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
+            //console.log("ERROR")
+            console.log(error)
+          });
+      }
+    </script>
+    <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
+    <script src="../assets/assets/js/scripts.js"></script>
+    <!-- scripit init-->
+    <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
 
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </body>
 
   </html>
