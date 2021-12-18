@@ -5313,10 +5313,309 @@ router.get("/register/nonteaching", (req, res) => {
 // })
 
 router.post("/updateIncomeTax", (req, res) => {
-  const data = JSON.parse(JSON.stringify(req.body));
-  // console.log(data.empID[1])
+  const dec = JSON.parse(JSON.stringify(req.body));
+  //select ifnull(epf,0)+ifnull(ppf,0)+ifnull(nsc,0)+ifnull(ulip,0)+ifnull(insurancePremium,0)+ifnull(houseLoan,0)+ifnull(tuitionFee,0)+ifnull(bankDeposits,0)+ifnull(regFee,0) as totals from eighty_c;
+  var {
+    gg,
+    empID,
+    d,
+    e,
+    c,
+    ccd,
+    ccc,
+    dd,
+    ihl,
+    age,
+    gross_total,
+    epf,
+    ppf,
+    nsc,
+    ulip,
+    insurancePremium,
+    houseLoan,
+    tuitionFee,
+    bankDeposits,
+    regFee,
+    e_proof,
+    c_proof,
+    dd_proof,
+    ngo_g_proof,
+    govt_g_proof,
+    ccc_proof,
+    ccd_proof,
+  } = dec;
+  // var agebased;
+  gg = parseInt(gg);
+  c = parseInt(c);
+  ihl = parseInt(ihl);
+  var ded_d = parseInt(d);
+  var ded_e = parseInt(e);
+  var ded_ccd = parseInt(ccd);
+  // var ded_ccc = parseInt(ccc);
+  // var ded_gg = parseInt(ggg);
+
+  var ded_dd = parseInt(dd);
+  var dec_age = parseInt(age);
+  var gross_sal = parseInt(gross_total);
+
+  e_proof = parseInt(e_proof);
+  // ccc_proof = parseInt(ccc_proof);
+  ccd_proof = parseInt(ccd_proof);
+  dd_proof = parseInt(dd_proof);
+  c_proof = parseInt(c_proof);
+  govt_g_proof = parseInt(govt_g_proof);
+  ngo_g_proof = parseInt(ngo_g_proof);
+
+  // console.log("g=" + gg, Math.min(g, 60000), "c=" + ded_c, Math.min(c, 150000), d, e, ccd, ccc, dd)
+
+  mysqldb.query(`select * from Employees`, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      mysqldb.query(`select * from edit_limits`, (err, upper) => {
+        console.log(upper);
+        var climit = JSON.parse(JSON.stringify(upper))[0].climit;
+        var glimit = JSON.parse(JSON.stringify(upper))[0].glimit;
+        var dlimit1 = JSON.parse(JSON.stringify(upper))[0].dlimit1;
+        var dlimit2 = JSON.parse(JSON.stringify(upper))[0].dlimit2;
+        var ccclimit = JSON.parse(JSON.stringify(upper))[0].ccclimit;
+        var ccdlimit = JSON.parse(JSON.stringify(upper))[0].ccdlimit;
+        var ddlimit = JSON.parse(JSON.stringify(upper))[0].ddlimit;
+
+        // Math.min(ded_c, climit)
+        //adding 80gg part is remaining
+        // var total = Math.min(gg, glimit) + ded_e + Math.min(c, climit)  + Math.min(ded_ccd, ccdlimit) + Math.min(ihl, 200000);
+        var total = 0;
+        console.log(total);
+
+        if (err) {
+          console.log(err);
+        } else {
+          mysqldb.query(
+            `update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,
+            (err, result1) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log(dec_age);
+                var limit_d = dlimit1;
+                if (dec_age > 60) {
+                  limit_d = dlimit2;
+                }
+                total += Math.min(ded_d, limit_d);
+
+                mysqldb.query(
+                  `insert into form (empID,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,
+                  (err, result2) => {
+                    if (err) {
+                      console.log(err);
+                      res.json({ status: "error", message: err });
+                    } else {
+                      mysqldb.query(
+                        `replace into eighty_c (empID,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee) VALUES('${empID}',${epf},${ppf},${nsc},${ulip},${insurancePremium},${houseLoan},${tuitionFee},${bankDeposits},${regFee})`,
+                        (err, result2) => {
+                          if (err) {
+                            console.log(err);
+                            res.json({ status: "error", message: err });
+                          } else {
+                            mysqldb.query(
+                              `replace into proof (empID,c_proof, dd_proof, ngo_g_proof, govt_g_proof, e_proof, ccd_proof,) VALUES('${empID}',${c_proof},${dd_proof},${ngo_g_proof},${govt_g_proof},${e_proof},${ccd_proof})`,
+                              (err, result3) => {
+                                if (err) {
+                                  console.log(err);
+                                  res.json({ status: "error", message: err });
+                                } else {
+                                  res.json({
+                                    status: "success",
+                                    message: "Declaration Added Successfully!",
+                                  });
+                                }
+                              }
+                            );
+                            // res.json({status:"success", message:"Declaration Added Successfully!"})
+                          }
+                        }
+                      );
+                      // res.json({status:"success", message:"Declaration Added Successfully!"})
+                    }
+                  }
+                );
+              }
+            }
+          );
+        }
+      });
+    }
+  });
+  console.log(req.body);
+  var total = 0;
+  var {
+    g,
+    empID,
+    c,
+    d,
+    e,
+    ccd,
+    ihl,
+    age,
+    gross_total,
+    donation_govt,
+    donation_ngo,
+    yourself,
+    metrof,
+    house_rent,
+    parents,
+    above60,
+    epf,
+    ppf,
+    nsc,
+    ulip,
+    insurancePremium,
+    houseLoan
+  } = data;
+  // var agebased;
+  var eg = parseInt(g);
+  var ec = parseInt(c);
+  var ed = parseInt(d);
+  var ee = parseInt(e);
+  var eccd = parseInt(ccd);
+  var dec_age = parseInt(age);
+  var gross_sal = parseInt(gross_total);
+  var eihl = parseInt(ihl);
+//   var egg = parseInt(gg);
+  var rent = parseInt(house_rent);
+  var donation_govt=parseInt(donation_govt)
+  var donation_govt=parseInt(donation_ngo)
+
+
+
   mysqldb.query(
-    `update form set c=${data.c}, d=${data.d}, dd=${data.dd},
+    `select * from Employees where empID='${empID}'`,
+    (err, result) => {
+      var gp = parseInt(JSON.parse(JSON.stringify(result))[0].gp);
+      var pay = parseInt(JSON.parse(JSON.stringify(result))[0].pay);
+
+      var da_MultFactor = parseFloat(JSON.parse(JSON.stringify(result))[0].da);
+      var hra_MultFactor = parseFloat(
+        JSON.parse(JSON.stringify(result))[0].hra
+      );
+
+      console.log(JSON.parse(JSON.stringify(result))[0]);
+      console.log(
+        "gp,pf,bp,da,hra selected for empid",
+        gp,
+        pay,
+        da_MultFactor,
+        hra_MultFactor
+      );
+
+      var da = (pay + parseFloat(gp)) * da_MultFactor;
+      da = da + pay + parseFloat(gp);
+      console.log("da is", da);
+      var hra = (pay + parseFloat(gp)) * hra_MultFactor;
+      console.log("hra is", hra);
+
+      if (err) {
+        console.log(err);
+      } else {
+        mysqldb.query(`select * from edit_limits`, (err, upper) => {
+          console.log(upper);
+          var climit = JSON.parse(JSON.stringify(upper))[0].climit;
+          var glimit = JSON.parse(JSON.stringify(upper))[0].glimit;
+          var dlimit1 = JSON.parse(JSON.stringify(upper))[0].dlimit1;
+          var dlimit2 = JSON.parse(JSON.stringify(upper))[0].dlimit2;
+          var ccclimit = JSON.parse(JSON.stringify(upper))[0].ccclimit;
+          var ccdlimit = JSON.parse(JSON.stringify(upper))[0].ccdlimit;
+          var ddlimit = JSON.parse(JSON.stringify(upper))[0].ddlimit;
+          var std = JSON.parse(JSON.stringify(upper))[0].st_ded;
+          var ihl_limit = JSON.parse(JSON.stringify(upper))[0].ihl;
+          var gg1;
+
+          if (metrof === "metro") {
+            gg1 = 0.5 * da;
+          } else {
+            gg1 = 0.4 * da;
+          }
+
+          var gg2 = rent - 0.1 * da;
+          if (gg2 < 0) {
+            gg2 = 0;
+          }
+
+          console.log("gg1", gg1);
+          console.log("gg2", gg2);
+
+          var total =
+            std +
+            Math.min(ec, climit) +
+            Math.min(eihl, ihl_limit) +
+            ee +
+            Math.min(eccd, ccdlimit) +
+            Math.min(Math.min(gg1, gg2), hra);
+          // var total=0;
+          console.log(total);
+
+          mysqldb.query(
+            `update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,
+            (err, result1) => {
+              var mediclaim = 25000;
+              if (dec_age > 60) {
+                mediclaim+=25000
+                if (parents === "yes") {
+                    mediclaim+=50000
+                }
+              }
+
+              else{
+                if (parents === "yes") {
+                    mediclaim+=25000
+                    if(above60 === "yes")
+                    {
+                        mediclaim+=25000
+                    }
+                }
+              }
+              console.log(mediclaim);
+
+              total += Math.min(mediclaim,ed)
+              total += donation_govt 
+
+              var adjusted = gross_sal - total
+
+              total += Math.min( 0.1 * adjusted, 0.5 * donation_ngo)
+
+              console.log("total is this " + total);
+              if (err) {
+                console.log(err);
+              } else {
+                mysqldb.query(
+                  `insert into form (empID,c,d,ihl,g,e,ccd,total,gross_sal) VALUES('${empID}',${ec},${ed},${eihl},${eg},${ee},${eccd},${total},${gross_sal})`,
+                  (err, result2) => {
+                    console.log("result2" + result2);
+                    if (err) {
+                      console.log(err);
+                      res.json({ status: "error", message: err });
+                    } else {
+                      res.json({
+                        status: "success",
+                        message: "Declaration Added Successfully!",
+                      });
+                      // res.redirect('/addincometax');
+                    }
+                  }
+                );
+
+                // res.json({status:"success", message:"Declaration Added Successfully!"})
+              }
+            }
+          );
+        });
+      }
+    }
+  );
+  mysqldb.query(
+    `update proof set e_proof=${data.e}, ihl_proof=${data.ihl}, ccd_proof=${data.ccd},
+    ccd_proof=${data.ccd},
     total=${data[`${data.empID}`][1]},
     gross_sal=${data[`${data.empID}`][0]} where empID ='${data.empID}' `,
     (res, error) => {
