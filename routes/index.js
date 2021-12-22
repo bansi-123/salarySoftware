@@ -1766,7 +1766,7 @@ router.post("/differences", ensureAuthenticated, (req, res) => {
   for (let i = 0; i < list2.length; i++) {
     console.log("i is", list2[i]);
     mysqldb.query(
-      `insert into increment_difference(empID,month,duration,year) VALUES ('${list2[i]}','${month}',${duration},${year})`,
+      `insert into increment_difference(empID,month,duration,year,start_month,start_year) VALUES ('${list2[i]}','${month}',${duration},${year},'${first_month}',${first_year},)`,
       (err, result) => {
         if (err) {
           console.log(err);
