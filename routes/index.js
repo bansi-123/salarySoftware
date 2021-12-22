@@ -512,158 +512,158 @@ router.post("/declare", (req, res) => {
   );
 });
 
-router.post("/declarations", (req, res) => {
-  // mysqldb.query(`RENAME TABLE forms TO form`)
-  console.log(req.body);
-  //     var cur_month=new Date().getMonth()+1;
-  //     const trip =JSON.parse(JSON.stringify(req.body));
-  //     month= trip.trip.slice(5,7);
-  //     sunand= cur_month-month;
-  //    res.redirect('salcert/5');
-  const dec = JSON.parse(JSON.stringify(req.body));
-  var {
-    gg,
-    empID,
-    d,
-    e,
-    c,
-    ccd,
-    ccc,
-    dd,
-    ihl,
-    age,
-    gross_total,
-    epf,
-    ppf,
-    nsc,
-    ulip,
-    insurancePremium,
-    houseLoan,
-    tuitionFee,
-    bankDeposits,
-    regFee,
-    e_proof,
-    c_proof,
-    dd_proof,
-    ngo_g_proof,
-    govt_g_proof,
-    ccc_proof,
-    ccd_proof,
-  } = dec;
-  // var agebased;
-  gg = parseInt(gg);
-  c = parseInt(c);
-  ihl = parseInt(ihl);
-  var ded_d = parseInt(d);
-  var ded_e = parseInt(e);
-  var ded_ccd = parseInt(ccd);
-  var ded_ccc = parseInt(ccc);
-  // var ded_gg = parseInt(ggg);
+// router.post("/declarations", (req, res) => {
+//   // mysqldb.query(`RENAME TABLE forms TO form`)
+//   console.log(req.body);
+//   //     var cur_month=new Date().getMonth()+1;
+//   //     const trip =JSON.parse(JSON.stringify(req.body));
+//   //     month= trip.trip.slice(5,7);
+//   //     sunand= cur_month-month;
+//   //    res.redirect('salcert/5');
+//   const dec = JSON.parse(JSON.stringify(req.body));
+//   var {
+//     gg,
+//     empID,
+//     d,
+//     e,
+//     c,
+//     ccd,
+//     ccc,
+//     dd,
+//     ihl,
+//     age,
+//     gross_total,
+//     epf,
+//     ppf,
+//     nsc,
+//     ulip,
+//     insurancePremium,
+//     houseLoan,
+//     tuitionFee,
+//     bankDeposits,
+//     regFee,
+//     e_proof,
+//     c_proof,
+//     dd_proof,
+//     ngo_g_proof,
+//     govt_g_proof,
+//     ccc_proof,
+//     ccd_proof,
+//   } = dec;
+//   // var agebased;
+//   gg = parseInt(gg);
+//   c = parseInt(c);
+//   ihl = parseInt(ihl);
+//   var ded_d = parseInt(d);
+//   var ded_e = parseInt(e);
+//   var ded_ccd = parseInt(ccd);
+//   var ded_ccc = parseInt(ccc);
+//   // var ded_gg = parseInt(ggg);
 
-  var ded_dd = parseInt(dd);
-  var dec_age = parseInt(age);
-  var gross_sal = parseInt(gross_total);
+//   var ded_dd = parseInt(dd);
+//   var dec_age = parseInt(age);
+//   var gross_sal = parseInt(gross_total);
 
-  e_proof = parseInt(e_proof);
-  ccc_proof = parseInt(ccc_proof);
-  ccd_proof = parseInt(ccd_proof);
-  dd_proof = parseInt(dd_proof);
-  c_proof = parseInt(c_proof);
-  govt_g_proof = parseInt(govt_g_proof);
-  ngo_g_proof = parseInt(ngo_g_proof);
+//   e_proof = parseInt(e_proof);
+//   ccc_proof = parseInt(ccc_proof);
+//   ccd_proof = parseInt(ccd_proof);
+//   dd_proof = parseInt(dd_proof);
+//   c_proof = parseInt(c_proof);
+//   govt_g_proof = parseInt(govt_g_proof);
+//   ngo_g_proof = parseInt(ngo_g_proof);
 
-  // console.log("g=" + gg, Math.min(g, 60000), "c=" + ded_c, Math.min(c, 150000), d, e, ccd, ccc, dd)
+//   // console.log("g=" + gg, Math.min(g, 60000), "c=" + ded_c, Math.min(c, 150000), d, e, ccd, ccc, dd)
 
-  mysqldb.query(`select * from Employees`, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      mysqldb.query(`select * from edit_limits`, (err, upper) => {
-        console.log(upper);
-        var climit = JSON.parse(JSON.stringify(upper))[0].climit;
-        var glimit = JSON.parse(JSON.stringify(upper))[0].glimit;
-        var dlimit1 = JSON.parse(JSON.stringify(upper))[0].dlimit1;
-        var dlimit2 = JSON.parse(JSON.stringify(upper))[0].dlimit2;
-        var ccclimit = JSON.parse(JSON.stringify(upper))[0].ccclimit;
-        var ccdlimit = JSON.parse(JSON.stringify(upper))[0].ccdlimit;
-        var ddlimit = JSON.parse(JSON.stringify(upper))[0].ddlimit;
+//   mysqldb.query(`select * from Employees`, (err, result) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       mysqldb.query(`select * from edit_limits`, (err, upper) => {
+//         console.log(upper);
+//         var climit = JSON.parse(JSON.stringify(upper))[0].climit;
+//         var glimit = JSON.parse(JSON.stringify(upper))[0].glimit;
+//         var dlimit1 = JSON.parse(JSON.stringify(upper))[0].dlimit1;
+//         var dlimit2 = JSON.parse(JSON.stringify(upper))[0].dlimit2;
+//         var ccclimit = JSON.parse(JSON.stringify(upper))[0].ccclimit;
+//         var ccdlimit = JSON.parse(JSON.stringify(upper))[0].ccdlimit;
+//         var ddlimit = JSON.parse(JSON.stringify(upper))[0].ddlimit;
 
-        // Math.min(ded_c, climit)
-        //adding 80gg part is remaining
-        // var total = Math.min(gg, glimit) + ded_e + Math.min(c, climit)  + Math.min(ded_ccd, ccdlimit) + Math.min(ihl, 200000);
-        var total = 0;
-        console.log(total);
+//         // Math.min(ded_c, climit)
+//         //adding 80gg part is remaining
+//         // var total = Math.min(gg, glimit) + ded_e + Math.min(c, climit)  + Math.min(ded_ccd, ccdlimit) + Math.min(ihl, 200000);
+//         var total = 0;
+//         console.log(total);
 
-        if (err) {
-          console.log(err);
-        } else {
-          mysqldb.query(
-            `update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,
-            (err, result1) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log(dec_age);
-                var limit_d = dlimit1;
-                if (dec_age > 60) {
-                  limit_d = dlimit2;
-                }
-                total += Math.min(ded_d, limit_d);
+//         if (err) {
+//           console.log(err);
+//         } else {
+//           mysqldb.query(
+//             `update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,
+//             (err, result1) => {
+//               if (err) {
+//                 console.log(err);
+//               } else {
+//                 console.log(dec_age);
+//                 var limit_d = dlimit1;
+//                 if (dec_age > 60) {
+//                   limit_d = dlimit2;
+//                 }
+//                 total += Math.min(ded_d, limit_d);
 
-                mysqldb.query(
-                  `insert into form (empID,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,
-                  (err, result2) => {
-                    if (err) {
-                      console.log(err);
-                      res.json({
-                        status: "error",
-                        message: err
-                      });
-                    } else {
-                      mysqldb.query(
-                        `insert into eighty_c (empID,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee) VALUES('${empID}',${epf},${ppf},${nsc},${ulip},${insurancePremium},${houseLoan},${tuitionFee},${bankDeposits},${regFee})`,
-                        (err, result2) => {
-                          if (err) {
-                            console.log(err);
-                            res.json({
-                              status: "error",
-                              message: err
-                            });
-                          } else {
-                            mysqldb.query(
-                              `insert into proof (empID,c_proof, dd_proof, ngo_g_proof, govt_g_proof, e_proof, ccc_proof, ccd_proof,) VALUES('${empID}',${c_proof},${dd_proof},${ngo_g_proof},${govt_g_proof},${e_proof},${ccc_proof},${ccd_proof})`,
-                              (err, result3) => {
-                                if (err) {
-                                  console.log(err);
-                                  res.json({
-                                    status: "error",
-                                    message: err
-                                  });
-                                } else {
-                                  res.json({
-                                    status: "success",
-                                    message: "Declaration Added Successfully!",
-                                  });
-                                }
-                              }
-                            );
-                            // res.json({status:"success", message:"Declaration Added Successfully!"})
-                          }
-                        }
-                      );
-                      // res.json({status:"success", message:"Declaration Added Successfully!"})
-                    }
-                  }
-                );
-              }
-            }
-          );
-        }
-      });
-    }
-  });
-  //res.redirect('/addincometax');
-});
+//                 mysqldb.query(
+//                   `insert into form (empID,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,
+//                   (err, result2) => {
+//                     if (err) {
+//                       console.log(err);
+//                       res.json({
+//                         status: "error",
+//                         message: err
+//                       });
+//                     } else {
+//                       mysqldb.query(
+//                         `insert into eighty_c (empID,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee) VALUES('${empID}',${epf},${ppf},${nsc},${ulip},${insurancePremium},${houseLoan},${tuitionFee},${bankDeposits},${regFee})`,
+//                         (err, result2) => {
+//                           if (err) {
+//                             console.log(err);
+//                             res.json({
+//                               status: "error",
+//                               message: err
+//                             });
+//                           } else {
+//                             mysqldb.query(
+//                               `insert into proof (empID,c_proof, dd_proof, ngo_g_proof, govt_g_proof, e_proof, ccc_proof, ccd_proof,) VALUES('${empID}',${c_proof},${dd_proof},${ngo_g_proof},${govt_g_proof},${e_proof},${ccc_proof},${ccd_proof})`,
+//                               (err, result3) => {
+//                                 if (err) {
+//                                   console.log(err);
+//                                   res.json({
+//                                     status: "error",
+//                                     message: err
+//                                   });
+//                                 } else {
+//                                   res.json({
+//                                     status: "success",
+//                                     message: "Declaration Added Successfully!",
+//                                   });
+//                                 }
+//                               }
+//                             );
+//                             // res.json({status:"success", message:"Declaration Added Successfully!"})
+//                           }
+//                         }
+//                       );
+//                       // res.json({status:"success", message:"Declaration Added Successfully!"})
+//                     }
+//                   }
+//                 );
+//               }
+//             }
+//           );
+//         }
+//       });
+//     }
+//   });
+//   //res.redirect('/addincometax');
+// });
 
 router.post("/check", (req, res) => {
   console.log(req.body);
@@ -1168,67 +1168,6 @@ router.get("/incometax", ensureAuthenticated, (req, res) => {
   });
 });
 
-// router.get('/updateincometax', ensureAuthenticated, (req, res) => {
-//     mysqldb.query(`select * from Employees natural join form`, (err, result) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-//             res.render('update_home', {
-//                 Employees: JSON.parse(JSON.stringify(result)),
-//                 role: req.user.role
-//             });
-//         }
-//     })
-
-// });
-
-// router.get('/updateincometax/:empID', ensureAuthenticated, (req, res) => {
-//     var requestedTitle = req.params.empID;
-//     console.log(req.params.empID)
-
-//     if (requestedTitle.includes("EMP")) {
-//         mysqldb.query(`select * from form natural join Employees `, (err, result) => {
-//             if (err) {
-//                 console.log(err);
-//             }
-//             else {
-//                 mysqldb.query(`select * from form natural join Employees where empID="${req.params.empID}"`, (err, result2) => {
-//                     if (err) {
-//                         console.log(err);
-//                     }
-//                     else {
-
-//                         mysqldb.query(`select * from edit_limits`, (err, result3) => {
-//                             if (err) {
-//                                 console.log(err);
-//                             }
-//                             else {
-
-//                             // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-//                             // var set=new Set(JSON.parse(JSON.stringify(result)))
-//                                 console.log("result3 is", result3)
-//                                 res.render('updateincometax', {
-//                                     Employees: JSON.parse(JSON.stringify(result2)),
-//                                     name: JSON.parse(JSON.stringify(result2)),
-//                                     limits: JSON.parse(JSON.stringify(result3)),
-//                                     role: req.user.role
-//                                 });
-//                             }
-//                         })
-//                     }
-//                 })
-//             }
-//         })
-//     }
-//     else {
-//         requestedTitle = "/" + requestedTitle
-//         res.redirect(requestedTitle,{
-//             role: req.user.role
-//         })
-//     }
-// });
 
 router.get("/updateit", ensureAuthenticated, (req, res) => {
   mysqldb.query(`select * from Employees natural join form`, (err, result) => {
@@ -2466,36 +2405,7 @@ router.get("/allowances", (req, res) => {
   });
 });
 
-// router.post('/allowances', (req, res) => {
-//     console.log(JSON.parse(JSON.stringify(req.body)))
-//     const {hra_MultFactor,da_MultFactor}=JSON.parse(JSON.stringify(req.body));
-//     mysqldb.query(`update config set hra_MultFactor=${hra_MultFactor},da_MultFactor=${da_MultFactor} where ID=1`,(err,result)=>
-//     {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
-//             res.redirect('index1');
-//         }
-//     })
 
-// });
-
-// router.get('/viewallow', (req, res) => {
-//     mysqldb.query(`select * from config`, (err, result) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             console.log("Salary Details", JSON.parse(JSON.stringify(result)));
-//             res.render('viewallow', {
-//                 data: JSON.parse(JSON.stringify(result))
-//             });
-//         }
-//     })
-
-// });
 
 router.get("/salsheet", (req, res) => {
   res.render("salsheet", {
@@ -5116,7 +5026,7 @@ router.post("/storeIncomeTax", (req, res) => {
                     exemption = 0;
                   }
                   var net_taxable_income =
-                    gross_total_income - exemption - st_ded;
+                    gross_total_income - exemption;
                   if (net_taxable_income < 0) {
                     net_taxable_income = 0;
                   }
@@ -5258,10 +5168,10 @@ router.post("/storeIncomeTax", (req, res) => {
                   var tds_per_month = total_tax / 12;
                   var balance = total_tax;
                   console.log(
-                    `insert into income_tax (empID,exemption,prev_investment,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES ('${empID}',${exemption},${investment},${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year})`
+                    `insert into income_tax (empID,exemption,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES ('${empID}',${exemption}${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year})`
                   );
                   mysqldb.query(
-                    `insert into income_tax (empID,exemption,prev_investment,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year,type) VALUES ('${empID}',${exemption},${investment},${investment},${net_taxable_income},${tax_on_income},${rebate},${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year},"initial")`,
+                    `insert into income_tax (empID,exemption,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year,type) VALUES ('${empID}',${exemption},${investment},${net_taxable_income},${tax_on_income},${rebate},${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year},"initial")`,
                     (err, result) => {
                       if (err) {
                         console.log(err);
@@ -5281,33 +5191,7 @@ router.post("/storeIncomeTax", (req, res) => {
     res.redirect("incometax");
   });
 });
-// router.post('/declaration',(req,res)=>{
 
-//     const data=JSON.parse(JSON.stringify(req.body));
-//     const {empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment   , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo}=data;
-//     console.log(JSON.parse(JSON.stringify(req.body)))
-//     console.log("here")
-//     // mysqldb.query(`INSERT INTO Employees (empName) VALUES ('${empName}')`
-//  //  empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , Type  , Type1 ,  onroll  , dop  , doc   ,appointment ,  Relieving  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,(err,result)=>{
-
-//     // console.log(`INSERT INTO Employees (empName, uan, dept, designation, pay, gp, pf, bankAccNum, bankName, doj, salaryCategory,emailID, groupInsurance,payBand,branchName,ifscCode,designationCategory) VALUES ('${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, ${bankAccNum}, '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}')`)
-//     mysqldb.query(`INSERT INTO Employees (empID,empName, uan,dept, designation, pay,  gp ,  pf ,  bankAccNum , bankName , doj , salaryCategory , emailID , groupInsurance , payBand , branchName,  ifscCode,  designationCategory,   emailID2,  nonteach,  Subject,    cca,   ta , dop  , doc   ,appointment  , category ,  gender ,  status ,  mobile,    address_correspondence ,  address_permanent , mis ,  biometric ,  vacation  , seniority,  dept_seniority ,   aadhar , Pan_No,   onrole  , phd , phdSub ,phdUni ,phdInsti,   phdYr,  pgSub,  pgUni,  pgYr,ugSub,ugUni,ugYr,grade,netset,othqual,exp,industry_exp,uni_approval,uni_app_date,uni_app_period,workexNT,dob,investment,emp_temp_regime,age,photo) VALUES ('${mis}','${empName}', ${uan}, '${dept}', '${designation}', ${pay}, ${gp}, ${pf}, '${bankAccNum}', '${bankName}', '${doj}', '${salaryCategory}','${emailID}',${groupInsurance},'${payBand}','${branchName}','${ifscCode}','${designationCategory}','${emailID2}','${nonteach}','${Subject}',${cca},${ta},'${dop}','${doc}','${appointment}','${category}','${gender}','${status}',${mobile},'${address_correspondence}','${address_permanent}','${mis}','${biometric}','${vacation}','${seniority}','${dept_seniority}','${aadhar}','${Pan_No}','${onrole}','${phd}','${phdSub}','${phdUni}','${phdInsti}',${phdYr},'${pgSub}','${pgUni}',${pgYr},'${ugSub}','${ugUni}',${ugYr},'${grade}','${netset}','${othqual}',${exp},${industry_exp},${uni_approval},'${uni_app_date}',${uni_app_period},${workexNT},'${dob}',${investment},'${emp_temp_regime}',${age},'${photo}')`
-//     ,(err,result)=>{
-//             if (err) {
-//             console.log(err);
-//             console.log("invalid details");
-//         }
-//         else{
-//             // console.log(JSON.parse(JSON.stringify(result))[0])
-//             console.log(result);
-//             res.redirect('/declaration')
-//             // req.flash(
-//             //     'success_msg',
-//             //     'Employee found!'
-//             // );
-//         }
-//     })
-// })
 
 router.get("/register/teaching", (req, res) => {
   //var requestedTitle = req.params.designationCategory;
@@ -5371,48 +5255,11 @@ router.get("/register/nonteaching", (req, res) => {
   // res.render("templateSelected2");
 });
 
-// router.get('/updateincometax', ensureAuthenticated, (req, res) => {
-//     mysqldb.query(`select * from Employees`, (err, result) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-//             res.render('updateincome', {
-//                 Employees: JSON.parse(JSON.stringify(result))
-//             });
-//         }
-//     })
-// });
-// router.get('/updateIncomeTax', ensureAuthenticated, (req, res) => {
-//     mysqldb.query(`select * from income_tax natural join Salary`, (err, result) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
-//             res.render('addincometax', {
-//                 Employees: JSON.parse(JSON.stringify(result))
-//             });
-//         }
-//     })
-// })
-
 router.post("/updateIncomeTax", (req, res) => {
   const dec = JSON.parse(JSON.stringify(req.body));
-  //select ifnull(epf,0)+ifnull(ppf,0)+ifnull(nsc,0)+ifnull(ulip,0)+ifnull(insurancePremium,0)+ifnull(houseLoan,0)+ifnull(tuitionFee,0)+ifnull(bankDeposits,0)+ifnull(regFee,0) as totals from eighty_c;
+  // select ifnull(epf,0)+ifnull(ppf,0)+ifnull(nsc,0)+ifnull(ulip,0)+ifnull(insurancePremium,0)+ifnull(houseLoan,0)+ifnull(tuitionFee,0)+ifnull(bankDeposits,0)+ifnull(regFee,0) as totals from eighty_c;
   var {
-    gg,
     empID,
-    d,
-    e,
-    c,
-    ccd,
-    ccc,
-    dd,
-    ihl,
-    age,
-    gross_total,
     epf,
     ppf,
     nsc,
@@ -5422,176 +5269,37 @@ router.post("/updateIncomeTax", (req, res) => {
     tuitionFee,
     bankDeposits,
     regFee,
+    ihl_proof,
     e_proof,
-    c_proof,
-    dd_proof,
+    d_proof,
+    rent_proof,
     ngo_g_proof,
     govt_g_proof,
-    ccc_proof,
-    ccd_proof,
+    ccd_proof
   } = dec;
-  // var agebased;
-  gg = parseInt(gg);
-  c = parseInt(c);
-  ihl = parseInt(ihl);
-  var ded_d = parseInt(d);
-  var ded_e = parseInt(e);
-  var ded_ccd = parseInt(ccd);
-  // var ded_ccc = parseInt(ccc);
-  // var ded_gg = parseInt(ggg);
 
-  var ded_dd = parseInt(dd);
-  var dec_age = parseInt(age);
-  var gross_sal = parseInt(gross_total);
 
+  ihl_proof = parseInt(ihl_proof);
   e_proof = parseInt(e_proof);
-  // ccc_proof = parseInt(ccc_proof);
   ccd_proof = parseInt(ccd_proof);
-  dd_proof = parseInt(dd_proof);
-  c_proof = parseInt(c_proof);
+  d_proof = parseInt(d_proof);
   govt_g_proof = parseInt(govt_g_proof);
   ngo_g_proof = parseInt(ngo_g_proof);
+  rent_proof = parseInt(rent_proof);
+
+
 
   // console.log("g=" + gg, Math.min(g, 60000), "c=" + ded_c, Math.min(c, 150000), d, e, ccd, ccc, dd)
 
-  mysqldb.query(`select * from Employees`, (err, result) => {
+  mysqldb.query(`select * from Employees where empID=${empID}`, (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      mysqldb.query(`select * from edit_limits`, (err, upper) => {
-        console.log(upper);
-        var climit = JSON.parse(JSON.stringify(upper))[0].climit;
-        var glimit = JSON.parse(JSON.stringify(upper))[0].glimit;
-        var dlimit1 = JSON.parse(JSON.stringify(upper))[0].dlimit1;
-        var dlimit2 = JSON.parse(JSON.stringify(upper))[0].dlimit2;
-        var ccclimit = JSON.parse(JSON.stringify(upper))[0].ccclimit;
-        var ccdlimit = JSON.parse(JSON.stringify(upper))[0].ccdlimit;
-        var ddlimit = JSON.parse(JSON.stringify(upper))[0].ddlimit;
-
-        // Math.min(ded_c, climit)
-        //adding 80gg part is remaining
-        // var total = Math.min(gg, glimit) + ded_e + Math.min(c, climit)  + Math.min(ded_ccd, ccdlimit) + Math.min(ihl, 200000);
-        var total = 0;
-        console.log(total);
-
-        if (err) {
-          console.log(err);
-        } else {
-          mysqldb.query(
-            `update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,
-            (err, result1) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log(dec_age);
-                var limit_d = dlimit1;
-                if (dec_age > 60) {
-                  limit_d = dlimit2;
-                }
-                total += Math.min(ded_d, limit_d);
-
-                mysqldb.query(
-                  `insert into form (empID,d,dd,g,e,ccc,ccd,total,gross_sal) VALUES('${empID}',${ded_d},${ded_dd},${gg},${ded_e},${ded_ccc},${ded_ccd},${total},${gross_sal})`,
-                  (err, result2) => {
-                    if (err) {
-                      console.log(err);
-                      res.json({
-                        status: "error",
-                        message: err
-                      });
-                    } else {
-                      mysqldb.query(
-                        `replace into eighty_c (empID,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee) VALUES('${empID}',${epf},${ppf},${nsc},${ulip},${insurancePremium},${houseLoan},${tuitionFee},${bankDeposits},${regFee})`,
-                        (err, result2) => {
-                          if (err) {
-                            console.log(err);
-                            res.json({
-                              status: "error",
-                              message: err
-                            });
-                          } else {
-                            mysqldb.query(
-                              `replace into proof (empID,c_proof, dd_proof, ngo_g_proof, govt_g_proof, e_proof, ccd_proof,) VALUES('${empID}',${c_proof},${dd_proof},${ngo_g_proof},${govt_g_proof},${e_proof},${ccd_proof})`,
-                              (err, result3) => {
-                                if (err) {
-                                  console.log(err);
-                                  res.json({
-                                    status: "error",
-                                    message: err
-                                  });
-                                } else {
-                                  res.json({
-                                    status: "success",
-                                    message: "Declaration Added Successfully!",
-                                  });
-                                }
-                              }
-                            );
-                            // res.json({status:"success", message:"Declaration Added Successfully!"})
-                          }
-                        }
-                      );
-                      // res.json({status:"success", message:"Declaration Added Successfully!"})
-                    }
-                  }
-                );
-              }
-            }
-          );
-        }
-      });
-    }
-  });
-  console.log(req.body);
-  var total = 0;
-  var {
-    g,
-    empID,
-    c,
-    d,
-    e,
-    ccd,
-    ihl,
-    age,
-    gross_total,
-    donation_govt,
-    donation_ngo,
-    yourself,
-    metrof,
-    house_rent,
-    parents,
-    above60,
-    epf,
-    ppf,
-    nsc,
-    ulip,
-    insurancePremium,
-    houseLoan,
-  } = data;
-  // var agebased;
-  var eg = parseInt(g);
-  var ec = parseInt(c);
-  var ed = parseInt(d);
-  var ee = parseInt(e);
-  var eccd = parseInt(ccd);
-  var dec_age = parseInt(age);
-  var gross_sal = parseInt(gross_total);
-  var eihl = parseInt(ihl);
-  //   var egg = parseInt(gg);
-  var rent = parseInt(house_rent);
-  var donation_govt = parseInt(donation_govt);
-  var donation_govt = parseInt(donation_ngo);
-
-  mysqldb.query(
-    `select * from Employees where empID='${empID}'`,
-    (err, result) => {
       var gp = parseInt(JSON.parse(JSON.stringify(result))[0].gp);
       var pay = parseInt(JSON.parse(JSON.stringify(result))[0].pay);
 
       var da_MultFactor = parseFloat(JSON.parse(JSON.stringify(result))[0].da);
-      var hra_MultFactor = parseFloat(
-        JSON.parse(JSON.stringify(result))[0].hra
-      );
+      var hra_MultFactor = parseFloat(JSON.parse(JSON.stringify(result))[0].hra);
 
       console.log(JSON.parse(JSON.stringify(result))[0]);
       console.log(
@@ -5608,377 +5316,358 @@ router.post("/updateIncomeTax", (req, res) => {
       var hra = (pay + parseFloat(gp)) * hra_MultFactor;
       console.log("hra is", hra);
 
-      if (err) {
-        console.log(err);
-      } else {
-        mysqldb.query(`select * from edit_limits`, (err, upper) => {
-          console.log(upper);
-          var climit = JSON.parse(JSON.stringify(upper))[0].climit;
-          var glimit = JSON.parse(JSON.stringify(upper))[0].glimit;
-          var dlimit1 = JSON.parse(JSON.stringify(upper))[0].dlimit1;
-          var dlimit2 = JSON.parse(JSON.stringify(upper))[0].dlimit2;
-          var ccclimit = JSON.parse(JSON.stringify(upper))[0].ccclimit;
-          var ccdlimit = JSON.parse(JSON.stringify(upper))[0].ccdlimit;
-          var ddlimit = JSON.parse(JSON.stringify(upper))[0].ddlimit;
-          var std = JSON.parse(JSON.stringify(upper))[0].st_ded;
-          var ihl_limit = JSON.parse(JSON.stringify(upper))[0].ihl;
-          var gg1;
+      mysqldb.query(`select * from edit_limits`, (err, upper) => {
+        console.log(upper);
+        var climit = JSON.parse(JSON.stringify(upper))[0].climit;
+        var ccdlimit = JSON.parse(JSON.stringify(upper))[0].ccdlimit;
+        var ihllimit = JSON.parse(JSON.stringify(upper))[0].ihl;
+        var stdlimit = JSON.parse(JSON.stringify(upper))[0].st_ded;
+        var total = 0;
+        console.log(total);
 
-          if (metrof === "metro") {
-            gg1 = 0.5 * da;
-          } else {
-            gg1 = 0.4 * da;
-          }
-
-          var gg2 = rent - 0.1 * da;
-          if (gg2 < 0) {
-            gg2 = 0;
-          }
-
-          console.log("gg1", gg1);
-          console.log("gg2", gg2);
-
-          var total =
-            std +
-            Math.min(ec, climit) +
-            Math.min(eihl, ihl_limit) +
-            ee +
-            Math.min(eccd, ccdlimit) +
-            Math.min(Math.min(gg1, gg2), hra);
-          // var total=0;
-          console.log(total);
-
-          mysqldb.query(
-            `update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,
-            (err, result1) => {
-              var mediclaim = 25000;
-              if (dec_age > 60) {
-                mediclaim += 25000;
-                if (parents === "yes") {
-                  mediclaim += 50000;
-                }
-              } else {
-                if (parents === "yes") {
-                  mediclaim += 25000;
-                  if (above60 === "yes") {
-                    mediclaim += 25000;
-                  }
-                }
-              }
-              console.log(mediclaim);
-
-              total += Math.min(mediclaim, ed);
-              total += donation_govt;
-
-              var adjusted = gross_sal - total;
-
-              total += Math.min(0.1 * adjusted, 0.5 * donation_ngo);
-
-              console.log("total is this " + total);
-              if (err) {
-                console.log(err);
-              } else {
-                mysqldb.query(
-                  `insert into form (empID,c,d,ihl,g,e,ccd,total,gross_sal) VALUES('${empID}',${ec},${ed},${eihl},${eg},${ee},${eccd},${total},${gross_sal})`,
-                  (err, result2) => {
-                    console.log("result2" + result2);
-                    if (err) {
-                      console.log(err);
-                      res.json({
-                        status: "error",
-                        message: err
-                      });
-                    } else {
-                      res.json({
-                        status: "success",
-                        message: "Declaration Added Successfully!",
-                      });
-                      // res.redirect('/addincometax');
-                    }
-                  }
-                );
-
-                // res.json({status:"success", message:"Declaration Added Successfully!"})
-              }
-            }
-          );
-        });
-      }
-    }
-  );
-  mysqldb.query(
-    `update proof set e_proof=${data.e}, ihl_proof=${data.ihl}, ccd_proof=${
-      data.ccd
-    },
-    ccd_proof=${data.ccd},
-    total=${data[`${data.empID}`][1]},
-    gross_sal=${data[`${data.empID}`][0]} where empID ='${data.empID}' `,
-    (res, error) => {
-      if (error) {
-        console.log(error);
-      }
-    }
-  );
-  var indexList = [];
-  var grossTotalList = [];
-  var investmentList = [];
-  for (var i in data) {
-    if (i.includes("EMP")) {
-      console.log(i);
-      console.log(data[i][0]);
-      indexList.push(i);
-      grossTotalList.push(parseInt(data[i][0]));
-      investmentList.push(parseInt(data[i][1]));
-    }
-  }
-  console.log(indexList);
-  console.log(grossTotalList);
-  console.log(investmentList);
-  var current = new Date();
-  var currmonth = current.getMonth();
-
-  function updateIncomeTax(item, i, callback) {
-    mlist = [
-      "january",
-      "february",
-      "march",
-      "april",
-      "may",
-      "june",
-      "july",
-      "august",
-      "september",
-      "october",
-      "november",
-      "december",
-    ];
-    // var cur_month="august"
-    var cur_month = mlist[new Date().getMonth()].toLowerCase();
-    var cur_year = new Date().getFullYear();
-    console.log(grossTotalList, indexList, i, "in query");
-    mysqldb.query(
-      `select * from config union all select * from edit_limits`,
-      (err, result4) => {
-        if (result.length === 0) {
-          console.log("error in config query");
+        if (err) {
+          console.log(err);
         } else {
-          var educess = JSON.parse(JSON.stringify(result4))[0].educess;
-          var st_ded = JSON.parse(JSON.stringify(result4))[0].st_ded;
-          console.log(
-            `select * from Employees where month='${cur_month}' and year=${cur_year} and empID='${indexList[i]}'`
-          ); //to get employee specific properties for calculation
           mysqldb.query(
-            `select * from Employees where empID='${indexList[i]}'`,
-            (err, result) => {
+            `select * from form where empID='${empID}'`,
+            (err, result1) => {
               if (err) {
                 console.log(err);
-                console.log("error in select query of Employee");
+                res.json({
+                  status: "error",
+                  message: err
+                });
               } else {
-                console.log("Result is", result, "for empID", indexList[i]);
-                //tax regime,age,investment
-                var empID = JSON.parse(JSON.stringify(result))[0].empID;
-                var age = parseInt(JSON.parse(JSON.stringify(result))[0].age);
-                // var investment=parseInt(JSON.parse(JSON.stringify(result))[0].investment);
-                var investment = investmentList[i];
-                var emp_temp_regime = JSON.parse(JSON.stringify(result))[0]
-                  .emp_temp_regime;
-                var gross_total_income = grossTotalList[i];
-                console.log(JSON.parse(JSON.stringify(result))[0]);
-                var tax_on_income = 0;
-                var exemption = investment + st_ded;
-                if (emp_temp_regime == "new") {
-                  exemption = 0;
-                }
-                var net_taxable_income = gross_total_income - exemption;
-                var remaining = net_taxable_income;
-                console.log("regime is", emp_temp_regime);
-                if (emp_temp_regime === "old") {
-                  console.log("in if");
-                  // if (net_taxable_income <= 250000) {
-                  console.log("in less");
-                  if (remaining >= 250000) {
-                    tax_on_income += 0;
-                    remaining -= 250000;
-                  } else {
-                    tax_on_income += 0;
-                    remaining = 0;
-                  }
-                  // }
-                  if (age >= 60) {
-                    if (remaining >= 50000) {
-                      tax_on_income += 0;
-                      remaining -= 50000;
-                    } else {
-                      tax_on_income += 0;
-                      remaining = 0;
-                    }
-                  }
-                  // net_taxable_income > 250000 && net_taxable_income <=300000 &&
-                  else if (age < 60) {
-                    if (remaining >= 50000) {
-                      tax_on_income += (50000 * 5) / 100;
-                      remaining -= 50000;
-                    } else {
-                      tax_on_income += (remaining * 5) / 100;
-                      remaining = 0;
-                    }
-                  }
-                  if (age >= 80) {
-                    if (remaining >= 200000) {
-                      tax_on_income += 0;
-                      remaining -= 200000;
-                    } else {
-                      tax_on_income += 0;
-                      remaining = 0;
-                    }
-                  }
-                  // net_taxable_income > 300000 && net_taxable_income <= 500000
-                  else {
-                    if (remaining >= 200000) {
-                      tax_on_income += (200000 * 5) / 100;
-                      remaining -= 200000;
-                    } else {
-                      tax_on_income += (remaining * 5) / 100;
-                      remaining = 0;
-                    }
-                  }
-                  // if (net_taxable_income > 500000 && net_taxable_income <= 1000000) {
-                  if (remaining >= 500000) {
-                    tax_on_income += (500000 * 20) / 100;
-                    remaining -= 500000;
-                  } else {
-                    tax_on_income += (remaining * 20) / 100;
-                    remaining = 0;
-                  }
-                  // }
-                  // if (net_taxable_income > 1000000) {
-                  tax_on_income += (remaining * 30) / 100;
-                  remaining = 0;
-                  //}
-                } else if (emp_temp_regime === "new") {
-                  // if (net_taxable_income <= 250000) {
-                  if (remaining >= 250000) {
-                    tax_on_income += 0;
-                    remaining -= 250000;
-                  } else {
-                    tax_on_income += 0;
-                    remaining = 0;
-                  }
-                  // }
-
-                  // if (net_taxable_income > 250000 && gross_sal <= 500000) {
-                  if (remaining >= 250000) {
-                    tax_on_income += (250000 * 5) / 100;
-                    remaining -= 250000;
-                  } else {
-                    tax_on_income += (remaining * 5) / 100;
-                    remaining = 0;
-                  }
-                  // }
-                  // if (net_taxable_income > 500000 && gross_sal <= 750000) {
-                  if (remaining >= 250000) {
-                    tax_on_income += (250000 * 10) / 100;
-                    remaining -= 250000;
-                  } else {
-                    tax_on_income += (remaining * 10) / 100;
-                    remaining = 0;
-                  }
-                  // }
-                  // if (net_taxable_income > 750000 && gross_sal <= 1000000) {
-                  if (remaining >= 250000) {
-                    tax_on_income += (250000 * 15) / 100;
-                    remaining -= 250000;
-                  } else {
-                    tax_on_income += (remaining * 15) / 100;
-                    remaining = 0;
-                  }
-                  // }
-                  // if (net_taxable_income > 1000000 && gross_sal <= 1250000) {
-                  if (remaining >= 250000) {
-                    tax_on_income += (250000 * 20) / 100;
-                    remaining -= 250000;
-                  } else {
-                    tax_on_income += (remaining * 20) / 100;
-                    remaining = 0;
-                  }
-                  // }
-                  // if (net_taxable_income > 1250000 && gross_sal <= 1500000) {
-                  if (remaining >= 250000) {
-                    tax_on_income += (250000 * 25) / 100;
-                    remaining -= 250000;
-                  } else {
-                    tax_on_income += (remaining * 25) / 100;
-                    remaining = 0;
-                  }
-                  // }
-                  // if (net_taxable_income > 1500000) {
-
-                  tax_on_income += (remaining * 30) / 100;
-                  remaining = 0;
-
-                  // }
-                }
-                var rebate = 0;
-                if (net_taxable_income <= 500000) {
-                  rebate += tax_on_income;
-                  tax_on_income = 0;
-                }
-                var health_and_edu_cess = (educess / 100) * tax_on_income;
-                var total_tax = tax_on_income + health_and_edu_cess;
-                var tds_per_month = total_tax / 12;
-                var balance = total_tax;
-
-                // var balance=total_tax;
+                var {
+                  c,
+                  d,
+                  g,
+                  e,
+                  ccd,
+                  ihl,
+                  donation_govt,
+                  donation_ngo,
+                  metro,
+                  gg,
+                  gross_sal
+                } = result1[0];
+                var mediclaim_limit = JSON.parseInt(JSON.stringify(result1))[0].mediclaim_limit;
                 mysqldb.query(
-                  `select * from income_tax where empID='${indexList[i]}' ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d') desc limit 1`,
-                  (err, result) => {
+                  `update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,
+                  (err, result1) => {
                     if (err) {
                       console.log(err);
-                      console.log("invalid details");
-                    }
-                    //take directly from salary slip
-                    else {
-                      console.log(JSON.parse(JSON.stringify(result)));
-                      var monthIssued = JSON.parse(JSON.stringify(result))[0]
-                        .month;
-                      // var currBalance=JSON.parse(JSON.stringify(result)).balance;
-                      var tds_per_month_prev = JSON.parse(
-                        JSON.stringify(result)
-                      )[0].tds_per_month;
-                      // var total_tax_prev=JSON.parse(JSON.stringify(result)).total_tax;
-
-                      //change logic to accomodate allround months
-                      if (mlist.indexOf(monthIssued) > currmonth) {
-                        currmonth += 12;
-                      }
-                      var monthsPassed = currmonth - mlist.indexOf(monthIssued);
-                      // var tax_payed = tds_per_month_prev * monthsPassed;
-                      var text_payed = total_tax_old - balance;
-                      var monthsRemaining = 12 - monthsPassed;
-                      var balance_new = total_tax - tax_payed;
-                      tds_per_month = balance_new / monthsRemaining;
-                      console.log(
-                        "months passed,tax_payed,monthsRemaining,balance_new,tds_per_month",
-                        monthsPassed,
-                        tax_payed,
-                        monthsRemaining,
-                        balance_new,
-                        tds_per_month_prev
-                      );
-
-                      console.log(
-                        `insert into income_tax (empID,exemption,prev_investment,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES ('${empID}',${exemption},${investment},${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance_new},'${cur_month}',${cur_year})`
-                      );
+                    } else {
                       mysqldb.query(
-                        `insert into income_tax (empID,exemption,prev_investment,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year,type) VALUES ('${empID}',${exemption},${investment},${investment},${net_taxable_income},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance_new},'${cur_month}',${cur_year},"update")`,
-                        (err, result) => {
+                        `replace into eighty_c (empID,epf,ppf,nsc,ulip,insurancePremium,houseLoan,tuitionFee,bankDeposits,regFee) VALUES('${empID}',${epf},${ppf},${nsc},${ulip},${insurancePremium},${houseLoan},${tuitionFee},${bankDeposits},${regFee})`,
+                        (err, result2) => {
                           if (err) {
                             console.log(err);
-                            console.log(
-                              "error in insert query of income_tax update"
-                            );
+                            res.json({
+                              status: "error",
+                              message: err
+                            });
                           } else {
-                            // res.redirect('/index1')
+                            mysqldb.query(
+                              `select ifnull(epf, 0) + ifnull(ppf, 0) + ifnull(nsc, 0) + ifnull(ulip, 0) + ifnull(insurancePremium, 0) + ifnull(houseLoan, 0) + ifnull(tuitionFee, 0) + ifnull(bankDeposits, 0) + ifnull(regFee, 0) as total from eighty_c where empID=${empID};`,
+                              (err, result2) => {
+                                if (err) {
+                                  console.log(err);
+                                  res.json({
+                                    status: "error",
+                                    message: err
+                                  });
+                                } else {
+                                  c_proof = JSON.parseInt(JSON.stringify(result2))[0].total;
+                                  total = (Math.min(c_proof, climit) || Math.min(c, climit)) + (Math.min(ccd_proof, ccdlimit) || Math.min(ccd, ccdlimit)) + (Math.min(ihl_proof, ihllimit) || Math.min(ihl, ihllimit)) + (Math.min(d_proof, mediclaim_limit) || Math.min(d, mediclaim_limit)) + (e_proof || e) + (govt_g_proof || donation_govt) + stdlimit;
+                                  var gg1;
+                                  if (metro === "yes") {
+                                    gg1 = 0.5 * da;
+                                  } else {
+                                    gg1 = 0.4 * da;
+                                  }
+
+                                  var gg2 = rent_proof - 0.1 * da;
+                                  if (gg2 < 0) {
+                                    gg2 = 0;
+                                  }
+
+                                  console.log("gg1", gg1);
+                                  console.log("gg2", gg2);
+
+                                  total += Math.min(Math.min(gg1, gg2), hra) || gg;
+                                  var adjusted = gross_sal - total;
+
+                                  total += Math.min(0.1 * adjusted, 0.5 * ngo_g_proof);
+
+                                  console.log("total is this " + total);
+                                  mysqldb.query(
+                                    `replace into proof (empID,c_proof, dd_proof, ngo_g_proof, govt_g_proof, e_proof, ccd_proof,) VALUES('${empID}',${c_proof},${dd_proof},${ngo_g_proof},${govt_g_proof},${e_proof},${ccd_proof})`,
+                                    (err, result3) => {
+                                      if (err) {
+                                        console.log(err);
+                                        res.json({
+                                          status: "error",
+                                          message: err
+                                        });
+                                      } else {
+                                        mlist = [
+                                          "january",
+                                          "february",
+                                          "march",
+                                          "april",
+                                          "may",
+                                          "june",
+                                          "july",
+                                          "august",
+                                          "september",
+                                          "october",
+                                          "november",
+                                          "december",
+                                        ];
+                                        // var cur_month="august"
+                                        var cur_month = mlist[new Date().getMonth()].toLowerCase();
+                                        var cur_year = new Date().getFullYear();
+                                        mysqldb.query(
+                                          `select * from config union all select * from edit_limits`,
+                                          (err, result4) => {
+                                            if (result.length === 0) {
+                                              console.log("error in config query");
+                                            } else {
+                                              var educess = JSON.parse(JSON.stringify(result4))[0].educess;
+                                              //to get employee specific properties for calculation
+                                              mysqldb.query(
+                                                `select * from Employees where empID='${empID}'`,
+                                                (err, result) => {
+                                                  if (err) {
+                                                    console.log(err);
+                                                    console.log("error in select query of Employee");
+                                                  } else {
+                                                    console.log("Result is", result, "for empID", indexList[i]);
+                                                    //tax regime,age,investment
+                                                    var empID = JSON.parse(JSON.stringify(result))[0].empID;
+                                                    var age = parseInt(JSON.parse(JSON.stringify(result))[0].age);
+                                                    // var investment=parseInt(JSON.parse(JSON.stringify(result))[0].investment);
+                                                    var investment = total;
+                                                    var emp_temp_regime = JSON.parse(JSON.stringify(result))[0]
+                                                      .emp_temp_regime;
+                                                    var gross_total_income = gross_sal;
+                                                    console.log(JSON.parse(JSON.stringify(result))[0]);
+                                                    var tax_on_income = 0;
+                                                    var exemption = investment;
+                                                    if (emp_temp_regime == "new") {
+                                                      exemption = 0;
+                                                    }
+                                                    var net_taxable_income = gross_total_income - exemption;
+                                                    var remaining = net_taxable_income;
+                                                    console.log("regime is", emp_temp_regime);
+                                                    if (emp_temp_regime === "old") {
+                                                      console.log("in if");
+                                                      // if (net_taxable_income <= 250000) {
+                                                      console.log("in less");
+                                                      if (remaining >= 250000) {
+                                                        tax_on_income += 0;
+                                                        remaining -= 250000;
+                                                      } else {
+                                                        tax_on_income += 0;
+                                                        remaining = 0;
+                                                      }
+                                                      // }
+                                                      if (age >= 60) {
+                                                        if (remaining >= 50000) {
+                                                          tax_on_income += 0;
+                                                          remaining -= 50000;
+                                                        } else {
+                                                          tax_on_income += 0;
+                                                          remaining = 0;
+                                                        }
+                                                      }
+                                                      // net_taxable_income > 250000 && net_taxable_income <=300000 &&
+                                                      else if (age < 60) {
+                                                        if (remaining >= 50000) {
+                                                          tax_on_income += (50000 * 5) / 100;
+                                                          remaining -= 50000;
+                                                        } else {
+                                                          tax_on_income += (remaining * 5) / 100;
+                                                          remaining = 0;
+                                                        }
+                                                      }
+                                                      if (age >= 80) {
+                                                        if (remaining >= 200000) {
+                                                          tax_on_income += 0;
+                                                          remaining -= 200000;
+                                                        } else {
+                                                          tax_on_income += 0;
+                                                          remaining = 0;
+                                                        }
+                                                      }
+                                                      // net_taxable_income > 300000 && net_taxable_income <= 500000
+                                                      else {
+                                                        if (remaining >= 200000) {
+                                                          tax_on_income += (200000 * 5) / 100;
+                                                          remaining -= 200000;
+                                                        } else {
+                                                          tax_on_income += (remaining * 5) / 100;
+                                                          remaining = 0;
+                                                        }
+                                                      }
+                                                      // if (net_taxable_income > 500000 && net_taxable_income <= 1000000) {
+                                                      if (remaining >= 500000) {
+                                                        tax_on_income += (500000 * 20) / 100;
+                                                        remaining -= 500000;
+                                                      } else {
+                                                        tax_on_income += (remaining * 20) / 100;
+                                                        remaining = 0;
+                                                      }
+                                                      // }
+                                                      // if (net_taxable_income > 1000000) {
+                                                      tax_on_income += (remaining * 30) / 100;
+                                                      remaining = 0;
+                                                      //}
+                                                    } else if (emp_temp_regime === "new") {
+                                                      // if (net_taxable_income <= 250000) {
+                                                      if (remaining >= 250000) {
+                                                        tax_on_income += 0;
+                                                        remaining -= 250000;
+                                                      } else {
+                                                        tax_on_income += 0;
+                                                        remaining = 0;
+                                                      }
+                                                      // }
+
+                                                      // if (net_taxable_income > 250000 && gross_sal <= 500000) {
+                                                      if (remaining >= 250000) {
+                                                        tax_on_income += (250000 * 5) / 100;
+                                                        remaining -= 250000;
+                                                      } else {
+                                                        tax_on_income += (remaining * 5) / 100;
+                                                        remaining = 0;
+                                                      }
+                                                      // }
+                                                      // if (net_taxable_income > 500000 && gross_sal <= 750000) {
+                                                      if (remaining >= 250000) {
+                                                        tax_on_income += (250000 * 10) / 100;
+                                                        remaining -= 250000;
+                                                      } else {
+                                                        tax_on_income += (remaining * 10) / 100;
+                                                        remaining = 0;
+                                                      }
+                                                      // }
+                                                      // if (net_taxable_income > 750000 && gross_sal <= 1000000) {
+                                                      if (remaining >= 250000) {
+                                                        tax_on_income += (250000 * 15) / 100;
+                                                        remaining -= 250000;
+                                                      } else {
+                                                        tax_on_income += (remaining * 15) / 100;
+                                                        remaining = 0;
+                                                      }
+                                                      // }
+                                                      // if (net_taxable_income > 1000000 && gross_sal <= 1250000) {
+                                                      if (remaining >= 250000) {
+                                                        tax_on_income += (250000 * 20) / 100;
+                                                        remaining -= 250000;
+                                                      } else {
+                                                        tax_on_income += (remaining * 20) / 100;
+                                                        remaining = 0;
+                                                      }
+                                                      // }
+                                                      // if (net_taxable_income > 1250000 && gross_sal <= 1500000) {
+                                                      if (remaining >= 250000) {
+                                                        tax_on_income += (250000 * 25) / 100;
+                                                        remaining -= 250000;
+                                                      } else {
+                                                        tax_on_income += (remaining * 25) / 100;
+                                                        remaining = 0;
+                                                      }
+                                                      // }
+                                                      // if (net_taxable_income > 1500000) {
+
+                                                      tax_on_income += (remaining * 30) / 100;
+                                                      remaining = 0;
+
+                                                      // }
+                                                    }
+                                                    var rebate = 0;
+                                                    if (net_taxable_income <= 500000) {
+                                                      rebate += tax_on_income;
+                                                      tax_on_income = 0;
+                                                    }
+                                                    var health_and_edu_cess = (educess / 100) * tax_on_income;
+                                                    var total_tax = tax_on_income + health_and_edu_cess;
+                                                    var tds_per_month = total_tax / 12;
+                                                    var balance = total_tax;
+
+                                                    // var balance=total_tax;
+                                                    mysqldb.query(
+                                                      `select * from income_tax where empID='${empID}' ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d') desc limit 1`,
+                                                      (err, result) => {
+                                                        if (err) {
+                                                          console.log(err);
+                                                          console.log("invalid details");
+                                                        }
+                                                        //take directly from salary slip
+                                                        else {
+                                                          console.log(JSON.parse(JSON.stringify(result)));
+                                                          var monthIssued = JSON.parse(JSON.stringify(result))[0]
+                                                            .month;
+                                                          // var currBalance=JSON.parse(JSON.stringify(result)).balance;
+                                                          var tds_per_month_prev = JSON.parse(
+                                                            JSON.stringify(result)
+                                                          )[0].tds_per_month;
+                                                          var total_tax_old = JSON.parse(JSON.stringify(result)).total_tax;
+                                                          var balance_old = JSON.parse(JSON.stringify(result)).balance
+                                                          //change logic to accomodate allround months
+                                                          if (mlist.indexOf(monthIssued) > currmonth) {
+                                                            currmonth += 12;
+                                                          }
+                                                          var monthsPassed = currmonth - mlist.indexOf(monthIssued);
+                                                          // var tax_payed = tds_per_month_prev * monthsPassed;
+                                                          var tax_payed = total_tax_old - balance_old;
+                                                          var monthsRemaining = 12 - monthsPassed;
+                                                          var balance_new = total_tax - tax_payed;
+                                                          tds_per_month = balance_new / monthsRemaining;
+                                                          console.log(
+                                                            "months passed,tax_payed,monthsRemaining,balance_new,tds_per_month",
+                                                            monthsPassed,
+                                                            tax_payed,
+                                                            monthsRemaining,
+                                                            balance_new,
+                                                            tds_per_month_prev
+                                                          );
+
+                                                          console.log(
+                                                            `insert into income_tax (empID,exemption,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES ('${empID}',${exemption},${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance_new},'${cur_month}',${cur_year})`
+                                                          );
+                                                          mysqldb.query(
+                                                            `replace into income_tax (empID,exemption,total_investments,net_taxable_income,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year,type) VALUES ('${empID}',${exemption},${investment},${net_taxable_income},${tax_on_income},${rebate},${health_and_edu_cess},${total_tax},${tds_per_month},${balance_new},'${cur_month}',${cur_year},"update")`,
+                                                            (err, result) => {
+                                                              if (err) {
+                                                                console.log(err);
+                                                                console.log(
+                                                                  "error in insert query of income_tax update"
+                                                                );
+                                                              } else {
+                                                                // res.redirect('/index1')
+                                                              }
+                                                            }
+                                                          );
+                                                        }
+                                                      }
+                                                    );
+                                                  }
+                                                }
+                                              );
+                                            }
+                                          }
+                                        );
+                                      }
+                                    }
+                                  );
+                                  // res.json({status:"success", message:"Declaration Added Successfully!"})
+                                }
+                              }
+                            );
+                            // res.json({status:"success", message:"Declaration Added Successfully!"})
                           }
                         }
                       );
@@ -5986,17 +5675,10 @@ router.post("/updateIncomeTax", (req, res) => {
                   }
                 );
               }
-            }
-          );
-        }
-      }
-    );
-  }
-  // to make it async
-  async.forEachOf(indexList, updateIncomeTax, function (err) {
-    if (err) {
-      console.error(err);
-    } else {}
+            })
+        };
+      })
+    }
   });
 });
 
@@ -6004,10 +5686,6 @@ router.post("/updateIncomeTax", (req, res) => {
 router.post("/recovery", (req, res) => {
   const data = JSON.parse(JSON.stringify(req.body));
   console.log(JSON.parse(JSON.stringify(req.body)));
-  // var
-  // var empID=r
-
-  // console.log(data["lwp"],data["month"],data["year"],days)
 
   mysqldb.query(
     `INSERT INTO recovery (empID, month, year, recoveryAmount, note) VALUES ('${data.empID}', '${data["month"]}', ${data["year"]}, ${data.recoveryAmount}, '${data.note}') on duplicate key update recoveryAmount=${data.recoveryAmount},note='${data.note}'`,
