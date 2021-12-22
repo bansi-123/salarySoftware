@@ -1654,8 +1654,10 @@ router.post("/differences", ensureAuthenticated, (req, res) => {
 
   console.log("list is", list2);
   var duration = 0;
-  first_date = data.month[0];
-  second_date = data.month[1];
+  first_date = data.start_month;
+  console.log(first_date);
+
+  second_date = data.end_month;
   first_month = parseInt(first_date.split("-")[1]);
   second_month = parseInt(second_date.split("-")[1]);
   first_year = parseInt(first_date.split("-")[0]);
