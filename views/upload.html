@@ -1,379 +1,153 @@
-<%- include('partials/header.ejs'); -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Upload Download File Examples</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="/static/js/uploaddownloadfiles.js"></script> -->
+<script>
+	
 
-  <head>
-    <meta charset="UTF-8">
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.5.0/css/foundation.css'>
-    <link rel="stylesheet" href="../assets/alert/style.css">
-    <style>
-      /* .dropbtn {
-      background-color: #04AA6D;
-      color: white;
-      padding: 16px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-    } */
-
-      .dropbtn:hover,
-      .dropbtn:focus {
-        background-color: #3e8e41;
-      }
-
-      #myInput {
-        box-sizing: border-box;
-        background-image: url('searchicon.png');
-        background-position: 14px 12px;
-        background-repeat: no-repeat;
-        font-size: 16px;
-        padding: 14px 20px 12px 45px;
-        border: none;
-        border-bottom: 1px solid #ddd;
-      }
-
-      #myInput:focus {
-        outline: 3px solid #ddd;
-      }
-
-      .dropdown {
-        position: relative;
-        display: inline-block;
-      }
-
-      .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f6f6f6;
-        min-width: 230px;
-        overflow: auto;
-        border: 1px solid #ddd;
-        z-index: 1;
-      }
-
-      .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-      }
-
-      .dropdown a:hover {
-        background-color: #ddd;
-      }
-
-      .show {
-        display: block;
-      }
-    </style>
-    <script> const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    </script>
-  </head>
-
-  <body>
-
-    <div class="content-wrap">
-      <div class="main">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-8 p-r-0 title-margin-right">
-              <div class="page-header">
-                <!-- <div class="page-title">
-                            <h1>Hello, <span>Welcome Here</span></h1>
-                        </div> -->
-              </div>
-            </div>
-
-            <!-- <div class="col-lg-12">
-              <div class="card">
-                <div class="card-title">
-                  <h4>Search</h4>
-
-                </div>
-                <div class="dropdown">
-                  <label>
-                    <h3>
-                  </label></h3> <button padding="40px" onclick="myFunction()" class="dropbtn">Update Income Tax
-                    </button>
-                  <div id="myDropdown" class="dropdown-content">
-                    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-
-                    <% for(var i=Employees.length-1; i>= 0; i-- ) { %>
-                      <a href="/updateincometax/<%=Employees[i].empID%>">
-                        <%= Employees[i].empName %>
-                      </a>
-                      <% }%>
-                  </div>
-                </div>
-                <script>
-                  function myFunction() {
-                    document.getElementById("myDropdown").classList.toggle("show");
-                  }
-
-                  function filterFunction() {
-                    var input, filter, ul, li, a, i;
-                    input = document.getElementById("myInput");
-                    filter = input.value.toUpperCase();
-                    div = document.getElementById("myDropdown");
-                    a = div.getElementsByTagName("a");
-                    for (i = 0; i < a.length; i++) {
-                      txtValue = a[i].textContent || a[i].innerText;
-                      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        a[i].style.display = "";
-                      } else {
-                        a[i].style.display = "none";
-                      }
-                    }
-                  }
-                </script> -->
-                <div class="col-lg-12">
-                  <div class="card">
-                    <div class="card-title">
-                      <h4>Update Income Tax</h4>
-
-                    </div>
-
-
-                    <div class="card-body">
-                      <div class="horizontal-form-elements">
-                        <form class="form-horizontal" action="\updateIncomeTax" method="post">
-                            <div class="row">
-                                <% var i=0 %>
-                                <div class="col-lg-6">
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label"> Employee ID
-                                            (empXXX) <span class="text-danger">*</span></label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="empID" class="form-control"  
-                                            value="<%= Employees[i].empID %>" pattern="+emp." title="enter valid emp ID"
-                                                ruqt>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Name (As per Aadhar Card) <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="empName" class="form-control" value="<%= Employees[i].empName %>"
-                                                ruqt>
-                                        </div>
-                                    </div>
-
-                                
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">PAN No. <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="Pan_No" class="form-control"
-                                                pattern=".{10,10}" title="10 alphanumeric characters needed" value="<%= Employees[i].Pan_No %>"
-                                                ruqt>
-                                        </div>
-                                    </div>
-
-                                    <!-- <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Tax Regime <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" name="emp_temp_regime" class="form-control"
-                                            value="<%= Employees[i].emp_temp_regime %>" ruqt>
-                                        </div>
-                                    </div> -->
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">Gross Total</label>
-                                        <div class="col-lg-6">
-                                            <input type="number" name="<%= Employees[i].empID %>" class="form-control" value=<%= Employees[i].gross_sal %> ruqt>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">80C</label>
-                                        <div class="col-lg-6">
-                                            <input type="number" name="c" id="c" oninput="add_number()" class="form-control" value="<%= Employees[i].c %>" ruqt>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-6 col-form-label">80G</label>
-                                        <div class="col-lg-6">
-                                            <input type="number" name="g" id="g" oninput="add_number()" class="form-control" value="<%= Employees[i].g %>" ruqt>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    
-
-                                </div>
-                                    <div class="col-lg-6">
-
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">80D</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" name="d" oninput="add_number()"  id="d" class="form-control" value="<%= Employees[i].d %>" ruqt>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">80E</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" name="e"  id="e" class="form-control" oninput="add_number()"  value="<%= Employees[i].e %>" ruqt>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">80CCC</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" name="ccc"  id="ccc" class="form-control" oninput="add_number()"  value="<%= Employees[i].ccc %>" ruqt>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">80CCD</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" name="ccd"  id="ccd" class="form-control" oninput="add_number()" value="<%= Employees[i].ccd %>" ruqt>
-                                            </div>
-                                        </div>
-
-                                        <!-- <input type="number" name="age" value="<%= Employees[i].age %>" class="form-control" hidden > -->
-
-                                        <div class="form-group row">
-                                            <label class="col-lg-6 col-form-label">80DD</label>
-                                            <div class="col-lg-6">
-                                                <input type="number" name="dd"  id="dd" class="form-control" oninput="add_number()"  value="<%= Employees[i].dd %>" ruqt>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                          <label class="col-lg-6 col-form-label">Total Investment</label>
-                                          <div class="col-lg-6">
-                                              <input type="number" id ="txtresult" name="<%= Employees[i].empID %>" class="form-control" ruqt>
-                                          </div>
-                                      </div>
-
-                                      <input id="cl" hidden value="<%= limits[0].climit %>"></input>
-                                      <input id="gl" hidden value="<%= limits[0].glimit %>"></input>
-                                      <input id="dl1" hidden value="<%= limits[0].dlimit1 %>"></input>
-                                      <input id="dl2" hidden value="<%= limits[0].dlimit2 %>"></input>
-                                      <input id="el" hidden value="<%= limits[0].elimit %>"></input>
-                                      <input id="ccdl" hidden value="<%= limits[0].ccdlimit %>"></input>
-                                      <input id="cccl" hidden value="<%= limits[0].ccclimit %>"></input>
-                                      <input id="ddl" hidden value="<%= limits[0].ddlimit%>"></input>
-                                      <input id="age" hidden value=<%= Employees[0].age%>></input>
-                                      
-
-                                      <script>
-
-                                        var climit = document.getElementById("c");
-                                        var glimit = document.getElementById("g");
-                                        var dlimit = document.getElementById("d");
-                                        var elimit = document.getElementById("e");
-                                        var ccclimit = document.getElementById("ccc");
-                                        var ccdlimit = document.getElementById("ccd");
-                                        var ddlimit = document.getElementById("dd");
-
-                                        var cl = document.getElementById("cl");
-                                        var dl1 = document.getElementById("dl1");
-                                        var dl2 = document.getElementById("dl2");
-                                        
-                                        var ddl = document.getElementById("ddl");
-                                        var el = document.getElementById("el");
-                                        var gl = document.getElementById("gl");
-                                        var ccdl = document.getElementById("ccdl");
-                                        var cccl = document.getElementById("cccl");
-                                        var age = document.getElementById("age");
-                                        
-                                         
-                                        cl = parseInt(cl.value);
-                                           gl = parseInt(gl.value);
-                                           ddl = parseInt(ddl.value);
-                                           el = parseInt(el.value);
-                                           dl1 = parseInt(dl1.value);
-                                           dl2 = parseInt(dl2.value);
-                                           
-                                           cccl = parseInt(cccl.value);
-                                           ccdl = parseInt(ccdl.value);
-                                          
-                                           
-                                        
-                                      // console.log(text1,"text1",text2)
-                                        function add_number() {
-                                          // console.log(cl)
-                                           
-                                          var c  = parseInt(climit.value);
-                                         var g =parseInt(glimit.value);
-                                         var d =parseInt(dlimit.value);
-                                        var e =parseInt(elimit.value);
-                                        var ccc =parseInt(ccclimit.value);
-                                         var ccd =parseInt(ccdlimit.value);
-                                         var dd = parseInt(ddlimit.value);
-                                        //  var check=limits[0].c;
-                                            // console.log(cl.value)
-                                        if (isNaN(c)) c = 0;
-                                         if (isNaN(g)) g = 0;
-                                         if (isNaN(d)) d = 0;
-                                         if (isNaN(e)) e = 0;
-                                         if (isNaN(ccc)) ccc = 0;
-                                         if (isNaN(ccd)) ccd= 0;
-                                         if (isNaN(dd)) dd = 0;
-
-                                          
-                                          var result = Math.min(gl, g) + Math.min(cl, c) + e + Math.min(cccl, ccc) + Math.min(ccdl, ccd) + Math.min(ddl, dd);
-                                                          // console.log(result);
-                                          var limit_d = dl1
-                                          //age=61
-                                          
-                                            if (age > 60) {
-                                              console.log(dl2)
-                                                limit_d = dl2;
-                                            }
-                                            result+=Math.min(d, limit_d)  
-                                          
-                                          document.getElementById("txtresult").value = result;
-                                        }
-                                      </script>
-                                       
-
-                                    </div>
-                                    <!--card ka end -->
-
-                                    <br />
-
-
-                                
-                            </div>
-
-                            <button class="btn btn-primary" type="submit" style="float:right;">Update</button>
-
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </section>
-            </div>
-          </div>
-        </div>
-
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js'></script>
-        <script src="../assets/alert/script.js"></script>
-
-
-
-        <script src="../assets/assets/js/lib/bootstrap.min.js"></script>
-        <script src="../assets/assets/js/scripts.js"></script>
-        <!-- scripit init-->
-        <script src="../assets/assets/js/lib/data-table/datatables.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.flash.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/jszip.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/pdfmake.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/vfs_fonts.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.html5.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/buttons.print.min.js"></script>
-        <script src="../assets/assets/js/lib/data-table/datatables-init.js"></script>
-
-
-  </body>
-
-  <%- include("partials/footer"); -%>
+$(document).ready(function() {
+	console.log("In js")
+	/**
+	 * Upload single file to SpringBoot 
+	 * at RestAPI: /api/upload/file/single
+	 */
+	$("#uploadSingleFileForm").submit(function(evt) {
+		evt.preventDefault();
+		console.log("IN ROUTE")
+		
+		let formData = new FormData($(this)[0]);
+		
+		$.ajax({
+			url : '/uploadcsv/api/file/upload',
+			type : 'POST',
+			data : formData,
+			async : false,
+			cache : false,
+			contentType : false,
+			enctype : 'multipart/form-data',
+			processData : false,
+			success : function(response) {
+				$("#response").empty();
+				if(response.status !== "error"){
+					let displayInfo = response.filename + " : " + response.message + "<br>"; 
+					
+					$("#response").append(displayInfo);
+					// add some css
+					$("#response").css("display", "block");
+					$("#response").css("background-color", "#e6e6ff");
+					$("#response").css("border", "solid 1px black");
+					$("#response").css("border-radius", "3px");
+					$("#response").css("margin", "10px");
+					$("#response").css("padding", "10px");
+				}else{
+					$("#response").css("display", "none");
+					let error = response.error;
+					alert(error);
+				}
+			},
+			error: function(e){
+				alert("Fail! " + e);
+			}
+		});
+		
+		return false;
+	});
+	
+	/**
+	 * Upload Multiple Files to SpringBoot RestAPI
+	 */
+	// $("#uploadMultipleFilesForm").submit(function(evt) {
+	// 	evt.preventDefault();
+		
+	// 	let formData = new FormData($(this)[0]);
+		
+	// 	$.ajax({
+	// 		url : '/api/file/multiple/upload',
+	// 		type : 'POST',
+	// 		data : formData,
+	// 		async : false,
+	// 		cache : false,
+	// 		contentType : false,
+	// 		enctype : 'multipart/form-data',
+	// 		processData : false,
+	// 		success : function(response) {				
+	// 			$("#responses").empty();	
+				
+	// 			let displayInfo = "<ul>";
+				
+	// 			for(let i=0; i<response.length; i++){
+					
+	// 				displayInfo += "<li>" + response[i].filename + "&nbsp; : &nbsp;" + response[i].message;
+									
+	// 				displayInfo += "</li>";
+	// 			}
+	// 			$("#responses").append(displayInfo + "</ul>");
+	// 			$("#responses").css("display", "block");
+				
+	// 			// add some css
+	// 			$("#responses").css("background-color", "#e6e6ff");
+	// 			$("#responses").css("border", "solid 1px black");
+	// 			$("#responses").css("border-radius", "3px");
+	// 			$("#responses").css("margin", "10px");
+	// 			$("#responses").css("padding", "10px");
+	// 		},
+	// 		error: function(e){
+	// 			alert("Fail! " + e);
+	// 		}
+	// 	});
+		
+	// 	return false;
+	// });
+})
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-7" style="background-color:#e6fffa; padding:10px; border-radius:3px">
+				<h3>Upload Single File</h3>
+				<form id="uploadSingleFileForm">
+					<div class="form-group">
+						<label class="control-label" for="uploadfile">Choose a File:</label>
+						<input type="file" class="form-control" 
+								placeholder="Choose a upload file" name="file" required></input>
+					</div>
+					<button type="submit" class="btn btn-danger" id="btnUploadSingleFileSubmit">Submit</button>
+				</form>
+				<div id="response" style="display:none">
+				</div>
+			</div>
+		</div>
+		<hr>		
+		<!-- <div class="row">
+			<div class="col-sm-7" style="background-color:#e6fffa; padding:10px; border-radius:3px">
+				<h3>Upload Multiple Files</h3>
+				<form id="uploadMultipleFilesForm">
+					<div class="form-group">
+						<label class="control-label" for="uploadfiles">Choose Files:</label>
+						<input type="file" class="form-control" 
+								placeholder="Choose upload files" name="files" multiple required></input>
+					</div>
+					<button type="submit" class="btn btn-danger" id="btnUploadMultipleFilesSubmit">Submit</button>
+				</form>
+				<div id="responses" style="display:none">
+				</div>
+			</div>
+			
+		</div> -->
+		<hr>
+		<div id="downloadfiles" class="row">
+			<div class="col-sm-7">
+				<a href="/uploadcsv/api/file" class="btn btn-info" role="button">Download CSV File</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

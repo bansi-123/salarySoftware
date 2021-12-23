@@ -451,26 +451,26 @@ router.post("/declare", (req, res) => {
           mysqldb.query(
             `update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,
             (err, result1) => {
-              var mediclaim = 25000;
+              var mediclaim_limit = 25000;
               if (dec_age > 60) {
-                mediclaim+=25000
+                mediclaim_limit+=25000
                 if (parents === "yes") {
-                    mediclaim+=50000
+                  mediclaim_limit+=50000
                 }
               }
 
               else{
                 if (parents === "yes") {
-                    mediclaim+=25000
+                  mediclaim_limit+=25000
                     if(above60 === "yes")
                     {
-                        mediclaim+=25000
+                      mediclaim_limit+=25000
                     }
                 }
               }
-              console.log(mediclaim);
+              console.log(mediclaim_limit);
 
-              total += Math.min(mediclaim,ed)
+              total += Math.min(mediclaim_limit,ed)
               total += donation_govt 
 
               var adjusted = gross_sal - total
@@ -482,7 +482,7 @@ router.post("/declare", (req, res) => {
                 console.log(err);
               } else {
                 mysqldb.query(
-                  `insert into form (empID,c,d,ihl,g,e,ccd,total,gross_sal) VALUES('${empID}',${ec},${ed},${eihl},${eg},${ee},${eccd},${total},${gross_sal})`,
+                  `insert into form (empID,c,d,ihl,g,e,ccd,total,gross_sal,mediclaim_limit) VALUES('${empID}',${ec},${ed},${eihl},${eg},${ee},${eccd},${total},${gross_sal},${mediclaim_limit})`,
                   (err, result2) => {
                     console.log("result2" + result2);
                     if (err) {
@@ -1696,7 +1696,7 @@ router.post("/differences", ensureAuthenticated, (req, res) => {
   for (let i = 0; i < list2.length; i++) {
     console.log("i is", list2[i]);
     mysqldb.query(
-      `insert into increment_difference(empID,month,duration,year,start_month,start_year) VALUES ('${list2[i]}','${month}',${duration},${year},'${first_month}',${first_year},)`,
+      `insert into increment_difference(empID,month,duration,year,start_month,start_year) VALUES ('${list2[i]}','${month}',${duration},${year},'${first_month}',${first_year})`,
       (err, result) => {
         if (err) {
           console.log(err);
