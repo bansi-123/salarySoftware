@@ -457,41 +457,23 @@ router.post("/declare", (req, res) => {
             (err, result1) => {
               var mediclaim_limit = 25000;
               if (dec_age > 60) {
-<<<<<<< HEAD
                 mediclaim_limit+=25000
                 if (parents === "yes") {
                   mediclaim_limit+=50000
-=======
-                mediclaim += 25000;
-                if (parents === "yes") {
-                  mediclaim += 50000;
->>>>>>> a6c384ed9e0bf2c3fa3ef2391405feef7522264c
                 }
               } else {
                 if (parents === "yes") {
-<<<<<<< HEAD
                   mediclaim_limit+=25000
                     if(above60 === "yes")
                     {
                       mediclaim_limit+=25000
                     }
-=======
-                  mediclaim += 25000;
-                  if (above60 === "yes") {
-                    mediclaim += 25000;
-                  }
->>>>>>> a6c384ed9e0bf2c3fa3ef2391405feef7522264c
                 }
               }
               console.log(mediclaim_limit);
 
-<<<<<<< HEAD
               total += Math.min(mediclaim_limit,ed)
               total += donation_govt 
-=======
-              total += Math.min(mediclaim, ed);
-              total += donation_govt;
->>>>>>> a6c384ed9e0bf2c3fa3ef2391405feef7522264c
 
               var adjusted = gross_sal - total;
 
@@ -3020,6 +3002,99 @@ router.get("/view2", ensureAuthenticated, (req, res) => {
 });
 
 // //------------ Update Basic Pay and Related Properties Route ------------//
+// router.post("/updatepay", (req, res) => {
+//   console.log(JSON.parse(JSON.stringify(req.body)));
+//   const data = JSON.parse(JSON.stringify(req.body));
+//   var list = "(";
+//   var list2 = [];
+//   for (var i in data) {
+//     if (i.includes("EMP")) {
+//       console.log(i);
+//       console.log(data[i]);
+//       list += "'" + i.toString() + "'" + ",";
+//       list2.push(i);
+//     }
+//   }
+//   if (list2.length == 0) {
+//     res.json({
+//       status: "error",
+//       message: "Please Tick Atleast One Check Box"
+//     });
+//   } else {
+//     var incrementPercent = parseFloat(data["incrementPercent"]);
+//     console.log("data" + data);
+//     console.log("increment percent is", incrementPercent);
+//     list = list.substring(0, list.length - 1);
+//     list += ")";
+//     console.log("list is", list2);
+//     var current = new Date();
+
+//     mlist = [
+//       "january",
+//       "february",
+//       "march",
+//       "april",
+//       "may",
+//       "june",
+//       "july",
+//       "august",
+//       "september",
+//       "october",
+//       "november",
+//       "december",
+//     ];
+
+//     var cur_month = mlist[new Date().getMonth()].toLowerCase();
+//     var year = current.getFullYear();
+
+//     mysqldb.query(
+//       `select empID,pay,gp from Employees where empID in ${list}`,
+//       (err, result) => {
+//         if (err) {
+//           console.log(err);
+//           console.log("invalid employment ID");
+//         } else {
+//           // gp=JSON.parse(JSON.stringify(result))[0].gp;
+//           // pf=JSON.parse(JSON.stringify(result))[0].pf;
+//           var queryData = JSON.parse(JSON.stringify(result));
+//           console.log(incrementPercent, "check");
+//           for (let i = 0; i < queryData.length; i++) {
+//             var multFactor = 1 + parseFloat(incrementPercent) / 100;
+//             var increment = (queryData[i].pay + queryData[i].gp) * multFactor;
+//             if (Math.floor(increment) % 10 === 0) {} else {
+//               increment = Math.ceil(increment / 10) * 10;
+//             }
+//             console.log("inc", queryData[i].pay, "qd", multFactor);
+//             var finalpay = increment - queryData[i].gp;
+//             // console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
+
+//             // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
+
+//             mysqldb.query(
+//               `INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay}) on duplicate key update increment=${incrementPercent},updatedPay=${finalpay}`,
+//               (err, result) => {
+//                 if (err) {
+//                   console.log(err);
+//                   res.json({
+//                     status: "error",
+//                     message: "Please Fill Increment Percentage and Duration",
+//                   });
+//                 } else {
+//                   res.json({
+//                     status: "success",
+//                     message: "Increment Added Successfully!",
+//                   });
+//                 }
+//               }
+//             );
+//           }
+//         }
+//       }
+//     );
+//   }
+//   // res.redirect('index1');
+// });
+
 router.post("/updatepay", (req, res) => {
   console.log(JSON.parse(JSON.stringify(req.body)));
   const data = JSON.parse(JSON.stringify(req.body));
@@ -3075,8 +3150,9 @@ router.post("/updatepay", (req, res) => {
           // gp=JSON.parse(JSON.stringify(result))[0].gp;
           // pf=JSON.parse(JSON.stringify(result))[0].pf;
           var queryData = JSON.parse(JSON.stringify(result));
-          console.log(incrementPercent, "check");
-          for (let i = 0; i < queryData.length; i++) {
+          console.log(queryData, "check");
+
+          function IncrementLoop(item, i, callback) {
             var multFactor = 1 + parseFloat(incrementPercent) / 100;
             var increment = (queryData[i].pay + queryData[i].gp) * multFactor;
             if (Math.floor(increment) % 10 === 0) {} else {
@@ -3085,33 +3161,50 @@ router.post("/updatepay", (req, res) => {
             console.log("inc", queryData[i].pay, "qd", multFactor);
             var finalpay = increment - queryData[i].gp;
             // console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
-
+      
             // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
-
+      
             mysqldb.query(
               `INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay}) on duplicate key update increment=${incrementPercent},updatedPay=${finalpay}`,
               (err, result) => {
-                if (err) {
-                  console.log(err);
+                // if (err) {
+                //   console.log(err);
+                //   res.json({
+                //     status: "error",
+                //     message: "Please Fill Increment Percentage and Duration",
+                //   });
+                // } else {
+                //   res.json({
+                //     status: "success",
+                //     message: "Increment Added Successfully!",
+                //   });
+                // }
+              }
+            );
+          }
+
+          async.forEachOf(list2, IncrementLoop, function (err) {
+            console.log("in here"); 
+              if (err) {
+                console.log(err);
                   res.json({
                     status: "error",
                     message: "Please Fill Increment Percentage and Duration",
                   });
-                } else {
+              } else {
                   res.json({
                     status: "success",
                     message: "Increment Added Successfully!",
                   });
-                }
               }
-            );
-          }
+            });
         }
       }
     );
   }
   // res.redirect('index1');
 });
+
 
 router.get("/confirmIncrement", ensureAuthenticated, (req, res) => {
   res.render("confirmIncrement", {
