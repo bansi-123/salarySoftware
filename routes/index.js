@@ -295,6 +295,112 @@ router.post('/editcess', (req, res) => {
 
 });
 
+router.post('/declare', (req, res) => {
+    console.log("sunand")
+    console.log(req.body)
+    var total = 0
+    const dec = JSON.parse(JSON.stringify(req.body));
+    const { g, empID, c, d, e, ccd, ihl, age, gross_total, gg } = dec;
+    // var agebased;
+    var eg = parseInt(g);
+    var ec = parseInt(c);
+    var ed = parseInt(d);
+    var ee = parseInt(e);
+    var eccd = parseInt(ccd);
+    var dec_age = parseInt(age);
+    var egross_sal = parseInt(gross_total);
+    var eihl = parseInt(ihl);
+    var egg = parseInt(gg);
+
+    console.log(egg + "gg");
+
+    mysqldb.query(`select * from Employees where empID='${empID}'`, (err, result) => {
+
+        var gp=parseInt(JSON.parse(JSON.stringify(result))[0].gp);
+        var pay=parseInt(JSON.parse(JSON.stringify(result))[0].pay);
+        
+        var da_MultFactor=parseFloat(JSON.parse(JSON.stringify(result))[0].da);
+        var hra_MultFactor=parseFloat(JSON.parse(JSON.stringify(result))[0].hra);
+
+        console.log(JSON.parse(JSON.stringify(result))[0]);
+        console.log("gp,pf,bp,da,hra selected for empid",gp,pay,da_MultFactor,hra_MultFactor);
+
+       
+        var da=(pay+parseFloat(gp))*da_MultFactor;
+        da=da+pay;
+        console.log("da is",da);
+        var hra=(pay+parseFloat(gp))*hra_MultFactor;
+        console.log("hra is",hra);
+        
+        if (err) {
+            console.log(err);
+        }
+        else{
+
+            mysqldb.query(`select * from edit_limits`, (err, upper) => {
+
+                console.log(upper)
+                var climit = JSON.parse(JSON.stringify(upper))[0].climit
+                var glimit = JSON.parse(JSON.stringify(upper))[0].glimit
+                var dlimit1 = JSON.parse(JSON.stringify(upper))[0].dlimit1
+                var dlimit2 = JSON.parse(JSON.stringify(upper))[0].dlimit2
+                var ccclimit = JSON.parse(JSON.stringify(upper))[0].ccclimit
+                var ccdlimit = JSON.parse(JSON.stringify(upper))[0].ccdlimit
+                var ddlimit = JSON.parse(JSON.stringify(upper))[0].ddlimit
+                var ihl_limit = JSON.parse(JSON.stringify(upper))[0].ihl
+                var gg1;
+                
+                var city = "metro";
+                if(city==="metro")
+                {
+                    gg1 = (0.5 * da) 
+                } 
+                else{
+                    gg1 = 0.4 * da
+                }
+
+                var rent= 30000
+                var gg2 = rent - (0.1 * da);
+                if(gg2<0)
+                {
+                    gg2=0;
+                }
+
+                console.log("gg1",gg1);
+                console.log("gg2",gg2);
+                
+        
+                var total = Math.min(ec, climit) + Math.min(eihl, ihl_limit) + ee + Math.min(eccd, ccdlimit) + Math.min(Math.min(gg1,gg2),hra);
+                // var total=0;
+                console.log(total);
+        
+        
+                mysqldb.query(`update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`, (err, result1) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+        
+                        mysqldb.query(`insert into form (empID,c,d,ihl,g,e,ccd,total,gross_sal,gg) VALUES('${empID}',${ec},${ed},${eihl},${eg},${ee},${eccd},${total},${egross_sal}, ${egg})`, (err, result2) => {
+                            console.log("result2" + result2);
+                            if (err) {
+                                console.log(err);
+                                res.json({status:"error", message:err})
+                            }
+                            else {
+                                res.json({status:"success", message:"Declaration Added Successfully!"})
+                                // res.redirect('/addincometax');
+                            }
+                        })
+        
+                        // res.json({status:"success", message:"Declaration Added Successfully!"})
+                    }
+                })
+            })
+        }
+    })
+});
+
 router.post('/declarations', (req, res) => {
     // mysqldb.query(`RENAME TABLE forms TO form`)
     console.log(req.body)
@@ -888,11 +994,12 @@ router.get('/incometax', ensureAuthenticated, (req, res) => {
 // });
 
 router.get('/updateit', ensureAuthenticated, (req, res) => {
-    mysqldb.query(`select * from Employees natural join eighty_c`, (err, result) => {
+    mysqldb.query(`select * from Employees natural join form`, (err, result) => {
         if (err) {
             console.log(err);
         }
         else {
+            
             console.log("Employees Details", JSON.parse(JSON.stringify(result)));
             res.render('update_home', {
                 Employees: JSON.parse(JSON.stringify(result)),
@@ -908,12 +1015,12 @@ router.get('/updateit/:empID', ensureAuthenticated, (req, res) => {
     console.log(req.params.empID)
 
     if (requestedTitle.includes("EMP")) {
-        mysqldb.query(`select * from eighty_c natural join Employees `, (err, result) => {
+        mysqldb.query(`select * from form natural join Employees `, (err, result) => {
             if (err) {
                 console.log(err);
             }
             else {
-                mysqldb.query(`select * from Employees natural join eighty_c where empID="${req.params.empID}"`, (err, result2) => {
+                mysqldb.query(`select * from Employees natural join form where empID="${req.params.empID}"`, (err, result2) => {
                     if (err) {
                         console.log(err);
                     }
@@ -922,8 +1029,8 @@ router.get('/updateit/:empID', ensureAuthenticated, (req, res) => {
                         // var set=new Set(JSON.parse(JSON.stringify(result)))
                         // console.log("result2 is", result2)
                         res.render('updateit', {
-                            Employees: JSON.parse(JSON.stringify(result2)),
-                            name: JSON.parse(JSON.stringify(result)),
+                            Employees: JSON.parse(JSON.stringify(result)),
+                            name: JSON.parse(JSON.stringify(result2)),
                             role: req.user.role
                         });
                     }
@@ -939,17 +1046,21 @@ router.get('/updateit/:empID', ensureAuthenticated, (req, res) => {
     }
 });
 
-router.post('/update80c', (req, res) => {
+router.post('/updateit', (req, res) => {
     console.log(JSON.parse(JSON.stringify(req.body)))
     console.log("abc");
     
-    var {empID, epf, ppf, nsc, ulip, insurancePremium, houseLoan, tuitionFee, bankDeposits, regFee}=JSON.parse(JSON.stringify(req.body));
+    var {empID, eproof, ihlproof, ccdproof, epf, ppf, nsc, ulip, insurancePremium, houseLoan, tuitionFee, bankDeposits, regFee, cproof, govtAmtproof, ngoAmtproof, rentproof, dproof }=JSON.parse(JSON.stringify(req.body));
     // var c = parseInt(climit);
     // console.log(c);
-    epf=parseInt(epf);
     console.log(epf);
     console.log(typeof(epf));
     
+    eproof=parseInt(eproof);
+    ihlproof=parseInt(ihlproof);
+    ccdproof=parseInt(ccdproof);
+
+    epf=parseInt(epf);
     ppf=parseInt(ppf);
     nsc=parseInt(nsc);
     ulip=parseInt(ulip);
@@ -958,15 +1069,42 @@ router.post('/update80c', (req, res) => {
     tuitionFee=parseInt(tuitionFee);
     bankDeposits=parseInt(bankDeposits);
     regFee=parseInt(regFee);
+
+    cproof=parseInt(cproof);
+    govtAmtproof=parseInt(govtAmtproof);
+    ngoAmtproof=parseInt(ngoAmtproof);
+    rentproof=parseInt(rentproof);
+    dproof=parseInt(dproof);
+        
     mysqldb.query(`update eighty_c set epf=${epf}, ppf=${ppf}, nsc=${nsc}, ulip=${ulip}, insurancePremium=${insurancePremium}, houseLoan=${houseLoan}, tuitionFee=${tuitionFee}, bankDeposits=${bankDeposits}, regFee=${regFee} where empID="${empID}"`,(err,result)=>
     {
         if (err) {
             console.log(err);
         }
         else {
-
-            console.log("Limit Details", JSON.parse(JSON.stringify(result)));
-            res.redirect('index1');
+            mysqldb.query(`insert into proof (empID, e_proof, ihl_proof, ccd_proof, c_proof, ngo_g_proof, govt_g_proof, rent_proof, d_proof) 
+            VALUES('${empID}',${eproof},${ihlproof},${ccdproof}, ${cproof}, ${ngoAmtproof},${govtAmtproof},${rentproof},${dproof})`,(err,result3)=>{
+                if (err) {
+                    console.log(err);
+                    res.json({status:"error", message:err})
+                    mysqldb.query(`replace into proof (empID, e_proof, ihl_proof, ccd_proof, c_proof, ngo_g_proof, govt_g_proof, rent_proof, 
+                        d_proof)
+                        VALUES('${empID}',${eproof},${ihlproof},${ccdproof}, ${cproof}, ${ngoAmtproof},${govtAmtproof},${rentproof},${dproof})`,(err,result4)=>{
+                        if (err) {
+                            console.log(err);
+                            res.json({status:"error", message:err})
+                        }
+                        else {
+                        res.json({status:"success", message:"Declaration Added Successfully!"})
+                        }
+                    })
+                }
+                else {
+                res.json({status:"success", message:"Declaration Added Successfully!"})
+                }
+            })
+            // console.log("Limit Details", JSON.parse(JSON.stringify(result)));
+            // res.redirect('index1');
         }
     })
 

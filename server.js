@@ -41,21 +41,21 @@ require('./config/passport')(passport);
 // });
 
 
-// const mysqldb = mysql.createConnection ({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'Vineet@nexa1',
-//     database: 'employee',
-//     multipleStatements: true
-// });
-
-
 const mysqldb = mysql.createConnection ({
     host: 'localhost',
-    user: 'kshitij',
-    password: 'salary123',
-    database: 'employee'
+    user: 'root',
+    password: 'Vineet@nexa1',
+    database: 'employee',
+    multipleStatements: true
 });
+
+
+// const mysqldb = mysql.createConnection ({
+//     host: 'localhost',
+//     user: 'kshitij',
+//     password: 'salary123',
+//     database: 'employee'
+// });
 
 // connect to database
 mysqldb.connect((err) => {
