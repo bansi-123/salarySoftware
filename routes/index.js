@@ -1204,15 +1204,36 @@ router.get("/updateit/:empID", ensureAuthenticated, (req, res) => {
               if (err) {
                 console.log(err);
               } else {
-                // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
-                // var set=new Set(JSON.parse(JSON.stringify(result)))
-                // console.log("result2 is", result2)
-                res.render("updateit", {
-                  Employees: JSON.parse(JSON.stringify(result2)),
-                  name: JSON.parse(JSON.stringify(result2)),
-                  role: req.user.role,
-                });
+
+                if (err) {
+                  console.log(err);
+                } else {
+                  mysqldb.query(
+                    `select * from eighty_c natural join proof where empID="${req.params.empID}"`,
+                    (err, result4) => {
+                      if (err) {
+                        console.log(err);
+                      } else {
+
+                        console.log(result4+"result4");
+                        // console.log("Salary Details",JSON.parse(JSON.stringify(result)));
+                        // var set=new Set(JSON.parse(JSON.stringify(result)))
+                        // console.log("result2 is", result2)
+                        res.render("updateit", {
+                          Employees: JSON.parse(JSON.stringify(result2)),
+                          name: JSON.parse(JSON.stringify(result2)),
+                          val:JSON.parse(JSON.stringify(result4)),
+                          role: req.user.role,
+                        });
+                      }
+                    }
+                  );
+                }
+              
+                
               }
+
+              
             }
           );
         }
@@ -2809,7 +2830,7 @@ router.get("/advances", ensureAuthenticated, (req, res) => {
   });
 });
 router.get("/declarations", ensureAuthenticated, (req, res) => {
-  mysqldb.query(`select * from Employees`, (err, result) => {
+  mysqldb.query(`select * from Employees where empID NOT IN (select empID from form)`, (err, result) => {
     if (err) {
       console.log(err);
     } else {
