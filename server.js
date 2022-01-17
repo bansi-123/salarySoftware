@@ -14,6 +14,15 @@ app = express();
 //------------ Passport Configuration ------------//
 require('./config/passport')(passport);
 
+// process.on('uncaughtException', function (req, res, route, err) {
+//   console.info('******* Begin Error *******\n%s\n*******\n%s\n******* End Error *******', route, err.stack);
+//   if (!res.headersSent) {
+//     return res.send(500, {ok: false});
+//   }
+//   res.write('\n');
+//   res.end();
+// });
+
 // //------------ DB Configuration ------------//
 // const db = require('./config/key').MongoURI;
 
@@ -172,6 +181,8 @@ db1.sequelize.sync({force: false}).then(() => {  //{force: true}
 let router1 = require('./routes/excel1.router.js');
 app.use(express.static('resources'));
 app.use('/uploaddeclare', router1); 
+
+
 
 //------------------------------------------------------//
 

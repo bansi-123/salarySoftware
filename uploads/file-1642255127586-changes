@@ -1,0 +1,88 @@
+router.get('/salcert1/:empID', ensureAuthenticated, (req, res) => {
+    var requestedTitle = req.params.empID;
+    console.log("check",requestedTitle)
+    
+    
+    mlist = ["January", "February", "March", "April", "may", "june", "july", "august", "september", "october", "November", "December"];
+    var cur_month = mlist[new Date().getMonth()];
+    var cur_month_2 = mlist[new Date().getMonth()+1];
+    var cur_month_3 = mlist[new Date().getMonth()-1];
+    var cur_month_4 = mlist[new Date().getMonth()-2];   
+    var cur_month_5 = mlist[new Date().getMonth()-3];
+    var cur_month_1 = mlist[new Date().getMonth()-4];
+    
+    
+    //var prev_month=mlist[prev_month.indexOf(cur_month.toLowerCase())-1].toLowerCase();
+    //console.log(prev_month);
+    
+    var cur_year = new Date().getFullYear()
+   // mysqldb.query(`select * from Salary natural join Employees where (month='${cur_month}' or month='${cur_month_2}' or month='${cur_month_3}'or month='${cur_month_4}'or month='${cur_month_5}'or month='${cur_month_1}') and year=${cur_year} and empID='${requestedTitle}' `, (err, result) => {
+    mysqldb.query(`   SELECT * FROM Salary right join Employees ON Salary.empID= Employees.empID where Salary.empID="${req.params.empID}" ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d');
+  
+    `, (err, result) => {
+ 
+   if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log("Employees Details", JSON.parse(JSON.stringify(result)));
+            res.render('salcert1', {
+                salary: JSON.parse(JSON.stringify(result)),
+                salary1: JSON.parse(JSON.stringify(result)),
+
+                requestedTitle: req.params.empID,
+                cur_month: mlist[new Date().getMonth()],
+                sunand:parseInt(sunand),
+                dura:parseInt(dura),
+                date:new Date(),
+                role: req.user.role
+
+            });
+        }
+    })
+});
+
+router.get('/register/teaching',  (req, res) => {
+    //var requestedTitle = req.params.designationCategory;
+    //console.log("the param is", req.params.empID);
+    
+    mlist = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+    var cur_month = mlist[new Date().getMonth()].toLowerCase();
+    var teaching = "teaching";
+    mysqldb.query(`select * from Employees right join Salary  ON Employees.empID= Salary.empID where designationCategory= "teaching" and month="${cur_month}"`, (err, result) => {
+        if (err) {
+            //console.log(err);
+        }
+        else {
+            //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('salregister', {
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
+                //requestedTitle = req.params.empID
+                //added the name field here to get the name wise reciept
+            });
+        }
+    })
+    // res.render("templateSelected2");
+});
+
+router.get('/register/nonteaching', (req, res) => {
+    //var requestedTitle = req.params.designationCategory;
+    //console.log("the param is", req.params.empID);
+    var nonteaching = "nonteaching";
+    mysqldb.query(`select * from Employees right join Salary  ON Employees.empID= Salary.empID where designationCategory= 'Non-Teaching'`, (err, result) => {
+        if (err) {
+            //console.log(err);
+        }
+        else {
+            //console.log("Employees Details",JSON.parse(JSON.stringify(result)));
+            res.render('salregister', {
+                salary: JSON.parse(JSON.stringify(result)),
+                role: req.user.role
+                //requestedTitle = req.params.empID
+                //added the name field here to get the name wise reciept
+            });
+        }
+    })
+    // res.render("templateSelected2");
+});

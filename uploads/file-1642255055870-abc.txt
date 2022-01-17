@@ -1,5 +1,4 @@
 //required pattern="\d{4}-\d{2}-\d{2}"
-
 const e = require("connect-flash");
 const express = require("express");
 const router = express.Router();
@@ -13,8 +12,6 @@ const async = require("async");
 const config = require("../config");
 
 //------------ Welcome Route ------------//
-try{
-
 router.get("/", (req, res) => {
   res.render("welcome", {});
 });
@@ -458,25 +455,24 @@ router.post("/declare", (req, res) => {
           mysqldb.query(
             `update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,
             (err, result1) => {
-              var mediclaim_limit = 25000;
+              var mediclaim = 25000;
               if (dec_age > 60) {
-                mediclaim_limit+=25000
+                mediclaim += 25000;
                 if (parents === "yes") {
-                  mediclaim_limit+=50000
+                  mediclaim += 50000;
                 }
               } else {
                 if (parents === "yes") {
-                  mediclaim_limit+=25000
-                    if(above60 === "yes")
-                    {
-                      mediclaim_limit+=25000
-                    }
+                  mediclaim += 25000;
+                  if (above60 === "yes") {
+                    mediclaim += 25000;
+                  }
                 }
               }
-              console.log(mediclaim_limit);
+              console.log(mediclaim);
 
-              total += Math.min(mediclaim_limit,ed)
-              total += donation_govt 
+              total += Math.min(mediclaim, ed);
+              total += donation_govt;
 
               var adjusted = gross_sal - total;
 
@@ -487,7 +483,7 @@ router.post("/declare", (req, res) => {
                 console.log(err);
               } else {
                 mysqldb.query(
-                  `insert into form (empID,c,d,ihl,g,e,ccd,total,gross_sal,mediclaim_limit) VALUES('${empID}',${ec},${ed},${eihl},${eg},${ee},${eccd},${total},${gross_sal},${mediclaim_limit})`,
+                  `insert into form (empID,c,d,ihl,g,e,ccd,total,gross_sal) VALUES('${empID}',${ec},${ed},${eihl},${eg},${ee},${eccd},${total},${gross_sal})`,
                   (err, result2) => {
                     console.log("result2" + result2);
                     if (err) {
@@ -1209,7 +1205,7 @@ router.get("/updateit/:empID", ensureAuthenticated, (req, res) => {
                 // console.log("result2 is", result2)
                 res.render("updateit", {
                   Employees: JSON.parse(JSON.stringify(result2)),
-                  name: JSON.parse(JSON.stringify(result2)),
+                  name: JSON.parse(JSON.stringify(result)),
                   role: req.user.role,
                 });
               }
@@ -1482,18 +1478,18 @@ router.post("/hra", ensureAuthenticated, (req, res) => {
     mysqldb.query(
       `update Employees set hra=${newValue} where empID in ${list}`,
       (err, result) => {
-        // if (err) {
-        //   console.log(err);
-        //   res.json({
-        //     status: "error",
-        //     message: "Please Fill HRA Amount"
-        //   });
-        // } else {
-        //   res.json({
-        //     status: "success",
-        //     message: "HRA Added Successfully!"
-        //   });
-        // }
+        if (err) {
+          console.log(err);
+          res.json({
+            status: "error",
+            message: "Please Fill HRA Amount"
+          });
+        } else {
+          res.json({
+            status: "success",
+            message: "HRA Added Successfully!"
+          });
+        }
       }
     );
   }
@@ -2107,10 +2103,7 @@ router.post("/pay", ensureAuthenticated, (req, res) => {
   // }
   // console.log(length)
   // for (let i = 0; i < length; i++) {
-
   var days;
-
-
   if (data["month"].toLowerCase() === "january") {
     days = 31;
   } else if (data["month"].toLowerCase() === "february") {
@@ -2140,10 +2133,6 @@ router.post("/pay", ensureAuthenticated, (req, res) => {
   } else if (data["month"].toLowerCase() === "december") {
     days = 31;
   }
-
-  data.month=monthNames[(monthNames.indexOf(data.month.toLowerCase())+1)%12].toLowerCase();
-  if(data.month===0)
-    data.year = data.year+1;
 
   console.log(data["lwp"], data["month"], data["year"], days);
 
@@ -3012,99 +3001,6 @@ router.get("/view2", ensureAuthenticated, (req, res) => {
 });
 
 // //------------ Update Basic Pay and Related Properties Route ------------//
-// router.post("/updatepay", (req, res) => {
-//   console.log(JSON.parse(JSON.stringify(req.body)));
-//   const data = JSON.parse(JSON.stringify(req.body));
-//   var list = "(";
-//   var list2 = [];
-//   for (var i in data) {
-//     if (i.includes("EMP")) {
-//       console.log(i);
-//       console.log(data[i]);
-//       list += "'" + i.toString() + "'" + ",";
-//       list2.push(i);
-//     }
-//   }
-//   if (list2.length == 0) {
-//     res.json({
-//       status: "error",
-//       message: "Please Tick Atleast One Check Box"
-//     });
-//   } else {
-//     var incrementPercent = parseFloat(data["incrementPercent"]);
-//     console.log("data" + data);
-//     console.log("increment percent is", incrementPercent);
-//     list = list.substring(0, list.length - 1);
-//     list += ")";
-//     console.log("list is", list2);
-//     var current = new Date();
-
-//     mlist = [
-//       "january",
-//       "february",
-//       "march",
-//       "april",
-//       "may",
-//       "june",
-//       "july",
-//       "august",
-//       "september",
-//       "october",
-//       "november",
-//       "december",
-//     ];
-
-//     var cur_month = mlist[new Date().getMonth()].toLowerCase();
-//     var year = current.getFullYear();
-
-//     mysqldb.query(
-//       `select empID,pay,gp from Employees where empID in ${list}`,
-//       (err, result) => {
-//         if (err) {
-//           console.log(err);
-//           console.log("invalid employment ID");
-//         } else {
-//           // gp=JSON.parse(JSON.stringify(result))[0].gp;
-//           // pf=JSON.parse(JSON.stringify(result))[0].pf;
-//           var queryData = JSON.parse(JSON.stringify(result));
-//           console.log(incrementPercent, "check");
-//           for (let i = 0; i < queryData.length; i++) {
-//             var multFactor = 1 + parseFloat(incrementPercent) / 100;
-//             var increment = (queryData[i].pay + queryData[i].gp) * multFactor;
-//             if (Math.floor(increment) % 10 === 0) {} else {
-//               increment = Math.ceil(increment / 10) * 10;
-//             }
-//             console.log("inc", queryData[i].pay, "qd", multFactor);
-//             var finalpay = increment - queryData[i].gp;
-//             // console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
-
-//             // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
-
-//             mysqldb.query(
-//               `INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay}) on duplicate key update increment=${incrementPercent},updatedPay=${finalpay}`,
-//               (err, result) => {
-//                 if (err) {
-//                   console.log(err);
-//                   res.json({
-//                     status: "error",
-//                     message: "Please Fill Increment Percentage and Duration",
-//                   });
-//                 } else {
-//                   res.json({
-//                     status: "success",
-//                     message: "Increment Added Successfully!",
-//                   });
-//                 }
-//               }
-//             );
-//           }
-//         }
-//       }
-//     );
-//   }
-//   // res.redirect('index1');
-// });
-
 router.post("/updatepay", (req, res) => {
   console.log(JSON.parse(JSON.stringify(req.body)));
   const data = JSON.parse(JSON.stringify(req.body));
@@ -3160,9 +3056,8 @@ router.post("/updatepay", (req, res) => {
           // gp=JSON.parse(JSON.stringify(result))[0].gp;
           // pf=JSON.parse(JSON.stringify(result))[0].pf;
           var queryData = JSON.parse(JSON.stringify(result));
-          console.log(queryData, "check");
-
-          function IncrementLoop(item, i, callback) {
+          console.log(incrementPercent, "check");
+          for (let i = 0; i < queryData.length; i++) {
             var multFactor = 1 + parseFloat(incrementPercent) / 100;
             var increment = (queryData[i].pay + queryData[i].gp) * multFactor;
             if (Math.floor(increment) % 10 === 0) {} else {
@@ -3171,50 +3066,33 @@ router.post("/updatepay", (req, res) => {
             console.log("inc", queryData[i].pay, "qd", multFactor);
             var finalpay = increment - queryData[i].gp;
             // console.log(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
-      
+
             // alert(`update Employees set pay=${finalpay} where empID='${list2[i]}')`)
-      
+
             mysqldb.query(
               `INSERT INTO increment (empID, month, year, increment,prevPay,updatedPay) VALUES ('${list2[i]}', '${cur_month}', ${year}, ${incrementPercent},${queryData[i].pay},${finalpay}) on duplicate key update increment=${incrementPercent},updatedPay=${finalpay}`,
               (err, result) => {
-                // if (err) {
-                //   console.log(err);
-                //   res.json({
-                //     status: "error",
-                //     message: "Please Fill Increment Percentage and Duration",
-                //   });
-                // } else {
-                //   res.json({
-                //     status: "success",
-                //     message: "Increment Added Successfully!",
-                //   });
-                // }
-              }
-            );
-          }
-
-          async.forEachOf(list2, IncrementLoop, function (err) {
-            console.log("in here"); 
-              if (err) {
-                console.log(err);
+                if (err) {
+                  console.log(err);
                   res.json({
                     status: "error",
                     message: "Please Fill Increment Percentage and Duration",
                   });
-              } else {
+                } else {
                   res.json({
                     status: "success",
                     message: "Increment Added Successfully!",
                   });
+                }
               }
-            });
+            );
+          }
         }
       }
     );
   }
   // res.redirect('index1');
 });
-
 
 router.get("/confirmIncrement", ensureAuthenticated, (req, res) => {
   res.render("confirmIncrement", {
@@ -4714,26 +4592,26 @@ router.post("/generateSalary", (req, res) => {
     });
   }
 
-   //to get total number of employees
-mysqldb.query(`select count(*) from Employees`, (err, result) => {
-  if (result.length === 0) {
-    console.log("no employees");
-  } else {
-    // to make it async
-    length = JSON.parse(JSON.stringify(result))[0]["count(*)"];
-    var array = [];
-    for (let i = 1; i < length + 1; i++) {
-      array.push(i);
-    }
+  //to get total number of employees
+  mysqldb.query(`select count(*) from Employees`, (err, result) => {
+    if (result.length === 0) {
+      console.log("no employees");
+    } else {
+      // to make it async
+      length = JSON.parse(JSON.stringify(result))[0]["count(*)"];
+      var array = [];
+      for (let i = 1; i < length + 1; i++) {
+        array.push(i);
+      }
 
-    async.forEachOf(array, calculateSalary, function (err) {
-      if (err) {
-        console.error(err);
-      } else {}
-    });
-  }
-});
-res.redirect("index1");
+      async.forEachOf(array, calculateSalary, function (err) {
+        if (err) {
+          console.error(err);
+        } else {}
+      });
+    }
+  });
+  res.redirect("index1");
 });
 
 router.get("/uploads/:empID", (req, res) => {
@@ -4953,10 +4831,7 @@ router.post("/lateattendance", ensureAuthenticated, (req, res) => {
     "november",
     "december",
   ];
-  if(data.month===11)
-     data.year = data.year+1;
-  data.month =  monthNames[(monthNames.indexOf(data.month.toLowerCase()))+1];
-  var prev =  data.month;
+  var prev = data.month.toLowerCase();
   prev =
     monthNames[
       (monthNames.indexOf(prev.toLowerCase()) - 1 + 12) % 12
@@ -4995,7 +4870,6 @@ router.post("/lateattendance", ensureAuthenticated, (req, res) => {
     prevdays = 31;
   }
 
-  
   // console.log(data["lwp"],data["month"],data["year"],days)
   // console.log(`INSERT INTO late_attendance (empID, empName, latedays,month, year, days) VALUES (${data.empID}, '${data.empName}', ${data.latedays}, '${data["month"]}', ${data["year"]}, ${days})`)
   mysqldb.query(
@@ -5293,7 +5167,6 @@ router.post("/storeIncomeTax", (req, res) => {
                   var total_tax = tax_on_income + health_and_edu_cess;
                   var tds_per_month = total_tax / 12;
                   var balance = total_tax;
-                  console.log("all ok")
                   console.log(
                     `insert into income_tax (empID,exemption,total_investments,tax_on_income,rebate,health_and_edu_cess,total_tax,tds_per_month,balance,month,year) VALUES ('${empID}',${exemption}${investment},${tax_on_income},0,${health_and_edu_cess},${total_tax},${tds_per_month},${balance},'${cur_month}',${cur_year})`
                   );
@@ -5416,10 +5289,9 @@ router.post("/updateIncomeTax", (req, res) => {
 
 
 
-  console.log("emp is" + empID)
-  console.log(req.body);
+  // console.log("g=" + gg, Math.min(g, 60000), "c=" + ded_c, Math.min(c, 150000), d, e, ccd, ccc, dd)
 
-  mysqldb.query(`select * from Employees where empID='${empID}'`, (err, result) => {
+  mysqldb.query(`select * from Employees where empID=${empID}`, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -5479,7 +5351,7 @@ router.post("/updateIncomeTax", (req, res) => {
                   gg,
                   gross_sal
                 } = result1[0];
-                var mediclaim_limit = JSON.parse(JSON.stringify(result1))[0].mediclaim_limit;
+                var mediclaim_limit = JSON.parseInt(JSON.stringify(result1))[0].mediclaim_limit;
                 mysqldb.query(
                   `update Employees set age=(floor(DATEDIFF(now(), dob)/ 365.2425)) where pay>0`,
                   (err, result1) => {
@@ -5497,7 +5369,7 @@ router.post("/updateIncomeTax", (req, res) => {
                             });
                           } else {
                             mysqldb.query(
-                              `select ifnull(epf, 0) + ifnull(ppf, 0) + ifnull(nsc, 0) + ifnull(ulip, 0) + ifnull(insurancePremium, 0) + ifnull(houseLoan, 0) + ifnull(tuitionFee, 0) + ifnull(bankDeposits, 0) + ifnull(regFee, 0) as total from eighty_c where empID='${empID}';`,
+                              `select ifnull(epf, 0) + ifnull(ppf, 0) + ifnull(nsc, 0) + ifnull(ulip, 0) + ifnull(insurancePremium, 0) + ifnull(houseLoan, 0) + ifnull(tuitionFee, 0) + ifnull(bankDeposits, 0) + ifnull(regFee, 0) as total from eighty_c where empID=${empID};`,
                               (err, result2) => {
                                 if (err) {
                                   console.log(err);
@@ -5505,39 +5377,32 @@ router.post("/updateIncomeTax", (req, res) => {
                                     status: "error",
                                     message: err
                                   });
-                                } 
-                                else {
-                                  c_proof = JSON.parse(JSON.stringify(result2))[0].total
-                                  // console.log("checking data type " + typeof(c_proof))
+                                } else {
+                                  c_proof = JSON.parseInt(JSON.stringify(result2))[0].total;
                                   total = (Math.min(c_proof, climit) || Math.min(c, climit)) + (Math.min(ccd_proof, ccdlimit) || Math.min(ccd, ccdlimit)) + (Math.min(ihl_proof, ihllimit) || Math.min(ihl, ihllimit)) + (Math.min(d_proof, mediclaim_limit) || Math.min(d, mediclaim_limit)) + (e_proof || e) + (govt_g_proof || donation_govt) + stdlimit;
-                                  // total=0;
                                   var gg1;
-                              
-                                  if (metro === "yes") 
-                                  {                                    
+                                  if (metro === "yes") {
                                     gg1 = 0.5 * da;
-                                  } 
-                                  else 
-                                  {
+                                  } else {
                                     gg1 = 0.4 * da;
                                   }
-                              
+
                                   var gg2 = rent_proof - 0.1 * da;
                                   if (gg2 < 0) {
                                     gg2 = 0;
                                   }
-                              
+
                                   console.log("gg1", gg1);
                                   console.log("gg2", gg2);
-                              
+
                                   total += Math.min(Math.min(gg1, gg2), hra) || gg;
                                   var adjusted = gross_sal - total;
-                              
+
                                   total += Math.min(0.1 * adjusted, 0.5 * ngo_g_proof);
-                              
+
                                   console.log("total is this " + total);
                                   mysqldb.query(
-                                    `replace into proof (empID,c_proof, d_proof, ngo_g_proof, ihl_proof, govt_g_proof, e_proof, ccd_proof, rent_proof) VALUES('${empID}',${c_proof},${d_proof},${ngo_g_proof},${ihl_proof},${govt_g_proof},${e_proof},${ccd_proof},${rent_proof})`,
+                                    `replace into proof (empID,c_proof, dd_proof, ngo_g_proof, govt_g_proof, e_proof, ccd_proof,) VALUES('${empID}',${c_proof},${dd_proof},${ngo_g_proof},${govt_g_proof},${e_proof},${ccd_proof})`,
                                     (err, result3) => {
                                       if (err) {
                                         console.log(err);
@@ -5564,7 +5429,7 @@ router.post("/updateIncomeTax", (req, res) => {
                                         var cur_month = mlist[new Date().getMonth()].toLowerCase();
                                         var cur_year = new Date().getFullYear();
                                         mysqldb.query(
-                                          `select * from config left join edit_limits on config.ID = edit_limits.ID;`,
+                                          `select * from config union all select * from edit_limits`,
                                           (err, result4) => {
                                             if (result.length === 0) {
                                               console.log("error in config query");
@@ -5578,7 +5443,7 @@ router.post("/updateIncomeTax", (req, res) => {
                                                     console.log(err);
                                                     console.log("error in select query of Employee");
                                                   } else {
-                                                    console.log("Result is", result, "for empID");
+                                                    console.log("Result is", result, "for empID", indexList[i]);
                                                     //tax regime,age,investment
                                                     var empID = JSON.parse(JSON.stringify(result))[0].empID;
                                                     var age = parseInt(JSON.parse(JSON.stringify(result))[0].age);
@@ -5731,7 +5596,7 @@ router.post("/updateIncomeTax", (req, res) => {
                                                     var total_tax = tax_on_income + health_and_edu_cess;
                                                     var tds_per_month = total_tax / 12;
                                                     var balance = total_tax;
-                                                    console.log("all ok")
+
                                                     // var balance=total_tax;
                                                     mysqldb.query(
                                                       `select * from income_tax where empID='${empID}' ORDER BY STR_TO_DATE(CONCAT(year, month, ' 01'), '%Y %M %d') desc limit 1`,
@@ -5743,17 +5608,15 @@ router.post("/updateIncomeTax", (req, res) => {
                                                         //take directly from salary slip
                                                         else {
                                                           console.log(JSON.parse(JSON.stringify(result)));
-                                                          var monthIssued = JSON.parse(JSON.stringify(result))[0].month;
+                                                          var monthIssued = JSON.parse(JSON.stringify(result))[0]
+                                                            .month;
                                                           // var currBalance=JSON.parse(JSON.stringify(result)).balance;
                                                           var tds_per_month_prev = JSON.parse(
                                                             JSON.stringify(result)
                                                           )[0].tds_per_month;
-                                                          var total_tax_old = JSON.parse(JSON.stringify(result))[0].total_tax;
-                                                          var balance_old = JSON.parse(JSON.stringify(result))[0].balance
+                                                          var total_tax_old = JSON.parse(JSON.stringify(result)).total_tax;
+                                                          var balance_old = JSON.parse(JSON.stringify(result)).balance
                                                           //change logic to accomodate allround months
-
-                                                          const d = new Date();
-                                                          let currmonth = d.getMonth();
                                                           if (mlist.indexOf(monthIssued) > currmonth) {
                                                             currmonth += 12;
                                                           }
@@ -5766,9 +5629,6 @@ router.post("/updateIncomeTax", (req, res) => {
                                                           console.log(
                                                             "months passed,tax_payed,monthsRemaining,balance_new,tds_per_month",
                                                             monthsPassed,
-                                                            tds_per_month_prev,
-                                                            total_tax_old,
-                                                            balance_old,
                                                             tax_payed,
                                                             monthsRemaining,
                                                             balance_new,
@@ -5878,11 +5738,5 @@ router.post("/truncate", (req, res) => {
     }
   );
 });
-
-}
-
-catch(err) {
-  console.log(err.message);
-}
 
 module.exports = router;
