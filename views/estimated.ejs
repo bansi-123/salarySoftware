@@ -402,24 +402,42 @@
                                 </div>
     
                               </div>
+
+                              
+                
+                            
+                
+                        
+                
     
                               <div class="form-group row">
                                 <label class="col-lg-6 col-form-label">Mediclaim for parents?</label>
                                 <div class="col-lg-6">
-                                  <input type="checkbox" id="parents" name="parents" value="yes">
+                                  <input type="checkbox"  id="chk" name="parents" value="yes">
                                   <label for="vehicle1">Yes</label><br>
                                   
                                 </div>
     
                               </div>
-    
+                              <script>
+                                $(function () {
+                                  $("#disable").hide();
+                                    $("#chk").click(function () {
+                                        if ($(this).is(":checked")) {
+                                            $("#disable").show();
+                                        } else {
+                                            $("#disable").hide();
+                                        }
+                                    });
+                                });
+                            </script>
     
                             </div>
                             <div class="col-lg-6">
     
                               <br><br>
     
-                              <div class="form-group row">
+                              <div id = "disable"class="form-group row">
                                 <label class="col-lg-6 col-form-label">Age of parents above 60?</label>
                                 <div class="col-lg-6">
                                   <input type="checkbox" id="above60" name="above60" value="yes">
